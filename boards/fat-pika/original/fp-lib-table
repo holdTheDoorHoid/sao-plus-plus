@@ -1,0 +1,4 @@
+
+(fp_lib_table
+  (lib (name "Pikachu_PCB")(type KiCad)(uri "$(KIPRJMOD)/Pikachu_PCB.pretty")(options "")(descr ""))
+)
