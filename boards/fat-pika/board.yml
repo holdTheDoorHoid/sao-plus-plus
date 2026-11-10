@@ -9,8 +9,9 @@ original:
   year: 2018
   source_url: "https://hackaday.io/project/158665-fat-pika"
   license: "none stated"   # the project page gives no license, so all rights are reserved by default
-  permission: "written"    # REQUIRED before publishing; not yet received as of 2026-11-10
-  permission_ref: ""       # fill with docs/permission.md once TwinkleTwinkie replies; the checker fails until then
+  permission: "pending"    # no reply yet; change to "written" and fill permission_ref when TwinkleTwinkie answers
+  permission_ref: ""       # docs/permission.md once there is a reply
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-10 to publish before permission was received, accepting that it may have to come down."
   art_note: "Pikachu, Pichu, Raichu and Lord Helix are Pokemon characters (Nintendo / The Pokemon Company). Separate from the maker's permission. Owner decision 2026-11-10: keep the art, decide before selling."
 
 changes:

@@ -35,7 +35,7 @@ tools/                check_boards.py (paperwork check, runs on every push), gen
 
 | Board | Original maker | Status |
 |---|---|---|
-| _none yet_ | | |
+| [Fat Pika](boards/fat-pika/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
 
 ## Adding a board
 
@@ -45,6 +45,7 @@ Read [docs/porting-guide.md](docs/porting-guide.md). In short: confirm the licen
 
 - Hardware designs: [CERN-OHL-S-2.0](LICENSE). Anyone can build and sell these; changes you distribute must stay open.
 - Artwork: [CC-BY-SA-4.0](LICENSE-ART).
+- **These licenses cover SAO++'s own work only.** A board marked "permission pending" in its README is not open-licensed: its original design and art stay with the original maker.
 - Boards ported from other makers keep their credit, and their original license terms are recorded in each `board.yml`. Where a board's original license differs, its README says so and it takes precedence for that board.
 
 Original designs remain credited to their makers. If you made one of these boards and want it changed or removed, open an issue.

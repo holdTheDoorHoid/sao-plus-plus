@@ -3,7 +3,7 @@
 Read `README.md`, `docs/standard.md`, `docs/parts.md`, and `docs/porting-guide.md` before touching a board.
 
 - **Owner:** not an engineer by training. Report decisions and what they will see or measure, in plain language. File paths and part numbers belong in footnotes.
-- **Permission first.** Never commit a third-party design (files, art, or derived layout) until its `board.yml` `original:` block shows an open license or recorded written permission. Non-commercial licenses (CC-BY-NC) are **not** OK for this project without written permission.
+- **Permission first.** (Fat Pika was published with permission pending by the owner's explicit decision on 2026-11-10; that is a one-board exception recorded in its `board.yml`, not a new default. Ask the owner each time.) Never commit a third-party design (files, art, or derived layout) until its `board.yml` `original:` block shows an open license or recorded written permission. Non-commercial licenses (CC-BY-NC) are **not** OK for this project without written permission.
 - **Parts:** use `docs/parts.md` ids. Anything marked `verify` must be verified (and the row updated) by the first board that uses it. Do not invent part numbers or prices; quote the live distributor page and date it. LCSC pages render in a browser but block curl.
 - **Shared library is the product.** A footprint or block used by two boards lives in `lib/`, never copied into a board folder.
 - **Coin-cell safety is non-negotiable:** no circuit may let the SAO 3.3 V rail, I2C pull-ups, or GPIO push current into the CR2032. Read standard.md section 3.

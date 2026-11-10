@@ -5,6 +5,7 @@ Checks (fail = exit 1):
   - board.yml exists, parses, and slug matches the folder name
   - provenance is filled in: original title/makers/source/license, and a permission basis
   - permission "written" must point at evidence (permission_ref)
+  - permission "pending" (published before the maker answered) must record the owner's decision, and warns every run
   - every shared_parts id exists in docs/parts.md
   - README.md exists
 
@@ -19,7 +20,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 STATUSES = {"planned", "porting", "prototype", "verified", "released"}
-PERMISSIONS = {"license", "written", "own"}
+PERMISSIONS = {"license", "written", "own", "pending"}
 
 
 def known_part_ids():
@@ -51,6 +52,14 @@ def check_board(folder: Path, part_ids: set) -> list:
         errs.append(f"{folder.name}: original.permission must be one of {sorted(PERMISSIONS)}")
     if perm == "written" and not orig.get("permission_ref"):
         errs.append(f"{folder.name}: written permission needs original.permission_ref (link or docs/ file)")
+    if perm == "pending":
+        # Published before the maker answered, by the repo owner's explicit decision. Allowed, but never silently:
+        # the decision must be written down, and the board cannot be called verified or released.
+        if not orig.get("pending_decision"):
+            errs.append(f"{folder.name}: permission 'pending' needs original.pending_decision (who decided to publish, and when)")
+        if meta.get("status") in ("verified", "released"):
+            errs.append(f"{folder.name}: a board with pending permission cannot be '{meta.get('status')}'")
+        print(f"WARN {folder.name}: published with the original maker's permission still pending")
 
     for pid in meta.get("shared_parts") or []:
         if pid not in part_ids:

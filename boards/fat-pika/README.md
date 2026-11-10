@@ -2,7 +2,12 @@
 
 Originally **Fat Pika** by **TwinkleTwinkie**, made for DEF CON 26 (2018): https://hackaday.io/project/158665-fat-pika
 
-> **Not cleared for publishing yet.** The original page states no license, so this port stays on a local branch until TwinkleTwinkie gives written permission (draft request: [docs/permission-request.md](docs/permission-request.md)). The art shows Pokémon characters, which is a separate question from the maker's permission; the owner's decision so far is to keep the art and decide before selling any.
+> **Permission pending — this board is not open-licensed.** The original hackaday.io page states no license, and TwinkleTwinkie has not yet been asked or answered (draft request: [docs/permission-request.md](docs/permission-request.md)). The repo owner chose on 2026-11-10 to publish this port anyway. Until the maker says otherwise:
+> - the original design in `original/`, the outline and all artwork remain **© TwinkleTwinkie, all rights reserved**; the repo's CERN-OHL-S / CC-BY-SA licenses cover only the SAO++ additions (new parts placement, routing, scripts, documentation), not the original work
+> - do not treat these files as cleared for manufacture or sale
+> - the art shows Pokémon characters (Nintendo / The Pokémon Company), which is a separate question from the maker's permission
+>
+> **TwinkleTwinkie, or anyone with rights in this design:** open an issue and it will be changed or removed.
 
 ![front](docs/render-front.png) ![back](docs/render-back.png)
 
