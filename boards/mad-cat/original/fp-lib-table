@@ -1,0 +1,4 @@
+
+(fp_lib_table
+  (lib (name "Cheshire_Cat_PCB")(type KiCad)(uri "$(KIPRJMOD)/Cheshire_Cat_PCB.pretty")(options "")(descr ""))
+)

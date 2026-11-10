@@ -1,0 +1,14 @@
+(version 1)
+
+# The copper on this board is artwork. These rules stop DRC from flagging the art for being art;
+# everything electrical (pads, tracks, the GND art against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The connector sits where the 2018 header was, just under the teeth. Its courtyard (drawn 0.5 mm past the pad ends)
+# overlaps the courtyard of tooth LED D6 by 0.24 mm; the parts themselves are 0.9 mm apart (LED body to connector pad).
+(rule "Connector beside tooth LED D6"
+  (condition "A.Reference == 'J1' && B.Reference == 'D6'")
+  (constraint courtyard_clearance (min -0.3mm)))

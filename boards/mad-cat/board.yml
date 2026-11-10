@@ -1,0 +1,39 @@
+name: "Mad Cat"
+slug: mad-cat
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Mad Cat (Cheshire Cat SAO, TwinkleTwinkie's DC26 Shitty Add-on #4)"
+  makers: ["TwinkleTwinkie"]
+  year: 2018
+  source_url: "https://hackaday.io/project/159523-mad-cat"
+  license: "none stated"   # the project page gives no license, so all rights are reserved by default
+  permission: "pending"    # no reply yet; change to "written" and fill permission_ref when TwinkleTwinkie answers
+  permission_ref: ""       # docs/permission.md once there is a reply
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-10 to publish before permission was received, accepting that it may have to come down."
+  art_note: "A Cheshire cat drawn by TwinkleTwinkie. The character itself is public domain (Lewis Carroll); whether the drawing leans on any later studio version is for the maker to say. Separate from the maker's permission."
+
+changes:
+  - "4-pin through-hole SAO v1 header replaced by the 6-pin v1.69bis SMD shrouded header, in the same place (the paws)"
+  - "SAO / OFF / BATTERY slide switch on the flat top of the head between the ears; CR2032 clip on the back of the tail"
+  - "Eight obsolete OSRAM TOPLEDs replaced by white reverse-mount 1206 LEDs in the same spots, one resistor each instead of one 15 ohm resistor shared by all eight"
+  - "Back copper still doubles as ground; the 2018 pour behind the face is rebuilt as solid copper"
+  - "PCBWay logo removed from the back of the tail (owner decision 2026-11-10); the coin cell sits there now"
+  - "Outline redrawn as one clean closed path (same shape); copper kept 0.28 mm back from the edge"
+  - "Front art unchanged, apart from the old header's four holes (gone) and two 0.9 mm holes on the forehead (the switch's locating pegs)"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 8
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-11
+  - SAOPP-R-01
