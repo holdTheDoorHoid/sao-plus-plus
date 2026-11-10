@@ -8,8 +8,8 @@ SAO++ takes older SAOs (the little art boards that plug into conference badges),
 
 - **6-pin SAO v1.69bis connector**, surface-mount and shrouded, on the back. Nothing pokes through the art side.
 - **SAO / OFF / BATTERY switch**: runs from the badge or from its own CR2032. It is wired so the badge can never charge the coin cell.
-- **CR2032 coin cell**: about a week of daytime wear with two LEDs.
-- **Side-firing LEDs** on the back that light up the art from the edges.
+- **CR2032 coin cell**: several days of daytime wear on a simple LED board.
+- **LEDs on the back**: side-firing ones that light the art from the edges, or reverse-mount ones that shine through the board.
 - **All parts on the back**; the front is pure art.
 
 The full rules are in [docs/standard.md](docs/standard.md), and the shared parts with live prices are in [docs/parts.md](docs/parts.md).
@@ -28,7 +28,7 @@ boards/_template/     copy this to start a new board
 lib/                  shared KiCad symbols, footprints, 3D models, power block, starter project
 docs/                 house standard, approved parts, porting and permission guide
 tools/                check_boards.py (paperwork check, runs on every push), gen_footprints.py, saopp_symbols.py,
-                      gen_schematic.py, panelize.py, export_fab.py
+                      gen_schematic.py, saopp_board.py (helpers for each board's build script), panelize.py, export_fab.py
 ```
 
 ## Boards
@@ -36,6 +36,7 @@ tools/                check_boards.py (paperwork check, runs on every push), gen
 | Board | Original maker | Status |
 |---|---|---|
 | [Fat Pika](boards/fat-pika/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [Mad Cat](boards/mad-cat/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
 
 ## Adding a board
 

@@ -102,7 +102,7 @@ def fab_set(slug, pcb, out, parts, copies):
     return [f.name for f in files]
 
 
-MAKERS = {"BH254VS-6P": "XFCN", "PCM13SMTR": "C&K", "BAT-HLD-001": "TE Connectivity / Linx", "LTST-C230KRKT": "Lite-On", "0603WAF1301T5E": "UNI-ROYAL"}
+MAKERS = {"BH254VS-6P": "XFCN", "PCM13SMTR": "C&K", "BAT-HLD-001": "TE Connectivity / Linx", "LTST-C230KRKT": "Lite-On", "LTW-C230DS": "Lite-On", "0603WAF1301T5E": "UNI-ROYAL"}
 
 
 def main(slug):

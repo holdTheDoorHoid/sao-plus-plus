@@ -59,7 +59,11 @@ For boards whose art is lit from behind through bare board (no copper on either 
 |---|---|---|---|---|---|
 | `SAOPP-LED-10` | Red | Lite-On **LTST-C230KRKT**, 1206 reverse-mount (lens faces the board) | [C125107](https://www.lcsc.com/product-detail/C125107.html), 54,960 in stock | $0.037 @100, $0.027 @6,000 | `verify`: brightness through 1.6 mm board at 1 mA |
 
+| `SAOPP-LED-11` | White | Lite-On **LTW-C230DS**, 1206 reverse-mount, same package and footprint as LED-10 | [C575513](https://www.lcsc.com/product-detail/C575513.html), 56,700 in stock | $0.055 @100, $0.037 @6,000 | `verify`: land pattern against its own datasheet (taken as the LTST-C230 family pattern); brightness on a coin cell |
+
 The footprint has no hole: the LED shines into the board itself, which keeps the art side unbroken. Other colours in the LTST-C230 family share the footprint.
+
+**White on a coin cell.** White needs about 2.6-2.7 V before it lights, which is most of what a CR2032 gives, so it is the weakest colour on battery. With the standard 1.3 kΩ resistor (R-01) a white LED draws roughly 0.45 mA on badge power and roughly 0.2 mA on a fresh cell, and fades as the cell drops. White LEDs give far more light per milliamp than red, so this is expected to be enough to light art from behind, but it is **calculated, not measured**: Mad Cat's first prototype decides. Using R-01 keeps white boards on the same resistor reel as everything else; R-02 (330 Ω) is the fallback if they are too dim.
 
 **Addressable RGB (SK6812 "side" 4020 and similar): not approved.** They are rated for 3.7 V minimum, above both the 3.3 V SAO rail and a coin cell, and each one draws about 0.4–0.6 mA even when dark, which would flatten a CR2032 in a couple of weeks while "off". Use separate single-colour LEDs instead.
 
@@ -67,7 +71,7 @@ The footprint has no hole: the LED shines into the board itself, which keeps the
 
 | Id | Part | Use | Status |
 |---|---|---|---|
-| `SAOPP-R-01` | 1.3 kΩ 0603 1 %: UNI-ROYAL 0603WAF1301T5E, LCSC [C22767](https://www.lcsc.com/product-detail/C22767.html) (307,000 in stock, $0.002); any maker's equivalent is fine | LED resistor for red / yellow / green / orange: ~1.0 mA from a 3.0 V cell, ~1.2 mA from 3.3 V. One value for both supplies | `verify`: bench-measure brightness at 1 mA |
+| `SAOPP-R-01` | 1.3 kΩ 0603 1 %: UNI-ROYAL 0603WAF1301T5E, LCSC [C22767](https://www.lcsc.com/product-detail/C22767.html) (307,000 in stock, $0.002); any maker's equivalent is fine | LED resistor for red / yellow / green / orange: ~1.0 mA from a 3.0 V cell, ~1.2 mA from 3.3 V. One value for both supplies. Also used for through-board white (LED-11): ~0.45 mA on 3.3 V, ~0.2 mA on a cell | `verify`: bench-measure brightness at 1 mA |
 | `SAOPP-R-02` | 330 Ω 0603 | Blue/white LED on badge power only; also the spec's minimum series resistor on driven GPIO pins | `chosen` |
 | `SAOPP-D-01` | Low-leakage Schottky (RB751S40 class, SOD-523) | Series diode after the coin cell holder, **required** on boards with a microcontroller or anything wired to SDA/SCL/GPIO ([why](standard.md#3-power-sao--off--battery)) | `open`: pick part, confirm reverse leakage < 1 µA at 0.3 V |
 | `SAOPP-EE-01` | 24C02-class I2C EEPROM, SOT-23-5, address 0x50 | Optional ID chip footprint, unpopulated by default | `open` |

@@ -3,7 +3,8 @@
 Read `README.md`, `docs/standard.md`, `docs/parts.md`, and `docs/porting-guide.md` before touching a board.
 
 - **Owner:** not an engineer by training. Report decisions and what they will see or measure, in plain language. File paths and part numbers belong in footnotes.
-- **Permission first.** (Fat Pika was published with permission pending by the owner's explicit decision on 2026-11-10; that is a one-board exception recorded in its `board.yml`, not a new default. Ask the owner each time.) Never commit a third-party design (files, art, or derived layout) until its `board.yml` `original:` block shows an open license or recorded written permission. Non-commercial licenses (CC-BY-NC) are **not** OK for this project without written permission.
+- **Permission first.** (Fat Pika and Mad Cat were each published with permission pending by the owner's explicit decision on 2026-11-10, asked separately for each; that is recorded in each `board.yml` and is not a default. Ask the owner each time.) Never commit a third-party design (files, art, or derived layout) until its `board.yml` `original:` block shows an open license or recorded written permission. Non-commercial licenses (CC-BY-NC) are **not** OK for this project without written permission.
+- **Fewest different parts across all boards** is an owner priority. Before adding a part, check whether one already on the list does the job (Mad Cat's white LEDs run on the same 1.3 k resistor as red ones for this reason), and say what a new part costs in reels when you propose one.
 - **Parts:** use `docs/parts.md` ids. Anything marked `verify` must be verified (and the row updated) by the first board that uses it. Do not invent part numbers or prices; quote the live distributor page and date it. LCSC pages render in a browser but block curl.
 - **Shared library is the product.** A footprint or block used by two boards lives in `lib/`, never copied into a board folder.
 - **Coin-cell safety is non-negotiable:** no circuit may let the SAO 3.3 V rail, I2C pull-ups, or GPIO push current into the CR2032. Read standard.md section 3.
@@ -19,3 +20,7 @@ Read `README.md`, `docs/standard.md`, `docs/parts.md`, and `docs/porting-guide.m
 - Board-level copper polygons can carry a net (`PCB_SHAPE.SetNet`), which is how copper art doubles as GND and still passes DRC.
 - LCSC datasheets open in the in-app browser's PDF viewer; `PDFViewerApplication.pdfDocument` gives the text. Do not fetch them with curl.
 - Always look at a flat copper export (`kicad-cli pcb export svg --layers B.Cu,Edge.Cuts`), not only the 3D render, before trusting art copper.
+- Rectangles in a footprint stop being rectangles when it sits at an angle that is not a multiple of 90 degrees (they become polygons). Measure anything that depends on them at 0 or 90 degrees first (see the battery clip in `boards/mad-cat/hardware/build_board.py`).
+- Footprint fields are read with `fp.HasField(name)` / `fp.GetField(name)`; there is no `GetFieldByName`.
+- **2018-era SVG art imports carry a 2 mm "page frame" polygon on every art layer, 10-15 mm outside the board outline.** It is invisible on a lone board and lands on the neighbouring boards in a panel. Cut it in the build script (`saopp_board.stray_frames`) and check every new board for art outside its outline before panelizing.
+- New build scripts import `tools/saopp_board.py`; do not copy helpers into a board folder.

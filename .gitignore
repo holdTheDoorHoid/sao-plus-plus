@@ -13,3 +13,7 @@ _autosave-*
 .pio/
 build/
 __pycache__/
+# KiCad 10 local history
+.history/
+# project files KiCad drops next to generated panels
+boards/*/production/panel/*.kicad_pro
