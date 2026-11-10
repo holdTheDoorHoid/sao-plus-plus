@@ -1,6 +1,0 @@
-"Refs","Value","Footprint","SAOPP_ID","MPN","LCSC","Digikey","Qty"
-"BT1","CR2032","sao-plus-plus:SAOPP_BAT-01_CR2032_SMD_TE_BAT-HLD-001","SAOPP-BAT-01","BAT-HLD-001","C7501066","","1"
-"D1,D2","red","sao-plus-plus:SAOPP_LED-10_1206_ReverseMount_ThroughBoard","SAOPP-LED-10","LTST-C230KRKT","C125107","","2"
-"J1","SAO v1.69bis","sao-plus-plus:SAOPP_CONN-01_BoxHeader_2x03_P2.54mm_SMD_XFCN_BH254VS-6P","SAOPP-CONN-01","BH254VS-6P","C492445","","1"
-"R1,R2","1.3k","sao-plus-plus:SAOPP_R_0603_1608Metric","SAOPP-R-01","0603 1.3k 1%","","","2"
-"SW1","SAO / OFF / BAT","sao-plus-plus:SAOPP_SW-01_Slide_SP3T_CK_PCM13SMTR","SAOPP-SW-01","PCM13SMTR","C221842","401-2017-1-ND","1"

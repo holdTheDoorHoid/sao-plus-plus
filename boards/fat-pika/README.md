@@ -34,7 +34,7 @@ Originally **Fat Pika** by **TwinkleTwinkie**, made for DEF CON 26 (2018): https
 - `hardware/circuit.json` — the circuit as data; `tools/gen_schematic.py fat-pika` and `hardware/build_board.py` both read it.
 - `hardware/build_board.py` — rebuilds the board from `original/` plus the SAO++ changes; every placement and routing decision is in there with a comment.
 - `hardware/fat-pika.kicad_dru` — one extra rule so DRC does not flag the fine gaps inside the artwork.
-- `production/fat-pika-bom.csv`, `production/fat-pika-pos.csv` — parts list and placement. Gerbers are generated into `production/gerbers/` (not committed).
+- `production/` — everything a board house needs, for one board (`single/`) and a 2×2 panel (`panel/`): Gerber zips, drill files, and JLCPCB and PCBWay assembly files. Start with [production/README.md](production/README.md).
 - `original/` — the untouched 2018 KiCad 4 project and zip from hackaday.io.
 
 ## Parts cost (parts only, list prices checked 2026-11-10)
@@ -45,7 +45,7 @@ Originally **Fat Pika** by **TwinkleTwinkie**, made for DEF CON 26 (2018): https
 | Switch C&K PCM13SMTR (Digikey) | 1 | ~$0.90 |
 | CR2032 clip TE BAT-HLD-001 (LCSC C7501066) | 1 | $0.61 |
 | LED Lite-On LTST-C230KRKT (LCSC C125107) | 2 | $0.04 |
-| Resistor 0603 1.3 kΩ | 2 | <$0.01 |
+| Resistor 0603 1.3 kΩ (LCSC C22767) | 2 | <$0.01 |
 | **Total** | | **about $1.75** (about $1.30 at 1000) |
 
 The switch is half the cost. A cheaper pin-compatible clone is an open item in [docs/parts.md](../../docs/parts.md). The CR2032 cell and the bare board (70 × 75 mm) are not included.
