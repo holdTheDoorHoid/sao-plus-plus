@@ -72,7 +72,8 @@
     (property "Footprint" "sao-plus-plus:SAOPP_R_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "SAOPP-R-01" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-    (property "MPN" "0603 1.3k 1%" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "MPN" "0603WAF1301T5E" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "C22767" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (symbol "R_LED_1k3_0_1"
       (rectangle (start -5.08 2.54) (end 5.08 -2.54) (stroke (width 0.254) (type default)) (fill (type background))))
     (symbol "R_LED_1k3_1_1"

@@ -25,7 +25,7 @@ SYMBOLS = {
                              {"SAOPP_ID": "SAOPP-LED-10", "MPN": "LTST-C230KRKT", "LCSC": "C125107"}, 2,
                              [("2", "A", "L", 0), ("1", "K", "R", 0)]),
     "R_LED_1k3": ("R", "1.3k", FP + "SAOPP_R_0603_1608Metric",
-                  {"SAOPP_ID": "SAOPP-R-01", "MPN": "0603 1.3k 1%"}, 2,
+                  {"SAOPP_ID": "SAOPP-R-01", "MPN": "0603WAF1301T5E", "LCSC": "C22767"}, 2,
                   [("1", "~", "L", 0), ("2", "~", "R", 0)]),
 }
 FONT = "(effects (font (size 1.27 1.27)))"

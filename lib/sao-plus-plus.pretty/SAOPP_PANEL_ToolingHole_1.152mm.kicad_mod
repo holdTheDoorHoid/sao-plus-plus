@@ -1,0 +1,11 @@
+(footprint "SAOPP_PANEL_ToolingHole_1.152mm"
+  (version 20240108)
+  (generator "saopp_gen_footprints")
+  (layer "F.Cu")
+  (descr "1.152 mm unplated tooling hole for assembly-line pins (JLCPCB's size), with a mask opening.")
+  (tags "SAO++ panel tooling hole")
+  (attr board_only exclude_from_pos_files exclude_from_bom)
+  (property "Reference" "REF**" (at 0 -2 0) (layer "F.Fab") hide (effects (font (size 0.8 0.8) (thickness 0.12))))
+  (property "Value" "SAOPP_PANEL_ToolingHole_1.152mm" (at 0 2 0) (layer "F.Fab") (effects (font (size 0.8 0.8) (thickness 0.12))))
+  (pad "" np_thru_hole circle (at 0 0) (size 1.152 1.152) (drill 1.152) (layers "*.Cu" "*.Mask"))
+)

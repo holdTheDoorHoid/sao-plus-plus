@@ -22,12 +22,13 @@ boards/<slug>/        one folder per board
   README.md           credit to the original maker, what changed, build notes
   hardware/           KiCad 10 project
   art/                source artwork
-  production/         BOM and placement files
+  production/         Gerbers, drill, BOM and placement files for one board and for a panel
   firmware/           only for boards with a microcontroller
 boards/_template/     copy this to start a new board
 lib/                  shared KiCad symbols, footprints, 3D models, power block, starter project
 docs/                 house standard, approved parts, porting and permission guide
-tools/check_boards.py checks every board's paperwork (also runs on every push)
+tools/                check_boards.py (paperwork check, runs on every push), gen_footprints.py, saopp_symbols.py,
+                      gen_schematic.py, panelize.py, export_fab.py
 ```
 
 ## Boards

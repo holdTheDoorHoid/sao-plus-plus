@@ -146,7 +146,7 @@ def res():
     name = "SAOPP_R_0603_1608Metric"
     s = head(name, "0603 chip resistor, IPC-7351 nominal land pattern (same pads as KiCad Resistor_SMD:R_0603_1608Metric). "
                    "Kept in this library so SAO++ projects open with no global libraries configured.", "SAO++ resistor 0603")
-    s += props((0, -1.5), (0, 1.5), name, {"SAOPP_ID": "SAOPP-R-01", "MPN": "0603 1.3k 1%"})
+    s += props((0, -1.5), (0, 1.5), name, {"SAOPP_ID": "SAOPP-R-01", "MPN": "0603WAF1301T5E", "LCSC": "C22767"})
     s += pad(1, "roundrect", -0.825, 0, 0.8, 0.95, SMD, 0.25)
     s += pad(2, "roundrect", 0.825, 0, 0.8, 0.95, SMD, 0.25)
     s += rect(-0.8, -0.4125, 0.8, 0.4125, "F.Fab")
@@ -155,9 +155,33 @@ def res():
     return name, s + ")\n"
 
 
+def panel_parts():
+    out = []
+    name = "SAOPP_PANEL_MouseBite_0.5mm"
+    s = head(name, "One 0.5 mm unplated mouse-bite hole for break-off tabs. Placed by tools/panelize.py.", "SAO++ panel mouse bite", "board_only exclude_from_pos_files exclude_from_bom")
+    s += props((0, -1), (0, 1), name, {}).replace('(layer "F.SilkS")', '(layer "F.Fab") hide')
+    s += pad("", "circle", 0, 0, 0.5, 0.5, ["*.Cu"], kind="np_thru_hole", drill=0.5)
+    out.append((name, s + ")\n"))
+    name = "SAOPP_PANEL_ToolingHole_1.152mm"
+    s = head(name, "1.152 mm unplated tooling hole for assembly-line pins (JLCPCB's size), with a mask opening.", "SAO++ panel tooling hole", "board_only exclude_from_pos_files exclude_from_bom")
+    s += props((0, -2), (0, 2), name, {}).replace('(layer "F.SilkS")', '(layer "F.Fab") hide')
+    s += pad("", "circle", 0, 0, 1.152, 1.152, ["*.Cu", "*.Mask"], kind="np_thru_hole", drill=1.152)
+    out.append((name, s + ")\n"))
+    name = "SAOPP_PANEL_Fiducial_1mm_BothSides"
+    s = head(name, "Assembly fiducial: 1 mm bare copper dot in a 2 mm mask opening, on both sides of the panel rail.", "SAO++ panel fiducial", "board_only exclude_from_pos_files exclude_from_bom")
+    s += props((0, -2), (0, 2), name, {}).replace('(layer "F.SilkS")', '(layer "F.Fab") hide')
+    for cu, mask in (("F.Cu", "F.Mask"), ("B.Cu", "B.Mask")):
+        s += f'  (pad "" smd circle (at 0 0) (size 1 1) (layers "{cu}" "{mask}") (solder_mask_margin 0.5))\n'
+    out.append((name, s + ")\n"))
+    return out
+
+
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     for fn in (conn, sw, bat, led, res):
         name, body = fn()
+        (OUT / f"{name}.kicad_mod").write_text(body)
+        print("wrote", name)
+    for name, body in panel_parts():
         (OUT / f"{name}.kicad_mod").write_text(body)
         print("wrote", name)

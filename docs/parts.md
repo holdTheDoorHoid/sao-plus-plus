@@ -67,7 +67,7 @@ The footprint has no hole: the LED shines into the board itself, which keeps the
 
 | Id | Part | Use | Status |
 |---|---|---|---|
-| `SAOPP-R-01` | 1.3 kΩ 0603 1 % (any maker) | LED resistor for red / yellow / green / orange: ~1.0 mA from a 3.0 V cell, ~1.2 mA from 3.3 V. One value for both supplies | `verify`: bench-measure brightness at 1 mA |
+| `SAOPP-R-01` | 1.3 kΩ 0603 1 %: UNI-ROYAL 0603WAF1301T5E, LCSC [C22767](https://www.lcsc.com/product-detail/C22767.html) (307,000 in stock, $0.002); any maker's equivalent is fine | LED resistor for red / yellow / green / orange: ~1.0 mA from a 3.0 V cell, ~1.2 mA from 3.3 V. One value for both supplies | `verify`: bench-measure brightness at 1 mA |
 | `SAOPP-R-02` | 330 Ω 0603 | Blue/white LED on badge power only; also the spec's minimum series resistor on driven GPIO pins | `chosen` |
 | `SAOPP-D-01` | Low-leakage Schottky (RB751S40 class, SOD-523) | Series diode after the coin cell holder, **required** on boards with a microcontroller or anything wired to SDA/SCL/GPIO ([why](standard.md#3-power-sao--off--battery)) | `open`: pick part, confirm reverse leakage < 1 µA at 0.3 V |
 | `SAOPP-EE-01` | 24C02-class I2C EEPROM, SOT-23-5, address 0x50 | Optional ID chip footprint, unpopulated by default | `open` |
