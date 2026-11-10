@@ -1,0 +1,28 @@
+# Copy boards/_template to boards/<slug>/ and fill this in.
+# tools/check_boards.py validates every board folder against this file.
+name: "Board name"
+slug: template            # folder name, lowercase-hyphenated
+status: planned           # planned | porting | prototype | verified | released
+revision: "A"
+
+original:
+  title: "Original SAO name"
+  makers: ["Original maker"]
+  year: 2018
+  source_url: ""          # repo / hackaday.io / archive link
+  license: ""             # SPDX id of the ORIGINAL design, e.g. CC-BY-SA-4.0, MIT, CERN-OHL-P-2.0
+  permission: ""          # "license" (open license allows it) | "written" (link to the maker's yes) | "own" (LSOH design)
+  permission_ref: ""      # URL or file in docs/ proving permission when not covered by license
+
+changes:                  # what SAO++ changed vs the original, one line each
+  - "Ported 4-pin SAO v1 header to 6-pin v1.69bis SMD connector"
+
+features:
+  power_select: true      # SAO / off / coin cell switch from the shared power block
+  coin_cell: CR2032
+  side_leds: 2
+  i2c_device: false       # true if the board answers on the SAO I2C bus
+  gpio_use: ""            # what GPIO1/GPIO2 do, or "" if unused
+
+shared_parts:             # refs to docs/parts.md ids; everything else needs a reason
+  - SAOPP-CONN-01

@@ -1,0 +1,16 @@
+# KiCad backups, caches, local state
+*-backups/
+*.kicad_prl
+*.lck
+fp-info-cache
+_autosave-*
+*.bak
+*-bak
+\#auto_saved_files#
+# fab exports are generated; release zips are attached to GitHub releases instead
+boards/*/production/gerbers/
+boards/*/production/*.zip
+# firmware build output
+.pio/
+build/
+__pycache__/
