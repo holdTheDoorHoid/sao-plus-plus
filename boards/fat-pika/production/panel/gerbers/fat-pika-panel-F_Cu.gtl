@@ -1,12 +1,12 @@
 G04 #@! TF.GenerationSoftware,KiCad,Pcbnew,10.0.6*
-G04 #@! TF.CreationDate,2026-11-10T10:19:36-05:00*
+G04 #@! TF.CreationDate,2026-11-10T16:54:10-05:00*
 G04 #@! TF.ProjectId,fat-pika-panel,6661742d-7069-46b6-912d-70616e656c2e,A*
 G04 #@! TF.SameCoordinates,Original*
 G04 #@! TF.FileFunction,Copper,L1,Top*
 G04 #@! TF.FilePolarity,Positive*
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 10.0.6) date 2026-11-10 10:19:36*
+G04 Created by KiCad (PCBNEW 10.0.6) date 2026-11-10 16:54:10*
 %MOMM*%
 %LPD*%
 G01*
@@ -26840,7 +26840,7 @@ X190921528Y-129923948D01*
 G37*
 G04 #@! TD.AperFunction*
 D11*
-X107920867Y-212231389D03*
 X107920867Y-40040462D03*
 X245124013Y-40040462D03*
+X107920867Y-212231389D03*
 M02*

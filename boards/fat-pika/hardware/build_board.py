@@ -100,6 +100,16 @@ _polys = [(a_, b_) for a_, b_ in blocks(_txt, "fp_poly", 4) if "(layer B.Cu)" in
 assert len(_polys) == 127, f"expected 125 back + 2 front copper art polygons, found {len(_polys)}"
 for a_, b_ in sorted(_polys, reverse=True):
     _txt = _txt[:a_] + _txt[b_:]
+# The 2018 SVG export also left a 2 mm page frame on the front mask and both silk layers, 15 mm outside the board
+# outline: invisible on a lone board, but in a panel it lands on the neighbouring boards. Cut it.
+_frames = []
+for a_, b_ in blocks(_txt, "fp_poly", 4):
+    _xs = [float(m_.group(1)) for m_ in re.finditer(r"\(xy ([-0-9.]+) [-0-9.]+\)", _txt[a_:b_])]
+    if _xs and max(_xs) - min(_xs) > 85:
+        _frames.append((a_, b_))
+assert len(_frames) == 3, len(_frames)
+for a_, b_ in sorted(_frames, reverse=True):
+    _txt = _txt[:a_] + _txt[b_:]
 _tmp = os.path.join(tempfile.mkdtemp(), "Pikachu_PCB.kicad_pcb")
 open(_tmp, "w", encoding="utf-8").write(_txt)
 

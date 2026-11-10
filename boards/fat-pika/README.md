@@ -35,7 +35,7 @@ Originally **Fat Pika** by **TwinkleTwinkie**, made for DEF CON 26 (2018): https
 
 ## Files
 
-- `hardware/fat-pika.kicad_pro` — KiCad 10 project (schematic + board). ERC: 0 issues. DRC: 0 errors, 0 unconnected, schematic matches board. 17 warnings remain, all from the 2018 art (silkscreen over mask openings, art libraries not installed, copper slivers in line art).
+- `hardware/fat-pika.kicad_pro` — KiCad 10 project (schematic + board). ERC: 0 issues. DRC: 0 errors, 0 unconnected, schematic matches board. 15 warnings remain, all from the 2018 art (silkscreen over mask openings, art libraries not installed, copper slivers in line art).
 - `hardware/circuit.json` — the circuit as data; `tools/gen_schematic.py fat-pika` and `hardware/build_board.py` both read it.
 - `hardware/build_board.py` — rebuilds the board from `original/` plus the SAO++ changes; every placement and routing decision is in there with a comment.
 - `hardware/fat-pika.kicad_dru` — one extra rule so DRC does not flag the fine gaps inside the artwork.
