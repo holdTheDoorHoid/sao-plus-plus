@@ -10,3 +10,12 @@ Read `README.md`, `docs/standard.md`, `docs/parts.md`, and `docs/porting-guide.m
 - **KiCad 10** is installed as the flatpak `org.kicad.KiCad` (`flatpak run --command=kicad-cli org.kicad.KiCad ...`).
 - **Git:** public repo `holdTheDoorHoid/sao-plus-plus`. Work on a branch per board (`board/<slug>`), open a PR on this repo, and let the owner merge. Run `python3 tools/check_boards.py` before every commit.
 - Do not order boards or parts. Produce the files and a cost estimate; the owner orders.
+
+## KiCad 10 scripting quirks found on the first board (flatpak 10.0.6)
+
+- `board.Remove(...)` and `footprint.Remove(...)` crash Python. Cut unwanted items out of the file text before `LoadBoard` instead (see `boards/fat-pika/hardware/build_board.py`).
+- `footprint.Flip()` crashes unless the footprint was added to the board first.
+- Shrinking (`Inflate` with a negative value) a polygon that has a hole opens a real slit between hole and edge. Shrink the outer path and grow the hole separately.
+- Board-level copper polygons can carry a net (`PCB_SHAPE.SetNet`), which is how copper art doubles as GND and still passes DRC.
+- LCSC datasheets open in the in-app browser's PDF viewer; `PDFViewerApplication.pdfDocument` gives the text. Do not fetch them with curl.
+- Always look at a flat copper export (`kicad-cli pcb export svg --layers B.Cu,Edge.Cuts`), not only the 3D render, before trusting art copper.

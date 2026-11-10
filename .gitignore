@@ -9,6 +9,7 @@ _autosave-*
 \#auto_saved_files#
 # fab exports are generated; release zips are attached to GitHub releases instead
 boards/*/production/gerbers/
+*.kicad_prl
 boards/*/production/*.zip
 # firmware build output
 .pio/

@@ -17,7 +17,15 @@ Source: Hackaday, "Introducing the Shitty Add-On V1.69bis Standard" (2019-03-20)
 | 5 | GPIO1 | ≥ 330 Ω series resistor if the add-on drives it (spec requirement) |
 | 6 | GPIO2 | ≥ 330 Ω series resistor if the add-on drives it |
 
-> **Verify before first layout:** the numbering above is the widely used one and matches the spec's wording ("GPIO1 and GPIO2 to the right"), but no source we could read printed a numbered table. The first board must check it against the spec diagram image and a known-good v1.69bis badge, then delete this note.
+> **Still to confirm on hardware:** the numbering above is the widely used one and matches the spec's wording ("GPIO1 and GPIO2 to the right"), but no source we could read printed a numbered table. Fat Pika (the first board) keeps VCC / GND / SDA / SCL exactly where the working 2018 4-pin board had them and adds the GPIO pair beside them. Plug the first prototype into a known-good v1.69bis badge, then delete this note.
+
+Seen from the **back of the add-on**, held upright, key slot up:
+
+```
+        key slot
+  GPIO1   SDA   VCC      <- pins 5, 3, 1
+  GPIO2   SCL   GND      <- pins 6, 4, 2
+```
 
 - **Signal levels:** design for 3.3 V. Nothing on the header may exceed 3.6 V.
 - **Current:** the spec gives no real number. SAO++ boards budget **≤ 50 mA** from the badge, so they work on any badge.
@@ -45,7 +53,7 @@ SAO pin 1 (3.3 V) ──── throw A ┐
 CR2032 (+) ─────────── throw C ┘
 ```
 
-- **Switch:** 3-position SMD slide switch, side-actuated at the board edge (`SAOPP-SW-01`). Positions: **SAO** (badge power), **OFF**, **BATTERY**.
+- **Switch:** 3-position SMD slide switch, side-actuated at the board edge (`SAOPP-SW-01`). Positions: **SAO** (badge power), **OFF**, **BATTERY**. On the chosen part pin 3 is the common, pin 1 goes to the badge supply, pin 2 is left unconnected (OFF, the middle position), and pin 4 goes to the cell, so even mid-slide the knob can only ever touch one supply and the unused contact.
 - **Why this layout:** the badge's 3.3 V and the coin cell sit on different contacts and are never connected to each other, in any position. A CR2032 is a non-rechargeable lithium cell; pushing current into it can make it leak, swell, or catch fire. This layout makes that impossible by construction, needs no extra parts, has no voltage loss, and draws zero current when OFF.
 - **Not chosen:** diode "auto-switch" circuits. They pick badge power automatically, but they lose 0.2–0.3 V (enough to dim blue and white LEDs on a coin cell), and a plain Schottky diode leaks a little current back toward the cell.
 - **Boards with a microcontroller or anything on SDA/SCL/GPIO:** the badge's I2C pull-ups can still feed a small current into the add-on's supply through the chip's protection diodes, even in BATTERY position, and that supply is the coin cell. These boards **must** add the series cell diode (`SAOPP-D-01`) right after the holder, and say so in the README. LED-only boards do not need it.
@@ -54,7 +62,8 @@ CR2032 (+) ─────────── throw C ┘
 
 ## 4. LEDs
 
-- **One package family for the whole project:** side-firing LEDs on the back, shining into the board edge or through cutouts. See `SAOPP-LED-*` in [parts.md](parts.md) for the chosen package and colour list.
+- **Edge-lit art:** one side-firing package family on the back, shining into the board edge or through cutouts. See `SAOPP-LED-01…06` in [parts.md](parts.md).
+- **Back-lit art** (a glowing spot seen through bare board): the reverse-mount LED `SAOPP-LED-10`, with copper kept off both sides for 1.6 mm around its centre.
 - **Drive current:** about 1 mA per LED by default. That looks bright through FR4 and keeps coin cell life in days.
 - **Colours and coin cells:** red, orange, yellow, and yellow-green work well from a coin cell. Blue, white, and true green need about 3 V and fade early as the cell drains. Boards may use them, but must say "best on badge power" in the README.
 - **Blinking stretches battery life.** A 25 % blink duty roughly quadruples runtime and still looks bright.
