@@ -1,0 +1,41 @@
+name: "Oh My Glob (LSP)"
+slug: lumpy
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "LSP SAO, DEF CON 26 LSP SAO Badge (\"Oh My Glob SAO\")"
+  makers: ["lemons4all"]
+  year: 2018
+  source_url: "https://hackaday.io/project/161510-lsp-sao"
+  license: "none stated"   # the project page gives no license, so all rights are reserved by default
+  permission: "pending"    # no reply yet; change to "written" and fill permission_ref when lemons4all answers
+  permission_ref: ""
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-10 to publish before permission was received, accepting that it may have to come down."
+  art_note: "Lumpy Space Princess is a character from the cartoon Adventure Time, owned by Cartoon Network / Warner Bros. Discovery. Using her likeness needs its own permission (or new art), separate from the maker's permission for the board design."
+
+changes:
+  - "4-pin through-hole SAO v1 header replaced by the 6-pin v1.69bis SMD shrouded header, in the same bottom lobe"
+  - "SAO / OFF / BATTERY slide switch on the right side of the head; CR2032 clip on the right lobe of the back"
+  - "TOPLED behind the star replaced by a white reverse-mount 1206 LED; the 3 mm LED that stood up on the front at the spike tip replaced by a red reverse-mount LED on the back, shining through a 2 mm bare window; one 1.3 k resistor each"
+  - "Two tiny holes (vias), covered by solder mask on both sides, inside the dark open mouth, joined by a 1.6 mm copper link on the front: the only way to get the badge supply past the LED supply on this outline (owner-approved option, 2026-11-11)"
+  - "Back copper (the 2018 back had none) is now a ground pour under the mask, cleared around the new parts and behind both LEDs"
+  - "The coin cell covers the end of 'DEF CON 26' while it is fitted; its bare contact disc trims a 0.005 mm2 sliver off the tip of the '6'"
+  - "Removed: the old part labels ('VCC', '+', '-' on the back, a pin-1 'o' on the front) and the 2 mm back mask window behind the star (the new LED brings its own)"
+  - "Outline redrawn as one closed path (same shape); front art unchanged apart from the old header window (filled), two 0.9 mm switch peg holes on the head, the 2 mm tip window, and the art stepping back to 0.55 mm from the edge at the six panel tabs"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 2
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-R-01
+  - SAOPP-LED-10
+  - SAOPP-LED-11

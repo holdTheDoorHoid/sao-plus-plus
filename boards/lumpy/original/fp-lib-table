@@ -1,0 +1,6 @@
+(fp_lib_table
+  (lib (name lumpyv2)(type KiCad)(uri "$(KIPRJMOD)/lumpyv2.pretty")(options "")(descr ""))
+  (lib (name hand)(type KiCad)(uri C:/Users/Bruel/Documents/handmaid/hand.pretty)(options "")(descr "")(disabled))
+  (lib (name lumpyback)(type KiCad)(uri C:/Users/Bruel/Documents/shine/lumpy/lumpyback.pretty)(options "")(descr "")(disabled))
+  (lib (name rbg)(type KiCad)(uri "D:/New folder/RBG/rbg.pretty")(options "")(descr "")(disabled))
+)

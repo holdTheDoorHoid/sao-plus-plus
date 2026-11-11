@@ -43,6 +43,7 @@ tools/                check_boards.py (paperwork check, runs on every push), gen
 | [Nibbler](boards/nibbler/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
 | [RBG](boards/rbg/) | lemons4all (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
 | [Frida](boards/frida/) | lemons4all (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [Oh My Glob (LSP)](boards/lumpy/) | lemons4all (DEF CON 26, 2018) | Designed and rule-checked, not yet built; the tightest fit of the set (see its README). **Permission pending: not open-licensed** |
 | [Hack-Man](boards/hack-man/) | InstantArcade (Bob), 2024 | Recreated from the maker's pictures (no files were published), rule-checked, not yet built. Seeed XIAO ESP32 controller, new Rust firmware. **Permission pending: not open-licensed**, see the board README |
 
 ## Adding a board
