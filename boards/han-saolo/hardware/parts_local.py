@@ -5,13 +5,13 @@
 LOCAL_SYMBOLS = {
     # The maker's chip: Microchip ATtiny412, 8-pin SOIC (150 mil). The firmware (megaTinyCore, tinyNeoPixel) targets it.
     "ATtiny412_SOIC8": ("U", "ATtiny412", "han-saolo-local:SOIC-8_3.9x4.9mm_P1.27mm",
-                        {"SAOPP_ID": "", "MPN": "ATTINY412-SSN", "LCSC": ""}, 5,
+                        {"SAOPP_ID": "", "MPN": "ATTINY412-SSNR", "LCSC": "C1337190"}, 5,
                         [("1", "VCC", "L", 0), ("2", "PA6", "L", 1), ("3", "PA7", "L", 2), ("4", "PA1/SDA", "L", 3),
                          ("8", "GND", "R", 0), ("7", "PA3", "R", 1), ("6", "PA0/UPDI", "R", 2), ("5", "PA2/SCL", "R", 3)]),
     # The series cell diode docs/standard.md section 3 requires (the ATtiny is wired to SAO SDA and SCL).
     # Same part and footprint as Knight Rider's, so the two boards share one reel.
     "D_Schottky_Cell": ("D", "RB751S40", "han-saolo-local:D_SOD-523",
-                        {"SAOPP_ID": "SAOPP-D-01", "MPN": "RB751S40T1G", "LCSC": ""}, 2,
+                        {"SAOPP_ID": "SAOPP-D-01", "MPN": "RB751S40T1G", "LCSC": "C232576"}, 2,
                         [("2", "A", "L", 0), ("1", "K", "R", 0)]),
     # The maker's 3-pad solder jumper (his JP2): LED data from the ATtiny (pads 1-2 bridged by copper, as shipped)
     # or, after cutting that bridge and bridging 2-3 with solder, from the badge on SAO GPIO1. Bare copper, nothing to buy.

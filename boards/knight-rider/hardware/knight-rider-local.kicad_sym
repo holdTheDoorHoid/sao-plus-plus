@@ -6,7 +6,7 @@
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "MPN" "ATTINY85V-10SU" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-    (property "LCSC" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "C152192" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (symbol "ATtiny85_SOIC8_EIAJ_0_1"
       (rectangle (start -12.7 2.54) (end 12.7 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
     (symbol "ATtiny85_SOIC8_EIAJ_1_1"
@@ -27,7 +27,7 @@
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "MPN" "LTST-C191KRKT" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-    (property "LCSC" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "C125099" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (symbol "LED_0603_Red_Front_0_1"
       (rectangle (start -5.08 2.54) (end 5.08 -2.54) (stroke (width 0.254) (type default)) (fill (type background))))
     (symbol "LED_0603_Red_Front_1_1"
@@ -76,7 +76,7 @@
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "SAOPP-D-01" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "MPN" "RB751S40T1G" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-    (property "LCSC" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "C232576" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (symbol "D_Schottky_Cell_0_1"
       (rectangle (start -5.08 2.54) (end 5.08 -2.54) (stroke (width 0.254) (type default)) (fill (type background))))
     (symbol "D_Schottky_Cell_1_1"

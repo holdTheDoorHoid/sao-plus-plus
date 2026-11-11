@@ -5,8 +5,8 @@
     (property "Footprint" "han-saolo-local:SOIC-8_3.9x4.9mm_P1.27mm" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-    (property "MPN" "ATTINY412-SSN" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-    (property "LCSC" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "MPN" "ATTINY412-SSNR" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "C1337190" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (symbol "ATtiny412_SOIC8_0_1"
       (rectangle (start -12.7 2.54) (end 12.7 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
     (symbol "ATtiny412_SOIC8_1_1"
@@ -27,7 +27,7 @@
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "SAOPP-D-01" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "MPN" "RB751S40T1G" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-    (property "LCSC" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "C232576" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (symbol "D_Schottky_Cell_0_1"
       (rectangle (start -5.08 2.54) (end 5.08 -2.54) (stroke (width 0.254) (type default)) (fill (type background))))
     (symbol "D_Schottky_Cell_1_1"

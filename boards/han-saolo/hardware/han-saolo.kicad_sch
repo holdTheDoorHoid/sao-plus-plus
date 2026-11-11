@@ -60,7 +60,7 @@
       (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (property "SAOPP_ID" "SAOPP-D-01" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (property "MPN" "RB751S40T1G" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-      (property "LCSC" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+      (property "LCSC" "C232576" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (symbol "D_Schottky_Cell_0_1"
         (rectangle (start -5.08 2.54) (end 5.08 -2.54) (stroke (width 0.254) (type default)) (fill (type background))))
       (symbol "D_Schottky_Cell_1_1"
@@ -74,8 +74,8 @@
       (property "Footprint" "han-saolo-local:SOIC-8_3.9x4.9mm_P1.27mm" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (property "SAOPP_ID" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-      (property "MPN" "ATTINY412-SSN" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-      (property "LCSC" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+      (property "MPN" "ATTINY412-SSNR" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+      (property "LCSC" "C1337190" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (symbol "ATtiny412_SOIC8_0_1"
         (rectangle (start -12.7 2.54) (end 12.7 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
       (symbol "ATtiny412_SOIC8_1_1"
@@ -252,7 +252,7 @@
     (property "Datasheet" "" (at 66.04 91.44 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "SAOPP-D-01" (at 66.04 91.44 0) (effects (font (size 1.27 1.27)) hide))
     (property "MPN" "RB751S40T1G" (at 66.04 91.44 0) (effects (font (size 1.27 1.27)) hide))
-    (property "LCSC" "" (at 66.04 91.44 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "C232576" (at 66.04 91.44 0) (effects (font (size 1.27 1.27)) hide))
     (pin "2" (uuid "40f71bf6-7bb6-523a-b2c8-ed23a2f6eb07"))
     (pin "1" (uuid "49ec41f0-8fe0-5873-a727-2bbe276e1132"))
     (instances (project "han-saolo" (path "/752b7f59-27e4-5621-94d9-4ca031a660fc" (reference "D6") (unit 1))))
@@ -267,8 +267,8 @@
     (property "Footprint" "han-saolo-local:SOIC-8_3.9x4.9mm_P1.27mm" (at 101.6 40.64 0) (effects (font (size 1.27 1.27)) hide))
     (property "Datasheet" "" (at 101.6 40.64 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "" (at 101.6 40.64 0) (effects (font (size 1.27 1.27)) hide))
-    (property "MPN" "ATTINY412-SSN" (at 101.6 40.64 0) (effects (font (size 1.27 1.27)) hide))
-    (property "LCSC" "" (at 101.6 40.64 0) (effects (font (size 1.27 1.27)) hide))
+    (property "MPN" "ATTINY412-SSNR" (at 101.6 40.64 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "C1337190" (at 101.6 40.64 0) (effects (font (size 1.27 1.27)) hide))
     (pin "1" (uuid "c3a21ae6-2607-50cb-b50a-8eebacbe8c9e"))
     (pin "2" (uuid "d81a201a-19a2-50b1-8498-9c20b72d84f0"))
     (pin "3" (uuid "be18bb2e-9cd4-58c5-bd13-b1b29fb98dd1"))

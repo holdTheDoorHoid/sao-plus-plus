@@ -94,5 +94,21 @@ Pin habits for XIAO boards, so firmware carries over between boards: I2C on D4 /
 | `SAOPP-R-01` | 1.3 kΩ 0603 1 %: UNI-ROYAL 0603WAF1301T5E, LCSC [C22767](https://www.lcsc.com/product-detail/C22767.html) (307,000 in stock, $0.002); any maker's equivalent is fine | LED resistor for red / yellow / green / orange: ~1.0 mA from a 3.0 V cell, ~1.2 mA from 3.3 V. One value for both supplies. Also used for through-board white (LED-11): ~0.45 mA on 3.3 V, ~0.2 mA on a cell | `verify`: bench-measure brightness at 1 mA |
 | `SAOPP-R-02` | 330 Ω 0603 1 %: UNI-ROYAL 0603WAF3300T5E, LCSC [C23138](https://www.lcsc.com/product-detail/C23138.html) (196,300 in stock, $0.002) | Blue/white LED on badge power only; the spec's minimum series resistor on driven GPIO pins; series resistor on addressable LED data | `chosen` |
 | `SAOPP-C-01` | 100 nF 0603 X7R 50 V: YAGEO CC0603KRX7R9BB104, LCSC [C14663](https://www.lcsc.com/product-detail/C14663.html) (841,900 in stock, $0.005) | Supply capacitor beside addressable LEDs and chips | `chosen` |
-| `SAOPP-D-01` | Low-leakage Schottky (RB751S40 class, SOD-523) | Series diode after the coin cell holder, **required** on boards with a microcontroller or anything wired to SDA/SCL/GPIO ([why](standard.md#3-power-sao--off--battery)) | `open`: pick part, confirm reverse leakage < 1 µA at 0.3 V |
+| `SAOPP-D-01` | onsemi **RB751S40T1G**: Schottky, SOD-523, 40 V, **30 mA**; LCSC [C232576](https://www.lcsc.com/product-detail/C232576.html) (27,580 in stock, $0.039 @100; checked 2026-11-11) | Series diode after the coin cell holder, **required** on boards with a microcontroller or anything wired to SDA/SCL/GPIO ([why](standard.md#3-power-sao--off--battery)). Fine for boards that draw a few mA from the cell (Knight Rider). **Too small for Han SAOlo** (five RGB LEDs can ask for more than 30 mA): that board needs a bigger diode or a brightness cap, undecided | `verify`: listing says 500 nA at 30 V; reverse leakage at 0.3 V not yet read from the datasheet; not yet built |
 | `SAOPP-EE-01` | 24C02-class I2C EEPROM, SOT-23-5, address 0x50 | Optional ID chip footprint, unpopulated by default | `open` |
+
+## Parts only one board uses
+
+Each of these lives in that board's `hardware/parts_local.py`, not in the shared library. A second board that needs one promotes it to a shared id. LCSC listings checked 2026-11-11.
+
+| Part | Board | LCSC | Note |
+|---|---|---|---|
+| Microchip **ATTINY412-SSNR** (SOIC-8, reel) | Han SAOlo | [C1337190](https://www.lcsc.com/product-detail/C1337190.html), 1,811 in stock, $0.54 @10 | The tube version ATTINY412-SSN (C615546) showed 0 in stock |
+| Microchip **ATTINY85V-10SU** (SOIC-8, 208 mil) | Knight Rider | [C152192](https://www.lcsc.com/product-detail/C152192.html), 441 in stock, $2.44 @10 | The low-voltage grade, for coin-cell running |
+| Lite-On **LTST-C191KRKT** red 0603 | Knight Rider | [C125099](https://www.lcsc.com/product-detail/C125099.html), 377,820 in stock, $0.014 @200 | Front-facing, where the maker had them |
+| 6 x 3.5 mm tactile button | Knight Rider | not chosen | Maker's footprint; part still to be picked and checked against it |
+| TI **LMC555CMX/NOPB** | COVID-19 Test | C90760 | Checked when the board was drawn |
+| 3.3 M 0603 **0603WAF3304T5E** | COVID-19 Test | C26096 | Checked when the board was drawn |
+| ISSI **IS31FL3731-SALS2-TR** LED matrix driver | Do Or Donut | [C2940545](https://www.lcsc.com/product-detail/C2940545.html), 1,121 in stock, $0.64 @10 | |
+| 20 k 0603 **0603WAF2002T5E** | Do Or Donut | [C4184](https://www.lcsc.com/product-detail/C4184.html), 1,451,800 in stock | |
+| 0603 LED for the Do Or Donut matrix | Do Or Donut | not chosen | Colour is the owner's choice |

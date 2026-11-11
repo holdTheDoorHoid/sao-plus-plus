@@ -38,3 +38,12 @@ Read `README.md`, `docs/standard.md`, `docs/parts.md`, and `docs/porting-guide.m
 - The shared cell-clip footprint's courtyard is reported "malformed" at exact right angles in KiCad 10 (Lumpy uses 269.9 degrees), and its silk arrow often lands on lettering or off the board: several boards move it to the fab layer and add their own label.
 - Small boards run out of room: the 24 x 17 mm clip, the 15 mm connector and a straight 12 mm of edge for the switch. Accepted compromises so far, each recorded in that board's README: moving a maker's credit block without changing it (Frida), a cell that overhangs the edge by 1 mm (RBG), the connector moved away from the old header spot (La Bomba, Nibbler, Big Green).
 - LED colours on the 2018 boards are not recorded in the files. The batch used only white (LED-11) and red (LED-10) with the 1.3 k resistor: no new parts.
+
+## Lessons from the davedarko batch (2026-11-11)
+
+- **Board-only parts:** a part only one board needs goes in `boards/<slug>/hardware/parts_local.py` (`LOCAL_SYMBOLS`) with its footprint in `<slug>-local.pretty`; `tools/gen_schematic.py` picks them up. Promote to `lib/` when a second board needs it. They are listed at the bottom of `docs/parts.md`.
+- **Eagle boards:** `pcbnew.LoadBoard` returned None for `.brd` files in the flatpak, so Penghito Poco and Do Or Donut read the Eagle XML directly (see `boards/penghito-poco/hardware/extract_art.py`).
+- `gen_schematic.py` cannot mark a symbol "not in BOM"; Han SAOlo patches bare pads and jumpers afterwards (`hardware/fix_schematic.py`).
+- **Never `pkill -f <pattern>`** in a parallel batch: one agent's pattern killed another agent's build. Kill by PID only.
+- **Give any home-made router a hard time or rip-up limit.** Do Or Donut's two-layer rip-up-and-reroute ran for hours without converging before anyone noticed. If a board does not route on two layers in a bounded time, stop and report options (four layers, larger board, drop a part) instead of iterating.
+- The standard cell diode (D-01, RB751S40T1G) is a 30 mA part: fine for a chip and a few 1 mA LEDs, not for a string of RGB LEDs.
