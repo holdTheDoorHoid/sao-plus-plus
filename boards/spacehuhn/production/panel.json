@@ -1,0 +1,17 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. build_board.py reads this file too: the front art copper is pulled back to 0.55 mm from the edge at these tabs only.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [125.0, 100.0], "dir": "-y", "why": "top of the helmet"},
+    {"near": [104.0, 112.0], "dir": "-x", "why": "upper left of the helmet"},
+    {"near": [146.0, 112.0], "dir": "+x", "why": "upper right of the helmet"},
+    {"near": [149.9, 133.0], "dir": "+x", "why": "right side, beside the maker's logo on the back"},
+    {"near": [108.4, 147.0], "dir": "-x", "why": "left side of the helmet's base"},
+    {"near": [140.0, 147.0], "dir": "+x", "why": "right side of the helmet's base"}
+  ]
+}

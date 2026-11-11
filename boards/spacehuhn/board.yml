@@ -1,0 +1,45 @@
+name: "Spacehuhn"
+slug: spacehuhn
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+scale: 1.0                 # original size; everything fits without scaling (49.9 x 50.0 mm, as the maker drew it)
+
+original:
+  title: "retro Spacehuhn badge (pin), rev3"
+  makers: ["davedarko (Dave Darko)"]
+  year: null               # not recorded in the files (Eagle 7.6 project)
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/SpaceHuhn%20Badge"
+  project_page: "https://hackaday.io/project/33886-spacehuhn-badge"
+  revision_used: "rev3 (original/rev3/badge_spacehuhn.brd): newest of the three; the top-level and rev2 boards are earlier layouts of the same schematic"
+  license: "none stated"   # no license anywhere in the maker's repo (commit 1a08593), so all rights are reserved by default
+  permission: "pending"    # not yet asked; change to "written" and fill permission_ref when davedarko answers
+  permission_ref: ""
+  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  art_note: "The chicken in a space helmet is the Spacehuhn logo, which belongs to Spacehuhn (Stefan Kremser). It is a third party's logo: not SAO++'s, and not davedarko's to license. Publishing or selling boards that show it needs Spacehuhn's permission as well as davedarko's: two people."
+
+changes:
+  - "Rebuilt in KiCad 10 from the maker's Eagle rev3 files: outline, front solder-mask openings (face and beak, nine stars) and front silkscreen (helmet, dots, comb, eyes, wing) from the Eagle bottom layers, mirrored to the art side; nothing redrawn"
+  - "A pin badge with no connector becomes an SAO: 6-pin v1.69bis SMD shrouded connector on the back, lower middle, key slot up"
+  - "Maker's SPST slide switch (in the cell's ground lead) replaced by the SAO / OFF / BAT switch on the straight bottom edge of the helmet's base, knob down (the maker's was on the side edge)"
+  - "Maker's SMD CR2032 holder replaced by the shared CR2032 clip, lower left of the back, cell sliding in from the left edge (seen from the front)"
+  - "Two 5 mm through-hole self-colour-cycling RGB LEDs in the eyes (straight across the cell, no resistor) replaced by two white reverse-mount 1206 LEDs on the back at the same two centres, one 1.3 k resistor each. The colour-changing effect is lost; the eye art (white silkscreen discs) is unchanged and lit from behind. The other way (keep 5 mm pads for the maker's LEDs) is documented in the README"
+  - "Back art kept as drawn: the maker's gold logo, the two credit lines '@spacehuhn tribute' / '@davedarko design' (same words, height and anchor, re-set in KiCad's stroke font), and his two bare-copper 'markers used for multicolor PCBs' with their 0.41 mm isolation gap"
+  - "Front art unchanged apart from: copper cleared 1.6 mm round each eye centre (under the white eye silkscreen), the four LED holes and three old ground vias at the base gone, two 0.9 mm switch-peg holes in the white band of the helmet's base, copper stepping back from 0.40 to 0.55 mm from the edge at the six panel tabs"
+  - "No vias. Back copper is a ground pour again, as in the original"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 2
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-11
+  - SAOPP-R-01
+
+local_parts: []
