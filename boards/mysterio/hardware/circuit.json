@@ -1,0 +1,215 @@
+{
+ "title": "Mysterio - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko (Dave Darko), 2025, github.com/davedarko/Simple-Add-ons-SAO",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    55.88
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL",
+    "5": "SAO_GPIO1",
+    "6": "SAO_GPIO2"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    50.8,
+    86.36
+   ],
+   "nets": {
+    "3": "V3V3",
+    "1": "VSAO",
+    "2": "OFF_SW"
+   },
+   "value": "SAO / OFF / USB"
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_Series_330",
+   "at": [
+    116.84,
+    50.8
+   ],
+   "nets": {
+    "1": "SAO_GPIO1",
+    "2": "D7_RX"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_Series_330",
+   "at": [
+    116.84,
+    66.04
+   ],
+   "nets": {
+    "1": "SAO_GPIO2",
+    "2": "D6_TX"
+   }
+  },
+  {
+   "ref": "R4",
+   "symbol": "R_Series_330",
+   "at": [
+    50.8,
+    116.84
+   ],
+   "nets": {
+    "1": "OFF_SW",
+    "2": "OFF_SENSE"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "XIAO_ESP32_Module",
+   "at": [
+    182.88,
+    60.96
+   ],
+   "nets": {
+    "2": "OFF_SENSE",
+    "5": "SDA",
+    "6": "SCL",
+    "7": "D6_TX",
+    "8": "D7_RX",
+    "11": "LED_DATA",
+    "12": "V3V3",
+    "13": "GND",
+    "16": "GND"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_Series_330",
+   "at": [
+    254.0,
+    60.96
+   ],
+   "nets": {
+    "1": "LED_DATA",
+    "2": "LED_DIN"
+   }
+  },
+  {
+   "ref": "C1",
+   "symbol": "C_100n",
+   "at": [
+    254.0,
+    86.36
+   ],
+   "nets": {
+    "1": "V3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    101.6,
+    142.24
+   ],
+   "nets": {
+    "4": "V3V3",
+    "1": "GND",
+    "3": "LED_DIN",
+    "2": "LED_D1"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    157.48,
+    142.24
+   ],
+   "nets": {
+    "4": "V3V3",
+    "1": "GND",
+    "3": "LED_D1",
+    "2": "LED_D2"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    213.36,
+    142.24
+   ],
+   "nets": {
+    "4": "V3V3",
+    "1": "GND",
+    "3": "LED_D2",
+    "2": "LED_D3"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    269.24,
+    142.24
+   ],
+   "nets": {
+    "4": "V3V3",
+    "1": "GND",
+    "3": "LED_D3"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "Power: the switch common is the 3.3 V rail (XIAO 3V3 pin and the LEDs). Position 1 = badge 3.3 V feeds the rail. Position 2 (OFF) ties D1 to the rail; position 3 (USB) leaves the badge disconnected.",
+   [
+    38.1,
+    96.52
+   ]
+  ],
+  [
+   "On USB the XIAO powers the rail itself. In OFF the firmware sees D1 high and blanks the LEDs. No coin cell and no LiPo connector on this board (no room: see README).",
+   [
+    38.1,
+    100.33
+   ]
+  ],
+  [
+   "Do not plug in USB with the switch on SAO while on a badge: two 3.3 V regulators would share one rail.",
+   [
+    38.1,
+    104.14
+   ]
+  ],
+  [
+   "D1..D4 = SK6805 side-firing RGB round the bottom of the helmet, chained D1 (right, seen from the front) to D4 (left), as on the original. C1 = 100 nF at the LEDs' supply.",
+   [
+    38.1,
+    107.94999999999999
+   ]
+  ],
+  [
+   "R2, R3: 330 ohm on the SAO GPIO pins per docs/standard.md. R1: 330 ohm on the LED data line. R4: 330 ohm in the OFF sense line (harmless; it lets the badge 3.3 V track cross it). R2, R3 and R4 each let one other track pass between their pads: the board is routed on the back copper only.",
+   [
+    38.1,
+    111.75999999999999
+   ]
+  ],
+  [
+   "The maker's two 10 k I2C pull-ups were dropped (the badge provides them; docs/standard.md section 1). Mode button = the XIAO's own BOOT button.",
+   [
+    38.1,
+    115.57
+   ]
+  ]
+ ]
+}

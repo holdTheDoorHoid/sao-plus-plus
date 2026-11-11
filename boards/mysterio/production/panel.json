@@ -1,0 +1,51 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {
+      "near": [
+        12.0,
+        60.55
+      ],
+      "dir": "+y",
+      "why": "bottom edge, below the off-sense resistor"
+    },
+    {
+      "near": [
+        22.0,
+        60.55
+      ],
+      "dir": "+y",
+      "why": "bottom edge, between the SAO connector and the XIAO. The XIAO's USB end (x 26-44) is left free"
+    },
+    {
+      "near": [
+        6.4,
+        41.0
+      ],
+      "dir": "-x",
+      "why": "left arm, beside the maker's credit"
+    },
+    {
+      "near": [
+        10.5,
+        32.2
+      ],
+      "dir": "-y",
+      "why": "top of the left shoulder"
+    },
+    {
+      "near": [
+        39.5,
+        31.6
+      ],
+      "dir": "-y",
+      "why": "top of the right shoulder. The helmet (art copper close to its edge) and the right edge (two tracks run 0.26 mm inside it) have no tabs"
+    }
+  ]
+}

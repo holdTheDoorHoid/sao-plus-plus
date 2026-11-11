@@ -1,0 +1,48 @@
+name: "Mysterio"
+slug: mysterio
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Mysterio SAO"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2025
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/MysterioSAO"
+  license: "none stated"   # the repository (commit 1a08593) gives no license anywhere, so all rights are reserved by default
+  permission: "pending"    # not asked yet; change to "written" and fill permission_ref when the maker answers
+  permission_ref: ""
+  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  art_note: "Mysterio (the Spider-Man villain with the glass-bowl helmet) is a Marvel character, owned by Marvel / Disney. Using his likeness needs its own permission (or new art), separate from the maker's permission for the board design. The maker's write-up also says the design was heavily inspired by Simen's (simenzhor) Marvel hero add-ons."
+  inspired_by: "Simen (https://mastodon.social/@simenzhor/), Marvel hero simple add-ons"
+
+changes:
+  - "Controller changed from a WCH CH32V003 (8-pin) to a Seeed Studio XIAO ESP32 module (C3, S3 or C6) soldered flat on the back, USB-C at the bottom edge"
+  - "4-layer board made 2-layer: the helmet's skull-and-swirl art moves from the maker's inner copper layer to the back copper; the back mask is opened only where his was open and no copper lies behind it, so light gets in at the same places"
+  - "Board grows from 38.8 x 34.1 mm to 40.7 x 46.2 mm: a 12 mm base strip below the figure (plain copper under mask on the front) and a straightened right arm, to fit the XIAO, the SAO connector and the switch below the helmet"
+  - "Through-hole IDC header replaced by the 6-pin v1.69bis SMD shrouded header on the back, below the maker's credit; the six old pads stay on the front as plain copper 'buttons' on the chest plate (no holes)"
+  - "SAO / OFF / USB slide switch on the left edge. No LiPo connector (no room; see README) and no coin cell"
+  - "Same four SK6805-EC3210R side-firing RGB LEDs in the same directions; D2 and D3 where they were, D1 and D4 moved 0.74 / 0.60 mm outward along their own axis so their pads clear the helmet ring, which now carries the LEDs' 3.3 V"
+  - "Dropped: the CH32V003, its two 10 k I2C pull-ups (the badge provides them). The maker's 100 nF capacitor stays, now beside LED D1"
+  - "Added: a 330 ohm resistor on each SAO GPIO line, on the LED data line and on the switch's OFF sense line (all the same part); three of them also let one track pass between their pads"
+  - "Two ground vias, covered by solder mask, through the front copper (the maker had seven); front art nibbled back to 0.55 mm from the edge at three panel tabs"
+  - "Maker's credit '@davedarko 2025/01' on the back unchanged and in place"
+
+features:
+  power_select: true
+  coin_cell: none
+  lipo_connector: none     # no room; the XIAO's battery pads are joined to each other only
+  side_leds: 4
+  through_board_leds: 0
+  i2c_device: true         # wired to XIAO D4/D5; the firmware decides whether to use it
+  gpio_use: "GPIO1 -> XIAO D7 (RX), GPIO2 -> XIAO D6 (TX), each through 330 ohm"
+  controller: "Seeed Studio XIAO ESP32-C3 / S3 / C6"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-R-02
+  - SAOPP-MCU-01
+  - SAOPP-LED-20
+  - SAOPP-C-01
+
+local_parts: []
