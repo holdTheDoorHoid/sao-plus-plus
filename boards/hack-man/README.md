@@ -84,7 +84,7 @@ Things to know:
 - `hardware/build_board.py` — builds the whole board from `art/art.json` and `circuit.json`; every placement and routing decision is in there with a comment.
 - `hardware/hack-man.kicad_dru` — two extra rules: fine gaps inside the artwork are allowed, and the data resistor may sit close beside the first LED.
 - `art/art.json` — the redrawn sprites and lettering.
-- `firmware/` — the Rust firmware.
+- `firmware/` — the Rust firmware: builds for the C3, C6 and S3, 52 logic tests pass on a PC, never run on a board. **No licence chosen for it yet** (the repo's hardware licence does not fit software); until the owner picks one it is all rights reserved.
 - `production/` — everything a board house needs, for one board (`single/`) and a 2×2 panel (`panel/`). Start with [production/README.md](production/README.md).
 
 ## Parts cost (parts only, LCSC list prices checked 2026-11-10)
