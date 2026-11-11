@@ -1,0 +1,40 @@
+name: "La Bomba"
+slug: la-bomba
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "La Bomba (TwinkleTwinkie's DC26 Shitty Add-on #6)"
+  makers: ["TwinkleTwinkie"]
+  year: 2018
+  source_url: "https://hackaday.io/project/159751-la-bomba"
+  license: "none stated"   # the project page gives no license, so all rights are reserved by default
+  permission: "pending"    # no reply yet; change to "written" and fill permission_ref when TwinkleTwinkie answers
+  permission_ref: ""       # docs/permission.md once there is a reply
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-10 to publish before permission was received, accepting that it may have to come down."
+  art_note: "A Bob-omb, the walking wind-up bomb from Nintendo's Mario games; the character belongs to Nintendo. Separate from the maker's permission: the maker can only give permission for their own drawing and board, not for the character."
+
+changes:
+  - "4-pin through-hole SAO v1 header (right foot) replaced by the 6-pin v1.69bis SMD shrouded header, moved to the top of the body under the fuse cap: the new connector's body is wider than the foot"
+  - "SAO / OFF / BATTERY slide switch on the outer edge of the right foot; CR2032 clip on the back of the body, right of the eyes"
+  - "Four obsolete OSRAM TOPLEDs replaced by reverse-mount 1206 LEDs in the same spots (three white for the eyes, one red for the fuse spark), one 1.3 k resistor each"
+  - "Back copper is still one solid ground area, now cut around the new tracks; the wind-up key's copper is no longer tied to ground"
+  - "Outline redrawn as three clean closed paths (body and the two holes in the key; same shape); copper kept 0.28 mm back from every edge"
+  - "Front art unchanged, apart from the old header's four holes in the right shoe (gone, the shoe's opening filled in) and two 0.9 mm holes in the right shoe (the switch's locating pegs)"
+  - "Back art: the maker credit is untouched; the coin cell covers part of the half-tone drawing; four small labels added"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 4
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-LED-11
+  - SAOPP-R-01

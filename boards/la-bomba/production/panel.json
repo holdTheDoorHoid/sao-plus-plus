@@ -1,0 +1,17 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. Every tab sits where no track runs along the edge; build_board.py pulls the copper 0.6 mm back from the edge at each one.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [124.5, 86.0], "dir": "-x", "why": "left side of the body, beside the far eye"},
+    {"near": [113.3, 100.0], "dir": "-x", "why": "tip of the left foot"},
+    {"near": [138.0, 67.0], "dir": "-y", "why": "top of the body, left of the connector"},
+    {"near": [182.3, 80.0], "dir": "+x", "why": "outer side of the wind-up key"},
+    {"near": [176.0, 101.7], "dir": "+y", "why": "bottom of the wind-up key"},
+    {"near": [158.0, 120.8], "dir": "+y", "why": "bottom of the right foot, below the switch"}
+  ]
+}

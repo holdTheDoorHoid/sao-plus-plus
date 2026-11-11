@@ -1,0 +1,4 @@
+
+(fp_lib_table
+  (lib (name "BobOmb_PCB")(type KiCad)(uri "$(KIPRJMOD)/BobOmb_PCB.pretty")(options "")(descr ""))
+)
