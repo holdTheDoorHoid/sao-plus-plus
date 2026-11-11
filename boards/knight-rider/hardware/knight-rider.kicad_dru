@@ -1,0 +1,20 @@
+(version 1)
+
+# The front copper is the maker's artwork. This rule stops DRC from flagging the art for being art;
+# everything electrical (pads, tracks, vias, the ground copper against other nets) is still checked at full rules.
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# A 50 x 30 mm board carrying the 24 x 17 mm cell clip and the 15.3 mm connector: the keep-clear boxes (courtyards)
+# of these pairs overlap. The parts themselves do not touch. Real gaps, measured on the built board:
+#   J1-U1   chip pads to connector body 0.61 mm (no pad near pad: 5.2 mm)
+#   J1-SW1  connector pads to switch pads 0.42 mm; bodies 2.7 mm apart
+#   J1-R9   R9 pad to connector body 0.17 mm, R9 body to connector body 0.55 mm (R9 sits beside the body, not under it)
+#   J1-JP1  bare programming pads to connector body 0.84 mm (nothing fitted on JP1)
+#   J1-D9   diode pad to connector body 0.3 mm
+#   SW1-BT1 switch tab to clip body 0.35 mm (the clip's closed-end corner); bodies 1.1 mm apart
+#   BT1-D9  diode pad to clip body 0.3 mm
+(rule "Tight parts beside the connector and the cell clip"
+  (condition "(A.Reference == 'J1' && (B.Reference == 'U1' || B.Reference == 'SW1' || B.Reference == 'R9' || B.Reference == 'JP1' || B.Reference == 'D9')) || (B.Reference == 'J1' && (A.Reference == 'U1' || A.Reference == 'SW1' || A.Reference == 'R9' || A.Reference == 'JP1' || A.Reference == 'D9')) || (A.Reference == 'BT1' && (B.Reference == 'SW1' || B.Reference == 'D9')) || (B.Reference == 'BT1' && (A.Reference == 'SW1' || A.Reference == 'D9'))")
+  (constraint courtyard_clearance (min -2.0mm)))

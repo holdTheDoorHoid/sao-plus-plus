@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. The switch knob sticks out of the bottom edge between the wheels (x 153-158), so no tab there.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [123.6, 110.0], "dir": "-x", "why": "left side of the car"},
+    {"near": [173.4, 109.0], "dir": "+x", "why": "right side of the car"},
+    {"near": [148.0, 90.1], "dir": "-y", "why": "middle of the roof"},
+    {"near": [129.5, 119.9], "dir": "+y", "why": "bottom of the left wheel"},
+    {"near": [167.5, 119.9], "dir": "+y", "why": "bottom of the right wheel"}
+  ]
+}

@@ -1,0 +1,13 @@
+(version 1)
+
+# Same rules as hardware/knight-rider.kicad_dru, for the 2x2 panel (tools/panelize.py renumbers parts: J1 -> J101, J201 ...).
+
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# Real gaps (see hardware/knight-rider.kicad_dru): J1-U1 0.61, J1-SW1 0.42 (pad to pad), J1-R9 0.17 (pad to body),
+# J1-JP1 0.84, J1-D9 0.3, SW1-BT1 0.35 (tab to clip body), BT1-D9 0.3 mm. Courtyards overlap; parts do not touch.
+(rule "Tight parts beside the connector and the cell clip"
+  (condition "(A.Reference == 'J?01' && (B.Reference == 'U?01' || B.Reference == 'SW?01' || B.Reference == 'R?09' || B.Reference == 'JP?01' || B.Reference == 'D?09')) || (B.Reference == 'J?01' && (A.Reference == 'U?01' || A.Reference == 'SW?01' || A.Reference == 'R?09' || A.Reference == 'JP?01' || A.Reference == 'D?09')) || (A.Reference == 'BT?01' && (B.Reference == 'SW?01' || B.Reference == 'D?09')) || (B.Reference == 'BT?01' && (A.Reference == 'SW?01' || A.Reference == 'D?09'))")
+  (constraint courtyard_clearance (min -2.0mm)))

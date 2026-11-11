@@ -1,0 +1,59 @@
+name: "Knight Rider (K.I.T.T.)"
+slug: knight-rider
+status: porting            # designed, routed and rule-checked; no physical board built yet
+revision: "A"
+
+original:
+  title: "KITT - Knight Rider badge/brooch (Simple Add-ons SAO, 'Knight Rider Badge')"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2017
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Knight%20Rider%20Badge"
+  project_url: "https://hackaday.io/project/25944-kitt-knight-rider-badgebrooch"
+  license: "none stated"   # the repo (commit 1a08593) states no license, so all rights are reserved by default
+  permission: "pending"
+  permission_ref: ""
+  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  base_revision: "original/KiCad8 (kitt_0805, production files dated 2024-09-05): the newest of the seven; the Eagle REV1-REV3.1 files are 2017"
+  art_note: "The drawing is the front of K.I.T.T., the car from the TV series Knight Rider, with its red scanner. The car, its look and the name 'Knight Rider' / 'K.I.T.T.' belong to Universal (NBCUniversal). That is separate from davedarko's permission and would need its own clearance before any sale."
+
+changes:
+  - "Built from the maker's 2024 KiCad 8 version; the board is turned over so the car is on the front (the 2024 board had the car on its back copper)"
+  - "SMD 2x3 header (2024) replaced by the shared shrouded SAO v1.69bis connector, key up, right of centre"
+  - "Maker's 2-position slide switch (badge power only) replaced by the shared SAO / OFF / BAT switch, knob out of the bottom edge between the wheels"
+  - "CR2032 clip added on the back, left half (the 2024 board had no cell; the 2017 boards had a CR2032 holder)"
+  - "Series cell diode D9 added (required: the ATtiny's PB4 is wired to SAO GPIO2)"
+  - "330 ohm R9 added between PB4 and SAO GPIO2 (SAO spec series resistor)"
+  - "LED resistors 1k (2024) -> shared 1.3k"
+  - "ATtiny85 -> ATtiny85V (same chip and pins, rated down to 1.8 V) because the cell gives ~2.7 V after the diode"
+  - "100 nF supply capacitor added beside the ISP pads"
+  - "Scanner LEDs stay forward-facing on the FRONT, where the maker put them (a new local part)"
+  - "Routed on both copper layers with 36 tented vias and short front tracks (orchestrator decision 2026-11-11: accepted exception to front = art only; the maker's 2024 board had 12 vias and art-side tracks)"
+  - "Coin-cell clip silk arrow moved to the fab layer (it landed on the maker's credit line); own CR2032 + label added"
+  - "'JLCJLCJLCJLC' order-number placeholder not carried; the two credit lines are kept unchanged in place on the back"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 0
+  front_leds: 8
+  vias: 36
+  copper_layers_used: 2
+  i2c_device: false
+  gpio_use: "GPIO2 <- 330 ohm -> ATtiny PB4 (the maker's button line)"
+  controller: "ATtiny85V (maker's circuit, not a XIAO)"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-R-01
+  - SAOPP-R-02
+  - SAOPP-C-01
+
+local_parts:
+  - {name: ATtiny85_SOIC8_EIAJ, ref: U1, mpn: ATTINY85V-10SU, footprint: "maker's SO08-EIAJ (original/KiCad8)"}
+  - {name: LED_0603_Red_Front, ref: D1-D8, mpn: LTST-C191KRKT, footprint: "maker's LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder"}
+  - {name: Button_SMD_6x3.5, ref: SW2, mpn: "6 x 3.5 mm 2-pad SMD tactile, SparkFun COM-08229 class (exact MPN to be matched)", footprint: "maker's TACTILE-SWITCH-1101NE"}
+  - {name: ISP_Pads_AVR_2x3, ref: JP1, mpn: "none (bare pads)", footprint: "maker's 2X3_SMD_PAD"}
+  - {name: D_Schottky_Cell, ref: D9, mpn: RB751S40T1G, implements: SAOPP-D-01, footprint: "KiCad stock Diode_SMD:D_SOD-523"}
