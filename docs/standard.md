@@ -60,6 +60,24 @@ CR2032 (+) ─────────── throw C ┘
 - **Battery:** CR2032 (`SAOPP-BAT-01` holder, back side). About 70–100 hours at 2 mA, so 6–8 days of 12-hour wear. CR2450/2477 last longer but are too heavy for a board hanging from one header.
 - **Battery markings:** a clear "+" and "CR2032" on the back silkscreen next to the holder. Holders have no polarity protection.
 
+### 3a. Boards with a controller: SAO / OFF / USB-BAT
+
+Boards that need a chip use a Seeed Studio XIAO ESP32 module (`SAOPP-MCU-01`) and no coin cell. The same switch is wired differently:
+
+```
+SAO pin 1 (3.3 V) ──── throw A ┐
+XIAO pin D1 ─────────── throw B ├── common ──► 3.3 V rail: XIAO 3V3 pin, LEDs
+         (no connection) throw C ┘
+LiPo (JST-PH, SAOPP-CONN-10) ──► XIAO battery pads, always connected
+```
+
+- **SAO:** the badge feeds the rail, and so the module.
+- **USB-BAT:** the badge is disconnected; the module feeds the rail from USB-C or its LiPo.
+- **OFF:** the badge is disconnected, and the switch ties D1 to the rail so the firmware can blank everything and sleep. With a LiPo attached this is a sleep, not a hard cut: the module has no off switch and one switch pole cannot break both supplies.
+- The badge's 3.3 V and the LiPo never meet: the cell only ever connects to the module's own charger.
+- **Never USB and SAO at once:** with the knob on SAO and USB plugged in, the badge's regulator and the module's would share the rail. Print the warning on the back.
+- First board to use this: Hack-Man. It is unproven until that prototype runs from a badge.
+
 ## 4. LEDs
 
 - **Edge-lit art:** one side-firing package family on the back, shining into the board edge or through cutouts. See `SAOPP-LED-01…06` in [parts.md](parts.md).

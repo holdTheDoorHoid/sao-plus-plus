@@ -65,13 +65,34 @@ The footprint has no hole: the LED shines into the board itself, which keeps the
 
 **White on a coin cell.** White needs about 2.6-2.7 V before it lights, which is most of what a CR2032 gives, so it is the weakest colour on battery. With the standard 1.3 kΩ resistor (R-01) a white LED draws roughly 0.45 mA on badge power and roughly 0.2 mA on a fresh cell, and fades as the cell drops. White LEDs give far more light per milliamp than red, so this is expected to be enough to light art from behind, but it is **calculated, not measured**: Mad Cat's first prototype decides. Using R-01 keeps white boards on the same resistor reel as everything else; R-02 (330 Ω) is the fallback if they are too dim.
 
-**Addressable RGB (SK6812 "side" 4020 and similar): not approved.** They are rated for 3.7 V minimum, above both the 3.3 V SAO rail and a coin cell, and each one draws about 0.4–0.6 mA even when dark, which would flatten a CR2032 in a couple of weeks while "off". Use separate single-colour LEDs instead.
+## Addressable RGB LED (boards with a controller only)
+
+| Id | Part | LCSC | Price | Status |
+|---|---|---|---|---|
+| `SAOPP-LED-20` | OPSCO **SK6805-EC3210R**: 3.2 × 1.0 × 1.48 mm RGB LED with its own driver chip (WS2812-style one-wire data, 5 mA per colour), soldered lying on its side so it fires along the board | [C5378735](https://www.lcsc.com/product-detail/C5378735.html), 18,397 in stock, reel of 3,000 | $0.068 @10, $0.056 @500 | `verify`: (1) the datasheet gives side-mount pad sizes but not where they sit under the body, so the footprint's body position is an estimate; (2) it is rated 3.7–5.5 V and is run here from 3.3 V, as on the original Hack-Man, which worked; (3) brightness through the board: the Hack-Man maker needed a hot-glue diffuser |
+
+**Never on a coin cell.** These are rated above what a CR2032 gives and draw current even when dark. They are approved only on boards with a controller module and its power (badge 3.3 V, USB, or a LiPo). LED-only boards keep using the single-colour LEDs above.
+
+## Controller module
+
+| Id | Part | Where | Status |
+|---|---|---|---|
+| `SAOPP-MCU-01` | **Seeed Studio XIAO ESP32** module, soldered flat by its castellated edges: **ESP32-C3, ESP32-S3 or ESP32-C6**, owner's standard for every SAO++ board that needs a chip (decided 2026-11-10). One footprint takes all three: the 14 edge pads are identical; the battery pads under the module are in a different place on the C6, so the footprint has both sets. 21 × 17.8 mm, USB-C overhangs one short end by 1.5 mm and must sit at a board edge | Seeed, Digikey, Mouser (not an LCSC part: the owner supplies it) | `verify`: (1) feeding the module from the badge through its 3V3 pin (Seeed documents that pin as an output only); (2) module height, which Seeed does not publish; (3) the under-module battery pads on a real C3, S3 and C6 |
+
+Pin habits for XIAO boards, so firmware carries over between boards: I2C on D4 / D5, SAO GPIO1 / GPIO2 on D7 / D6 (RX / TX), addressable LED data on D10, the power switch's OFF sense on D1, mode button = the module's own BOOT button. Leave D0, D2, D8 and D9 unconnected where possible: each is a start-up strapping pin on at least one of the three modules.
+
+## LiPo connector (boards with a controller only)
+
+| Id | Part | LCSC | Price | Status |
+|---|---|---|---|---|
+| `SAOPP-CONN-10` | JST **S2B-PH-SM4-TB**: 2-pin PH (2.0 mm) side-entry SMD header, wired to the XIAO's battery pads. The XIAO charges the cell from USB-C | [C295747](https://www.lcsc.com/product-detail/C295747.html), 2,710 in stock | $0.18 @50, $0.16 @150 | `verify`: polarity. Wired to the Adafruit / SparkFun convention (footprint pad 1 = +; seen from the parts side with the opening toward you, + is on the left), taken from their published board files. Many generic cells are reversed and there is no protection: mark + and − on the silkscreen |
 
 ## Passives and protection
 
 | Id | Part | Use | Status |
 |---|---|---|---|
 | `SAOPP-R-01` | 1.3 kΩ 0603 1 %: UNI-ROYAL 0603WAF1301T5E, LCSC [C22767](https://www.lcsc.com/product-detail/C22767.html) (307,000 in stock, $0.002); any maker's equivalent is fine | LED resistor for red / yellow / green / orange: ~1.0 mA from a 3.0 V cell, ~1.2 mA from 3.3 V. One value for both supplies. Also used for through-board white (LED-11): ~0.45 mA on 3.3 V, ~0.2 mA on a cell | `verify`: bench-measure brightness at 1 mA |
-| `SAOPP-R-02` | 330 Ω 0603 | Blue/white LED on badge power only; also the spec's minimum series resistor on driven GPIO pins | `chosen` |
+| `SAOPP-R-02` | 330 Ω 0603 1 %: UNI-ROYAL 0603WAF3300T5E, LCSC [C23138](https://www.lcsc.com/product-detail/C23138.html) (196,300 in stock, $0.002) | Blue/white LED on badge power only; the spec's minimum series resistor on driven GPIO pins; series resistor on addressable LED data | `chosen` |
+| `SAOPP-C-01` | 100 nF 0603 X7R 50 V: YAGEO CC0603KRX7R9BB104, LCSC [C14663](https://www.lcsc.com/product-detail/C14663.html) (841,900 in stock, $0.005) | Supply capacitor beside addressable LEDs and chips | `chosen` |
 | `SAOPP-D-01` | Low-leakage Schottky (RB751S40 class, SOD-523) | Series diode after the coin cell holder, **required** on boards with a microcontroller or anything wired to SDA/SCL/GPIO ([why](standard.md#3-power-sao--off--battery)) | `open`: pick part, confirm reverse leakage < 1 µA at 0.3 V |
 | `SAOPP-EE-01` | 24C02-class I2C EEPROM, SOT-23-5, address 0x50 | Optional ID chip footprint, unpopulated by default | `open` |

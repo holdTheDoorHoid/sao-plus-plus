@@ -155,6 +155,97 @@ def res():
     return name, s + ")\n"
 
 
+def cap():
+    name = "SAOPP_C_0603_1608Metric"
+    s = head(name, "0603 chip capacitor, IPC-7351 nominal land pattern (same pads as KiCad Capacitor_SMD:C_0603_1608Metric).", "SAO++ capacitor 0603")
+    s += props((0, -1.5), (0, 1.5), name, {"SAOPP_ID": "SAOPP-C-01", "MPN": "CC0603KRX7R9BB104", "LCSC": "C14663"})
+    s += pad(1, "roundrect", -0.775, 0, 0.9, 0.95, SMD, 0.25)
+    s += pad(2, "roundrect", 0.775, 0, 0.9, 0.95, SMD, 0.25)
+    s += rect(-0.8, -0.4, 0.8, 0.4, "F.Fab")
+    s += rect(-1.48, -0.73, 1.48, 0.73, "F.CrtYd", 0.05)
+    return name, s + ")\n"
+
+
+def led_rgb_side():
+    name = "SAOPP_LED-20_SK6805-EC3210R_SideView_RGB"
+    s = head(name,
+             "Addressable RGB LED lying on its side, firing along the board: OPSCO SK6805-EC3210R (LCSC C5378735), 3.2 x 1.0 x 1.48 mm. "
+             "Land pattern from the datasheet's 'suggested solder pad size for side mounting' (https://www.lcsc.com/datasheet/C5378735.pdf, "
+             "page 5): four pads in a row, DOUT 0.55 x 0.70, GND 0.55 x 0.50, VDD 0.55 x 0.50, DIN 0.55 x 0.70, gaps 0.43 / 0.30 / 0.43, "
+             "top edges level. The lens points toward +Y of this footprint. Pad 1 GND, 2 DOUT, 3 DIN, 4 VDD. "
+             "The drawing does not dimension the pads against the body: the body position here is an estimate (see docs/parts.md).",
+             "SAO++ LED RGB addressable side view SK6805 WS2812")
+    s += props((0, -1.7), (0, 2.0), name, {"SAOPP_ID": "SAOPP-LED-20", "MPN": "SK6805-EC3210R", "LCSC": "C5378735"})
+    top = -0.65                                                  # pad edge away from the lens; 0.15 behind the body for a solder fillet
+    s += pad(2, "rect", -1.405, top + 0.35, 0.55, 0.70, SMD)
+    s += pad(1, "rect", -0.425, top + 0.25, 0.55, 0.50, SMD)
+    s += pad(4, "rect", 0.425, top + 0.25, 0.55, 0.50, SMD)
+    s += pad(3, "rect", 1.405, top + 0.35, 0.55, 0.70, SMD)
+    s += rect(-1.61, -0.5, 1.61, 0.52, "F.Fab")                   # body lying on its side
+    s += ('  (fp_arc (start -1.0 0.52) (mid 0 1.0) (end 1.0 0.52) (stroke (width 0.1) (type solid)) (layer "F.Fab"))\n')   # lens
+    s += rect(-1.95, -1.0, 1.95, 1.25, "F.CrtYd", 0.05)
+    s += line(-0.4, 1.35, 0, 1.75, "F.SilkS") + line(0.4, 1.35, 0, 1.75, "F.SilkS")   # arrow: light goes this way
+    return name, s + ")\n"
+
+
+def jst_ph():
+    name = "SAOPP_CONN-10_JST_PH_S2B-PH-SM4-TB_1x02_Horizontal"
+    s = head(name,
+             "LiPo battery connector: JST PH 2-pin side-entry SMD header S2B-PH-SM4-TB (LCSC C295747). Pads as KiCad "
+             "Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal (JST drawing ePH.pdf). The plug goes in from +Y. "
+             "The two big side pads only hold the part down. Tracks may pass under the body between the signal pads and the side pads.",
+             "SAO++ JST PH battery connector LiPo")
+    s += props((0, -5.9), (0, 5.9), name, {"SAOPP_ID": "SAOPP-CONN-10", "MPN": "S2B-PH-SM4-TB(LF)(SN)", "LCSC": "C295747"})
+    s += pad(1, "roundrect", -1, -2.85, 1, 3.5, SMD, 0.25)
+    s += pad(2, "roundrect", 1, -2.85, 1, 3.5, SMD, 0.25)
+    s += pad("", "roundrect", -3.35, 2.9, 1.5, 3.4, SMD, 0.1667)
+    s += pad("", "roundrect", 3.35, 2.9, 1.5, 3.4, SMD, 0.1667)
+    s += rect(-3.95, -3.2, 3.95, 4.4, "F.Fab")
+    s += rect(-4.6, -5.1, 4.6, 5.1, "F.CrtYd", 0.05)
+    s += line(-2.45, -3.31, -4.06, -3.31, "F.SilkS") + line(-4.06, -3.31, -4.06, 0.94, "F.SilkS")
+    s += line(2.45, -3.31, 4.06, -3.31, "F.SilkS") + line(4.06, -3.31, 4.06, 0.94, "F.SilkS")
+    return name, s + ")\n"
+
+
+# Seeed Studio XIAO, soldered flat by its castellated edges. Numbers are from Seeed's own footprints
+# (github.com/Seeed-Studio/OPL_Kicad_Library, "Seeed Studio XIAO Series Library": XIAO-ESP32-C3-SMD, -S3-SMD, -C6-SMD),
+# re-centred on the module. Seeed's origin is the corner at the far end from USB; here (0, 0) is the middle of the module.
+XIAO_CX, XIAO_CY = 8.89, -10.56
+XIAO_EDGE = [(1, "D0"), (2, "D1"), (3, "D2"), (4, "D3"), (5, "D4"), (6, "D5"), (7, "D6"),
+             (8, "D7"), (9, "D8"), (10, "D9"), (11, "D10"), (12, "3V3"), (13, "GND"), (14, "5V")]
+XIAO_UNDER = [(7.62, -19.132), (10.16, -19.132), (7.62, -16.592), (10.16, -16.592), (7.62, -14.052), (10.16, -14.052),
+              (7.62, -11.512), (10.16, -11.512)]            # JTAG / EN / GND / USB / BOOT test pads, differ per module: keep copper away
+
+
+def xiao():
+    name = "SAOPP_MCU-01_Seeed_XIAO_SMD_C3_S3_C6"
+    s = head(name,
+             "Seeed Studio XIAO module soldered flat (castellated edges), for XIAO ESP32-C3, ESP32-S3 or ESP32-C6. "
+             "Edge pads 1-14 are identical on all three: 1-7 = D0..D6, 8-11 = D7..D10, 12 = 3V3, 13 = GND, 14 = 5V (pads 1 and 14 are at the USB end). "
+             "Battery pads under the module are in DIFFERENT places: pads 15 (BAT+) and 16 (BAT-) are each drawn twice, once where the "
+             "C3 and S3 have them and once where the C6 has them. Neither position touches copper on the other modules. "
+             "The circles on Dwgs.User mark the module's other underside test pads (their signals differ per module): keep carrier copper out. "
+             "USB-C is at -Y and overhangs the module by 1.5 mm: put that end at the board edge. Source: Seeed OPL_Kicad_Library footprints.",
+             "SAO++ Seeed XIAO ESP32 C3 S3 C6 module castellated")
+    s += props((0, -13.2), (0, 11.8), name, {"SAOPP_ID": "SAOPP-MCU-01", "MPN": "XIAO ESP32-C3 / S3 / C6", "LCSC": ""})
+    ys = [-18.12, -15.58, -13.04, -10.5, -7.96, -5.42, -2.88]
+    for i, (num, _n) in enumerate(XIAO_EDGE[:7]):
+        s += pad(num, "roundrect", round(0.835 - XIAO_CX, 3), round(ys[i] - XIAO_CY, 3), 2.75, 2.0, SMD, 0.15)
+    for i, (num, _n) in enumerate(XIAO_EDGE[7:]):
+        s += pad(num, "roundrect", round(17.0 - XIAO_CX, 3), round(ys[6 - i] - XIAO_CY, 3), 2.75, 2.0, SMD, 0.15)
+    s += pad(15, "roundrect", round(4.445 - XIAO_CX, 3), round(-10.882 - XIAO_CY, 3), 2.5, 1.1, SMD, 0.2)       # BAT+  C3 / S3
+    s += pad(16, "roundrect", round(4.445 - XIAO_CX, 3), round(-12.787 - XIAO_CY, 3), 2.5, 1.1, SMD, 0.2)       # BAT-  C3 / S3
+    s += pad(15, "roundrect", round(7.1086 - XIAO_CX, 3), round(-4.9683 - XIAO_CY, 3), 1.1, 2.5, SMD, 0.2)      # BAT+  C6
+    s += pad(16, "roundrect", round(9.6486 - XIAO_CX, 3), round(-4.9683 - XIAO_CY, 3), 1.1, 2.5, SMD, 0.2)      # BAT-  C6
+    for x, y in XIAO_UNDER:
+        s += circle(round(x - XIAO_CX, 3), round(y - XIAO_CY, 3), 0.85, "Dwgs.User", 0.05)
+    s += rect(-8.89, -10.48, 8.89, 10.48, "F.Fab")
+    s += rect(-4.5, -11.99, 4.5, -4.2, "F.Fab")                   # USB-C socket
+    s += rect(-9.7, -12.2, 9.7, 10.75, "F.CrtYd", 0.05)
+    s += line(-9.0, 9.2, -9.0, 10.6, "F.SilkS") + line(9.0, 9.2, 9.0, 10.6, "F.SilkS") + line(-9.0, 10.6, 9.0, 10.6, "F.SilkS")   # far end only: the USB end sits on the board edge
+    return name, s + ")\n"
+
+
 def panel_parts():
     out = []
     name = "SAOPP_PANEL_MouseBite_0.5mm"
@@ -178,7 +269,7 @@ def panel_parts():
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    for fn in (conn, sw, bat, led, res):
+    for fn in (conn, sw, bat, led, res, cap, led_rgb_side, jst_ph, xiao):
         name, body = fn()
         (OUT / f"{name}.kicad_mod").write_text(body)
         print("wrote", name)

@@ -102,7 +102,9 @@ def fab_set(slug, pcb, out, parts, copies):
     return [f.name for f in files]
 
 
-MAKERS = {"BH254VS-6P": "XFCN", "PCM13SMTR": "C&K", "BAT-HLD-001": "TE Connectivity / Linx", "LTST-C230KRKT": "Lite-On", "LTW-C230DS": "Lite-On", "0603WAF1301T5E": "UNI-ROYAL"}
+MAKERS = {"BH254VS-6P": "XFCN", "PCM13SMTR": "C&K", "BAT-HLD-001": "TE Connectivity / Linx", "LTST-C230KRKT": "Lite-On", "LTW-C230DS": "Lite-On", "0603WAF1301T5E": "UNI-ROYAL",
+          "0603WAF3300T5E": "UNI-ROYAL", "CC0603KRX7R9BB104": "YAGEO", "SK6805-EC3210R": "OPSCO", "S2B-PH-SM4-TB(LF)(SN)": "JST",
+          "XIAO ESP32-C3 / S3 / C6": "Seeed Studio"}
 
 
 def main(slug):
