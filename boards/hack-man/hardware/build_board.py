@@ -36,6 +36,7 @@ EDGE = 0.55         # ground copper stops this far short of the board edge (clea
 SIG = 0.20          # signal track width
 PWR = 0.40
 BOTTOM = 122.3      # bottom edge of the board. The maker's board ended at about 113; the extra strip is what the XIAO needs
+LETTER_DY = 2.9    # lettering moved down from the maker's position so it sits midway between the sprites' feet and the pellets (owner request)
 PELLETS = True      # front: a row of pellets in that extra strip (set False for plain mask)
 
 S = ART["px_to_mm"]
@@ -102,6 +103,13 @@ window.BooleanSubtract(eyes)
 FEET = max(bbox_mm(bodies)[3], 0)               # y of the lowest sprite edge
 
 letters_l, details_l = [], []
+_Y0 = Y
+
+
+def Y(px):                                       # from here on only the lettering is drawn: shift it
+    return _Y0(px) + LETTER_DY
+
+
 for L in ART["letters"]:
     if "disc" in L:
         cx, cy, r = L["disc"]
@@ -130,7 +138,7 @@ if PELLETS:
 
 # ---- outline: everything, grown by the maker's margin with round corners -------------------------
 MARGIN = ART["outline_margin_px"] * S
-band = rect(lb[0], lb[1], lb[2], BOTTOM - MARGIN)
+band = rect(lb[0], lb[1] - LETTER_DY, lb[2], BOTTOM - MARGIN)     # the outline keeps the maker's shape: it does not follow the moved lettering
 body = union([bodies, letters, band])
 body.Inflate(FromMM(MARGIN + 1.0), ROUND, ERR)
 body.Inflate(-FromMM(1.0), ROUND, ERR)           # rounds the inside corners between the heads so a router bit can cut them

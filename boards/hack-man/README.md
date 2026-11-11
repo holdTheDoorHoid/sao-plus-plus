@@ -32,7 +32,7 @@ The maker published pictures and a write-up, but **no design files and no code**
 | Power | Badge only | Slide switch on the bottom edge: **SAO** (badge power) / **OFF** / **USB-BAT** (the module's own power: USB-C, or a LiPo cell on the new JST-PH connector, which the XIAO charges from USB) |
 | Mode button | Separate push button | The XIAO's own BOOT button (no extra part) |
 | LEDs | 5 × SK6805-EC3210R side-firing RGB | Same part, same idea: one under each character's feet, firing up along the back of the board |
-| Front art | — | Redrawn to match. **Added:** a row of pellets in the new strip under the lettering. Two 0.9 mm holes near the bottom edge (the switch's locating pegs) |
+| Front art | — | Redrawn to match, with the HACK-MAN lettering moved 2.9 mm down so it sits midway between the characters and the pellets. **Added:** a row of pellets in the new strip under the lettering. Two 0.9 mm holes near the bottom edge (the switch's locating pegs) |
 
 **Parts shared with the rest of SAO++:** connector, switch and the 330 Ω resistor. **New to the shared list** (and meant to be reused by every future board with a controller): the XIAO footprint, the JST-PH LiPo connector, the RGB LED and a 100 nF capacitor.
 
