@@ -1,0 +1,39 @@
+name: "Big Green"
+slug: big-green
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Big Green, TwinkleTwinkie's DC 26 Shitty Add-on #3"
+  makers: ["TwinkleTwinkie"]
+  year: 2018
+  source_url: "https://hackaday.io/project/159522-big-green"
+  license: "none stated"   # the project page gives no license, so all rights are reserved by default
+  permission: "pending"    # no reply yet; change to "written" and fill permission_ref when TwinkleTwinkie answers
+  permission_ref: ""       # docs/permission.md once there is a reply
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-10 to publish before permission was received, accepting that it may have to come down."
+  art_note: "The front is the head of the green Namekian from Dragon Ball; the back art also draws on Dragon Ball (a dragon in silkscreen, a portrait of the series' hero, two dragon balls and a kanji in copper). Those characters belong to Toei Animation / Bird Studio / Shueisha. That is separate from the maker's permission: TwinkleTwinkie can clear his own drawing and design, not the characters."
+
+changes:
+  - "4-pin through-hole SAO v1 header replaced by the 6-pin v1.69bis SMD shrouded header on the chin, 9 mm above where the 2018 header was (the chin is too narrow there for the bigger connector)"
+  - "SAO / OFF / BATTERY slide switch on the left side of the head (front view), knob in the notch between head and left ear; CR2032 clip on the back of the right half of the forehead"
+  - "Two obsolete OSRAM TOPLEDs replaced by white reverse-mount 1206 LEDs in the same spots (the pupils), one resistor each instead of one 51 ohm resistor shared by both"
+  - "Back copper still doubles as ground; the 2018 pour behind the eyes and chin is rebuilt as solid copper"
+  - "Back art partly hidden by the coin cell and clip (lower half of the kanji's right-hand strokes and the portrait's right shoulder); credit lettering, title and dragon balls untouched"
+  - "Outline redrawn as one clean closed path (same shape); copper kept 0.28 mm back from the edge"
+  - "Front art unchanged, apart from the old header's four holes (gone, window filled), two 0.9 mm holes on the left side of the forehead (the switch's locating pegs), and about 1 mm2 of copper trimmed from the eye outlines where they reached into the LEDs' light windows"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 2
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-11
+  - SAOPP-R-01
