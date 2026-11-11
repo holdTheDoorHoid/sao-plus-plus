@@ -1,0 +1,36 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. The slot is 3.5 mm (not the usual 2 mm) because the coin-cell clip's closed end sticks out 3.07 mm past the right edge: it must hang over the slot, not over the frame. The supply track runs 0.3 mm from the left edge (y -14.6 to 1.8) and the cell track 0.3 mm from the right edge (y -19.7 to 2.8), so no tab sits on those stretches. No tab on the right edge: the cell track and then the clip's closed end occupy all of it below the switch.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 3.5,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {
+      "near": [-3.6, -25.0],
+      "dir": "-y",
+      "why": "top edge, left of the switch knob"
+    },
+    {
+      "near": [3.6, -25.0],
+      "dir": "-y",
+      "why": "top edge, right of the switch knob"
+    },
+    {
+      "near": [-8.0, -22.4],
+      "dir": "-x",
+      "why": "left edge beside the switch, above the connector body"
+    },
+    {
+      "near": [-8.0, 8.0],
+      "dir": "-x",
+      "why": "left edge, open side of the cell clip"
+    },
+    {
+      "near": [-6.4, 25.0],
+      "dir": "+y",
+      "why": "bottom edge, left of the lower clip pad and clear of the clip body"
+    }
+  ]
+}

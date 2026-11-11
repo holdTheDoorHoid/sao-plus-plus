@@ -1,0 +1,61 @@
+name: "COVID-19 Test"
+slug: covid-test
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "COVID-19 Test SAO (Simple Add-On)"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2022
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/COVID-19%20Test%20SAO"
+  project_page: "https://hackaday.io/project/187615-covid-19-sao-simple-add-on"
+  source_commit: "1a08593"
+  license: "none stated"   # neither the repo nor the project page gives a license, so all rights are reserved by default
+  permission: "pending"    # no reply yet; change to "written" and fill permission_ref when davedarko answers
+  permission_ref: ""
+  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  art_note: "A rapid antigen test cassette drawn by davedarko. No third-party character."
+
+changes:
+  - "Through-hole 2x3 IDC header replaced by the 6-pin v1.69bis SMD shrouded header, 0.6 mm higher than the old header (to clear the switch)"
+  - "New: SAO / OFF / BATTERY slide switch on the top edge (knob up) and a CR2032 clip over the lower half of the back. The original ran from the badge only"
+  - "The 20 mm coin cell overhangs both long edges by 2.0 mm (the board is 16 mm wide); the clip's closed end sticks out 3.1 mm past the right edge (front view)"
+  - "The clip footprint's 17 mm cell disc is wider than the board: this board uses a local copy with the disc cut to a 14.9 mm band (same clip pads)"
+  - "Timer: LMC555 (CMOS, runs from 1.5 V), as the maker's readme asks; his schematic's NE555 needs 4.5 V and does not run from 3.3 V or a coin cell"
+  - "Timing set to 3.3M + 3.3M + 100 nF (D2 on 0.46 s, off 0.23 s). The maker's own three sources disagree; his built board blinked 0.33 s on, 0.33 s off"
+  - "Two red LEDs soldered upside down replaced by red reverse-mount 1206 LEDs in the same spots, 1.3 k resistor each (was 1k on the board, 100/150 ohm in the readme)"
+  - "Added C2, a 100 nF supply capacitor beside the timer (same part as C1)"
+  - "Back copper is a GND pour; front copper is the maker's pour, unchanged in shape, now tied to GND through two tented vias (one under the timer, one right of the window)"
+  - "The maker's back credits would sit under the switch, connector and cell, so they moved to blank spots on the FRONT, same words and size: the hackaday URL (same strip, left edge), '2022/11' (upright along the right edge; its old spot is where the switch's peg holes go), '@davedarko@chaos.social' (under the sample well), and the dd logo (bottom)"
+  - "Removed: the maker's back assembly note ('C1+R2 main blink parts ...'), which named the old parts and would sit under the cell, and the two back mask windows behind the old LEDs (the new LED brings its own)"
+  - "Front art otherwise unchanged: window, C and T lines, sample well, shading, 'COVID-19Ag'. New on the front: two 0.9 mm switch peg holes above 'COVID-19Ag' and two tiny tented via dimples"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 2
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
+  - SAOPP-C-01
+
+local_parts:
+  - id: "Timer_LMC555_SOIC8"
+    mpn: "LMC555CMX/NOPB"
+    footprint: "KiCad stock Package_SO:SOIC-8_3.9x4.9mm_P1.27mm (copied unchanged)"
+    use: "U1, the blink timer"
+  - id: "R_Timing_3M3"
+    mpn: "0603WAF3304T5E"
+    footprint: "KiCad stock Resistor_SMD:R_0603_1608Metric (copied unchanged)"
+    use: "R1 and R2, the two timing resistors"
+  - id: "CR2032_Clip_Narrow"
+    mpn: "BAT-HLD-001 (same part as SAOPP-BAT-01)"
+    footprint: "lib SAOPP_BAT-01 copy with the 17 mm cell disc cut to a 14.9 mm band"
+    use: "BT1 on a 16 mm wide board"

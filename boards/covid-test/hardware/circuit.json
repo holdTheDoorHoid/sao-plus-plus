@@ -1,0 +1,29 @@
+{
+ "title": "COVID-19 Test - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko (Dave Darko), 2022, github.com/davedarko/Simple-Add-ons-SAO",
+ "parts": [
+  {"ref": "J1", "symbol": "SAO_Connector_v1.69bis", "at": [50.8, 50.8], "nets": {"1": "VSAO", "2": "GND"}},
+  {"ref": "SW1", "symbol": "Power_Switch_SP3T_PCM13", "at": [50.8, 81.28], "nets": {"3": "VLOAD", "1": "VSAO", "4": "VBAT"}},
+  {"ref": "BT1", "symbol": "CR2032_Clip_Narrow", "at": [50.8, 109.22], "nets": {"1": "VBAT", "2": "GND"}},
+  {"ref": "U1", "symbol": "Timer_LMC555_SOIC8", "at": [127.0, 76.2],
+   "nets": {"8": "VLOAD", "4": "VLOAD", "2": "TIM", "6": "TIM", "7": "DIS", "3": "OUT", "1": "GND"}},
+  {"ref": "R1", "symbol": "R_Timing_3M3", "at": [175.26, 60.96], "nets": {"1": "VLOAD", "2": "DIS"}},
+  {"ref": "R2", "symbol": "R_Timing_3M3", "at": [175.26, 73.66], "nets": {"2": "DIS", "1": "TIM"}},
+  {"ref": "C1", "symbol": "C_100n", "at": [175.26, 86.36], "nets": {"2": "TIM", "1": "GND"}},
+  {"ref": "C2", "symbol": "C_100n", "at": [127.0, 106.68], "nets": {"1": "VLOAD", "2": "GND"}},
+  {"ref": "R3", "symbol": "R_LED_1k3", "at": [218.44, 60.96], "nets": {"1": "VLOAD", "2": "LED1_A"}},
+  {"ref": "D1", "symbol": "LED_ThroughBoard_Red", "at": [254.0, 60.96], "nets": {"2": "LED1_A", "1": "GND"}},
+  {"ref": "R4", "symbol": "R_LED_1k3", "at": [218.44, 81.28], "nets": {"1": "OUT", "2": "LED2_A"}},
+  {"ref": "D2", "symbol": "LED_ThroughBoard_Red", "at": [254.0, 81.28], "nets": {"2": "LED2_A", "1": "GND"}}
+ ],
+ "notes": [
+  ["SAO++ power select: the switch common (VLOAD) feeds the timer and both LEDs. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.", [38.1, 30.48]],
+  ["The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.", [38.1, 34.29]],
+  ["Nothing is wired to SDA, SCL, GPIO1 or GPIO2, so no series diode is needed on the cell (docs/standard.md section 3).", [38.1, 38.1]],
+  ["555 astable, as the maker drew it: R1 = RA (VLOAD to DIS), R2 = RB (DIS to THR/TRIG), C1 = timing capacitor.", [116.84, 127.0]],
+  ["3.3M + 3.3M + 100n: D2 on 0.46 s, off 0.23 s (about 1.5 blinks a second). The maker's built board (1k, 470k, 1u) gave 0.33 s on, 0.33 s off.", [116.84, 130.81]],
+  ["D1 = control line C, always lit (R3). D2 = test line T, blinks from the 555 output (R4). Red LEDs, 1.3k each: about 1 mA from a cell.", [116.84, 134.62]],
+  ["C2 = supply decoupling next to the timer (not in the maker's circuit; same part as C1).", [116.84, 138.43]]
+ ]
+}
