@@ -1,0 +1,59 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. hardware/build_board.py reads these points too and pulls the front copper art back to 0.55 mm from the edge at each one.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {
+      "near": [
+        66.8,
+        52.4
+      ],
+      "dir": "-y",
+      "why": "top of the left lobe of hair"
+    },
+    {
+      "near": [
+        79.0,
+        50.9
+      ],
+      "dir": "-y",
+      "why": "top of the right lobe of hair"
+    },
+    {
+      "near": [
+        95.4,
+        79.0
+      ],
+      "dir": "+x",
+      "why": "right side of the hair, widest point"
+    },
+    {
+      "near": [
+        88.3,
+        101.5
+      ],
+      "dir": "+x",
+      "why": "right side, above the right earring"
+    },
+    {
+      "near": [
+        51.3,
+        111.3
+      ],
+      "dir": "-x",
+      "why": "left earring, clear of the battery track"
+    },
+    {
+      "near": [
+        82.4,
+        127.3
+      ],
+      "dir": "+y",
+      "why": "right of the chin, clear of where the cell slides in"
+    }
+  ]
+}

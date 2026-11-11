@@ -1,0 +1,42 @@
+name: "Frida"
+slug: frida
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Frida SAO, DEF CON 26 Frida SAO Badge"
+  makers: ["lemons4all"]
+  year: 2018
+  source_url: "https://hackaday.io/project/161509-frida-sao"
+  license: "none stated"   # the project page gives no license, so all rights are reserved by default
+  permission: "pending"    # not yet asked; change to "written" and fill permission_ref when lemons4all answers
+  permission_ref: ""       # docs/permission.md once there is a reply
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-10 to publish before permission was received, accepting that it may have to come down."
+  art_note: "A portrait of the painter Frida Kahlo with flowers in her hair. It is the likeness of a real person, and her name and image are claimed as trademarks by the Frida Kahlo Corporation. That is a separate question from the maker's permission, and the maker's permission does not settle it."
+
+changes:
+  - "4-pin through-hole SAO v1 header replaced by the 6-pin v1.69bis SMD shrouded header, moved up from the chin to just under the DEF CON 26 lettering (same left-right position) so the coin cell fits below it"
+  - "SAO / OFF / BATTERY slide switch on the left side of the hair (front view); CR2032 clip at the chin, cell slides in from the bottom edge"
+  - "Five 3 mm through-hole LEDs replaced by red reverse-mount 1206 LEDs at the flower centres, one resistor each instead of one shared axial resistor"
+  - "Each flower's two plated LED holes are gone; each flower now has a 2 mm bare window (no copper, no solder mask) for the light"
+  - "The axial resistor's two plated holes in the hair are gone (they were the resistor's leads, not art)"
+  - "The four-line 'Thanks To' credit moved up, unchanged, from under DEF CON 26 to above FRIDA: the cell needed its spot (owner to confirm)"
+  - "Silkscreen marks that only labelled the removed parts are gone (+ and - by each old LED, VCC and GND by the header, the pin-1 dot on the front)"
+  - "Back copper is still the 2018 ground pour, now cut around the new tracks; pulled 0.55 mm back from the edge"
+  - "Outline redrawn as one clean closed path (same shape)"
+  - "Front art unchanged, apart from the holes above and two 0.9 mm holes on the left edge of the hair (the switch's locating pegs)"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 5
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01

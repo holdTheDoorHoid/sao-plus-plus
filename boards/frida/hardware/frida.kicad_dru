@@ -1,0 +1,15 @@
+(version 1)
+
+# The copper on this board is artwork. These rules stop DRC from flagging the art for being art;
+# everything electrical (pads, tracks, the GND copper against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The connector sits straight under the DEF CON 26 lettering and the cell clip straight under the connector, because
+# the head is too narrow for anything else (see build_board.py). The clip's closed end and the connector's lower pads
+# are 0.75 mm apart in metal; their courtyards (each drawn 0.5 mm past the part) overlap by about 0.25 mm.
+(rule "Connector above the cell clip"
+  (condition "A.Reference == 'J1' && B.Reference == 'BT1'")
+  (constraint courtyard_clearance (min -0.3mm)))
