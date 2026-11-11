@@ -28,3 +28,13 @@ Read `README.md`, `docs/standard.md`, `docs/parts.md`, and `docs/porting-guide.m
 - New build scripts import `tools/saopp_board.py`; do not copy helpers into a board folder.
 - Keep ground copper 0.55 mm back from the board edge: the panel's 0.5 mm mouse-bite holes sit on the edge and reach 0.25 mm in. Run DRC on the panel file too, and keep tracks out from under tab positions.
 - `kicad-cli` in the flatpak can only write inside `--filesystem` paths (the repo); `/tmp` output silently goes nowhere.
+
+## Lessons from the six-board batch (2026-11-10/11)
+
+- Six boards were ported in parallel by one agent each, working only inside its own `boards/<slug>/` folder from a shared brief and Mad Cat as the worked example. That works; keep shared files (tools, lib, docs, root README) for the orchestrator.
+- `tools/extract_outline.py` turns thousands of Edge.Cuts lines into one polygon per loop. Nibbler's original failed it because its SVG path overshoots its own start by 2 micrometres (see `boards/nibbler/hardware/fix_outline.py`).
+- Outlines with 10,000+ points make KiCad's DRC run out of memory (La Bomba, Nibbler). Thin them (1-5 micrometre tolerance) in the build script.
+- `tools/panelize.py` does not carry the board's `.kicad_dru` to the panel, and panel parts are renumbered (J101 ...). Boards with extra rules keep a hand-written `production/panel/<slug>-panel.kicad_dru`.
+- The shared cell-clip footprint's courtyard is reported "malformed" at exact right angles in KiCad 10 (Lumpy uses 269.9 degrees), and its silk arrow often lands on lettering or off the board: several boards move it to the fab layer and add their own label.
+- Small boards run out of room: the 24 x 17 mm clip, the 15 mm connector and a straight 12 mm of edge for the switch. Accepted compromises so far, each recorded in that board's README: moving a maker's credit block without changing it (Frida), a cell that overhangs the edge by 1 mm (RBG), the connector moved away from the old header spot (La Bomba, Nibbler, Big Green).
+- LED colours on the 2018 boards are not recorded in the files. The batch used only white (LED-11) and red (LED-10) with the 1.3 k resistor: no new parts.

@@ -1,6 +1,7 @@
 # Permission request to TwinkleTwinkie (draft — not sent)
 
-Status: **drafted 2026-11-10, not sent.** Covers both ports of TwinkleTwinkie's boards: Fat Pika and Mad Cat.
+Status: **drafted 2026-11-10, not sent.** Covers all five ports of TwinkleTwinkie's DC26 boards: Fat Pika, Mad Cat,
+Big Green, La Bomba and Nibbler.
 When there is a reply, save it as `permission.md` in each board's `docs/` folder (date, where it was said, exact
 words), then set `permission: "written"` and `permission_ref: docs/permission.md` in each `board.yml`.
 
@@ -12,12 +13,13 @@ I'm working on SAO++ (https://github.com/holdTheDoorHoid/sao-plus-plus), an open
 add-ons and updates them to the 6-pin SAO v1.69bis header with a shared set of parts, so they can be built
 again in quantity.
 
-I've done ports of two of your DC26 add-ons, Fat Pika and Mad Cat, from the KiCad files on your hackaday.io
-pages. Your art and outlines are unchanged on the front, with a surface-mount 6-pin header, a SAO/OFF/battery
-switch, and a CR2032 clip added on the back. On Mad Cat I took the PCBWay logo off the back of the tail (the
-coin cell sits there now) and the LEDs run at a much lower current so a coin cell lasts. Both are in the repo
-now, marked "permission pending, not open-licensed", credited to you. I should have asked first; if you want
-either one changed or taken down, say so and it's done.
+I've done ports of five of your DC26 add-ons (Fat Pika, Mad Cat, Big Green, La Bomba and Nibbler) from the
+KiCad files on your hackaday.io pages. Your art and outlines are unchanged on the front, with a surface-mount
+6-pin header, a SAO/OFF/battery switch, and a CR2032 clip added on the back, and the LEDs swapped for current
+reverse-mount parts running at a much lower current so a coin cell lasts. On Mad Cat I took the PCBWay logo off
+the back of the tail (the coin cell sits there now); each board's README lists anything else that changed.
+They are in the repo now, marked "permission pending, not open-licensed", credited to you. I should have asked
+first; if you want any of them changed or taken down, say so and it's done.
 
 The hackaday.io pages don't state a license, so I wanted to ask you directly:
 

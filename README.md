@@ -29,7 +29,7 @@ boards/_template/     copy this to start a new board
 lib/                  shared KiCad symbols, footprints, 3D models, power block, starter project
 docs/                 house standard, approved parts, porting and permission guide
 tools/                check_boards.py (paperwork check, runs on every push), gen_footprints.py, saopp_symbols.py,
-                      gen_schematic.py, saopp_board.py (helpers for each board's build script), panelize.py, export_fab.py
+                      gen_schematic.py, extract_outline.py, saopp_board.py (helpers for each board's build script), panelize.py, export_fab.py
 ```
 
 ## Boards
@@ -38,6 +38,11 @@ tools/                check_boards.py (paperwork check, runs on every push), gen
 |---|---|---|
 | [Fat Pika](boards/fat-pika/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
 | [Mad Cat](boards/mad-cat/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [Big Green](boards/big-green/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [La Bomba](boards/la-bomba/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [Nibbler](boards/nibbler/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [RBG](boards/rbg/) | lemons4all (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [Frida](boards/frida/) | lemons4all (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
 | [Hack-Man](boards/hack-man/) | InstantArcade (Bob), 2024 | Recreated from the maker's pictures (no files were published), rule-checked, not yet built. Seeed XIAO ESP32 controller, new Rust firmware. **Permission pending: not open-licensed**, see the board README |
 
 ## Adding a board
