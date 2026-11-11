@@ -9,6 +9,7 @@ SAO++ takes older SAOs (the little art boards that plug into conference badges),
 - **6-pin SAO v1.69bis connector**, surface-mount and shrouded, on the back. Nothing pokes through the art side.
 - **SAO / OFF / BATTERY switch**: runs from the badge or from its own CR2032. It is wired so the badge can never charge the coin cell.
 - **CR2032 coin cell**: several days of daytime wear on a simple LED board.
+- **Boards that need a chip** use a Seeed Studio XIAO ESP32 module instead of a coin cell: the same switch chooses between badge power and the module's own (USB-C or a LiPo).
 - **LEDs on the back**: side-firing ones that light the art from the edges, or reverse-mount ones that shine through the board.
 - **All parts on the back**; the front is pure art.
 
@@ -37,6 +38,7 @@ tools/                check_boards.py (paperwork check, runs on every push), gen
 |---|---|---|
 | [Fat Pika](boards/fat-pika/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
 | [Mad Cat](boards/mad-cat/) | TwinkleTwinkie (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [Hack-Man](boards/hack-man/) | InstantArcade (Bob), 2024 | Recreated from the maker's pictures (no files were published), rule-checked, not yet built. Seeed XIAO ESP32 controller, new Rust firmware. **Permission pending: not open-licensed**, see the board README |
 
 ## Adding a board
 

@@ -1,0 +1,14 @@
+(version 1)
+
+# The copper on this board is partly artwork (lettering, pellets, the ghosts' pupils). This rule stops DRC from flagging
+# the art for being art; everything electrical (pads, tracks, the GND copper against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The data resistor sits 0.4 mm (pad to pad) from the first LED's data-in pad so both fit above the XIAO's D10 pad.
+# Their courtyards overlap; the parts themselves are 0.9 mm apart.
+(rule "Data resistor beside the first LED"
+  (condition "A.Reference == 'R1' && B.Reference == 'D1'")
+  (constraint courtyard_clearance (min -1.0mm)))

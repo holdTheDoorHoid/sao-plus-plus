@@ -1,0 +1,51 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {
+      "near": [
+        112.0,
+        122.3
+      ],
+      "dir": "+y",
+      "why": "bottom edge, left of the switch"
+    },
+    {
+      "near": [
+        148.0,
+        122.3
+      ],
+      "dir": "+y",
+      "why": "bottom edge under the SAO connector, between the switch and the LiPo connector"
+    },
+    {
+      "near": [
+        126.6,
+        80.0
+      ],
+      "dir": "-y",
+      "why": "top of the red ghost's head"
+    },
+    {
+      "near": [
+        162.6,
+        80.0
+      ],
+      "dir": "-y",
+      "why": "top of the cyan ghost's head"
+    },
+    {
+      "near": [
+        100.0,
+        108.0
+      ],
+      "dir": "-x",
+      "why": "left end, beside the H. The right end is left free for the USB-C socket"
+    }
+  ]
+}

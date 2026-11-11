@@ -1,0 +1,44 @@
+name: "Hack-Man"
+slug: hack-man
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Hack-Man SAO"
+  makers: ["InstantArcade (Bob)"]
+  year: 2024
+  source_url: "https://hackaday.io/project/198301-hack-man-sao"
+  license: "none stated"   # the project page gives no license, and no design files or source code were published
+  permission: "pending"    # not asked yet; change to "written" and fill permission_ref when the maker answers
+  permission_ref: ""       # docs/permission.md once there is a reply
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-10 to publish before permission was received, accepting that it may have to come down."
+  art_note: "Pac-Man and the four ghosts are Bandai Namco characters; the name and lettering play on the Pac-Man logo. That is a separate question from the maker's permission and matters most if boards are sold."
+  recreated_from: "Pictures and text on the project page only. The maker published no KiCad files and no firmware, so the art was redrawn (art/art.json), the board was laid out from scratch, and the firmware is a new implementation of the behaviour he describes."
+
+changes:
+  - "No bump-out: the SAO connector is the 6-pin v1.69bis SMD shrouded header on the back, inside the board's outline"
+  - "Controller changed from a Puya PY32F002A to a Seeed Studio XIAO ESP32 module (C3, S3 or C6) soldered flat on the back; USB-C at the right-hand edge"
+  - "Board is 9.4 mm taller than the original (42.3 mm instead of about 33 mm plus the bump-out) to make room for the XIAO; the extra strip carries a row of pellets on the front (not in the original art)"
+  - "SAO / OFF / USB-BAT slide switch: badge power, or the module's own power (USB-C, or a LiPo on the new JST-PH connector, charged by the XIAO)"
+  - "No separate mode button: the XIAO's own BOOT button changes mode"
+  - "Same LEDs as the original (5 x SK6805-EC3210R side-firing RGB), one 100 nF capacitor between each pair"
+  - "Back copper is ground everywhere except behind the sprites; routed on the back only, no vias, nothing but art on the front apart from the switch's two peg holes"
+
+features:
+  power_select: true
+  coin_cell: none
+  lipo_connector: JST-PH 2-pin
+  side_leds: 5
+  through_board_leds: 0
+  i2c_device: true         # target at 0x1A, same 4-byte commands as the original
+  gpio_use: "GPIO1 -> XIAO D7 (RX), GPIO2 -> XIAO D6 (TX), each through 330 ohm; unused by the firmware"
+  controller: "Seeed Studio XIAO ESP32-C3 / S3 / C6"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-R-02
+  - SAOPP-MCU-01
+  - SAOPP-CONN-10
+  - SAOPP-LED-20
+  - SAOPP-C-01
