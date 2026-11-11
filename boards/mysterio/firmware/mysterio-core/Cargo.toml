@@ -1,0 +1,15 @@
+[package]
+name = "mysterio-core"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Board-independent logic for the Mysterio SAO (SAO++ edition): colours, animations, modes, I2C command handling"
+publish = false
+
+# Plain no_std library. Everything here is checked on the host with `cargo test`;
+# the firmware crate in ../mysterio-fw links it for the ESP32 targets.
+
+[dependencies]
+
+[lints.rust]
+unsafe_code = "forbid"
