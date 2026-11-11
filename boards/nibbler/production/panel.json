@@ -1,0 +1,17 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [158.0, 79.5], "dir": "+x", "why": "right side of the head, beside the right eye"},
+    {"near": [154.2, 73.5], "dir": "-y", "why": "top of the ear bump, right of the switch knob"},
+    {"near": [164.5, 117.5], "dir": "+x", "why": "outer side of the right foot"},
+    {"near": [137.5, 130.0], "dir": "+y", "why": "bottom of the foot"},
+    {"near": [119.8, 115.6], "dir": "-x", "why": "left side of the left hand, below the cape (the cape is gold copper on the front)"},
+    {"near": [146.5, 119.0], "dir": "+y", "why": "under the body, between the right leg and the foot (clear of the coin cell clip)"}
+  ]
+}

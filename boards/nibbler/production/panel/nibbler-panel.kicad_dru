@@ -1,0 +1,14 @@
+(version 1)
+
+# Same rules as boards/nibbler/hardware/nibbler.kicad_dru, for the 2x2 panel (tools/panelize.py renumbers the parts
+# J101, J201 ...; KiCad's '*' matches those). Keep the two files in step.
+
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The connector sits in the chest, just under the left eye LED. Its courtyard overlaps the courtyard of eye LED D1;
+# the parts themselves are 0.94 mm apart (LED pad to connector body).
+(rule "Connector under the left eye LED D1"
+  (condition "A.Reference == 'J*1' && B.Reference == 'D*1'")
+  (constraint courtyard_clearance (min -1.5mm)))

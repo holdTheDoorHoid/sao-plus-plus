@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name Nibbler_PCB)(type KiCad)(uri "$(KIPRJMOD)/Nibbler_PCB.pretty")(options "")(descr ""))
+  (lib (name badgelife)(type KiCad)(uri "$(KIPRJMOD)/Tools/Shitty Addon/badgelife.pretty")(options "")(descr ""))
+  (lib (name customparts)(type KiCad)(uri "$(KIPRJMOD)/Tools/Custom Parts/customparts.pretty")(options "")(descr ""))
+)

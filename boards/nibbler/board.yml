@@ -1,0 +1,38 @@
+name: "Nibbler"
+slug: nibbler
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Nibbler (TwinkleTwinkie's DC26 add-on)"
+  makers: ["TwinkleTwinkie"]
+  year: 2018
+  source_url: "https://hackaday.io/project/161117-nibbler"
+  license: "none stated"   # the project page gives no license ("Now I'm making the files public so you can have your own made."), so all rights are reserved by default
+  permission: "pending"    # no reply yet; change to "written" and fill permission_ref when TwinkleTwinkie answers
+  permission_ref: ""       # docs/permission.md once there is a reply
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-10 to publish before permission was received, accepting that it may have to come down."
+  art_note: "Nibbler is a character from Futurama, which belongs to 20th Television / Disney (created by Matt Groening). Separate from the maker's permission."
+
+changes:
+  - "4-pin through-hole SAO v1 header (in the foot) replaced by the 6-pin v1.69bis SMD shrouded header, moved up to the chest under the mouth: the foot is 9 mm wide and the new connector's body is 15.3 mm"
+  - "SAO / OFF / BATTERY slide switch on the top of the head, right of the stalk; CR2032 clip on the back of the lower body (the diaper)"
+  - "Three obsolete OSRAM TOPLEDs (two eyes and the third eye on the stalk) replaced by white reverse-mount 1206 LEDs in the same spots, one resistor each instead of one shared"
+  - "Back copper still doubles as ground; the bare mouth on the back is covered with copper under the new connector, and the bare belly is masked under the coin cell"
+  - "Outline redrawn as one clean closed path (same shape within 1 micrometre: the 2018 edge crossed itself by 2 micrometres where it closed, at the top of the stalk, and had 10,700 corners where 1,837 do); copper kept 0.55 mm back from the edge"
+  - "Front art unchanged, apart from the foot (the old header's four holes and the small masked socket shape drawn round them are gone; the foot is plain bare board with its toe line) and two 0.9 mm holes in the top of the head (the switch's locating pegs)"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 3
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-11
+  - SAOPP-R-01

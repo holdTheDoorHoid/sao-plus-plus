@@ -1,0 +1,15 @@
+(version 1)
+
+# The copper on this board is artwork. These rules stop DRC from flagging the art for being art;
+# everything electrical (pads, tracks, the GND art against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The connector sits in the chest, just under the left eye LED. Its courtyard (drawn 0.5 mm past the pad ends) overlaps
+# the courtyard of eye LED D1; the parts themselves are 0.94 mm apart (LED pad to connector body) and 1.0 mm apart
+# (LED body to connector body).
+(rule "Connector under the left eye LED D1"
+  (condition "A.Reference == 'J1' && B.Reference == 'D1'")
+  (constraint courtyard_clearance (min -1.5mm)))
