@@ -12,7 +12,7 @@ original:
   license: "none stated"   # nothing in the maker's repo states a license, so all rights are reserved by default
   permission: "pending"    # not asked yet; change to "written" and fill permission_ref when the maker answers
   permission_ref: ""       # docs/permission.md once there is a reply
-  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-11 to publish before permission was received, accepting that it may have to come down."
   source_commit: "1a08593"
   files: "Eagle 7.6 board and schematic (original/donut.brd, donut.sch), two PDF prints, Gerbers, a short readme. No firmware."
 

@@ -2,7 +2,7 @@
 
 Originally the **KITT Knight Rider badge/brooch** by **davedarko (Dave Darko)**: https://hackaday.io/project/25944-kitt-knight-rider-badgebrooch, files at https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Knight%20Rider%20Badge
 
-> **Permission pending — this board is not open-licensed.** The maker's repository states no license, and davedarko has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner has **not yet decided** whether to publish this port before permission. Until the maker says otherwise:
+> **Permission pending — this board is not open-licensed.** The maker's repository states no license, and davedarko has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner chose on 2026-11-11 to publish this port anyway. Until the maker says otherwise:
 > - the original design in `original/`, the outline and all artwork remain **© davedarko, all rights reserved**; the repo's licenses cover only the SAO++ additions (parts placement, routing, scripts, documentation), not the original work
 > - do not treat these files as cleared for manufacture or sale
 >

@@ -1,6 +1,6 @@
 # Han SAOlo rev A — ordering files
 
-> Design-checked only. No board has been built from these files yet, and **the repo owner has not yet decided whether this board may be published or made before the maker's permission** (see [../README.md](../README.md)). Order nothing until that is settled; then order a small first batch (5–10) and go through the prototype checklist.
+> Design-checked only. No board has been built from these files yet, and **the maker's permission is still pending** (see [../README.md](../README.md)). The repo owner chose on 2026-11-11 to publish these files with permission pending; whether to have boards made before the maker answers is not decided. Order nothing until that is settled; then order a small first batch (5–10) and go through the prototype checklist.
 
 ## What to upload
 

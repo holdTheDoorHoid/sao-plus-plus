@@ -2,7 +2,7 @@
 
 > Design-checked only. No board has been built from these files yet: order a small first batch (5–10) before any production run, and go through the prototype checklist in [../README.md](../README.md).
 >
-> Read the permission notice in [../README.md](../README.md) before ordering anything, and note the Marvel character question there. The repo owner has not yet decided whether to publish this board.
+> Read the permission notice in [../README.md](../README.md) before ordering anything, and note the Marvel character question there. The repo owner chose on 2026-11-11 to publish these files with permission pending; whether to have boards made before the maker answers is not decided.
 
 ## What to upload
 

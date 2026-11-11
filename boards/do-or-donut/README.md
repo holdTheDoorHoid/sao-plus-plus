@@ -2,7 +2,7 @@
 
 Originally **Do Or Donut SAO** by **davedarko (Dave Darko)**, 2019: https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Do%20Or%20DoNut (project page: https://hackaday.io/project/168597-do-or-donut-sao)
 
-> **Permission pending — this board is not open-licensed.** Nothing in the maker's repository states a license, and davedarko has not yet been asked (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). **Not yet decided:** this version was built locally on 2026-11-11; the repo owner has not yet said whether to publish it before permission. Until the maker says otherwise:
+> **Permission pending — this board is not open-licensed.** Nothing in the maker's repository states a license, and davedarko has not yet been asked (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner chose on 2026-11-11 to publish this port anyway. Until the maker says otherwise:
 > - the original design in `original/`, the outline, the LED layout, the matrix wiring and all artwork remain **© davedarko, all rights reserved**; the repo's CERN-OHL-S / CC-BY-SA licenses cover only the SAO++ additions (new parts placement, new routing, scripts, documentation)
 > - do not treat these files as cleared for manufacture or sale
 >

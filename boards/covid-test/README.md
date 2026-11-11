@@ -2,7 +2,7 @@
 
 Originally the **COVID-19 Test SAO** by **davedarko (Dave Darko)**, 2022: https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/COVID-19%20Test%20SAO (project page https://hackaday.io/project/187615-covid-19-sao-simple-add-on)
 
-> **Permission pending — this board is not open-licensed.** davedarko's repository and project page state no license, and he has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). Whether to publish this port before he answers has **not been decided** yet; it was built locally on 2026-11-11. Until the maker says otherwise:
+> **Permission pending — this board is not open-licensed.** davedarko's repository and project page state no license, and he has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner chose on 2026-11-11 to publish this port anyway. Until the maker says otherwise:
 > - the original design in `original/`, the outline and all artwork remain **© davedarko, all rights reserved**; the repo's CERN-OHL-S / CC-BY-SA licenses would cover only the SAO++ additions (new parts placement, routing, scripts, documentation), not the original work
 > - do not treat these files as cleared for manufacture or sale
 >
@@ -75,7 +75,7 @@ The board is routed on the back copper only, plus **two vias** (0.3 mm hole, cov
 
 ## Decisions for the owner
 
-1. **Publish or not before davedarko answers** (not decided).
+1. **Publish or not before davedarko answers:** the owner chose on 2026-11-11 to publish with permission pending.
 2. **Credits on the front.** The back is covered by the switch, connector and cell, so the maker's credits moved to blank spots on the front, unchanged in words and size. Alternative: badge-power-only version with the credits back where they were.
 3. **Narrowed cell contact disc** (local copy of the shared clip footprint). Alternative: a wider outline.
 4. **Front copper as ground with two vias.** Alternative: none found without moving parts off the board.

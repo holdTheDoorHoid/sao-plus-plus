@@ -2,7 +2,7 @@
 
 > Design-checked only. No board has been built from these files yet: order a small first batch (5–10) before any production run, and go through the prototype checklist in [../README.md](../README.md).
 >
-> Read the permission notice in [../README.md](../README.md) first. **Not yet decided:** the repo owner has not said whether this board may be published or made before davedarko answers.
+> Read the permission notice in [../README.md](../README.md) first. The repo owner chose on 2026-11-11 to publish these files with permission pending; whether to have boards made before the maker answers is not decided.
 
 ## What to upload
 

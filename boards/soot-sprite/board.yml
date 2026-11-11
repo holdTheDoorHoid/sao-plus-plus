@@ -12,7 +12,7 @@ original:
   license: "none stated"   # no license anywhere in the maker's repo (commit 1a08593), so all rights are reserved by default
   permission: "pending"    # not yet asked; change to "written" and fill permission_ref when davedarko answers
   permission_ref: ""
-  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-11 to publish before permission was received, accepting that it may have to come down."
   art_note: "A susuwatari (soot sprite), the character from Studio Ghibli's films My Neighbor Totoro and Spirited Away. The character belongs to Studio Ghibli; using its likeness needs Studio Ghibli's permission (or a design that is not the character), separate from davedarko's permission for the board design."
 
 changes:

@@ -11,7 +11,7 @@ original:
   license: "none stated"   # the repository states no license, so all rights are reserved by default
   permission: "pending"    # no reply yet; change to "written" and fill permission_ref when davedarko answers
   permission_ref: ""
-  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-11 to publish before permission was received, accepting that it may have to come down."
   art_note: "The penguin-unicorn is a small version of the maker's larger 'Penghicorn' (spelled 'Phengicorn' in the readme) badge. Who created that character is not recorded in the files: it may be davedarko's own or someone else's design. Ask the maker, separately from the permission for the board."
 
 changes:

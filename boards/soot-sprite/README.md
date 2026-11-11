@@ -2,7 +2,7 @@
 
 Originally the **Susuwatari SAO** (2026-03 R1) by **davedarko (Dave Darko)**: https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Ghibli (project page printed on his handout cards: https://hackaday.io/project/205207)
 
-> **Permission pending — this board is not open-licensed.** davedarko's repository states no license, and he has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner has **not yet decided** whether to publish this port before he answers; it was built locally on 2026-11-11. Until the maker says otherwise:
+> **Permission pending — this board is not open-licensed.** davedarko's repository states no license, and he has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner chose on 2026-11-11 to publish this port anyway. Until the maker says otherwise:
 > - the original design in `original/`, the outline and all artwork remain **© davedarko, all rights reserved**; the repo's CERN-OHL-S / CC-BY-SA licenses would cover only the SAO++ additions (new parts placement, routing, scripts, documentation), not the original work
 > - do not treat these files as cleared for manufacture or sale
 >

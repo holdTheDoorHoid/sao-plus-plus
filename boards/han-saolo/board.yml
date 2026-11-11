@@ -12,7 +12,7 @@ original:
   license: "none stated"   # neither the repo (commit 1a08593) nor the project page gives a license: all rights reserved by default
   permission: "pending"    # not asked yet; change to "written" and fill permission_ref when the maker answers
   permission_ref: ""       # docs/permission.md once there is a reply
-  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-11 to publish before permission was received, accepting that it may have to come down."
   art_note: "Han Solo frozen in carbonite is a Lucasfilm / Disney character and scene (Star Wars); the board's picture is the maker's own copper-and-mask rendering of it. That is a separate question from the maker's permission and matters most if boards are sold."
 
 changes:

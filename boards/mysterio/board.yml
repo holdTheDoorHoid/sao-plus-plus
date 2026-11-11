@@ -11,7 +11,7 @@ original:
   license: "none stated"   # the repository (commit 1a08593) gives no license anywhere, so all rights are reserved by default
   permission: "pending"    # not asked yet; change to "written" and fill permission_ref when the maker answers
   permission_ref: ""
-  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-11 to publish before permission was received, accepting that it may have to come down."
   art_note: "Mysterio (the Spider-Man villain with the glass-bowl helmet) is a Marvel character, owned by Marvel / Disney. Using his likeness needs its own permission (or new art), separate from the maker's permission for the board design. The maker's write-up also says the design was heavily inspired by Simen's (simenzhor) Marvel hero add-ons."
   inspired_by: "Simen (https://mastodon.social/@simenzhor/), Marvel hero simple add-ons"
 

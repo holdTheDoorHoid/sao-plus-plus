@@ -12,7 +12,7 @@ original:
   license: "none stated"   # the repo (commit 1a08593) states no license, so all rights are reserved by default
   permission: "pending"
   permission_ref: ""
-  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-11 to publish before permission was received, accepting that it may have to come down."
   base_revision: "original/KiCad8 (kitt_0805, production files dated 2024-09-05): the newest of the seven; the Eagle REV1-REV3.1 files are 2017"
   art_note: "The drawing is the front of K.I.T.T., the car from the TV series Knight Rider, with its red scanner. The car, its look and the name 'Knight Rider' / 'K.I.T.T.' belong to Universal (NBCUniversal). That is separate from davedarko's permission and would need its own clearance before any sale."
 
