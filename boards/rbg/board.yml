@@ -1,0 +1,39 @@
+name: "RBG"
+slug: rbg
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "RBG SAO, DEF CON 26 RBG SAO Badge"
+  makers: ["lemons4all"]
+  year: 2018
+  source_url: "https://hackaday.io/project/161508"
+  license: "none stated"   # the project page gives no license, so all rights are reserved by default
+  permission: "pending"    # not yet asked; change to "written" and fill permission_ref when lemons4all answers
+  permission_ref: ""       # docs/permission.md once there is a reply
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-10 to publish before permission was received, accepting that it may have to come down."
+  art_note: "A portrait of U.S. Supreme Court Justice Ruth Bader Ginsburg, a real person, wearing a crown, with the words 'NOTORIOUS R.B.G.'. 'Notorious R.B.G.' is also the title of a book and a line of merchandise by other people. The likeness and that phrase are separate questions from the maker's permission."
+
+changes:
+  - "4-pin through-hole SAO v1 header replaced by the 6-pin v1.69bis SMD shrouded header, in the same corner (bottom right in front view)"
+  - "SAO / OFF / BATTERY slide switch on the straight left edge at the bottom; CR2032 clip on the back of the head"
+  - "Four 3 mm through-hole LEDs (leads through the crown's jewels) replaced by red reverse-mount 1206 LEDs at the same centres that shine through the bare jewels; one 1.3 k resistor each, as before"
+  - "Back copper still the ground pour; kept 0.55 mm back from the edge for panel break-off tabs"
+  - "The old LEDs' eight +/- marks on the back and the header's small pin-1 dot on the front removed; 'RBG SAO / DEF CON 26' and the 'Thanks To' credit untouched"
+  - "Outline redrawn as one clean closed path (same shape); the crown's gold copper kept 0.28 mm back from the edge"
+  - "Front art unchanged apart from: the jewels lose the old LEDs' two plated holes each (they stay bare ovals), the header's four holes are gone, and two 0.9 mm holes (the switch's locating pegs) on the left edge beside 'R.B.G.'"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 4
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01

@@ -1,0 +1,170 @@
+{
+ "title": "RBG - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: lemons4all, DEF CON 26 (2018), hackaday.io/project/161508",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "BT1",
+   "symbol": "CR2032_Clip",
+   "at": [
+    50.8,
+    96.52
+   ],
+   "nets": {
+    "1": "VBAT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    106.68,
+    78.74
+   ],
+   "nets": {
+    "3": "VLOAD",
+    "1": "VSAO",
+    "4": "VBAT"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_LED_1k3",
+   "at": [
+    157.48,
+    58.42
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "LED1_A"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    195.58,
+    58.42
+   ],
+   "nets": {
+    "2": "LED1_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_LED_1k3",
+   "at": [
+    157.48,
+    78.74000000000001
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "LED2_A"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    195.58,
+    78.74000000000001
+   ],
+   "nets": {
+    "2": "LED2_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_LED_1k3",
+   "at": [
+    157.48,
+    99.06
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "LED3_A"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    195.58,
+    99.06
+   ],
+   "nets": {
+    "2": "LED3_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "R4",
+   "symbol": "R_LED_1k3",
+   "at": [
+    157.48,
+    119.38
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "LED4_A"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    195.58,
+    119.38
+   ],
+   "nets": {
+    "2": "LED4_A",
+    "1": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "SAO++ power select: the switch common feeds the LEDs. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.",
+   [
+    38.1,
+    38.1
+   ]
+  ],
+  [
+   "The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.",
+   [
+    38.1,
+    41.91
+   ]
+  ],
+  [
+   "LED-only board: SDA, SCL, GPIO1 and GPIO2 are not connected, so no series diode is needed on the cell (see docs/standard.md section 3).",
+   [
+    38.1,
+    45.72
+   ]
+  ],
+  [
+   "D1 to D4 = the four jewels of the crown. One 1.3k resistor per red LED: about 1.2 mA each on badge power, about 1.0 mA each on a fresh cell.",
+   [
+    124.46,
+    140.97
+   ]
+  ]
+ ]
+}

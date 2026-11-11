@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name rbg)(type KiCad)(uri ${KIPRJMOD}/rbg.pretty)(options "")(descr ""))
+  (lib (name frida)(type KiCad)(uri C:/Users/Bruel/Documents/frida/frida.pretty)(options "")(descr ""))
+  (lib (name lumpy)(type KiCad)(uri C:/Users/Bruel/Documents/shine/lumpy/lumpy.pretty)(options "")(descr ""))
+)
