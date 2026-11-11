@@ -45,6 +45,13 @@ tools/                check_boards.py (paperwork check, runs on every push), gen
 | [Frida](boards/frida/) | lemons4all (DEF CON 26, 2018) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
 | [Oh My Glob (LSP)](boards/lumpy/) | lemons4all (DEF CON 26, 2018) | Designed and rule-checked, not yet built; the tightest fit of the set (see its README). **Permission pending: not open-licensed** |
 | [Hack-Man](boards/hack-man/) | InstantArcade (Bob), 2024 | Recreated from the maker's pictures (no files were published), rule-checked, not yet built. Seeed XIAO ESP32 controller, new Rust firmware. **Permission pending: not open-licensed**, see the board README |
+| [Han SAOlo](boards/han-saolo/) | davedarko (2024) | Designed and rule-checked, not yet built. Short life and weak green/blue on a coin cell (calculated). **Permission pending: not open-licensed**, see the board README |
+| [Knight Rider (K.I.T.T.)](boards/knight-rider/) | davedarko (2017) | Designed and rule-checked, not yet built. No firmware yet. **Permission pending: not open-licensed**, see the board README |
+| [Soot Sprite](boards/soot-sprite/) | davedarko (2026) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [COVID-19 Test](boards/covid-test/) | davedarko (2022) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [Penghito Poco](boards/penghito-poco/) | davedarko (year not recorded) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
+| [Mysterio](boards/mysterio/) | davedarko (2025) | Designed and rule-checked, not yet built. Seeed XIAO ESP32 controller, new Rust firmware (never run on hardware). **Permission pending: not open-licensed**, see the board README |
+| [Do Or Donut](boards/do-or-donut/) | davedarko (2019) | Designed and rule-checked, not yet built. Seeed XIAO ESP32 controller, new Rust firmware (never run on hardware). **Four-layer board.** **Permission pending: not open-licensed**, see the board README |
 
 ## Adding a board
 

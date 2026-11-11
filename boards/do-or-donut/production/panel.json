@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. The board is a 50.8 mm circle centred on (125.4, 125.4). Tabs sit only where all copper is at least 0.55 mm from the edge (checked over +-1.75 mm along the edge), and not at the USB-C end (bottom), the switch (upper right) or the LiPo connector (lower left).",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [150.8, 125.4], "dir": "+x", "why": "right side (3 o'clock), beside the driver"},
+    {"near": [100.0, 125.4], "dir": "-x", "why": "left side (9 o'clock)"},
+    {"near": [112.7, 103.4], "dir": "-y", "why": "upper left (about 11 o'clock)"},
+    {"near": [110.83, 146.21], "dir": "+y", "why": "lower left (about 7 o'clock), between the LiPo connector and the XIAO"},
+    {"near": [139.97, 146.21], "dir": "+y", "why": "lower right (about 5 o'clock), beside the XIAO"}
+  ]
+}

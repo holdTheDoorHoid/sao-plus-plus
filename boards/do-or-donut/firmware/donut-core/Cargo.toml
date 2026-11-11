@@ -1,0 +1,22 @@
+[package]
+name = "donut-core"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Board-independent logic for the Do Or Donut SAO (SAO++ edition): LED map, IS31FL3731 driver, current budget, animations, modes, I2C command handling"
+publish = false
+
+# Plain no_std library. Everything here is checked on the host with `cargo test`;
+# the firmware crate in ../donut-fw links it for the ESP32 targets.
+
+[dependencies]
+# Only for the I2C trait the IS31FL3731 driver is written against. Same
+# version esp-hal 1.2.2 uses.
+embedded-hal = "=1.0.0"
+
+[dev-dependencies]
+# Host tests only: re-read ../../hardware/matrix.json to check the LED table.
+serde_json = "1"
+
+[lints.rust]
+unsafe_code = "forbid"

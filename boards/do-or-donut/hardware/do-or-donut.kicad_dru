@@ -1,0 +1,11 @@
+(version 1)
+
+# Do Or Donut keeps the maker's own LED-matrix routing, which he drew at 5 mil (0.127 mm) tracks and 0.127 mm gaps.
+# The board-wide minimum clearance and track width are therefore 0.127 mm (set in the board setup, not here);
+# every new track and via added for SAO++ keeps 0.15 mm (see hardware/router.py).
+
+# The art rule shared by the SAO++ boards: fine gaps inside drawn artwork are not errors. This board has no copper
+# artwork, so the rule changes nothing here; it is kept so the board follows the house template.
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))

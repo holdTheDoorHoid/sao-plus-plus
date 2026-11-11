@@ -1,0 +1,61 @@
+name: "Do Or Donut"
+slug: do-or-donut
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Do Or Donut SAO"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2019
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Do%20Or%20DoNut"
+  project_page: "https://hackaday.io/project/168597-do-or-donut-sao"
+  license: "none stated"   # nothing in the maker's repo states a license, so all rights are reserved by default
+  permission: "pending"    # not asked yet; change to "written" and fill permission_ref when the maker answers
+  permission_ref: ""       # docs/permission.md once there is a reply
+  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  source_commit: "1a08593"
+  files: "Eagle 7.6 board and schematic (original/donut.brd, donut.sch), two PDF prints, Gerbers, a short readme. No firmware."
+
+changes:
+  - "FOUR copper layers instead of the maker's two (owner decision to confirm): his matrix routing stays on the outer layers, all new routing is on the two inner layers. Two layers were tried for several hours with a home-made router and never closed (6-10 connections left each time)"
+  - "Now a stand-alone board: a Seeed Studio XIAO ESP32 module (C3, S3 or C6) on the back drives the donut by itself; USB-C sticks out of the bottom edge"
+  - "The maker's IS31FL3731 driver and all 144 LEDs stay exactly where he put them, wired exactly as he wired them (hardware/matrix.json lists every LED); most of his two-layer matrix routing is kept as drawn"
+  - "The driver now sits on its own private I2C bus to the XIAO (address 0x74); the SAO's SDA/SCL go only to the XIAO, so the badge talks to the XIAO, not to the driver"
+  - "The maker's 6-pin through-hole shrouded header is replaced by the 6-pin v1.69bis SMD shrouded header, moved from below the hole to above it (the XIAO needs the bottom of the ring)"
+  - "SAO / OFF / USB-BAT slide switch on the upper right edge; JST-PH LiPo connector on the lower left edge, charged by the XIAO"
+  - "The maker's credit block (DO OR DONUT / @davedarko / 2019) moved from the top of the back to the upper left (seen from the front), same words and size, turned to follow the ring; his 'ds' logos moved where parts now sit, unchanged; six of them end up hidden under parts"
+  - "Removed: the audio-input test pad and its capacitor, the address resistor (now tied straight to ground), and the badge's direct lines to the driver's shutdown and interrupt pins"
+  - "Front art unchanged: LEDs, bare-board rim and hole ring, icing-coloured solder mask"
+
+features:
+  power_select: true
+  coin_cell: none
+  lipo_connector: JST-PH 2-pin
+  side_leds: 0
+  through_board_leds: 0
+  matrix_leds: 144          # 0603 LEDs on the FRONT, colour still to be chosen
+  i2c_device: true          # the XIAO answers on the badge's bus (firmware not written yet)
+  gpio_use: "GPIO1 -> XIAO D7 (RX), GPIO2 -> XIAO D6 (TX), each through 330 ohm"
+  controller: "Seeed Studio XIAO ESP32-C3 / S3 / C6"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-MCU-01
+  - SAOPP-CONN-10
+  - SAOPP-R-01
+  - SAOPP-R-02
+  - SAOPP-C-01
+
+local_parts:                # only this board uses these so far (hardware/parts_local.py, hardware/do-or-donut-local.pretty)
+  - id: LED_0603_Matrix
+    what: "0603 LED, 144 of them, colour to be chosen; the maker's land pattern"
+    mpn: "to be chosen with the colour"
+  - id: IS31FL3731_SSOP28
+    what: "ISSI IS31FL3731 144-LED charlieplex driver, SSOP-28; the maker's land pattern"
+    mpn: "IS31FL3731-SALS2-TR"
+    lcsc: "C2940545"          # checked on lcsc.com 2026-11-11 (orchestrator)
+  - id: R_20k
+    what: "20 kOhm 0603, R_EXT: sets the driver's LED current"
+    mpn: "0603WAF2002T5E"
+    lcsc: "C4184"             # checked on lcsc.com 2026-11-11 (orchestrator)

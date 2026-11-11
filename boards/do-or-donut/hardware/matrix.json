@@ -1,0 +1,4647 @@
+{
+ "about": "Do Or Donut LED matrix, extracted from the maker's Eagle board (original/donut.brd) by hardware/extract_matrix.py. One entry per LED. Positions are the LED centre seen from the FRONT, in mm from the board centre, x to the right, y UP; angle_deg is counter-clockwise from 3 o'clock. kicad_xy is the same point in the KiCad board file (y down).",
+ "driver": {
+  "chip": "IS31FL3731",
+  "ref": "U1",
+  "i2c_address": "0x74 (AD pin tied to GND)",
+  "bus": "private bus: SDA on XIAO D10, SCL on XIAO D3 (see README)",
+  "pins": {
+   "CA1": 21,
+   "CA2": 22,
+   "CA3": 23,
+   "CA4": 24,
+   "CA5": 25,
+   "CA6": 26,
+   "CA7": 27,
+   "CA8": 28,
+   "CA9": 1,
+   "CB1": 7,
+   "CB2": 8,
+   "CB3": 9,
+   "CB4": 10,
+   "CB5": 11,
+   "CB6": 12,
+   "CB7": 13,
+   "CB8": 14,
+   "CB9": 15
+  }
+ },
+ "frame_note": "frame = position in the chip's frame registers assuming the register row is the LED's CATHODE pin (the maker's schematic grouping). ctrl_reg/ctrl_bit = LED on/off register and bit (page 0..7), pwm_reg = PWM register (0x24 + index). If the datasheet puts the row on the anode, use frame_if_row_is_anode. TO BE CONFIRMED.",
+ "checks_passed": [
+  "every LED is between two different pins of the same matrix",
+  "all 144 ordered pin pairs are different: 72 in matrix A, 72 in matrix B",
+  "every pin is the anode of 8 LEDs and the cathode of 8 LEDs",
+  "both frame mappings use each of the 144 positions exactly once",
+  "the maker's numbering LED1..LED144 follows the cathode-row order"
+ ],
+ "leds": [
+  {
+   "ref": "DA1",
+   "maker_ref": "LED1",
+   "x_mm": -22.513,
+   "y_mm": 3.97,
+   "r_mm": 22.86,
+   "angle_deg": 170.0,
+   "kicad_xy": [
+    102.8873,
+    121.4304
+   ],
+   "rotation_deg": 350.0,
+   "anode": "CA9",
+   "cathode": "CA1",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA1",
+    "col": 8,
+    "index": 7,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x2B"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA9",
+    "col": 1,
+    "index": 128,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 0,
+    "pwm_reg": "0xA4"
+   }
+  },
+  {
+   "ref": "DA2",
+   "maker_ref": "LED2",
+   "x_mm": -21.59,
+   "y_mm": -0.0,
+   "r_mm": 21.59,
+   "angle_deg": 180.0,
+   "kicad_xy": [
+    103.81,
+    125.4
+   ],
+   "rotation_deg": 90.0,
+   "anode": "CA8",
+   "cathode": "CA1",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA1",
+    "col": 7,
+    "index": 6,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x2A"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA8",
+    "col": 1,
+    "index": 112,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x94"
+   }
+  },
+  {
+   "ref": "DA3",
+   "maker_ref": "LED3",
+   "x_mm": -20.011,
+   "y_mm": 3.529,
+   "r_mm": 20.32,
+   "angle_deg": 170.0,
+   "kicad_xy": [
+    105.3887,
+    121.8715
+   ],
+   "rotation_deg": 80.0,
+   "anode": "CA7",
+   "cathode": "CA1",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA1",
+    "col": 6,
+    "index": 5,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x29"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA7",
+    "col": 1,
+    "index": 96,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x84"
+   }
+  },
+  {
+   "ref": "DA4",
+   "maker_ref": "LED4",
+   "x_mm": -19.05,
+   "y_mm": -0.0,
+   "r_mm": 19.05,
+   "angle_deg": 180.0,
+   "kicad_xy": [
+    106.35,
+    125.4
+   ],
+   "rotation_deg": 0.0,
+   "anode": "CA6",
+   "cathode": "CA1",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA1",
+    "col": 5,
+    "index": 4,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x28"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA6",
+    "col": 1,
+    "index": 80,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x74"
+   }
+  },
+  {
+   "ref": "DA5",
+   "maker_ref": "LED5",
+   "x_mm": -17.51,
+   "y_mm": 3.087,
+   "r_mm": 17.78,
+   "angle_deg": 170.0,
+   "kicad_xy": [
+    107.8901,
+    122.3125
+   ],
+   "rotation_deg": 350.0,
+   "anode": "CA5",
+   "cathode": "CA1",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA1",
+    "col": 4,
+    "index": 3,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x27"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA5",
+    "col": 1,
+    "index": 64,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x64"
+   }
+  },
+  {
+   "ref": "DA6",
+   "maker_ref": "LED6",
+   "x_mm": -16.51,
+   "y_mm": -0.0,
+   "r_mm": 16.51,
+   "angle_deg": 180.0,
+   "kicad_xy": [
+    108.89,
+    125.4
+   ],
+   "rotation_deg": 90.0,
+   "anode": "CA4",
+   "cathode": "CA1",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA1",
+    "col": 3,
+    "index": 2,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x26"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA4",
+    "col": 1,
+    "index": 48,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x54"
+   }
+  },
+  {
+   "ref": "DA7",
+   "maker_ref": "LED7",
+   "x_mm": -15.008,
+   "y_mm": 2.646,
+   "r_mm": 15.24,
+   "angle_deg": 170.0,
+   "kicad_xy": [
+    110.3915,
+    122.7536
+   ],
+   "rotation_deg": 80.0,
+   "anode": "CA3",
+   "cathode": "CA1",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA1",
+    "col": 2,
+    "index": 1,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x25"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA3",
+    "col": 1,
+    "index": 32,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x44"
+   }
+  },
+  {
+   "ref": "DA8",
+   "maker_ref": "LED8",
+   "x_mm": -13.97,
+   "y_mm": -0.0,
+   "r_mm": 13.97,
+   "angle_deg": 180.0,
+   "kicad_xy": [
+    111.43,
+    125.4
+   ],
+   "rotation_deg": 0.0,
+   "anode": "CA2",
+   "cathode": "CA1",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA1",
+    "col": 1,
+    "index": 0,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x24"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA2",
+    "col": 1,
+    "index": 16,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x34"
+   }
+  },
+  {
+   "ref": "DA9",
+   "maker_ref": "LED9",
+   "x_mm": -19.797,
+   "y_mm": 11.43,
+   "r_mm": 22.86,
+   "angle_deg": 150.0,
+   "kicad_xy": [
+    105.6027,
+    113.97
+   ],
+   "rotation_deg": 60.0,
+   "anode": "CA9",
+   "cathode": "CA2",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA2",
+    "col": 8,
+    "index": 23,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x3B"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA9",
+    "col": 2,
+    "index": 129,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 1,
+    "pwm_reg": "0xA5"
+   }
+  },
+  {
+   "ref": "DA10",
+   "maker_ref": "LED10",
+   "x_mm": -20.288,
+   "y_mm": 7.384,
+   "r_mm": 21.59,
+   "angle_deg": 160.0,
+   "kicad_xy": [
+    105.112,
+    118.0158
+   ],
+   "rotation_deg": 340.0,
+   "anode": "CA8",
+   "cathode": "CA2",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA2",
+    "col": 7,
+    "index": 22,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x3A"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA8",
+    "col": 2,
+    "index": 113,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x95"
+   }
+  },
+  {
+   "ref": "DA11",
+   "maker_ref": "LED11",
+   "x_mm": -17.598,
+   "y_mm": 10.16,
+   "r_mm": 20.32,
+   "angle_deg": 150.0,
+   "kicad_xy": [
+    107.8024,
+    115.24
+   ],
+   "rotation_deg": 330.0,
+   "anode": "CA7",
+   "cathode": "CA2",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA2",
+    "col": 6,
+    "index": 21,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x39"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA7",
+    "col": 2,
+    "index": 97,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x85"
+   }
+  },
+  {
+   "ref": "DA12",
+   "maker_ref": "LED12",
+   "x_mm": -17.901,
+   "y_mm": 6.515,
+   "r_mm": 19.05,
+   "angle_deg": 160.0,
+   "kicad_xy": [
+    107.4989,
+    118.8845
+   ],
+   "rotation_deg": 70.0,
+   "anode": "CA6",
+   "cathode": "CA2",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA2",
+    "col": 5,
+    "index": 20,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x38"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA6",
+    "col": 2,
+    "index": 81,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x75"
+   }
+  },
+  {
+   "ref": "DA13",
+   "maker_ref": "LED13",
+   "x_mm": -15.398,
+   "y_mm": 8.89,
+   "r_mm": 17.78,
+   "angle_deg": 150.0,
+   "kicad_xy": [
+    110.0021,
+    116.51
+   ],
+   "rotation_deg": 60.0,
+   "anode": "CA5",
+   "cathode": "CA2",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA2",
+    "col": 4,
+    "index": 19,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x37"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA5",
+    "col": 2,
+    "index": 65,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x65"
+   }
+  },
+  {
+   "ref": "DA14",
+   "maker_ref": "LED14",
+   "x_mm": -15.514,
+   "y_mm": 5.647,
+   "r_mm": 16.51,
+   "angle_deg": 160.0,
+   "kicad_xy": [
+    109.8857,
+    119.7533
+   ],
+   "rotation_deg": 340.0,
+   "anode": "CA4",
+   "cathode": "CA2",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA2",
+    "col": 3,
+    "index": 18,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x36"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA4",
+    "col": 2,
+    "index": 49,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x55"
+   }
+  },
+  {
+   "ref": "DA15",
+   "maker_ref": "LED15",
+   "x_mm": -13.198,
+   "y_mm": 7.62,
+   "r_mm": 15.24,
+   "angle_deg": 150.0,
+   "kicad_xy": [
+    112.2018,
+    117.78
+   ],
+   "rotation_deg": 330.0,
+   "anode": "CA3",
+   "cathode": "CA2",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA2",
+    "col": 2,
+    "index": 17,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x35"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA3",
+    "col": 2,
+    "index": 33,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x45"
+   }
+  },
+  {
+   "ref": "DA16",
+   "maker_ref": "LED16",
+   "x_mm": -13.128,
+   "y_mm": 4.778,
+   "r_mm": 13.97,
+   "angle_deg": 160.0,
+   "kicad_xy": [
+    112.2725,
+    120.622
+   ],
+   "rotation_deg": 70.0,
+   "anode": "CA1",
+   "cathode": "CA2",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA2",
+    "col": 1,
+    "index": 16,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x34"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA1",
+    "col": 1,
+    "index": 0,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x24"
+   }
+  },
+  {
+   "ref": "DA17",
+   "maker_ref": "LED17",
+   "x_mm": -14.694,
+   "y_mm": 17.512,
+   "r_mm": 22.86,
+   "angle_deg": 130.0,
+   "kicad_xy": [
+    110.7059,
+    107.8882
+   ],
+   "rotation_deg": 310.0,
+   "anode": "CA9",
+   "cathode": "CA3",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA3",
+    "col": 8,
+    "index": 39,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x4B"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA9",
+    "col": 3,
+    "index": 130,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 2,
+    "pwm_reg": "0xA6"
+   }
+  },
+  {
+   "ref": "DA18",
+   "maker_ref": "LED18",
+   "x_mm": -16.539,
+   "y_mm": 13.878,
+   "r_mm": 21.59,
+   "angle_deg": 140.0,
+   "kicad_xy": [
+    108.8611,
+    111.5222
+   ],
+   "rotation_deg": 50.0,
+   "anode": "CA8",
+   "cathode": "CA3",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA3",
+    "col": 7,
+    "index": 38,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x4A"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA8",
+    "col": 3,
+    "index": 114,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x96"
+   }
+  },
+  {
+   "ref": "DA19",
+   "maker_ref": "LED19",
+   "x_mm": -13.061,
+   "y_mm": 15.566,
+   "r_mm": 20.32,
+   "angle_deg": 130.0,
+   "kicad_xy": [
+    112.3386,
+    109.834
+   ],
+   "rotation_deg": 40.0,
+   "anode": "CA7",
+   "cathode": "CA3",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA3",
+    "col": 6,
+    "index": 37,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x49"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA7",
+    "col": 3,
+    "index": 98,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x86"
+   }
+  },
+  {
+   "ref": "DA20",
+   "maker_ref": "LED20",
+   "x_mm": -14.593,
+   "y_mm": 12.245,
+   "r_mm": 19.05,
+   "angle_deg": 140.0,
+   "kicad_xy": [
+    110.8068,
+    113.1549
+   ],
+   "rotation_deg": 320.0,
+   "anode": "CA6",
+   "cathode": "CA3",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA3",
+    "col": 5,
+    "index": 36,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x48"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA6",
+    "col": 3,
+    "index": 82,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x76"
+   }
+  },
+  {
+   "ref": "DA21",
+   "maker_ref": "LED21",
+   "x_mm": -11.429,
+   "y_mm": 13.62,
+   "r_mm": 17.78,
+   "angle_deg": 130.0,
+   "kicad_xy": [
+    113.9712,
+    111.7797
+   ],
+   "rotation_deg": 310.0,
+   "anode": "CA5",
+   "cathode": "CA3",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA3",
+    "col": 4,
+    "index": 35,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x47"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA5",
+    "col": 3,
+    "index": 66,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x66"
+   }
+  },
+  {
+   "ref": "DA22",
+   "maker_ref": "LED22",
+   "x_mm": -12.647,
+   "y_mm": 10.612,
+   "r_mm": 16.51,
+   "angle_deg": 140.0,
+   "kicad_xy": [
+    112.7526,
+    114.7876
+   ],
+   "rotation_deg": 50.0,
+   "anode": "CA4",
+   "cathode": "CA3",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA3",
+    "col": 3,
+    "index": 34,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x46"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA4",
+    "col": 3,
+    "index": 50,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x56"
+   }
+  },
+  {
+   "ref": "DA23",
+   "maker_ref": "LED23",
+   "x_mm": -9.796,
+   "y_mm": 11.675,
+   "r_mm": 15.24,
+   "angle_deg": 130.0,
+   "kicad_xy": [
+    115.6039,
+    113.7255
+   ],
+   "rotation_deg": 40.0,
+   "anode": "CA2",
+   "cathode": "CA3",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA3",
+    "col": 2,
+    "index": 33,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x45"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA2",
+    "col": 2,
+    "index": 17,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x35"
+   }
+  },
+  {
+   "ref": "DA24",
+   "maker_ref": "LED24",
+   "x_mm": -10.702,
+   "y_mm": 8.98,
+   "r_mm": 13.97,
+   "angle_deg": 140.0,
+   "kicad_xy": [
+    114.6984,
+    116.4203
+   ],
+   "rotation_deg": 320.0,
+   "anode": "CA1",
+   "cathode": "CA3",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA3",
+    "col": 1,
+    "index": 32,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x44"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA1",
+    "col": 2,
+    "index": 1,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x25"
+   }
+  },
+  {
+   "ref": "DA25",
+   "maker_ref": "LED25",
+   "x_mm": -7.819,
+   "y_mm": 21.481,
+   "r_mm": 22.86,
+   "angle_deg": 110.0,
+   "kicad_xy": [
+    117.5814,
+    103.9186
+   ],
+   "rotation_deg": 20.0,
+   "anode": "CA9",
+   "cathode": "CA4",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA4",
+    "col": 8,
+    "index": 55,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x5B"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA9",
+    "col": 4,
+    "index": 131,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 3,
+    "pwm_reg": "0xA7"
+   }
+  },
+  {
+   "ref": "DA26",
+   "maker_ref": "LED26",
+   "x_mm": -10.795,
+   "y_mm": 18.697,
+   "r_mm": 21.59,
+   "angle_deg": 120.0,
+   "kicad_xy": [
+    114.605,
+    106.7025
+   ],
+   "rotation_deg": 300.0,
+   "anode": "CA8",
+   "cathode": "CA4",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA4",
+    "col": 7,
+    "index": 54,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x5A"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA8",
+    "col": 4,
+    "index": 115,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x97"
+   }
+  },
+  {
+   "ref": "DA27",
+   "maker_ref": "LED27",
+   "x_mm": -6.95,
+   "y_mm": 19.095,
+   "r_mm": 20.32,
+   "angle_deg": 110.0,
+   "kicad_xy": [
+    118.4502,
+    106.3054
+   ],
+   "rotation_deg": 290.0,
+   "anode": "CA7",
+   "cathode": "CA4",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA4",
+    "col": 6,
+    "index": 53,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x59"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA7",
+    "col": 4,
+    "index": 99,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x87"
+   }
+  },
+  {
+   "ref": "DA28",
+   "maker_ref": "LED28",
+   "x_mm": -9.525,
+   "y_mm": 16.498,
+   "r_mm": 19.05,
+   "angle_deg": 120.0,
+   "kicad_xy": [
+    115.875,
+    108.9022
+   ],
+   "rotation_deg": 30.0,
+   "anode": "CA6",
+   "cathode": "CA4",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA4",
+    "col": 5,
+    "index": 52,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x58"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA6",
+    "col": 4,
+    "index": 83,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x77"
+   }
+  },
+  {
+   "ref": "DA29",
+   "maker_ref": "LED29",
+   "x_mm": -6.081,
+   "y_mm": 16.708,
+   "r_mm": 17.78,
+   "angle_deg": 110.0,
+   "kicad_xy": [
+    119.3189,
+    108.6923
+   ],
+   "rotation_deg": 20.0,
+   "anode": "CA5",
+   "cathode": "CA4",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA4",
+    "col": 4,
+    "index": 51,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x57"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA5",
+    "col": 4,
+    "index": 67,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x67"
+   }
+  },
+  {
+   "ref": "DA30",
+   "maker_ref": "LED30",
+   "x_mm": -8.255,
+   "y_mm": 14.298,
+   "r_mm": 16.51,
+   "angle_deg": 120.0,
+   "kicad_xy": [
+    117.145,
+    111.1019
+   ],
+   "rotation_deg": 300.0,
+   "anode": "CA3",
+   "cathode": "CA4",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA4",
+    "col": 3,
+    "index": 50,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x56"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA3",
+    "col": 3,
+    "index": 34,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x46"
+   }
+  },
+  {
+   "ref": "DA31",
+   "maker_ref": "LED31",
+   "x_mm": -5.212,
+   "y_mm": 14.321,
+   "r_mm": 15.24,
+   "angle_deg": 110.0,
+   "kicad_xy": [
+    120.1876,
+    111.0791
+   ],
+   "rotation_deg": 290.0,
+   "anode": "CA2",
+   "cathode": "CA4",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA4",
+    "col": 2,
+    "index": 49,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x55"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA2",
+    "col": 3,
+    "index": 18,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x36"
+   }
+  },
+  {
+   "ref": "DA32",
+   "maker_ref": "LED32",
+   "x_mm": -6.985,
+   "y_mm": 12.098,
+   "r_mm": 13.97,
+   "angle_deg": 120.0,
+   "kicad_xy": [
+    118.415,
+    113.3016
+   ],
+   "rotation_deg": 30.0,
+   "anode": "CA1",
+   "cathode": "CA4",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA4",
+    "col": 1,
+    "index": 48,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x54"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA1",
+    "col": 3,
+    "index": 2,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x26"
+   }
+  },
+  {
+   "ref": "DA33",
+   "maker_ref": "LED33",
+   "x_mm": 0.0,
+   "y_mm": 22.86,
+   "r_mm": 22.86,
+   "angle_deg": 90.0,
+   "kicad_xy": [
+    125.4,
+    102.54
+   ],
+   "rotation_deg": 270.0,
+   "anode": "CA9",
+   "cathode": "CA5",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA5",
+    "col": 8,
+    "index": 71,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x6B"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA9",
+    "col": 5,
+    "index": 132,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 4,
+    "pwm_reg": "0xA8"
+   }
+  },
+  {
+   "ref": "DA34",
+   "maker_ref": "LED34",
+   "x_mm": -3.749,
+   "y_mm": 21.262,
+   "r_mm": 21.59,
+   "angle_deg": 100.0,
+   "kicad_xy": [
+    121.6509,
+    104.138
+   ],
+   "rotation_deg": 10.0,
+   "anode": "CA8",
+   "cathode": "CA5",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA5",
+    "col": 7,
+    "index": 70,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x6A"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA8",
+    "col": 5,
+    "index": 116,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x98"
+   }
+  },
+  {
+   "ref": "DA35",
+   "maker_ref": "LED35",
+   "x_mm": 0.0,
+   "y_mm": 20.32,
+   "r_mm": 20.32,
+   "angle_deg": 90.0,
+   "kicad_xy": [
+    125.4,
+    105.08
+   ],
+   "rotation_deg": 0.0,
+   "anode": "CA7",
+   "cathode": "CA5",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA5",
+    "col": 6,
+    "index": 69,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x69"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA7",
+    "col": 5,
+    "index": 100,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x88"
+   }
+  },
+  {
+   "ref": "DA36",
+   "maker_ref": "LED36",
+   "x_mm": -3.308,
+   "y_mm": 18.761,
+   "r_mm": 19.05,
+   "angle_deg": 100.0,
+   "kicad_xy": [
+    122.092,
+    106.6394
+   ],
+   "rotation_deg": 280.0,
+   "anode": "CA6",
+   "cathode": "CA5",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA5",
+    "col": 5,
+    "index": 68,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x68"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA6",
+    "col": 5,
+    "index": 84,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x78"
+   }
+  },
+  {
+   "ref": "DA37",
+   "maker_ref": "LED37",
+   "x_mm": 0.0,
+   "y_mm": 17.78,
+   "r_mm": 17.78,
+   "angle_deg": 90.0,
+   "kicad_xy": [
+    125.4,
+    107.62
+   ],
+   "rotation_deg": 270.0,
+   "anode": "CA4",
+   "cathode": "CA5",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA5",
+    "col": 4,
+    "index": 67,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x67"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA4",
+    "col": 4,
+    "index": 51,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x57"
+   }
+  },
+  {
+   "ref": "DA38",
+   "maker_ref": "LED38",
+   "x_mm": -2.867,
+   "y_mm": 16.259,
+   "r_mm": 16.51,
+   "angle_deg": 100.0,
+   "kicad_xy": [
+    122.5331,
+    109.1408
+   ],
+   "rotation_deg": 10.0,
+   "anode": "CA3",
+   "cathode": "CA5",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA5",
+    "col": 3,
+    "index": 66,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x66"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA3",
+    "col": 4,
+    "index": 35,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x47"
+   }
+  },
+  {
+   "ref": "DA39",
+   "maker_ref": "LED39",
+   "x_mm": 0.0,
+   "y_mm": 15.24,
+   "r_mm": 15.24,
+   "angle_deg": 90.0,
+   "kicad_xy": [
+    125.4,
+    110.16
+   ],
+   "rotation_deg": 0.0,
+   "anode": "CA2",
+   "cathode": "CA5",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA5",
+    "col": 2,
+    "index": 65,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x65"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA2",
+    "col": 4,
+    "index": 19,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x37"
+   }
+  },
+  {
+   "ref": "DA40",
+   "maker_ref": "LED40",
+   "x_mm": -2.426,
+   "y_mm": 13.758,
+   "r_mm": 13.97,
+   "angle_deg": 100.0,
+   "kicad_xy": [
+    122.9741,
+    111.6422
+   ],
+   "rotation_deg": 280.0,
+   "anode": "CA1",
+   "cathode": "CA5",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA5",
+    "col": 1,
+    "index": 64,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x64"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA1",
+    "col": 4,
+    "index": 3,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x27"
+   }
+  },
+  {
+   "ref": "DA41",
+   "maker_ref": "LED41",
+   "x_mm": 7.819,
+   "y_mm": 21.481,
+   "r_mm": 22.86,
+   "angle_deg": 70.0,
+   "kicad_xy": [
+    133.2186,
+    103.9186
+   ],
+   "rotation_deg": 340.0,
+   "anode": "CA9",
+   "cathode": "CA6",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA6",
+    "col": 8,
+    "index": 87,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x7B"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA9",
+    "col": 6,
+    "index": 133,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 5,
+    "pwm_reg": "0xA9"
+   }
+  },
+  {
+   "ref": "DA42",
+   "maker_ref": "LED42",
+   "x_mm": 3.749,
+   "y_mm": 21.262,
+   "r_mm": 21.59,
+   "angle_deg": 80.0,
+   "kicad_xy": [
+    129.1491,
+    104.138
+   ],
+   "rotation_deg": 260.0,
+   "anode": "CA8",
+   "cathode": "CA6",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA6",
+    "col": 7,
+    "index": 86,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x7A"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA8",
+    "col": 6,
+    "index": 117,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x99"
+   }
+  },
+  {
+   "ref": "DA43",
+   "maker_ref": "LED43",
+   "x_mm": 6.95,
+   "y_mm": 19.095,
+   "r_mm": 20.32,
+   "angle_deg": 70.0,
+   "kicad_xy": [
+    132.3498,
+    106.3054
+   ],
+   "rotation_deg": 250.0,
+   "anode": "CA7",
+   "cathode": "CA6",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA6",
+    "col": 6,
+    "index": 85,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x79"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA7",
+    "col": 6,
+    "index": 101,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x89"
+   }
+  },
+  {
+   "ref": "DA44",
+   "maker_ref": "LED44",
+   "x_mm": 3.308,
+   "y_mm": 18.761,
+   "r_mm": 19.05,
+   "angle_deg": 80.0,
+   "kicad_xy": [
+    128.708,
+    106.6394
+   ],
+   "rotation_deg": 350.0,
+   "anode": "CA5",
+   "cathode": "CA6",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA6",
+    "col": 5,
+    "index": 84,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x78"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA5",
+    "col": 5,
+    "index": 68,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x68"
+   }
+  },
+  {
+   "ref": "DA45",
+   "maker_ref": "LED45",
+   "x_mm": 6.081,
+   "y_mm": 16.708,
+   "r_mm": 17.78,
+   "angle_deg": 70.0,
+   "kicad_xy": [
+    131.4811,
+    108.6923
+   ],
+   "rotation_deg": 340.0,
+   "anode": "CA4",
+   "cathode": "CA6",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA6",
+    "col": 4,
+    "index": 83,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x77"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA4",
+    "col": 5,
+    "index": 52,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x58"
+   }
+  },
+  {
+   "ref": "DA46",
+   "maker_ref": "LED46",
+   "x_mm": 2.867,
+   "y_mm": 16.259,
+   "r_mm": 16.51,
+   "angle_deg": 80.0,
+   "kicad_xy": [
+    128.2669,
+    109.1408
+   ],
+   "rotation_deg": 260.0,
+   "anode": "CA3",
+   "cathode": "CA6",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA6",
+    "col": 3,
+    "index": 82,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x76"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA3",
+    "col": 5,
+    "index": 36,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x48"
+   }
+  },
+  {
+   "ref": "DA47",
+   "maker_ref": "LED47",
+   "x_mm": 5.212,
+   "y_mm": 14.321,
+   "r_mm": 15.24,
+   "angle_deg": 70.0,
+   "kicad_xy": [
+    130.6124,
+    111.0791
+   ],
+   "rotation_deg": 250.0,
+   "anode": "CA2",
+   "cathode": "CA6",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA6",
+    "col": 2,
+    "index": 81,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x75"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA2",
+    "col": 5,
+    "index": 20,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x38"
+   }
+  },
+  {
+   "ref": "DA48",
+   "maker_ref": "LED48",
+   "x_mm": 2.426,
+   "y_mm": 13.758,
+   "r_mm": 13.97,
+   "angle_deg": 80.0,
+   "kicad_xy": [
+    127.8259,
+    111.6422
+   ],
+   "rotation_deg": 350.0,
+   "anode": "CA1",
+   "cathode": "CA6",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA6",
+    "col": 1,
+    "index": 80,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x74"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA1",
+    "col": 5,
+    "index": 4,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x28"
+   }
+  },
+  {
+   "ref": "DA49",
+   "maker_ref": "LED49",
+   "x_mm": 14.694,
+   "y_mm": 17.512,
+   "r_mm": 22.86,
+   "angle_deg": 50.0,
+   "kicad_xy": [
+    140.0941,
+    107.8882
+   ],
+   "rotation_deg": 230.0,
+   "anode": "CA9",
+   "cathode": "CA7",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA7",
+    "col": 8,
+    "index": 103,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x8B"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA9",
+    "col": 7,
+    "index": 134,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 6,
+    "pwm_reg": "0xAA"
+   }
+  },
+  {
+   "ref": "DA50",
+   "maker_ref": "LED50",
+   "x_mm": 10.795,
+   "y_mm": 18.697,
+   "r_mm": 21.59,
+   "angle_deg": 60.0,
+   "kicad_xy": [
+    136.195,
+    106.7025
+   ],
+   "rotation_deg": 330.0,
+   "anode": "CA8",
+   "cathode": "CA7",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA7",
+    "col": 7,
+    "index": 102,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x8A"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA8",
+    "col": 7,
+    "index": 118,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x9A"
+   }
+  },
+  {
+   "ref": "DA51",
+   "maker_ref": "LED51",
+   "x_mm": 13.061,
+   "y_mm": 15.566,
+   "r_mm": 20.32,
+   "angle_deg": 50.0,
+   "kicad_xy": [
+    138.4614,
+    109.834
+   ],
+   "rotation_deg": 320.0,
+   "anode": "CA6",
+   "cathode": "CA7",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA7",
+    "col": 6,
+    "index": 101,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x89"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA6",
+    "col": 6,
+    "index": 85,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x79"
+   }
+  },
+  {
+   "ref": "DA52",
+   "maker_ref": "LED52",
+   "x_mm": 9.525,
+   "y_mm": 16.498,
+   "r_mm": 19.05,
+   "angle_deg": 60.0,
+   "kicad_xy": [
+    134.925,
+    108.9022
+   ],
+   "rotation_deg": 240.0,
+   "anode": "CA5",
+   "cathode": "CA7",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA7",
+    "col": 5,
+    "index": 100,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x88"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA5",
+    "col": 6,
+    "index": 69,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x69"
+   }
+  },
+  {
+   "ref": "DA53",
+   "maker_ref": "LED53",
+   "x_mm": 11.429,
+   "y_mm": 13.62,
+   "r_mm": 17.78,
+   "angle_deg": 50.0,
+   "kicad_xy": [
+    136.8288,
+    111.7797
+   ],
+   "rotation_deg": 230.0,
+   "anode": "CA4",
+   "cathode": "CA7",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA7",
+    "col": 4,
+    "index": 99,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x87"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA4",
+    "col": 6,
+    "index": 53,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x59"
+   }
+  },
+  {
+   "ref": "DA54",
+   "maker_ref": "LED54",
+   "x_mm": 8.255,
+   "y_mm": 14.298,
+   "r_mm": 16.51,
+   "angle_deg": 60.0,
+   "kicad_xy": [
+    133.655,
+    111.1019
+   ],
+   "rotation_deg": 330.0,
+   "anode": "CA3",
+   "cathode": "CA7",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA7",
+    "col": 3,
+    "index": 98,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x86"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA3",
+    "col": 6,
+    "index": 37,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x49"
+   }
+  },
+  {
+   "ref": "DA55",
+   "maker_ref": "LED55",
+   "x_mm": 9.796,
+   "y_mm": 11.675,
+   "r_mm": 15.24,
+   "angle_deg": 50.0,
+   "kicad_xy": [
+    135.1961,
+    113.7255
+   ],
+   "rotation_deg": 320.0,
+   "anode": "CA2",
+   "cathode": "CA7",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA7",
+    "col": 2,
+    "index": 97,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x85"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA2",
+    "col": 6,
+    "index": 21,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x39"
+   }
+  },
+  {
+   "ref": "DA56",
+   "maker_ref": "LED56",
+   "x_mm": 6.985,
+   "y_mm": 12.098,
+   "r_mm": 13.97,
+   "angle_deg": 60.0,
+   "kicad_xy": [
+    132.385,
+    113.3016
+   ],
+   "rotation_deg": 240.0,
+   "anode": "CA1",
+   "cathode": "CA7",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA7",
+    "col": 1,
+    "index": 96,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x84"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA1",
+    "col": 6,
+    "index": 5,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x29"
+   }
+  },
+  {
+   "ref": "DA57",
+   "maker_ref": "LED57",
+   "x_mm": 19.797,
+   "y_mm": 11.43,
+   "r_mm": 22.86,
+   "angle_deg": 30.0,
+   "kicad_xy": [
+    145.1973,
+    113.97
+   ],
+   "rotation_deg": 300.0,
+   "anode": "CA9",
+   "cathode": "CA8",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA8",
+    "col": 8,
+    "index": 119,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x9B"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA9",
+    "col": 8,
+    "index": 135,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 7,
+    "pwm_reg": "0xAB"
+   }
+  },
+  {
+   "ref": "DA58",
+   "maker_ref": "LED58",
+   "x_mm": 16.539,
+   "y_mm": 13.878,
+   "r_mm": 21.59,
+   "angle_deg": 40.0,
+   "kicad_xy": [
+    141.9389,
+    111.5222
+   ],
+   "rotation_deg": 220.0,
+   "anode": "CA7",
+   "cathode": "CA8",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA8",
+    "col": 7,
+    "index": 118,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x9A"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA7",
+    "col": 7,
+    "index": 102,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x8A"
+   }
+  },
+  {
+   "ref": "DA59",
+   "maker_ref": "LED59",
+   "x_mm": 17.598,
+   "y_mm": 10.16,
+   "r_mm": 20.32,
+   "angle_deg": 30.0,
+   "kicad_xy": [
+    142.9976,
+    115.24
+   ],
+   "rotation_deg": 210.0,
+   "anode": "CA6",
+   "cathode": "CA8",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA8",
+    "col": 6,
+    "index": 117,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x99"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA6",
+    "col": 7,
+    "index": 86,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x7A"
+   }
+  },
+  {
+   "ref": "DA60",
+   "maker_ref": "LED60",
+   "x_mm": 14.593,
+   "y_mm": 12.245,
+   "r_mm": 19.05,
+   "angle_deg": 40.0,
+   "kicad_xy": [
+    139.9931,
+    113.1549
+   ],
+   "rotation_deg": 310.0,
+   "anode": "CA5",
+   "cathode": "CA8",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA8",
+    "col": 5,
+    "index": 116,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x98"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA5",
+    "col": 7,
+    "index": 70,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x6A"
+   }
+  },
+  {
+   "ref": "DA61",
+   "maker_ref": "LED61",
+   "x_mm": 15.398,
+   "y_mm": 8.89,
+   "r_mm": 17.78,
+   "angle_deg": 30.0,
+   "kicad_xy": [
+    140.7979,
+    116.51
+   ],
+   "rotation_deg": 300.0,
+   "anode": "CA4",
+   "cathode": "CA8",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA8",
+    "col": 4,
+    "index": 115,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x97"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA4",
+    "col": 7,
+    "index": 54,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x5A"
+   }
+  },
+  {
+   "ref": "DA62",
+   "maker_ref": "LED62",
+   "x_mm": 12.647,
+   "y_mm": 10.612,
+   "r_mm": 16.51,
+   "angle_deg": 40.0,
+   "kicad_xy": [
+    138.0474,
+    114.7876
+   ],
+   "rotation_deg": 220.0,
+   "anode": "CA3",
+   "cathode": "CA8",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA8",
+    "col": 3,
+    "index": 114,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x96"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA3",
+    "col": 7,
+    "index": 38,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x4A"
+   }
+  },
+  {
+   "ref": "DA63",
+   "maker_ref": "LED63",
+   "x_mm": 13.198,
+   "y_mm": 7.62,
+   "r_mm": 15.24,
+   "angle_deg": 30.0,
+   "kicad_xy": [
+    138.5982,
+    117.78
+   ],
+   "rotation_deg": 210.0,
+   "anode": "CA2",
+   "cathode": "CA8",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA8",
+    "col": 2,
+    "index": 113,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x95"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA2",
+    "col": 7,
+    "index": 22,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x3A"
+   }
+  },
+  {
+   "ref": "DA64",
+   "maker_ref": "LED64",
+   "x_mm": 10.702,
+   "y_mm": 8.98,
+   "r_mm": 13.97,
+   "angle_deg": 40.0,
+   "kicad_xy": [
+    136.1016,
+    116.4203
+   ],
+   "rotation_deg": 310.0,
+   "anode": "CA1",
+   "cathode": "CA8",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA8",
+    "col": 1,
+    "index": 112,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x94"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA1",
+    "col": 7,
+    "index": 6,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x2A"
+   }
+  },
+  {
+   "ref": "DA65",
+   "maker_ref": "LED65",
+   "x_mm": 22.513,
+   "y_mm": 3.97,
+   "r_mm": 22.86,
+   "angle_deg": 10.0,
+   "kicad_xy": [
+    147.9127,
+    121.4304
+   ],
+   "rotation_deg": 190.0,
+   "anode": "CA8",
+   "cathode": "CA9",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA9",
+    "col": 8,
+    "index": 135,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 7,
+    "pwm_reg": "0xAB"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA8",
+    "col": 8,
+    "index": 119,
+    "ctrl_reg": "0x0E",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x9B"
+   }
+  },
+  {
+   "ref": "DA66",
+   "maker_ref": "LED66",
+   "x_mm": 20.288,
+   "y_mm": 7.384,
+   "r_mm": 21.59,
+   "angle_deg": 20.0,
+   "kicad_xy": [
+    145.688,
+    118.0158
+   ],
+   "rotation_deg": 290.0,
+   "anode": "CA7",
+   "cathode": "CA9",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA9",
+    "col": 7,
+    "index": 134,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 6,
+    "pwm_reg": "0xAA"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA7",
+    "col": 8,
+    "index": 103,
+    "ctrl_reg": "0x0C",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x8B"
+   }
+  },
+  {
+   "ref": "DA67",
+   "maker_ref": "LED67",
+   "x_mm": 20.011,
+   "y_mm": 3.529,
+   "r_mm": 20.32,
+   "angle_deg": 10.0,
+   "kicad_xy": [
+    145.4113,
+    121.8715
+   ],
+   "rotation_deg": 280.0,
+   "anode": "CA6",
+   "cathode": "CA9",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA9",
+    "col": 6,
+    "index": 133,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 5,
+    "pwm_reg": "0xA9"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA6",
+    "col": 8,
+    "index": 87,
+    "ctrl_reg": "0x0A",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x7B"
+   }
+  },
+  {
+   "ref": "DA68",
+   "maker_ref": "LED68",
+   "x_mm": 17.901,
+   "y_mm": 6.515,
+   "r_mm": 19.05,
+   "angle_deg": 20.0,
+   "kicad_xy": [
+    143.3011,
+    118.8845
+   ],
+   "rotation_deg": 200.0,
+   "anode": "CA5",
+   "cathode": "CA9",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA9",
+    "col": 5,
+    "index": 132,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 4,
+    "pwm_reg": "0xA8"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA5",
+    "col": 8,
+    "index": 71,
+    "ctrl_reg": "0x08",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x6B"
+   }
+  },
+  {
+   "ref": "DA69",
+   "maker_ref": "LED69",
+   "x_mm": 17.51,
+   "y_mm": 3.087,
+   "r_mm": 17.78,
+   "angle_deg": 10.0,
+   "kicad_xy": [
+    142.9099,
+    122.3125
+   ],
+   "rotation_deg": 190.0,
+   "anode": "CA4",
+   "cathode": "CA9",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA9",
+    "col": 4,
+    "index": 131,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 3,
+    "pwm_reg": "0xA7"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA4",
+    "col": 8,
+    "index": 55,
+    "ctrl_reg": "0x06",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x5B"
+   }
+  },
+  {
+   "ref": "DA70",
+   "maker_ref": "LED70",
+   "x_mm": 15.514,
+   "y_mm": 5.647,
+   "r_mm": 16.51,
+   "angle_deg": 20.0,
+   "kicad_xy": [
+    140.9143,
+    119.7533
+   ],
+   "rotation_deg": 290.0,
+   "anode": "CA3",
+   "cathode": "CA9",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA9",
+    "col": 3,
+    "index": 130,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 2,
+    "pwm_reg": "0xA6"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA3",
+    "col": 8,
+    "index": 39,
+    "ctrl_reg": "0x04",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x4B"
+   }
+  },
+  {
+   "ref": "DA71",
+   "maker_ref": "LED71",
+   "x_mm": 15.008,
+   "y_mm": 2.646,
+   "r_mm": 15.24,
+   "angle_deg": 10.0,
+   "kicad_xy": [
+    140.4085,
+    122.7536
+   ],
+   "rotation_deg": 280.0,
+   "anode": "CA2",
+   "cathode": "CA9",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA9",
+    "col": 2,
+    "index": 129,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 1,
+    "pwm_reg": "0xA5"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA2",
+    "col": 8,
+    "index": 23,
+    "ctrl_reg": "0x02",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x3B"
+   }
+  },
+  {
+   "ref": "DA72",
+   "maker_ref": "LED72",
+   "x_mm": 13.128,
+   "y_mm": 4.778,
+   "r_mm": 13.97,
+   "angle_deg": 20.0,
+   "kicad_xy": [
+    138.5275,
+    120.622
+   ],
+   "rotation_deg": 200.0,
+   "anode": "CA1",
+   "cathode": "CA9",
+   "matrix": "A",
+   "frame": {
+    "row_pin": "CA9",
+    "col": 1,
+    "index": 128,
+    "ctrl_reg": "0x10",
+    "ctrl_bit": 0,
+    "pwm_reg": "0xA4"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CA1",
+    "col": 8,
+    "index": 7,
+    "ctrl_reg": "0x00",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x2B"
+   }
+  },
+  {
+   "ref": "DB1",
+   "maker_ref": "LED73",
+   "x_mm": 22.513,
+   "y_mm": -3.97,
+   "r_mm": 22.86,
+   "angle_deg": 350.0,
+   "kicad_xy": [
+    147.9127,
+    129.3696
+   ],
+   "rotation_deg": 260.0,
+   "anode": "CB9",
+   "cathode": "CB1",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB1",
+    "col": 8,
+    "index": 15,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x33"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB9",
+    "col": 1,
+    "index": 136,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 0,
+    "pwm_reg": "0xAC"
+   }
+  },
+  {
+   "ref": "DB2",
+   "maker_ref": "LED74",
+   "x_mm": 21.59,
+   "y_mm": -0.0,
+   "r_mm": 21.59,
+   "angle_deg": 360.0,
+   "kicad_xy": [
+    146.99,
+    125.4
+   ],
+   "rotation_deg": 180.0,
+   "anode": "CB8",
+   "cathode": "CB1",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB1",
+    "col": 7,
+    "index": 14,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x32"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB8",
+    "col": 1,
+    "index": 120,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x9C"
+   }
+  },
+  {
+   "ref": "DB3",
+   "maker_ref": "LED75",
+   "x_mm": 20.011,
+   "y_mm": -3.529,
+   "r_mm": 20.32,
+   "angle_deg": 350.0,
+   "kicad_xy": [
+    145.4113,
+    128.9285
+   ],
+   "rotation_deg": 170.0,
+   "anode": "CB7",
+   "cathode": "CB1",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB1",
+    "col": 6,
+    "index": 13,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x31"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB7",
+    "col": 1,
+    "index": 104,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x8C"
+   }
+  },
+  {
+   "ref": "DB4",
+   "maker_ref": "LED76",
+   "x_mm": 19.05,
+   "y_mm": -0.0,
+   "r_mm": 19.05,
+   "angle_deg": 360.0,
+   "kicad_xy": [
+    144.45,
+    125.4
+   ],
+   "rotation_deg": 270.0,
+   "anode": "CB6",
+   "cathode": "CB1",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB1",
+    "col": 5,
+    "index": 12,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x30"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB6",
+    "col": 1,
+    "index": 88,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x7C"
+   }
+  },
+  {
+   "ref": "DB5",
+   "maker_ref": "LED77",
+   "x_mm": 17.51,
+   "y_mm": -3.087,
+   "r_mm": 17.78,
+   "angle_deg": 350.0,
+   "kicad_xy": [
+    142.9099,
+    128.4875
+   ],
+   "rotation_deg": 260.0,
+   "anode": "CB5",
+   "cathode": "CB1",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB1",
+    "col": 4,
+    "index": 11,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x2F"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB5",
+    "col": 1,
+    "index": 72,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x6C"
+   }
+  },
+  {
+   "ref": "DB6",
+   "maker_ref": "LED78",
+   "x_mm": 16.51,
+   "y_mm": -0.0,
+   "r_mm": 16.51,
+   "angle_deg": 360.0,
+   "kicad_xy": [
+    141.91,
+    125.4
+   ],
+   "rotation_deg": 180.0,
+   "anode": "CB4",
+   "cathode": "CB1",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB1",
+    "col": 3,
+    "index": 10,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x2E"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB4",
+    "col": 1,
+    "index": 56,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x5C"
+   }
+  },
+  {
+   "ref": "DB7",
+   "maker_ref": "LED79",
+   "x_mm": 15.008,
+   "y_mm": -2.646,
+   "r_mm": 15.24,
+   "angle_deg": 350.0,
+   "kicad_xy": [
+    140.4085,
+    128.0464
+   ],
+   "rotation_deg": 170.0,
+   "anode": "CB3",
+   "cathode": "CB1",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB1",
+    "col": 2,
+    "index": 9,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x2D"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB3",
+    "col": 1,
+    "index": 40,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x4C"
+   }
+  },
+  {
+   "ref": "DB8",
+   "maker_ref": "LED80",
+   "x_mm": 13.97,
+   "y_mm": -0.0,
+   "r_mm": 13.97,
+   "angle_deg": 360.0,
+   "kicad_xy": [
+    139.37,
+    125.4
+   ],
+   "rotation_deg": 270.0,
+   "anode": "CB2",
+   "cathode": "CB1",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB1",
+    "col": 1,
+    "index": 8,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x2C"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB2",
+    "col": 1,
+    "index": 24,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x3C"
+   }
+  },
+  {
+   "ref": "DB9",
+   "maker_ref": "LED81",
+   "x_mm": 19.797,
+   "y_mm": -11.43,
+   "r_mm": 22.86,
+   "angle_deg": 330.0,
+   "kicad_xy": [
+    145.1973,
+    136.83
+   ],
+   "rotation_deg": 150.0,
+   "anode": "CB9",
+   "cathode": "CB2",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB2",
+    "col": 8,
+    "index": 31,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x43"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB9",
+    "col": 2,
+    "index": 137,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 1,
+    "pwm_reg": "0xAD"
+   }
+  },
+  {
+   "ref": "DB10",
+   "maker_ref": "LED82",
+   "x_mm": 20.288,
+   "y_mm": -7.384,
+   "r_mm": 21.59,
+   "angle_deg": 340.0,
+   "kicad_xy": [
+    145.688,
+    132.7842
+   ],
+   "rotation_deg": 250.0,
+   "anode": "CB8",
+   "cathode": "CB2",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB2",
+    "col": 7,
+    "index": 30,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x42"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB8",
+    "col": 2,
+    "index": 121,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x9D"
+   }
+  },
+  {
+   "ref": "DB11",
+   "maker_ref": "LED83",
+   "x_mm": 17.598,
+   "y_mm": -10.16,
+   "r_mm": 20.32,
+   "angle_deg": 330.0,
+   "kicad_xy": [
+    142.9976,
+    135.56
+   ],
+   "rotation_deg": 240.0,
+   "anode": "CB7",
+   "cathode": "CB2",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB2",
+    "col": 6,
+    "index": 29,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x41"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB7",
+    "col": 2,
+    "index": 105,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x8D"
+   }
+  },
+  {
+   "ref": "DB12",
+   "maker_ref": "LED84",
+   "x_mm": 17.901,
+   "y_mm": -6.515,
+   "r_mm": 19.05,
+   "angle_deg": 340.0,
+   "kicad_xy": [
+    143.3011,
+    131.9155
+   ],
+   "rotation_deg": 160.0,
+   "anode": "CB6",
+   "cathode": "CB2",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB2",
+    "col": 5,
+    "index": 28,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x40"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB6",
+    "col": 2,
+    "index": 89,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x7D"
+   }
+  },
+  {
+   "ref": "DB13",
+   "maker_ref": "LED85",
+   "x_mm": 15.398,
+   "y_mm": -8.89,
+   "r_mm": 17.78,
+   "angle_deg": 330.0,
+   "kicad_xy": [
+    140.7979,
+    134.29
+   ],
+   "rotation_deg": 150.0,
+   "anode": "CB5",
+   "cathode": "CB2",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB2",
+    "col": 4,
+    "index": 27,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x3F"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB5",
+    "col": 2,
+    "index": 73,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x6D"
+   }
+  },
+  {
+   "ref": "DB14",
+   "maker_ref": "LED86",
+   "x_mm": 15.514,
+   "y_mm": -5.647,
+   "r_mm": 16.51,
+   "angle_deg": 340.0,
+   "kicad_xy": [
+    140.9143,
+    131.0468
+   ],
+   "rotation_deg": 250.0,
+   "anode": "CB4",
+   "cathode": "CB2",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB2",
+    "col": 3,
+    "index": 26,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x3E"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB4",
+    "col": 2,
+    "index": 57,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x5D"
+   }
+  },
+  {
+   "ref": "DB15",
+   "maker_ref": "LED87",
+   "x_mm": 13.198,
+   "y_mm": -7.62,
+   "r_mm": 15.24,
+   "angle_deg": 330.0,
+   "kicad_xy": [
+    138.5982,
+    133.02
+   ],
+   "rotation_deg": 240.0,
+   "anode": "CB3",
+   "cathode": "CB2",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB2",
+    "col": 2,
+    "index": 25,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x3D"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB3",
+    "col": 2,
+    "index": 41,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x4D"
+   }
+  },
+  {
+   "ref": "DB16",
+   "maker_ref": "LED88",
+   "x_mm": 13.128,
+   "y_mm": -4.778,
+   "r_mm": 13.97,
+   "angle_deg": 340.0,
+   "kicad_xy": [
+    138.5275,
+    130.178
+   ],
+   "rotation_deg": 160.0,
+   "anode": "CB1",
+   "cathode": "CB2",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB2",
+    "col": 1,
+    "index": 24,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x3C"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB1",
+    "col": 1,
+    "index": 8,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x2C"
+   }
+  },
+  {
+   "ref": "DB17",
+   "maker_ref": "LED89",
+   "x_mm": 14.694,
+   "y_mm": -17.512,
+   "r_mm": 22.86,
+   "angle_deg": 310.0,
+   "kicad_xy": [
+    140.0941,
+    142.9118
+   ],
+   "rotation_deg": 220.0,
+   "anode": "CB9",
+   "cathode": "CB3",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB3",
+    "col": 8,
+    "index": 47,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x53"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB9",
+    "col": 3,
+    "index": 138,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 2,
+    "pwm_reg": "0xAE"
+   }
+  },
+  {
+   "ref": "DB18",
+   "maker_ref": "LED90",
+   "x_mm": 16.539,
+   "y_mm": -13.878,
+   "r_mm": 21.59,
+   "angle_deg": 320.0,
+   "kicad_xy": [
+    141.9389,
+    139.2778
+   ],
+   "rotation_deg": 140.0,
+   "anode": "CB8",
+   "cathode": "CB3",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB3",
+    "col": 7,
+    "index": 46,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x52"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB8",
+    "col": 3,
+    "index": 122,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x9E"
+   }
+  },
+  {
+   "ref": "DB19",
+   "maker_ref": "LED91",
+   "x_mm": 13.061,
+   "y_mm": -15.566,
+   "r_mm": 20.32,
+   "angle_deg": 310.0,
+   "kicad_xy": [
+    138.4614,
+    140.966
+   ],
+   "rotation_deg": 130.0,
+   "anode": "CB7",
+   "cathode": "CB3",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB3",
+    "col": 6,
+    "index": 45,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x51"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB7",
+    "col": 3,
+    "index": 106,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x8E"
+   }
+  },
+  {
+   "ref": "DB20",
+   "maker_ref": "LED92",
+   "x_mm": 14.593,
+   "y_mm": -12.245,
+   "r_mm": 19.05,
+   "angle_deg": 320.0,
+   "kicad_xy": [
+    139.9931,
+    137.6451
+   ],
+   "rotation_deg": 230.0,
+   "anode": "CB6",
+   "cathode": "CB3",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB3",
+    "col": 5,
+    "index": 44,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x50"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB6",
+    "col": 3,
+    "index": 90,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x7E"
+   }
+  },
+  {
+   "ref": "DB21",
+   "maker_ref": "LED93",
+   "x_mm": 11.429,
+   "y_mm": -13.62,
+   "r_mm": 17.78,
+   "angle_deg": 310.0,
+   "kicad_xy": [
+    136.8288,
+    139.0203
+   ],
+   "rotation_deg": 220.0,
+   "anode": "CB5",
+   "cathode": "CB3",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB3",
+    "col": 4,
+    "index": 43,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x4F"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB5",
+    "col": 3,
+    "index": 74,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x6E"
+   }
+  },
+  {
+   "ref": "DB22",
+   "maker_ref": "LED94",
+   "x_mm": 12.647,
+   "y_mm": -10.612,
+   "r_mm": 16.51,
+   "angle_deg": 320.0,
+   "kicad_xy": [
+    138.0474,
+    136.0124
+   ],
+   "rotation_deg": 140.0,
+   "anode": "CB4",
+   "cathode": "CB3",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB3",
+    "col": 3,
+    "index": 42,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x4E"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB4",
+    "col": 3,
+    "index": 58,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x5E"
+   }
+  },
+  {
+   "ref": "DB23",
+   "maker_ref": "LED95",
+   "x_mm": 9.796,
+   "y_mm": -11.675,
+   "r_mm": 15.24,
+   "angle_deg": 310.0,
+   "kicad_xy": [
+    135.1961,
+    137.0745
+   ],
+   "rotation_deg": 130.0,
+   "anode": "CB2",
+   "cathode": "CB3",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB3",
+    "col": 2,
+    "index": 41,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x4D"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB2",
+    "col": 2,
+    "index": 25,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x3D"
+   }
+  },
+  {
+   "ref": "DB24",
+   "maker_ref": "LED96",
+   "x_mm": 10.702,
+   "y_mm": -8.98,
+   "r_mm": 13.97,
+   "angle_deg": 320.0,
+   "kicad_xy": [
+    136.1016,
+    134.3797
+   ],
+   "rotation_deg": 230.0,
+   "anode": "CB1",
+   "cathode": "CB3",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB3",
+    "col": 1,
+    "index": 40,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x4C"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB1",
+    "col": 2,
+    "index": 9,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x2D"
+   }
+  },
+  {
+   "ref": "DB25",
+   "maker_ref": "LED97",
+   "x_mm": 7.819,
+   "y_mm": -21.481,
+   "r_mm": 22.86,
+   "angle_deg": 290.0,
+   "kicad_xy": [
+    133.2186,
+    146.8814
+   ],
+   "rotation_deg": 110.0,
+   "anode": "CB9",
+   "cathode": "CB4",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB4",
+    "col": 8,
+    "index": 63,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x63"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB9",
+    "col": 4,
+    "index": 139,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 3,
+    "pwm_reg": "0xAF"
+   }
+  },
+  {
+   "ref": "DB26",
+   "maker_ref": "LED98",
+   "x_mm": 10.795,
+   "y_mm": -18.697,
+   "r_mm": 21.59,
+   "angle_deg": 300.0,
+   "kicad_xy": [
+    136.195,
+    144.0975
+   ],
+   "rotation_deg": 210.0,
+   "anode": "CB8",
+   "cathode": "CB4",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB4",
+    "col": 7,
+    "index": 62,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x62"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB8",
+    "col": 4,
+    "index": 123,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x9F"
+   }
+  },
+  {
+   "ref": "DB27",
+   "maker_ref": "LED99",
+   "x_mm": 6.95,
+   "y_mm": -19.095,
+   "r_mm": 20.32,
+   "angle_deg": 290.0,
+   "kicad_xy": [
+    132.3498,
+    144.4946
+   ],
+   "rotation_deg": 200.0,
+   "anode": "CB7",
+   "cathode": "CB4",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB4",
+    "col": 6,
+    "index": 61,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x61"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB7",
+    "col": 4,
+    "index": 107,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x8F"
+   }
+  },
+  {
+   "ref": "DB28",
+   "maker_ref": "LED100",
+   "x_mm": 9.525,
+   "y_mm": -16.498,
+   "r_mm": 19.05,
+   "angle_deg": 300.0,
+   "kicad_xy": [
+    134.925,
+    141.8978
+   ],
+   "rotation_deg": 120.0,
+   "anode": "CB6",
+   "cathode": "CB4",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB4",
+    "col": 5,
+    "index": 60,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x60"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB6",
+    "col": 4,
+    "index": 91,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x7F"
+   }
+  },
+  {
+   "ref": "DB29",
+   "maker_ref": "LED101",
+   "x_mm": 6.081,
+   "y_mm": -16.708,
+   "r_mm": 17.78,
+   "angle_deg": 290.0,
+   "kicad_xy": [
+    131.4811,
+    142.1077
+   ],
+   "rotation_deg": 110.0,
+   "anode": "CB5",
+   "cathode": "CB4",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB4",
+    "col": 4,
+    "index": 59,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x5F"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB5",
+    "col": 4,
+    "index": 75,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x6F"
+   }
+  },
+  {
+   "ref": "DB30",
+   "maker_ref": "LED102",
+   "x_mm": 8.255,
+   "y_mm": -14.298,
+   "r_mm": 16.51,
+   "angle_deg": 300.0,
+   "kicad_xy": [
+    133.655,
+    139.6981
+   ],
+   "rotation_deg": 210.0,
+   "anode": "CB3",
+   "cathode": "CB4",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB4",
+    "col": 3,
+    "index": 58,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x5E"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB3",
+    "col": 3,
+    "index": 42,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x4E"
+   }
+  },
+  {
+   "ref": "DB31",
+   "maker_ref": "LED103",
+   "x_mm": 5.212,
+   "y_mm": -14.321,
+   "r_mm": 15.24,
+   "angle_deg": 290.0,
+   "kicad_xy": [
+    130.6124,
+    139.7209
+   ],
+   "rotation_deg": 200.0,
+   "anode": "CB2",
+   "cathode": "CB4",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB4",
+    "col": 2,
+    "index": 57,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x5D"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB2",
+    "col": 3,
+    "index": 26,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x3E"
+   }
+  },
+  {
+   "ref": "DB32",
+   "maker_ref": "LED104",
+   "x_mm": 6.985,
+   "y_mm": -12.098,
+   "r_mm": 13.97,
+   "angle_deg": 300.0,
+   "kicad_xy": [
+    132.385,
+    137.4984
+   ],
+   "rotation_deg": 120.0,
+   "anode": "CB1",
+   "cathode": "CB4",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB4",
+    "col": 1,
+    "index": 56,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x5C"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB1",
+    "col": 3,
+    "index": 10,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x2E"
+   }
+  },
+  {
+   "ref": "DB33",
+   "maker_ref": "LED105",
+   "x_mm": 0.0,
+   "y_mm": -22.86,
+   "r_mm": 22.86,
+   "angle_deg": 270.0,
+   "kicad_xy": [
+    125.4,
+    148.26
+   ],
+   "rotation_deg": 180.0,
+   "anode": "CB9",
+   "cathode": "CB5",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB5",
+    "col": 8,
+    "index": 79,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x73"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB9",
+    "col": 5,
+    "index": 140,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 4,
+    "pwm_reg": "0xB0"
+   }
+  },
+  {
+   "ref": "DB34",
+   "maker_ref": "LED106",
+   "x_mm": 3.749,
+   "y_mm": -21.262,
+   "r_mm": 21.59,
+   "angle_deg": 280.0,
+   "kicad_xy": [
+    129.1491,
+    146.662
+   ],
+   "rotation_deg": 100.0,
+   "anode": "CB8",
+   "cathode": "CB5",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB5",
+    "col": 7,
+    "index": 78,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x72"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB8",
+    "col": 5,
+    "index": 124,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 4,
+    "pwm_reg": "0xA0"
+   }
+  },
+  {
+   "ref": "DB35",
+   "maker_ref": "LED107",
+   "x_mm": 0.0,
+   "y_mm": -20.32,
+   "r_mm": 20.32,
+   "angle_deg": 270.0,
+   "kicad_xy": [
+    125.4,
+    145.72
+   ],
+   "rotation_deg": 90.0,
+   "anode": "CB7",
+   "cathode": "CB5",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB5",
+    "col": 6,
+    "index": 77,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x71"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB7",
+    "col": 5,
+    "index": 108,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x90"
+   }
+  },
+  {
+   "ref": "DB36",
+   "maker_ref": "LED108",
+   "x_mm": 3.308,
+   "y_mm": -18.761,
+   "r_mm": 19.05,
+   "angle_deg": 280.0,
+   "kicad_xy": [
+    128.708,
+    144.1606
+   ],
+   "rotation_deg": 190.0,
+   "anode": "CB6",
+   "cathode": "CB5",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB5",
+    "col": 5,
+    "index": 76,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x70"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB6",
+    "col": 5,
+    "index": 92,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x80"
+   }
+  },
+  {
+   "ref": "DB37",
+   "maker_ref": "LED109",
+   "x_mm": 0.0,
+   "y_mm": -17.78,
+   "r_mm": 17.78,
+   "angle_deg": 270.0,
+   "kicad_xy": [
+    125.4,
+    143.18
+   ],
+   "rotation_deg": 180.0,
+   "anode": "CB4",
+   "cathode": "CB5",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB5",
+    "col": 4,
+    "index": 75,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x6F"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB4",
+    "col": 4,
+    "index": 59,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x5F"
+   }
+  },
+  {
+   "ref": "DB38",
+   "maker_ref": "LED110",
+   "x_mm": 2.867,
+   "y_mm": -16.259,
+   "r_mm": 16.51,
+   "angle_deg": 280.0,
+   "kicad_xy": [
+    128.2669,
+    141.6592
+   ],
+   "rotation_deg": 100.0,
+   "anode": "CB3",
+   "cathode": "CB5",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB5",
+    "col": 3,
+    "index": 74,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x6E"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB3",
+    "col": 4,
+    "index": 43,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x4F"
+   }
+  },
+  {
+   "ref": "DB39",
+   "maker_ref": "LED111",
+   "x_mm": 0.0,
+   "y_mm": -15.24,
+   "r_mm": 15.24,
+   "angle_deg": 270.0,
+   "kicad_xy": [
+    125.4,
+    140.64
+   ],
+   "rotation_deg": 90.0,
+   "anode": "CB2",
+   "cathode": "CB5",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB5",
+    "col": 2,
+    "index": 73,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x6D"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB2",
+    "col": 4,
+    "index": 27,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x3F"
+   }
+  },
+  {
+   "ref": "DB40",
+   "maker_ref": "LED112",
+   "x_mm": 2.426,
+   "y_mm": -13.758,
+   "r_mm": 13.97,
+   "angle_deg": 280.0,
+   "kicad_xy": [
+    127.8259,
+    139.1578
+   ],
+   "rotation_deg": 190.0,
+   "anode": "CB1",
+   "cathode": "CB5",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB5",
+    "col": 1,
+    "index": 72,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x6C"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB1",
+    "col": 4,
+    "index": 11,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x2F"
+   }
+  },
+  {
+   "ref": "DB41",
+   "maker_ref": "LED113",
+   "x_mm": -7.819,
+   "y_mm": -21.481,
+   "r_mm": 22.86,
+   "angle_deg": 250.0,
+   "kicad_xy": [
+    117.5814,
+    146.8814
+   ],
+   "rotation_deg": 70.0,
+   "anode": "CB9",
+   "cathode": "CB6",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB6",
+    "col": 8,
+    "index": 95,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x83"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB9",
+    "col": 6,
+    "index": 141,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 5,
+    "pwm_reg": "0xB1"
+   }
+  },
+  {
+   "ref": "DB42",
+   "maker_ref": "LED114",
+   "x_mm": -3.749,
+   "y_mm": -21.262,
+   "r_mm": 21.59,
+   "angle_deg": 260.0,
+   "kicad_xy": [
+    121.6509,
+    146.662
+   ],
+   "rotation_deg": 170.0,
+   "anode": "CB8",
+   "cathode": "CB6",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB6",
+    "col": 7,
+    "index": 94,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x82"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB8",
+    "col": 6,
+    "index": 125,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 5,
+    "pwm_reg": "0xA1"
+   }
+  },
+  {
+   "ref": "DB43",
+   "maker_ref": "LED115",
+   "x_mm": -6.95,
+   "y_mm": -19.095,
+   "r_mm": 20.32,
+   "angle_deg": 250.0,
+   "kicad_xy": [
+    118.4502,
+    144.4946
+   ],
+   "rotation_deg": 160.0,
+   "anode": "CB7",
+   "cathode": "CB6",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB6",
+    "col": 6,
+    "index": 93,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x81"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB7",
+    "col": 6,
+    "index": 109,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x91"
+   }
+  },
+  {
+   "ref": "DB44",
+   "maker_ref": "LED116",
+   "x_mm": -3.308,
+   "y_mm": -18.761,
+   "r_mm": 19.05,
+   "angle_deg": 260.0,
+   "kicad_xy": [
+    122.092,
+    144.1606
+   ],
+   "rotation_deg": 80.0,
+   "anode": "CB5",
+   "cathode": "CB6",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB6",
+    "col": 5,
+    "index": 92,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x80"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB5",
+    "col": 5,
+    "index": 76,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x70"
+   }
+  },
+  {
+   "ref": "DB45",
+   "maker_ref": "LED117",
+   "x_mm": -6.081,
+   "y_mm": -16.708,
+   "r_mm": 17.78,
+   "angle_deg": 250.0,
+   "kicad_xy": [
+    119.3189,
+    142.1077
+   ],
+   "rotation_deg": 70.0,
+   "anode": "CB4",
+   "cathode": "CB6",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB6",
+    "col": 4,
+    "index": 91,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x7F"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB4",
+    "col": 5,
+    "index": 60,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x60"
+   }
+  },
+  {
+   "ref": "DB46",
+   "maker_ref": "LED118",
+   "x_mm": -2.867,
+   "y_mm": -16.259,
+   "r_mm": 16.51,
+   "angle_deg": 260.0,
+   "kicad_xy": [
+    122.5331,
+    141.6592
+   ],
+   "rotation_deg": 170.0,
+   "anode": "CB3",
+   "cathode": "CB6",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB6",
+    "col": 3,
+    "index": 90,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x7E"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB3",
+    "col": 5,
+    "index": 44,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x50"
+   }
+  },
+  {
+   "ref": "DB47",
+   "maker_ref": "LED119",
+   "x_mm": -5.212,
+   "y_mm": -14.321,
+   "r_mm": 15.24,
+   "angle_deg": 250.0,
+   "kicad_xy": [
+    120.1876,
+    139.7209
+   ],
+   "rotation_deg": 160.0,
+   "anode": "CB2",
+   "cathode": "CB6",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB6",
+    "col": 2,
+    "index": 89,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x7D"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB2",
+    "col": 5,
+    "index": 28,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x40"
+   }
+  },
+  {
+   "ref": "DB48",
+   "maker_ref": "LED120",
+   "x_mm": -2.426,
+   "y_mm": -13.758,
+   "r_mm": 13.97,
+   "angle_deg": 260.0,
+   "kicad_xy": [
+    122.9741,
+    139.1578
+   ],
+   "rotation_deg": 80.0,
+   "anode": "CB1",
+   "cathode": "CB6",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB6",
+    "col": 1,
+    "index": 88,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x7C"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB1",
+    "col": 5,
+    "index": 12,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x30"
+   }
+  },
+  {
+   "ref": "DB49",
+   "maker_ref": "LED121",
+   "x_mm": -14.694,
+   "y_mm": -17.512,
+   "r_mm": 22.86,
+   "angle_deg": 230.0,
+   "kicad_xy": [
+    110.7059,
+    142.9118
+   ],
+   "rotation_deg": 140.0,
+   "anode": "CB9",
+   "cathode": "CB7",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB7",
+    "col": 8,
+    "index": 111,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x93"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB9",
+    "col": 7,
+    "index": 142,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 6,
+    "pwm_reg": "0xB2"
+   }
+  },
+  {
+   "ref": "DB50",
+   "maker_ref": "LED122",
+   "x_mm": -10.795,
+   "y_mm": -18.697,
+   "r_mm": 21.59,
+   "angle_deg": 240.0,
+   "kicad_xy": [
+    114.605,
+    144.0975
+   ],
+   "rotation_deg": 60.0,
+   "anode": "CB8",
+   "cathode": "CB7",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB7",
+    "col": 7,
+    "index": 110,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x92"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB8",
+    "col": 7,
+    "index": 126,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 6,
+    "pwm_reg": "0xA2"
+   }
+  },
+  {
+   "ref": "DB51",
+   "maker_ref": "LED123",
+   "x_mm": -13.061,
+   "y_mm": -15.566,
+   "r_mm": 20.32,
+   "angle_deg": 230.0,
+   "kicad_xy": [
+    112.3386,
+    140.966
+   ],
+   "rotation_deg": 50.0,
+   "anode": "CB6",
+   "cathode": "CB7",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB7",
+    "col": 6,
+    "index": 109,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x91"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB6",
+    "col": 6,
+    "index": 93,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x81"
+   }
+  },
+  {
+   "ref": "DB52",
+   "maker_ref": "LED124",
+   "x_mm": -9.525,
+   "y_mm": -16.498,
+   "r_mm": 19.05,
+   "angle_deg": 240.0,
+   "kicad_xy": [
+    115.875,
+    141.8978
+   ],
+   "rotation_deg": 150.0,
+   "anode": "CB5",
+   "cathode": "CB7",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB7",
+    "col": 5,
+    "index": 108,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 4,
+    "pwm_reg": "0x90"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB5",
+    "col": 6,
+    "index": 77,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x71"
+   }
+  },
+  {
+   "ref": "DB53",
+   "maker_ref": "LED125",
+   "x_mm": -11.429,
+   "y_mm": -13.62,
+   "r_mm": 17.78,
+   "angle_deg": 230.0,
+   "kicad_xy": [
+    113.9712,
+    139.0203
+   ],
+   "rotation_deg": 140.0,
+   "anode": "CB4",
+   "cathode": "CB7",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB7",
+    "col": 4,
+    "index": 107,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x8F"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB4",
+    "col": 6,
+    "index": 61,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x61"
+   }
+  },
+  {
+   "ref": "DB54",
+   "maker_ref": "LED126",
+   "x_mm": -8.255,
+   "y_mm": -14.298,
+   "r_mm": 16.51,
+   "angle_deg": 240.0,
+   "kicad_xy": [
+    117.145,
+    139.6981
+   ],
+   "rotation_deg": 60.0,
+   "anode": "CB3",
+   "cathode": "CB7",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB7",
+    "col": 3,
+    "index": 106,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x8E"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB3",
+    "col": 6,
+    "index": 45,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x51"
+   }
+  },
+  {
+   "ref": "DB55",
+   "maker_ref": "LED127",
+   "x_mm": -9.796,
+   "y_mm": -11.675,
+   "r_mm": 15.24,
+   "angle_deg": 230.0,
+   "kicad_xy": [
+    115.6039,
+    137.0745
+   ],
+   "rotation_deg": 50.0,
+   "anode": "CB2",
+   "cathode": "CB7",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB7",
+    "col": 2,
+    "index": 105,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x8D"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB2",
+    "col": 6,
+    "index": 29,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x41"
+   }
+  },
+  {
+   "ref": "DB56",
+   "maker_ref": "LED128",
+   "x_mm": -6.985,
+   "y_mm": -12.098,
+   "r_mm": 13.97,
+   "angle_deg": 240.0,
+   "kicad_xy": [
+    118.415,
+    137.4984
+   ],
+   "rotation_deg": 150.0,
+   "anode": "CB1",
+   "cathode": "CB7",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB7",
+    "col": 1,
+    "index": 104,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x8C"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB1",
+    "col": 6,
+    "index": 13,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 5,
+    "pwm_reg": "0x31"
+   }
+  },
+  {
+   "ref": "DB57",
+   "maker_ref": "LED129",
+   "x_mm": -19.797,
+   "y_mm": -11.43,
+   "r_mm": 22.86,
+   "angle_deg": 210.0,
+   "kicad_xy": [
+    105.6027,
+    136.83
+   ],
+   "rotation_deg": 30.0,
+   "anode": "CB9",
+   "cathode": "CB8",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB8",
+    "col": 8,
+    "index": 127,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 7,
+    "pwm_reg": "0xA3"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB9",
+    "col": 8,
+    "index": 143,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 7,
+    "pwm_reg": "0xB3"
+   }
+  },
+  {
+   "ref": "DB58",
+   "maker_ref": "LED130",
+   "x_mm": -16.539,
+   "y_mm": -13.878,
+   "r_mm": 21.59,
+   "angle_deg": 220.0,
+   "kicad_xy": [
+    108.8611,
+    139.2778
+   ],
+   "rotation_deg": 130.0,
+   "anode": "CB7",
+   "cathode": "CB8",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB8",
+    "col": 7,
+    "index": 126,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 6,
+    "pwm_reg": "0xA2"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB7",
+    "col": 7,
+    "index": 110,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x92"
+   }
+  },
+  {
+   "ref": "DB59",
+   "maker_ref": "LED131",
+   "x_mm": -17.598,
+   "y_mm": -10.16,
+   "r_mm": 20.32,
+   "angle_deg": 210.0,
+   "kicad_xy": [
+    107.8024,
+    135.56
+   ],
+   "rotation_deg": 120.0,
+   "anode": "CB6",
+   "cathode": "CB8",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB8",
+    "col": 6,
+    "index": 125,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 5,
+    "pwm_reg": "0xA1"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB6",
+    "col": 7,
+    "index": 94,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x82"
+   }
+  },
+  {
+   "ref": "DB60",
+   "maker_ref": "LED132",
+   "x_mm": -14.593,
+   "y_mm": -12.245,
+   "r_mm": 19.05,
+   "angle_deg": 220.0,
+   "kicad_xy": [
+    110.8068,
+    137.6451
+   ],
+   "rotation_deg": 40.0,
+   "anode": "CB5",
+   "cathode": "CB8",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB8",
+    "col": 5,
+    "index": 124,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 4,
+    "pwm_reg": "0xA0"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB5",
+    "col": 7,
+    "index": 78,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x72"
+   }
+  },
+  {
+   "ref": "DB61",
+   "maker_ref": "LED133",
+   "x_mm": -15.398,
+   "y_mm": -8.89,
+   "r_mm": 17.78,
+   "angle_deg": 210.0,
+   "kicad_xy": [
+    110.0021,
+    134.29
+   ],
+   "rotation_deg": 30.0,
+   "anode": "CB4",
+   "cathode": "CB8",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB8",
+    "col": 4,
+    "index": 123,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 3,
+    "pwm_reg": "0x9F"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB4",
+    "col": 7,
+    "index": 62,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x62"
+   }
+  },
+  {
+   "ref": "DB62",
+   "maker_ref": "LED134",
+   "x_mm": -12.647,
+   "y_mm": -10.612,
+   "r_mm": 16.51,
+   "angle_deg": 220.0,
+   "kicad_xy": [
+    112.7526,
+    136.0124
+   ],
+   "rotation_deg": 130.0,
+   "anode": "CB3",
+   "cathode": "CB8",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB8",
+    "col": 3,
+    "index": 122,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 2,
+    "pwm_reg": "0x9E"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB3",
+    "col": 7,
+    "index": 46,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x52"
+   }
+  },
+  {
+   "ref": "DB63",
+   "maker_ref": "LED135",
+   "x_mm": -13.198,
+   "y_mm": -7.62,
+   "r_mm": 15.24,
+   "angle_deg": 210.0,
+   "kicad_xy": [
+    112.2018,
+    133.02
+   ],
+   "rotation_deg": 120.0,
+   "anode": "CB2",
+   "cathode": "CB8",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB8",
+    "col": 2,
+    "index": 121,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 1,
+    "pwm_reg": "0x9D"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB2",
+    "col": 7,
+    "index": 30,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x42"
+   }
+  },
+  {
+   "ref": "DB64",
+   "maker_ref": "LED136",
+   "x_mm": -10.702,
+   "y_mm": -8.98,
+   "r_mm": 13.97,
+   "angle_deg": 220.0,
+   "kicad_xy": [
+    114.6984,
+    134.3797
+   ],
+   "rotation_deg": 40.0,
+   "anode": "CB1",
+   "cathode": "CB8",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB8",
+    "col": 1,
+    "index": 120,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 0,
+    "pwm_reg": "0x9C"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB1",
+    "col": 7,
+    "index": 14,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 6,
+    "pwm_reg": "0x32"
+   }
+  },
+  {
+   "ref": "DB65",
+   "maker_ref": "LED137",
+   "x_mm": -22.513,
+   "y_mm": -3.97,
+   "r_mm": 22.86,
+   "angle_deg": 190.0,
+   "kicad_xy": [
+    102.8873,
+    129.3696
+   ],
+   "rotation_deg": 100.0,
+   "anode": "CB8",
+   "cathode": "CB9",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB9",
+    "col": 8,
+    "index": 143,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 7,
+    "pwm_reg": "0xB3"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB8",
+    "col": 8,
+    "index": 127,
+    "ctrl_reg": "0x0F",
+    "ctrl_bit": 7,
+    "pwm_reg": "0xA3"
+   }
+  },
+  {
+   "ref": "DB66",
+   "maker_ref": "LED138",
+   "x_mm": -20.288,
+   "y_mm": -7.384,
+   "r_mm": 21.59,
+   "angle_deg": 200.0,
+   "kicad_xy": [
+    105.112,
+    132.7842
+   ],
+   "rotation_deg": 20.0,
+   "anode": "CB7",
+   "cathode": "CB9",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB9",
+    "col": 7,
+    "index": 142,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 6,
+    "pwm_reg": "0xB2"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB7",
+    "col": 8,
+    "index": 111,
+    "ctrl_reg": "0x0D",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x93"
+   }
+  },
+  {
+   "ref": "DB67",
+   "maker_ref": "LED139",
+   "x_mm": -20.011,
+   "y_mm": -3.529,
+   "r_mm": 20.32,
+   "angle_deg": 190.0,
+   "kicad_xy": [
+    105.3887,
+    128.9285
+   ],
+   "rotation_deg": 10.0,
+   "anode": "CB6",
+   "cathode": "CB9",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB9",
+    "col": 6,
+    "index": 141,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 5,
+    "pwm_reg": "0xB1"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB6",
+    "col": 8,
+    "index": 95,
+    "ctrl_reg": "0x0B",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x83"
+   }
+  },
+  {
+   "ref": "DB68",
+   "maker_ref": "LED140",
+   "x_mm": -17.901,
+   "y_mm": -6.515,
+   "r_mm": 19.05,
+   "angle_deg": 200.0,
+   "kicad_xy": [
+    107.4989,
+    131.9155
+   ],
+   "rotation_deg": 110.0,
+   "anode": "CB5",
+   "cathode": "CB9",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB9",
+    "col": 5,
+    "index": 140,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 4,
+    "pwm_reg": "0xB0"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB5",
+    "col": 8,
+    "index": 79,
+    "ctrl_reg": "0x09",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x73"
+   }
+  },
+  {
+   "ref": "DB69",
+   "maker_ref": "LED141",
+   "x_mm": -17.51,
+   "y_mm": -3.087,
+   "r_mm": 17.78,
+   "angle_deg": 190.0,
+   "kicad_xy": [
+    107.8901,
+    128.4875
+   ],
+   "rotation_deg": 100.0,
+   "anode": "CB4",
+   "cathode": "CB9",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB9",
+    "col": 4,
+    "index": 139,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 3,
+    "pwm_reg": "0xAF"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB4",
+    "col": 8,
+    "index": 63,
+    "ctrl_reg": "0x07",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x63"
+   }
+  },
+  {
+   "ref": "DB70",
+   "maker_ref": "LED142",
+   "x_mm": -15.514,
+   "y_mm": -5.647,
+   "r_mm": 16.51,
+   "angle_deg": 200.0,
+   "kicad_xy": [
+    109.8857,
+    131.0468
+   ],
+   "rotation_deg": 20.0,
+   "anode": "CB3",
+   "cathode": "CB9",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB9",
+    "col": 3,
+    "index": 138,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 2,
+    "pwm_reg": "0xAE"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB3",
+    "col": 8,
+    "index": 47,
+    "ctrl_reg": "0x05",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x53"
+   }
+  },
+  {
+   "ref": "DB71",
+   "maker_ref": "LED143",
+   "x_mm": -15.008,
+   "y_mm": -2.646,
+   "r_mm": 15.24,
+   "angle_deg": 190.0,
+   "kicad_xy": [
+    110.3915,
+    128.0464
+   ],
+   "rotation_deg": 10.0,
+   "anode": "CB2",
+   "cathode": "CB9",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB9",
+    "col": 2,
+    "index": 137,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 1,
+    "pwm_reg": "0xAD"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB2",
+    "col": 8,
+    "index": 31,
+    "ctrl_reg": "0x03",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x43"
+   }
+  },
+  {
+   "ref": "DB72",
+   "maker_ref": "LED144",
+   "x_mm": -13.128,
+   "y_mm": -4.778,
+   "r_mm": 13.97,
+   "angle_deg": 200.0,
+   "kicad_xy": [
+    112.2725,
+    130.178
+   ],
+   "rotation_deg": 110.0,
+   "anode": "CB1",
+   "cathode": "CB9",
+   "matrix": "B",
+   "frame": {
+    "row_pin": "CB9",
+    "col": 1,
+    "index": 136,
+    "ctrl_reg": "0x11",
+    "ctrl_bit": 0,
+    "pwm_reg": "0xAC"
+   },
+   "frame_if_row_is_anode": {
+    "row_pin": "CB1",
+    "col": 8,
+    "index": 15,
+    "ctrl_reg": "0x01",
+    "ctrl_bit": 7,
+    "pwm_reg": "0x33"
+   }
+  }
+ ]
+}
