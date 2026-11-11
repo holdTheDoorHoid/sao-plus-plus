@@ -1,0 +1,28 @@
+(version 1)
+
+# Panel copy of hardware/penghito-poco.kicad_dru, written by hand: tools/panelize.py does not carry rules over and
+# renumbers the parts per board (J1 -> J101, J201 ...; BT1 -> BT101 ...; D1 -> D101 ...), so the references use '?'.
+
+# The copper on this board is artwork. These rules stop DRC from flagging the art for being art;
+# everything electrical (pads, tracks, the GND copper against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The 42 x 43 mm board has the eyes in its middle, so the 24 x 17 mm cell clip, the connector and the switch sit close
+# together (see README "Where the parts went"). The clip's keep-out box (a 24 x 16 mm rectangle round its pads, drawn
+# for any rotation) overlaps the boxes of the parts round it, but the parts themselves do not touch. Real gaps, as
+# measured by build_board.py:
+#   cell (20 mm) to left-eye LED D2 body 0.36 mm | cell to R2 3.3 mm | cell to connector shroud 1.85 mm
+#   clip's closed end to connector shroud 0.42 mm | clip pads to switch pads 1.47 mm | clip pads to D2 pads 1.42 mm
+#   cell to switch body 3.6 mm | R1 to the clip's outline 0.87 mm
+(rule "Cell clip beside the connector, switch, left eye and resistors"
+  (condition "A.Reference == 'BT?01' || B.Reference == 'BT?01'")
+  (constraint courtyard_clearance (min -6mm)))
+
+# The connector's keep-out box reaches over the right-eye LED D1's box by 0.3 mm. Real gaps: LED body to the
+# connector's plastic shroud 1.93 mm; LED pads to connector pads 0.76 mm.
+(rule "Connector below the right-eye LED"
+  (condition "(A.Reference == 'J?01' && B.Reference == 'D?01') || (A.Reference == 'D?01' && B.Reference == 'J?01')")
+  (constraint courtyard_clearance (min -0.5mm)))

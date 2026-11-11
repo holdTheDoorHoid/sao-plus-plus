@@ -1,0 +1,21 @@
+{
+ "title": "Penghito Poco - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko (Dave Darko), Simple-Add-ons-SAO, github.com/davedarko/Simple-Add-ons-SAO",
+ "parts": [
+  {"ref": "J1", "symbol": "SAO_Connector_v1.69bis", "at": [50.8, 63.5], "nets": {"1": "VSAO", "2": "GND"}},
+  {"ref": "BT1", "symbol": "CR2032_Clip", "at": [50.8, 96.52], "nets": {"1": "VBAT", "2": "GND"}},
+  {"ref": "SW1", "symbol": "Power_Switch_SP3T_PCM13", "at": [106.68, 78.74], "nets": {"3": "VLOAD", "1": "VSAO", "4": "VBAT"}},
+  {"ref": "R1", "symbol": "R_LED_1k3", "at": [157.48, 58.42], "nets": {"1": "VLOAD", "2": "LED1_A"}},
+  {"ref": "D1", "symbol": "LED_ThroughBoard_White", "at": [195.58, 58.42], "nets": {"2": "LED1_A", "1": "GND"}},
+  {"ref": "R2", "symbol": "R_LED_1k3", "at": [157.48, 78.74], "nets": {"1": "VLOAD", "2": "LED2_A"}},
+  {"ref": "D2", "symbol": "LED_ThroughBoard_White", "at": [195.58, 78.74], "nets": {"2": "LED2_A", "1": "GND"}}
+ ],
+ "notes": [
+  ["SAO++ power select: the switch common feeds the LEDs. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.", [38.1, 38.1]],
+  ["The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.", [38.1, 41.91]],
+  ["LED-only board: SDA, SCL, GPIO1 and GPIO2 are not connected, so no series diode is needed on the cell (see docs/standard.md section 3).", [38.1, 45.72]],
+  ["D1 = right eye, D2 = left eye (as seen from the front). The 2018-era original had two 5 mm LEDs straight on the badge 3.3 V with no resistor.", [147.32, 96.52]],
+  ["One 1.3k resistor per white LED: about 0.45 mA each on badge power, about 0.2 mA each on a fresh cell.", [147.32, 100.33]]
+ ]
+}

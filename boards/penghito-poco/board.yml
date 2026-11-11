@@ -1,0 +1,42 @@
+name: "Penghito Poco"
+slug: penghito-poco
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Penghito Poco (small version of the Penghicorn badge as a simple add-on)"
+  makers: ["davedarko (Dave Darko)"]
+  year: null               # not recorded in the files (Eagle 7.6 project)
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Penghito%20Poco"
+  license: "none stated"   # the repository states no license, so all rights are reserved by default
+  permission: "pending"    # no reply yet; change to "written" and fill permission_ref when davedarko answers
+  permission_ref: ""
+  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  art_note: "The penguin-unicorn is a small version of the maker's larger 'Penghicorn' (spelled 'Phengicorn' in the readme) badge. Who created that character is not recorded in the files: it may be davedarko's own or someone else's design. Ask the maker, separately from the permission for the board."
+
+changes:
+  - "Rebuilt in KiCad 10 from the maker's Eagle files: outline, front copper, front solder-mask openings (horn, beak, feet) and front silkscreen (face, belly) taken from the Eagle layers, turned upright (the Eagle drawing is at 45 degrees) and checked against the maker's OSH Park picture"
+  - "4-pin through-hole SAO header on the right wing replaced by the 6-pin v1.69bis SMD shrouded header on the back, just inside the right shoulder (near the old spot)"
+  - "Added: SAO / OFF / BATTERY slide switch on the bottom edge between the feet; CR2032 clip on the lower left of the back"
+  - "Two 5 mm through-hole LEDs in the eyes (straight on the badge 3.3 V, no resistor) replaced by two white reverse-mount 1206 LEDs on the back at the same centres, one 1.3 k resistor each, shining through a 2 mm bare-board window in the middle of each eye"
+  - "The coin cell overhangs the left side by up to 3.3 mm, and the connector's plastic shroud pokes up to 1.4 mm past the edge beside the right wing: no other layout fits (README, 'Where the parts went')"
+  - "This board's copy of the clip's 17 mm ground disc is trimmed where it would cross the left edge"
+  - "Back copper (all ground in the original) is a ground pour again, cleared round the new parts and behind both LEDs"
+  - "Front art unchanged apart from: the four header holes and four LED holes gone (filled), two 0.9 mm switch-peg holes in the inner toes, the 2 mm eye windows, and the copper stepping back from 0.38 to 0.55 mm from the edge at the six panel tabs"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 2
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-11
+  - SAOPP-R-01
+
+local_parts: []
