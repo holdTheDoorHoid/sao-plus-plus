@@ -11,7 +11,7 @@ import uuid
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from saopp_symbols import LIB, SYMBOLS, pin_xy, symbol_sexpr  # noqa: E402
+from saopp_symbols import LIB, SYMBOLS, load_local, pin_xy, symbol_sexpr  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 NS = uuid.UUID("5a0b1b15-0000-4000-8000-00000000a011")
@@ -25,6 +25,11 @@ def uid(slug, what):
 def main(slug):
     hw = ROOT / "boards" / slug / "hardware"
     c = json.loads((hw / "circuit.json").read_text())
+    local = load_local(slug)                    # parts this board keeps in its own folder (see saopp_symbols.load_local)
+    LOCAL = f"{slug}-local"
+
+    def lib_of(name):
+        return LOCAL if name in local else LIB
     root = uid(slug, "root")
     used = []
     for p in c["parts"]:
@@ -32,13 +37,13 @@ def main(slug):
             used.append(p["symbol"])
     s = f'(kicad_sch (version 20231120) (generator "saopp_gen_schematic") (uuid "{root}") (paper "A4")\n'
     s += f'  (title_block (title "{c["title"]}") (rev "{c["rev"]}") (comment 1 "{c["credit"]}") (comment 2 "Generated from circuit.json - edit that, not this file"))\n'
-    s += "  (lib_symbols\n" + "".join(symbol_sexpr(n, LIB + ":").replace("\n", "\n  ") for n in used).rstrip() + "\n  )\n"
+    s += "  (lib_symbols\n" + "".join(symbol_sexpr(n, lib_of(n) + ":").replace("\n", "\n  ") for n in used).rstrip() + "\n  )\n"
     for p in c["parts"]:
         name, ref = p["symbol"], p["ref"]
         prefix, value, fp, fields, _, pins = SYMBOLS[name]
         x, y = p["at"]
         su = uid(slug, ref)
-        s += (f'  (symbol (lib_id "{LIB}:{name}") (at {x} {y} 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "{su}")\n'
+        s += (f'  (symbol (lib_id "{lib_of(name)}:{name}") (at {x} {y} 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "{su}")\n'
               f'    (property "Reference" "{ref}" (at {x} {y - 5.08} 0) {FONT})\n'
               f'    (property "Value" "{p.get("value", value)}" (at {x} {y + (max(r for *_, r in pins) + 2) * 2.54} 0) {FONT})\n'
               f'    (property "Footprint" "{fp}" (at {x} {y} 0) (effects (font (size 1.27 1.27)) hide))\n'
@@ -65,8 +70,15 @@ def main(slug):
     s += '  (sheet_instances (path "/" (page "1")))\n)\n'
     (hw / f"{slug}.kicad_sch").write_text(s)
     # library tables so a fresh clone opens with no setup
-    (hw / "sym-lib-table").write_text(f'(sym_lib_table\n  (version 7)\n  (lib (name "{LIB}")(type "KiCad")(uri "${{KIPRJMOD}}/../../../lib/{LIB}.kicad_sym")(options "")(descr "SAO++ shared symbols"))\n)\n')
-    (hw / "fp-lib-table").write_text(f'(fp_lib_table\n  (version 7)\n  (lib (name "{LIB}")(type "KiCad")(uri "${{KIPRJMOD}}/../../../lib/{LIB}.pretty")(options "")(descr "SAO++ shared footprints"))\n)\n')
+    sym_rows = f'  (lib (name "{LIB}")(type "KiCad")(uri "${{KIPRJMOD}}/../../../lib/{LIB}.kicad_sym")(options "")(descr "SAO++ shared symbols"))\n'
+    fp_rows = f'  (lib (name "{LIB}")(type "KiCad")(uri "${{KIPRJMOD}}/../../../lib/{LIB}.pretty")(options "")(descr "SAO++ shared footprints"))\n'
+    if local:
+        (hw / f"{LOCAL}.kicad_sym").write_text('(kicad_symbol_lib (version 20231120) (generator "saopp_gen_schematic")\n'
+                                              + "".join(symbol_sexpr(n) for n in local) + ")\n")
+        sym_rows += f'  (lib (name "{LOCAL}")(type "KiCad")(uri "${{KIPRJMOD}}/{LOCAL}.kicad_sym")(options "")(descr "Parts only this board uses so far"))\n'
+        fp_rows += f'  (lib (name "{LOCAL}")(type "KiCad")(uri "${{KIPRJMOD}}/{LOCAL}.pretty")(options "")(descr "Footprints only this board uses so far"))\n'
+    (hw / "sym-lib-table").write_text(f"(sym_lib_table\n  (version 7)\n{sym_rows})\n")
+    (hw / "fp-lib-table").write_text(f"(fp_lib_table\n  (version 7)\n{fp_rows})\n")
     print("wrote", hw / f"{slug}.kicad_sch")
 
 
