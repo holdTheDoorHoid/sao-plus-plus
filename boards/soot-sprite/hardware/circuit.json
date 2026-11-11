@@ -1,0 +1,126 @@
+{
+ "title": "Soot Sprite - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko (Dave Darko), Susuwatari SAO 2026-03 R1, github.com/davedarko/Simple-Add-ons-SAO",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "BT1",
+   "symbol": "CR2032_Clip",
+   "at": [
+    50.8,
+    96.52
+   ],
+   "nets": {
+    "1": "VBAT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    106.68,
+    78.74
+   ],
+   "nets": {
+    "3": "VLOAD",
+    "1": "VSAO",
+    "4": "VBAT"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_LED_1k3",
+   "at": [
+    157.48,
+    63.5
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "ARM_A"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_LED_1k3",
+   "at": [
+    157.48,
+    93.98
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "LEG_A"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "SAO++ power select: the switch common feeds the LED pads. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.",
+   [
+    38.1,
+    38.1
+   ]
+  ],
+  [
+   "The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.",
+   [
+    38.1,
+    41.91
+   ]
+  ],
+  [
+   "LED-only board: SDA, SCL, GPIO1 and GPIO2 are not connected, so no series diode is needed on the cell (see docs/standard.md section 3).",
+   [
+    38.1,
+    45.72
+   ]
+  ],
+  [
+   "TP1..TP4 are davedarko's four 4 x 4 mm solder pads, drawn on the board only (bare copper, nothing to buy).",
+   [
+    38.1,
+    124.46
+   ]
+  ],
+  [
+   "R1 feeds the left arm pad TP4 (ARM_A), R2 the left foot pad TP3 (LEG_A): these are the + pads. The right arm TP2 and right foot TP1 are GND.",
+   [
+    38.1,
+    128.27
+   ]
+  ],
+  [
+   "A hand-soldered 5 mm LED goes across one + pad and one - pad, long leg on +; the maker's 3D-printed konpeito candy",
+   [
+    38.1,
+    132.08
+   ]
+  ],
+  [
+   "(original/Soot Sprites/Kompeito.scad) slips over it. 1.3 k gives about 1 mA for a red LED, about 0.4 mA for white or blue on badge power.",
+   [
+    38.1,
+    135.89
+   ]
+  ],
+  [
+   "Front copper: left half = VLOAD, right half = GND (the maker's two halves, used as power planes as he did).",
+   [
+    38.1,
+    139.7
+   ]
+  ]
+ ]
+}

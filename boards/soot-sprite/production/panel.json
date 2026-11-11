@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. All copper on this board stops 0.55 mm short of the edge, so tabs can go anywhere the edge is free of pads and the switch knob.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [20.0, 0.0], "dir": "-y", "why": "top of the head, where the cell slides in (the nub is in the board's plane, under the cell's edge)"},
+    {"near": [37.3, 10.0], "dir": "+x", "why": "upper right, between the credit lettering side and the right arm pad"},
+    {"near": [37.3, 30.0], "dir": "+x", "why": "lower right, between the right arm pad and the right foot pad"},
+    {"near": [2.7, 30.0], "dir": "-x", "why": "lower left, between the left arm pad and the left foot pad"},
+    {"near": [2.7, 10.0], "dir": "-x", "why": "upper left, above the left arm pad, clear of the clip's solder tab"}
+  ]
+}

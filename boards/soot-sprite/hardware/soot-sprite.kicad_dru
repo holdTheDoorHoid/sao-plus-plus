@@ -1,0 +1,26 @@
+(version 1)
+
+# The copper on this board is artwork. These rules stop DRC from flagging the art for being art;
+# everything electrical (pads, tracks, the GND copper against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The 40 mm round board has to hold the 24 mm cell clip, the 15 mm connector, the switch and davedarko's four 4 x 4 mm
+# LED pads, and only the middle column is free of the maker's lettering. The keep-out boxes below overlap; the parts do not:
+# - connector below the clip: the clip's closed end and the connector's top pads are 0.85 mm apart in metal;
+#   courtyards (each drawn 0.5 mm past the part) overlap by about 0.12 mm
+(rule "Connector below the cell clip"
+  (condition "A.Reference == 'J1' && B.Reference == 'BT1'")
+  (constraint courtyard_clearance (min -0.3mm)))
+# - the two foot pads either side of the connector: 0.6 mm between the connector's plastic shroud and each pad;
+#   courtyards overlap by about 0.43 mm
+(rule "Connector between the foot pads"
+  (condition "A.Reference == 'J1' && (B.Reference == 'TP1' || B.Reference == 'TP3')")
+  (constraint courtyard_clearance (min -0.6mm)))
+# - left arm pad beside the clip: 0.3 mm between the pad and the clip's side rail, which stands above the board
+#   (the rail does not touch the board there); courtyards overlap by about 0.6 mm
+(rule "Left arm pad beside the cell clip"
+  (condition "A.Reference == 'TP4' && B.Reference == 'BT1'")
+  (constraint courtyard_clearance (min -0.8mm)))

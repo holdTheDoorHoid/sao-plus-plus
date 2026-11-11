@@ -1,0 +1,19 @@
+(version 1)
+
+# Same rules as hardware/soot-sprite.kicad_dru, with the panel's part numbers (J101, BT101, J201 ...; the four bare pads are board-only and keep their names TP1..TP4 on every copy).
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# Connector below the cell clip on each board: 0.85 mm apart in metal, courtyards overlap by about 0.12 mm.
+(rule "Connector below the cell clip"
+  (condition "A.Reference == 'J?01' && B.Reference == 'BT?01'")
+  (constraint courtyard_clearance (min -0.3mm)))
+# Foot pads either side of the connector: 0.6 mm from its shroud, courtyards overlap by about 0.43 mm.
+(rule "Connector between the foot pads"
+  (condition "A.Reference == 'J?01' && (B.Reference == 'TP1' || B.Reference == 'TP3')")
+  (constraint courtyard_clearance (min -0.6mm)))
+# Left arm pad beside the clip's side rail: 0.3 mm, courtyards overlap by about 0.6 mm.
+(rule "Left arm pad beside the cell clip"
+  (condition "A.Reference == 'TP4' && B.Reference == 'BT?01'")
+  (constraint courtyard_clearance (min -0.8mm)))

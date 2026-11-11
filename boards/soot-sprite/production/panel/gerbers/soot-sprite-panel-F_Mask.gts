@@ -1,0 +1,29 @@
+G04 #@! TF.GenerationSoftware,KiCad,Pcbnew,10.0.6*
+G04 #@! TF.CreationDate,2026-11-11T09:05:08-05:00*
+G04 #@! TF.ProjectId,soot-sprite-panel,736f6f74-2d73-4707-9269-74652d70616e,A*
+G04 #@! TF.SameCoordinates,Original*
+G04 #@! TF.FileFunction,Soldermask,Top*
+G04 #@! TF.FilePolarity,Negative*
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 10.0.6) date 2026-11-11 09:05:08*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%ADD10C,2.000000*%
+%ADD11C,1.252000*%
+G04 APERTURE END LIST*
+D10*
+X5002499Y-94492500D03*
+D11*
+X2499Y-94492500D03*
+X86997500Y-94492500D03*
+D10*
+X5002499Y7497500D03*
+D11*
+X2499Y7497500D03*
+X86997500Y7497500D03*
+D10*
+X81997500Y7497500D03*
+M02*

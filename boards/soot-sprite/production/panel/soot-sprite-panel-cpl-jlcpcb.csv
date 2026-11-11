@@ -1,0 +1,21 @@
+Designator,Mid X,Mid Y,Layer,Rotation
+BT101,17.1000mm,-10.9000mm,Bottom,0
+BT201,64.0975mm,-10.9000mm,Bottom,0
+BT301,17.1000mm,-57.8950mm,Bottom,0
+BT401,64.0975mm,-57.8950mm,Bottom,0
+J101,20.0000mm,-28.4000mm,Bottom,-90
+J201,66.9975mm,-28.4000mm,Bottom,-90
+J301,20.0000mm,-75.3950mm,Bottom,-90
+J401,66.9975mm,-75.3950mm,Bottom,-90
+R101,7.0000mm,-23.6000mm,Bottom,180
+R102,9.7500mm,-28.0000mm,Bottom,-90
+R201,53.9975mm,-23.6000mm,Bottom,180
+R202,56.7475mm,-28.0000mm,Bottom,-90
+R301,7.0000mm,-70.5950mm,Bottom,180
+R302,9.7500mm,-74.9950mm,Bottom,-90
+R401,53.9975mm,-70.5950mm,Bottom,180
+R402,56.7475mm,-74.9950mm,Bottom,-90
+SW101,20.0000mm,-37.0842mm,Bottom,180
+SW201,66.9975mm,-37.0842mm,Bottom,180
+SW301,20.0000mm,-84.0791mm,Bottom,180
+SW401,66.9975mm,-84.0791mm,Bottom,180

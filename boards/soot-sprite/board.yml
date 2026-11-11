@@ -1,0 +1,41 @@
+name: "Soot Sprite"
+slug: soot-sprite
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Susuwatari SAO (Soot Sprites), 2026-03 R1"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2026
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Ghibli"
+  project_page: "https://hackaday.io/project/205207"   # printed on the maker's own handout cards (original/Soot Sprites/drawing.svg)
+  license: "none stated"   # no license anywhere in the maker's repo (commit 1a08593), so all rights are reserved by default
+  permission: "pending"    # not yet asked; change to "written" and fill permission_ref when davedarko answers
+  permission_ref: ""
+  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  art_note: "A susuwatari (soot sprite), the character from Studio Ghibli's films My Neighbor Totoro and Spirited Away. The character belongs to Studio Ghibli; using its likeness needs Studio Ghibli's permission (or a design that is not the character), separate from davedarko's permission for the board design."
+
+changes:
+  - "The maker's either/or design (a 2x3 header OR a Keystone 1060 cell holder, drawn on the same spot) becomes both at once: the 6-pin SAO v1.69bis SMD shrouded connector below the middle, the shared CR2032 clip at the top (cell slides in from the top edge), and the SAO / OFF / BAT slide switch with its knob at the bottom edge"
+  - "The maker's single 1206 resistor (badge supply only, bypassed by a track you cut) becomes one shared 1.3 k resistor per + pad, used on both badge and cell power"
+  - "The four 4 x 4 mm LED-leg pads are kept: the two foot pads move outward (left 2.25 mm, right 2.75 mm) to clear the connector, the left arm pad moves 0.7 mm left to clear the clip. + and - swap sides (left pads are now +, right pads GND) because the switch's badge contact can only land on the right"
+  - "Maker's credit 'Susuwatari SAO / @davedarko / 2026-03 R1' untouched. Maker's logo moved (same size and angle) from the upper right to the lower left as seen from the back, because the clip's solder tab sits where it was. The maker's 'VCC' / 'GND' labels (no longer true for the + pads) are replaced by small + and - marks; 'cut before adding resistor' removed"
+  - "Front art unchanged: same two copper halves with the same zigzag gap, same two white eyes. They are power planes again as in the original (left = switched supply, right = GND). The maker's five vias at the top and bottom edge are gone; four tented vias in other places (three under the connector body, one beside R1 / R2), and two 0.9 mm switch-peg holes at the bottom edge, are new"
+  - "Outline: the same 40.00 mm circle, as one polygon; all copper kept 0.55 mm back from the edge (was 0.5 mm)"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 0
+  i2c_device: false
+  gpio_use: ""
+  hand_soldered_leds: "up to two 5 mm through-hole LEDs (not supplied), legs soldered across the 4 x 4 mm pads, each wearing a 3D-printed konpeito candy from original/Soot Sprites/Kompeito.scad"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-R-01
+
+local_parts: []            # none to buy. The four pads use KiCad's stock TestPoint_Pad_4.0x4.0mm (the maker's own choice), copied to hardware/soot-sprite-local.pretty/
