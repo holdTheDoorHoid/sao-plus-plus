@@ -1,0 +1,63 @@
+name: "Han SAOlo"
+slug: han-saolo
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Han SAOlo (Solo in Carbonite SAO)"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2024
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/SoloCarbonite"
+  project_page: "https://hackaday.io/project/197803-han-saolo"
+  license: "none stated"   # neither the repo (commit 1a08593) nor the project page gives a license: all rights reserved by default
+  permission: "pending"    # not asked yet; change to "written" and fill permission_ref when the maker answers
+  permission_ref: ""       # docs/permission.md once there is a reply
+  pending_decision: "Not yet decided: built locally on 2026-11-11; the repo owner has not yet said whether to publish before permission."
+  art_note: "Han Solo frozen in carbonite is a Lucasfilm / Disney character and scene (Star Wars); the board's picture is the maker's own copper-and-mask rendering of it. That is a separate question from the maker's permission and matters most if boards are sold."
+
+changes:
+  - "Through-hole 2x3 header on the front of the floor replaced by the 6-pin v1.69bis SMD shrouded header on the back near the bottom, 1.8 mm right of centre so its body clears the maker's 'PULL-UPS?' lettering; nothing shows on the front"
+  - "SAO / OFF / BAT slide switch on the left edge below the cell (the maker's 2-position switch was on the right edge); two 0.9 mm peg holes go through the lower slab art"
+  - "Maker's BS-08 coin-cell holder replaced by the shared CR2032 clip, same middle position; the cell slides in from the top"
+  - "Series cell diode added (the ATtiny is wired to SAO SDA and SCL)"
+  - "Maker's 10 k I2C pull-ups removed (the badge provides them; docs/standard.md section 1)"
+  - "Maker's UPDI-to-GPIO2 jumper removed (it cannot be routed on one layer here); a 1.5 mm UPDI programming pad replaces it. SAO GPIO2 is unconnected"
+  - "Same chip (ATtiny412), same five SK6805-EC3210R LEDs in the same places, same LED-data jumper, same chain-out and ground pads, five 100 nF capacitors as before"
+  - "Routed on the back only; four tented ground vias (the maker had five ground vias and one signal via) tie the separate ground islands together through the front copper, on spots the front art keeps under mask"
+  - "Front art unchanged, apart from the old header's six holes (gone), the old switch's lower peg hole (filled) and the new switch's two peg holes"
+  - "Back art unchanged, apart from the maker's jumper legend (PA6 / NEO / SWT, PA0 / RST / IO2): same words, size and layout, moved from where the switch now is to the gap between 'Really? You want more?' and the cell"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 5             # addressable RGB, against the house rule for coin cells: see README
+  through_board_leds: 0
+  i2c_device: false        # wired to SDA/SCL ("IIC ready"), but the maker's firmware does not use I2C
+  gpio_use: "GPIO1 can drive the LEDs directly if the jumper is changed over; GPIO2 unconnected"
+  controller: "Microchip ATtiny412 (maker's chip, programmed over UPDI)"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-20
+  - SAOPP-C-01
+  - SAOPP-D-01             # listed as "open" in docs/parts.md; this board uses the same RB751S40 as Knight Rider (local part until it is promoted)
+
+local_parts:                 # in hardware/parts_local.py and hardware/han-saolo-local.pretty
+  - ref: U1
+    part: "ATtiny412 microcontroller, 8-pin SOIC"
+    mpn: "ATTINY412-SSN"
+    footprint: "KiCad stock Package_SO:SOIC-8_3.9x4.9mm_P1.27mm (the maker's own)"
+  - ref: D6
+    part: "Series cell diode, Schottky, SOD-523"
+    mpn: "RB751S40T1G"
+    footprint: "KiCad stock Diode_SMD:D_SOD-523 (same as Knight Rider)"
+  - ref: JP1
+    part: "3-pad solder jumper, pads 1-2 bridged (bare copper, nothing to buy)"
+    mpn: ""
+    footprint: "KiCad stock Jumper:SolderJumper-3_P1.3mm_Bridged2Bar12_RoundedPad1.0x1.5mm (the maker's own)"
+  - ref: TP1, TP2, TP3
+    part: "Round bare copper pads 2 mm (chain out), 1.5 mm (UPDI), 3 mm (ground); nothing to buy"
+    mpn: ""
+    footprint: "KiCad stock TestPoint:TestPoint_Pad_D2.0mm / D1.5mm / D3.0mm"

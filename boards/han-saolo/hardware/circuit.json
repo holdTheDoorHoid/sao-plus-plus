@@ -1,0 +1,291 @@
+{
+ "title": "Han SAOlo - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko (Dave Darko), 2024, github.com/davedarko/Simple-Add-ons-SAO (SoloCarbonite)",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    35.56,
+    35.56
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL",
+    "5": "SAO_GPIO1"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    35.56,
+    66.04
+   ],
+   "nets": {
+    "3": "VLOAD",
+    "1": "VSAO",
+    "4": "VBAT_D"
+   }
+  },
+  {
+   "ref": "BT1",
+   "symbol": "CR2032_Clip",
+   "at": [
+    35.56,
+    91.44
+   ],
+   "nets": {
+    "1": "VBAT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D6",
+   "symbol": "D_Schottky_Cell",
+   "at": [
+    66.04,
+    91.44
+   ],
+   "nets": {
+    "2": "VBAT",
+    "1": "VBAT_D"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "ATtiny412_SOIC8",
+   "at": [
+    101.6,
+    40.64
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "NEO_PA6",
+    "4": "SDA",
+    "8": "GND",
+    "6": "UPDI",
+    "5": "SCL"
+   }
+  },
+  {
+   "ref": "TP2",
+   "symbol": "TestPad_1.5mm",
+   "at": [
+    142.24,
+    58.42
+   ],
+   "nets": {
+    "1": "UPDI"
+   },
+   "value": "UPDI"
+  },
+  {
+   "ref": "JP1",
+   "symbol": "SolderJumper_3_Bridged12",
+   "at": [
+    142.24,
+    35.56
+   ],
+   "nets": {
+    "1": "NEO_PA6",
+    "3": "SAO_GPIO1",
+    "2": "LED_DIN"
+   }
+  },
+  {
+   "ref": "C1",
+   "symbol": "C_100n",
+   "at": [
+    50.8,
+    116.84
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C2",
+   "symbol": "C_100n",
+   "at": [
+    81.28,
+    116.84
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C3",
+   "symbol": "C_100n",
+   "at": [
+    111.76,
+    116.84
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C4",
+   "symbol": "C_100n",
+   "at": [
+    142.24,
+    116.84
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C5",
+   "symbol": "C_100n",
+   "at": [
+    172.72,
+    116.84
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    177.8,
+    30.48
+   ],
+   "nets": {
+    "4": "VLOAD",
+    "1": "GND",
+    "3": "LED_DIN",
+    "2": "LED_D1"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    177.8,
+    48.26
+   ],
+   "nets": {
+    "4": "VLOAD",
+    "1": "GND",
+    "3": "LED_D1",
+    "2": "LED_D2"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    177.8,
+    66.04
+   ],
+   "nets": {
+    "4": "VLOAD",
+    "1": "GND",
+    "3": "LED_D2",
+    "2": "LED_D3"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    177.8,
+    83.82
+   ],
+   "nets": {
+    "4": "VLOAD",
+    "1": "GND",
+    "3": "LED_D3",
+    "2": "LED_D4"
+   }
+  },
+  {
+   "ref": "D5",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    177.8,
+    101.6
+   ],
+   "nets": {
+    "4": "VLOAD",
+    "1": "GND",
+    "3": "LED_D4",
+    "2": "LED_D5"
+   }
+  },
+  {
+   "ref": "TP1",
+   "symbol": "TestPad_2mm",
+   "at": [
+    218.44,
+    101.6
+   ],
+   "nets": {
+    "1": "LED_D5"
+   },
+   "value": "chain out"
+  },
+  {
+   "ref": "TP3",
+   "symbol": "TestPad_3mm",
+   "at": [
+    218.44,
+    116.84
+   ],
+   "nets": {
+    "1": "GND"
+   },
+   "value": "GND"
+  }
+ ],
+ "notes": [
+  [
+   "Power: SW1 common (pin 3) is VLOAD. Position SAO = badge 3.3 V (pin 1), middle = OFF (pin 2, unconnected), BAT = coin cell through D6 (pin 4).",
+   [
+    25.4,
+    170.0
+   ]
+  ],
+  [
+   "D6 is the series cell diode required by docs/standard.md section 3: the ATtiny is wired to SAO SDA/SCL, so nothing may push current into the CR2032.",
+   [
+    25.4,
+    173.8
+   ]
+  ],
+  [
+   "No I2C pull-ups on the add-on (the maker's R1/R2 10k were removed; the badge provides them). SAO GPIO2 is not connected (the maker's UPDI-on-GPIO2 jumper JP1 was removed).",
+   [
+    25.4,
+    177.6
+   ]
+  ],
+  [
+   "JP1 (the maker's JP2): pads 1-2 bridged by copper = LEDs driven by the ATtiny (PA6). Cut the bridge and solder 2-3 = LEDs driven by the badge on SAO GPIO1.",
+   [
+    25.4,
+    181.4
+   ]
+  ],
+  [
+   "D1..D5: SK6805-EC3210R side-firing RGB, chained D1 -> D5 in the order the maker's firmware expects. TP1 = chain out (more LEDs), TP2 = UPDI programming pad, TP3 = GND pad.",
+   [
+    25.4,
+    185.2
+   ]
+  ]
+ ]
+}

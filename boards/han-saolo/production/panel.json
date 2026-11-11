@@ -1,0 +1,17 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. Tabs stay clear of the switch knob (left edge, y 47-59), the coin-cell track down the left edge (y 29-50), the two tracks up the right edge (y 26-49) and the LED-data track along the top (x 15-23).",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [7.0, 0.0], "dir": "-y", "why": "top edge, above the maker's credit"},
+    {"near": [0.0, 14.0], "dir": "-x", "why": "left edge beside the credit, above the coin-cell track"},
+    {"near": [27.0, 15.0], "dir": "+x", "why": "right edge, side panel between LED windows"},
+    {"near": [27.0, 59.0], "dir": "+x", "why": "right edge beside the jumper legend"},
+    {"near": [10.0, 67.0], "dir": "+y", "why": "bottom edge under the connector"},
+    {"near": [21.0, 67.0], "dir": "+y", "why": "bottom edge, right"}
+  ]
+}

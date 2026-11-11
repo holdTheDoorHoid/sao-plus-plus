@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "sao-plus-plus")(type "KiCad")(uri "${KIPRJMOD}/../../../lib/sao-plus-plus.pretty")(options "")(descr "SAO++ shared footprints"))
+  (lib (name "han-saolo-local")(type "KiCad")(uri "${KIPRJMOD}/han-saolo-local.pretty")(options "")(descr "Footprints only this board uses so far"))
+)
