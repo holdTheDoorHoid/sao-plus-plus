@@ -12,6 +12,7 @@ original:
   permission: "license"
   permission_ref: "original/LICENSE"
   art_note: "The board is drawn to look like a US Robotics Courier external modem (the maker's README says so). No brand name, logo or the word 'Courier' is on the board: only the shape and the light labels AA / OH / SD / RTS / CTS / SYN. The front does carry 'D3F C0N' (DEF CON, the event the maker made it for, in the event's own letter style): that name belongs to DEF CON, not to the maker, and the MIT license does not cover it. It matters most if boards are sold."
+  publish_note: "Owner decision 2026-11-12: publish this board as a draft pull request with the third-party marks described in art_note left in place. That is a decision to publish the files for review only; it is not a decision about making or selling boards with those marks."
 
 changes:
   - "The whole design is enlarged 2.0 times (43.9 x 21.5 mm becomes 87.7 x 43.0 mm). That is the smallest size at which a CR2032 clip fits on the back clear of the row of six lights; see the README, 'Why it is twice the size'"
