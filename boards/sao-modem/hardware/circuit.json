@@ -1,0 +1,304 @@
+{
+ "title": "SAO Modem 1.69bis - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: hamster (@hamster), SAO Modem 1.69bis, DEF CON 30, MIT license, github.com/hamster/defcon30",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    38.1,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL",
+    "5": "GPIO1",
+    "6": "GPIO2"
+   }
+  },
+  {
+   "ref": "BT1",
+   "symbol": "CR2032_Clip",
+   "at": [
+    38.1,
+    86.36
+   ],
+   "nets": {
+    "1": "VBAT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D7",
+   "symbol": "D_Schottky_Cell",
+   "at": [
+    38.1,
+    109.22
+   ],
+   "nets": {
+    "2": "VBAT",
+    "1": "VCELL"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    83.82,
+    63.5
+   ],
+   "nets": {
+    "3": "VLOAD",
+    "1": "VSAO",
+    "4": "VCELL"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_LED_1k3",
+   "at": [
+    83.82,
+    86.36
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "AA_A"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    83.82,
+    109.22
+   ],
+   "nets": {
+    "2": "AA_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "Q1",
+   "symbol": "Q_Dual_PMOS_DMP3085LSD",
+   "at": [
+    129.54,
+    63.5
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "G_SDA",
+    "3": "VLOAD",
+    "4": "G_SCL",
+    "5": "Q_OH",
+    "6": "Q_OH",
+    "7": "Q_SD",
+    "8": "Q_SD"
+   }
+  },
+  {
+   "ref": "R7",
+   "symbol": "R_Gate_4k7",
+   "at": [
+    129.54,
+    109.22
+   ],
+   "nets": {
+    "1": "SCL",
+    "2": "G_SCL"
+   }
+  },
+  {
+   "ref": "R8",
+   "symbol": "R_Gate_10k",
+   "at": [
+    129.54,
+    132.08
+   ],
+   "nets": {
+    "1": "SDA",
+    "2": "G_SDA"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_LED_1k3",
+   "at": [
+    175.26,
+    63.5
+   ],
+   "nets": {
+    "1": "Q_OH",
+    "2": "OH_A"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    175.26,
+    86.36
+   ],
+   "nets": {
+    "2": "OH_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_LED_1k3",
+   "at": [
+    175.26,
+    109.22
+   ],
+   "nets": {
+    "1": "Q_SD",
+    "2": "SD_A"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    175.26,
+    132.08
+   ],
+   "nets": {
+    "2": "SD_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    220.98,
+    63.5
+   ],
+   "nets": {
+    "2": "GPIO1",
+    "1": "RTS_K"
+   }
+  },
+  {
+   "ref": "R4",
+   "symbol": "R_LED_1k3",
+   "at": [
+    220.98,
+    86.36
+   ],
+   "nets": {
+    "1": "RTS_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R5",
+   "symbol": "R_LED_1k3",
+   "at": [
+    220.98,
+    109.22
+   ],
+   "nets": {
+    "2": "GPIO2",
+    "1": "CTS_A"
+   }
+  },
+  {
+   "ref": "D5",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    220.98,
+    132.08
+   ],
+   "nets": {
+    "2": "CTS_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "D6",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    266.7,
+    63.5
+   ],
+   "nets": {
+    "2": "SYN",
+    "1": "SYN_K"
+   }
+  },
+  {
+   "ref": "R6",
+   "symbol": "R_LED_1k3",
+   "at": [
+    266.7,
+    86.36
+   ],
+   "nets": {
+    "1": "SYN_K",
+    "2": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "SAO++ power select: the switch common (VLOAD) feeds the AA light and the transistor. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.",
+   [
+    38.1,
+    30.48
+   ]
+  ],
+  [
+   "The badge supply and the coin cell sit on separate switch contacts and are never connected to each other. D7 is the series cell diode docs/standard.md section 3 requires",
+   [
+    38.1,
+    34.29
+   ]
+  ],
+  [
+   "(this board is wired to SDA, SCL, GPIO1 and GPIO2): nothing can push current back into the CR2032.",
+   [
+    38.1,
+    38.1
+   ]
+  ],
+  [
+   "Q1 = two P-channel MOSFETs (the maker's DMP3085LSD). SCL and SDA only touch the gates, through R7 / R8: an insulated input, so the bus cannot feed the board or the cell.",
+   [
+    38.1,
+    41.91
+   ]
+  ],
+  [
+   "A light is on while its line is LOW: OH follows SCL, SD follows SDA. RTS (D4) and CTS (D5) are lit directly by the badge's GPIO1 / GPIO2 pins, about 1 mA each when high,",
+   [
+    38.1,
+    45.72
+   ]
+  ],
+  [
+   "in every switch position (they never touch VLOAD). SYN (D6) is lit by whatever the user wires to pad TP1 (board-only bare pad, net SYN; no schematic symbol).",
+   [
+    38.1,
+    49.53
+   ]
+  ],
+  [
+   "AA (D1) shows that the switched supply VLOAD is present. All six lights use the house 1.3 k resistor (the maker used 47 ohm).",
+   [
+    38.1,
+    53.34
+   ]
+  ],
+  [
+   "R1, R2, R3 and R5 sit on the supply side of their LED so that, on the board, another track can pass between their pads (one copper layer, no vias).",
+   [
+    38.1,
+    57.15
+   ]
+  ]
+ ]
+}
