@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [13.0, 12.6], "dir": "-y", "why": "top of the left ear (front view)"},
+    {"near": [46.6, 12.6], "dir": "-y", "why": "top of the right ear. The top of the head is left free for the XIAO's USB-C socket"},
+    {"near": [8.9, 30.0], "dir": "-x", "why": "left cheek, beside the sounder"},
+    {"near": [49.5, 34.0], "dir": "+x", "why": "right cheek, below the LiPo socket's opening"},
+    {"near": [17.2, 41.5], "dir": "-x", "why": "left jaw. The chin (switch knob) and the right jaw (a track runs 0.6 mm inside it) have no tabs"}
+  ]
+}

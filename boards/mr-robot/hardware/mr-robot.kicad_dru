@@ -1,0 +1,32 @@
+(version 1)
+
+# The front copper and the maker's gold logo on the back are artwork. This rule stops DRC from flagging the art for
+# being art; everything electrical (pads, tracks and the ground copper against other nets) is still checked in full.
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# Courtyards that include long pads or a part's whole outline, with small parts deliberately inside them:
+# - the sounder's courtyard is drawn round its two end pads and its 11 x 9 mm body. R1, R5, R6 (above its + pad),
+#   D1, R7 (beside its - pad) and Q1 (below it) sit outside the body and its pads, 0.25 mm or more from both. The SAO
+#   connector's courtyard (which includes its long pads) touches the sounder's corner; the two bodies are 2.2 mm apart.
+# - R7 (bleed resistor) and Q1's collector pad meet on the same net (the sounder's - pad), 0.1 mm apart.
+# - the XIAO's courtyard reaches 0.6 mm past its edge pads: R1 (D10 base resistor) shares a pad with D10 and R2 stands
+#   0.15 mm below the module's end.
+# - the SAO connector's courtyard includes its long pads: R2 stands on pin 5 (same net).
+# - R4 (OFF sense) sits 0.33 mm above the switch's pins, between the connector and the switch.
+(rule "Driver parts round the sounder"
+  (condition "A.Reference == 'LS1' && (B.Reference == 'R1' || B.Reference == 'R5' || B.Reference == 'R6' || B.Reference == 'R7' || B.Reference == 'D1' || B.Reference == 'Q1' || B.Reference == 'J1')")
+  (constraint courtyard_clearance (min -2.0mm)))
+(rule "Small parts against the XIAO"
+  (condition "A.Reference == 'U1' && (B.Reference == 'R1' || B.Reference == 'R2')")
+  (constraint courtyard_clearance (min -1.0mm)))
+(rule "R2 on the SAO connector"
+  (condition "A.Reference == 'J1' && B.Reference == 'R2'")
+  (constraint courtyard_clearance (min -3.0mm)))
+(rule "R4 above the switch"
+  (condition "A.Reference == 'SW1' && B.Reference == 'R4'")
+  (constraint courtyard_clearance (min -1.0mm)))
+(rule "R7 beside Q1"
+  (condition "A.Reference == 'R7' && B.Reference == 'Q1'")
+  (constraint courtyard_clearance (min -0.5mm)))

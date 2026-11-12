@@ -1,0 +1,28 @@
+(version 1)
+
+# Hand-written: tools/panelize.py does not carry hardware/mr-robot.kicad_dru to the panel, and renumbers the parts
+# (J1 -> J101, J201 ...). Same rules and the same reasons as the single board; see that file.
+
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+(rule "Driver parts round the sounder"
+  (condition "A.Reference == 'LS?01' && (B.Reference == 'R?01' || B.Reference == 'R?05' || B.Reference == 'R?06' || B.Reference == 'R?07' || B.Reference == 'D?01' || B.Reference == 'Q?01' || B.Reference == 'J?01')")
+  (constraint courtyard_clearance (min -2.0mm)))
+
+(rule "Small parts against the XIAO"
+  (condition "A.Reference == 'U?01' && (B.Reference == 'R?01' || B.Reference == 'R?02')")
+  (constraint courtyard_clearance (min -1.0mm)))
+
+(rule "R2 on the SAO connector"
+  (condition "A.Reference == 'J?01' && B.Reference == 'R?02'")
+  (constraint courtyard_clearance (min -3.0mm)))
+
+(rule "R4 above the switch"
+  (condition "A.Reference == 'SW?01' && B.Reference == 'R?04'")
+  (constraint courtyard_clearance (min -1.0mm)))
+
+(rule "R7 beside Q1"
+  (condition "A.Reference == 'R?07' && B.Reference == 'Q?01'")
+  (constraint courtyard_clearance (min -0.5mm)))

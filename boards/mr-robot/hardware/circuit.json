@@ -1,0 +1,234 @@
+{
+ "title": "Mr. Robot - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko (Dave Darko), 2019, github.com/davedarko/Simple-Add-ons-SAO",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    55.88
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL",
+    "5": "SAO_GPIO1",
+    "6": "SAO_GPIO2"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    50.8,
+    86.36
+   ],
+   "nets": {
+    "3": "V3V3",
+    "1": "VSAO",
+    "2": "OFF_SW"
+   },
+   "value": "SAO / OFF / USB-BAT"
+  },
+  {
+   "ref": "R4",
+   "symbol": "R_Series_330",
+   "at": [
+    50.8,
+    116.84
+   ],
+   "nets": {
+    "1": "OFF_SW",
+    "2": "OFF_SENSE"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_Series_330",
+   "at": [
+    116.84,
+    50.8
+   ],
+   "nets": {
+    "1": "SAO_GPIO1",
+    "2": "D7_RX"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_Series_330",
+   "at": [
+    116.84,
+    66.04
+   ],
+   "nets": {
+    "1": "SAO_GPIO2",
+    "2": "D6_TX"
+   }
+  },
+  {
+   "ref": "J2",
+   "symbol": "LiPo_Connector_JST_PH",
+   "at": [
+    116.84,
+    99.06
+   ],
+   "nets": {
+    "1": "BAT+",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "XIAO_ESP32_Module",
+   "at": [
+    182.88,
+    60.96
+   ],
+   "nets": {
+    "2": "OFF_SENSE",
+    "5": "SDA",
+    "6": "SCL",
+    "7": "D6_TX",
+    "8": "D7_RX",
+    "11": "AUDIO",
+    "12": "V3V3",
+    "13": "GND",
+    "15": "BAT+",
+    "16": "GND"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_LED_1k3",
+   "at": [
+    254.0,
+    50.8
+   ],
+   "nets": {
+    "1": "AUDIO",
+    "2": "Q_BASE"
+   }
+  },
+  {
+   "ref": "Q1",
+   "symbol": "Q_NPN_BC847",
+   "at": [
+    254.0,
+    73.66
+   ],
+   "nets": {
+    "1": "Q_BASE",
+    "3": "SPK_MINUS",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R5",
+   "symbol": "R_Series_330",
+   "at": [
+    254.0,
+    99.06
+   ],
+   "nets": {
+    "1": "V3V3",
+    "2": "SPK_PLUS"
+   }
+  },
+  {
+   "ref": "R6",
+   "symbol": "R_Series_330",
+   "at": [
+    254.0,
+    111.76
+   ],
+   "nets": {
+    "1": "V3V3",
+    "2": "SPK_PLUS"
+   }
+  },
+  {
+   "ref": "LS1",
+   "symbol": "Sounder_KMTG1102",
+   "at": [
+    205.74,
+    124.46
+   ],
+   "nets": {
+    "2": "SPK_PLUS",
+    "1": "SPK_MINUS"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "D_Schottky_RB751",
+   "at": [
+    205.74,
+    142.24
+   ],
+   "nets": {
+    "1": "SPK_PLUS",
+    "2": "SPK_MINUS"
+   }
+  },
+  {
+   "ref": "R7",
+   "symbol": "R_LED_1k3",
+   "at": [
+    254.0,
+    142.24
+   ],
+   "nets": {
+    "1": "SPK_PLUS",
+    "2": "SPK_MINUS"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "Power: the switch common is the 3.3 V rail (XIAO 3V3 pin and the sounder driver). Position 1 = badge 3.3 V feeds the rail. Position 2 (OFF) ties D1 to the rail through R4; position 3 (USB-BAT) leaves the badge disconnected.",
+   [
+    38.1,
+    160.02
+   ]
+  ],
+  [
+   "On USB-BAT the XIAO powers the rail itself, from USB-C or the LiPo on J2 (which it charges). Do not plug in USB with the switch on SAO while on a badge: two 3.3 V regulators would share one rail.",
+   [
+    38.1,
+    163.83
+   ]
+  ],
+  [
+   "Sounder driver (replaces the maker's amplifier): D10 -> R1 1.3k -> Q1 base. Q1 switches the sounder's minus side to ground. R5 || R6 (2 x 330 = 165 ohm) from 3.3 V limit the current to 19 mA whatever the sounder is.",
+   [
+    38.1,
+    167.64
+   ]
+  ],
+  [
+   "D1 (flyback) catches the coil's kick if the sounder is magnetic; R7 1.3k discharges it if it is a piezo. Both are harmless for the other type.",
+   [
+    38.1,
+    171.45
+   ]
+  ],
+  [
+   "R2, R3: 330 ohm on the SAO GPIO pins per docs/standard.md. R4: 330 ohm in the OFF sense line. R1, R2, R4 each let one other track pass between their pads: the board is routed on the back copper only.",
+   [
+    38.1,
+    175.26
+   ]
+  ],
+  [
+   "The maker's ATtiny85, its reset pull-up R1 4k7, C1 100 nF, the ISP pads and his amplifier (C2 22 uF, R2 2k2, BC847) are replaced by the XIAO and the driver above. Mode button = the XIAO's BOOT button.",
+   [
+    38.1,
+    179.07
+   ]
+  ]
+ ]
+}
