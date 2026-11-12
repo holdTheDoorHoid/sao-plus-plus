@@ -48,3 +48,14 @@ Read `README.md`, `docs/standard.md`, `docs/parts.md`, and `docs/porting-guide.m
 - **Never `pkill -f <pattern>`** in a parallel batch: one agent's pattern killed another agent's build. Kill by PID only.
 - **Give any home-made router a hard time or rip-up limit.** Do Or Donut's two-layer rip-up-and-reroute ran for hours without converging before anyone noticed. If a board does not route on two layers in a bounded time, stop and report options (four layers, larger board, drop a part) instead of iterating.
 - The standard cell diode (D-01, RB751S40T1G) is a 30 mA part: fine for a chip and a few 1 mA LEDs, not for a string of RGB LEDs.
+
+## Lessons from the second davedarko batch and the scale-up retouches (2026-11-12)
+
+- **Scaling fixes fit, not topology.** It removed cell overhangs and moved credits back (RBG 1.06x, COVID-19 Test 1.48x, Hello My Name Is 1.1x), but it did not make Do Or Donut route on two layers, did not remove Mysterio's base strip, and art that scales with the board (logos, lettering) still collides with parts that do not. Say what a scale-up will and will not fix before spending the time.
+- **Small factors are cheap; big ones change the object.** Penghito Poco needed 1.4x (twice the area) and Lumpy 1.3x (66 x 93 mm) to clear a few millimetres of overhang. Report the size honestly and let the owner choose between the big board and the original compromise.
+- **A board with nothing to power needs no cell.** Vendetta is only an EEPROM; LECCO has no room. Raise it with the owner instead of fitting a cell that runs nothing.
+- **Pins become SAOs** by adding J1 on the back and dropping the brooch pads (Spacehuhn, Sloth, Flux Capacitor).
+- `pcbnew.LoadBoard` on a maker's KiCad file rewrites its `.kicad_prl` in `original/`. Those files are gitignored, so nothing wrong is committed, but restore them if you diff `original/` against the source.
+- Panel DRC on halftone or engraving art (Vendetta, Mysterio) takes 15-25 minutes. Allow for it.
+- Check the shared machine's load before running thirteen KiCad agents at once: independent re-checks queued behind them for a long time.
+- Three boards keep the maker's ATtiny85 and have no firmware (Knight Rider, Sloth, Flux Capacitor). They share the chip, the red 0603 LED, the button and the ISP pads as board-local copies: promote these to `lib/` before a fourth board uses them.

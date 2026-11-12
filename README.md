@@ -52,6 +52,13 @@ tools/                check_boards.py (paperwork check, runs on every push), gen
 | [Penghito Poco](boards/penghito-poco/) | davedarko (year not recorded) | Designed and rule-checked, not yet built. **Permission pending: not open-licensed**, see the board README |
 | [Mysterio](boards/mysterio/) | davedarko (2025) | Designed and rule-checked, not yet built. Seeed XIAO ESP32 controller, new Rust firmware (never run on hardware). **Permission pending: not open-licensed**, see the board README |
 | [Do Or Donut](boards/do-or-donut/) | davedarko (2019) | Designed and rule-checked, not yet built. Seeed XIAO ESP32 controller, new Rust firmware (never run on hardware). **Four-layer board.** **Permission pending: not open-licensed**, see the board README |
+| [Vendetta](boards/vendetta/) | davedarko (2022) | Designed and rule-checked, not yet built. Scaled up 1.23x. **Permission pending: not open-licensed**, see the board README |
+| [Hello My Name Is](boards/hello-my-name-is/) | davedarko (2024) | Designed and rule-checked, not yet built. Scaled up 1.1x. **Permission pending: not open-licensed**, see the board README |
+| [LECCO postcard](boards/lecco/) | davedarko (2026) | Designed and rule-checked, not yet built. Scaled up 1.2x; badge power only (no cell or switch). **Permission pending: not open-licensed**, see the board README |
+| [Sloth](boards/sloth/) | davedarko (2017) | Was a pin; now an SAO. Designed and rule-checked, not yet built. Scaled up 1.3x. No firmware yet. **Permission pending: not open-licensed**, see the board README |
+| [Flux Capacitor](boards/flux-capacitor/) | davedarko (2017) | Was a pin; now an SAO. Designed and rule-checked, not yet built. Scaled up 1.35x. No firmware yet. **Permission pending: not open-licensed**, see the board README |
+| [Retro Spacehuhn](boards/spacehuhn/) | davedarko (year not recorded) | Was a pin; now an SAO. Designed and rule-checked, not yet built. The chicken logo is Spacehuhn's. **Permission pending: not open-licensed**, see the board README |
+| [Mr. Robot](boards/mr-robot/) | davedarko (2019) | Designed and rule-checked, not yet built. Scaled up 1.1x. Seeed XIAO ESP32 controller, new sounder driver, new Rust firmware (never run on hardware). **Permission pending: not open-licensed**, see the board README |
 
 ## Adding a board
 
