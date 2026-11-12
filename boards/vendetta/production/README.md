@@ -1,6 +1,6 @@
 # Guy Fawkes remembers (Vendetta) rev A — ordering files
 
-> Design-checked only. No board has been built from these files yet: order a small first batch (5–10) before any production run, and go through the prototype checklist in [../README.md](../README.md). **Permission from the maker is still pending and the owner has not decided whether to publish or order** (see the README). The memory chip U1 has no LCSC number yet (see below). Before ordering, also read "Does the coin cell do anything?" in the README: the owner may prefer the simpler version without the switch, clip and diode.
+> Design-checked only. No board has been built from these files yet: order a small first batch (5–10) before any production run, and go through the prototype checklist in [../README.md](../README.md). **Permission from the maker is still pending; the owner chose on 2026-11-12 to publish these files, and has not decided whether to order** (see the README). The memory chip U1 has no LCSC number yet (see below). Before ordering, also read "Does the coin cell do anything?" in the README: the owner may prefer the simpler version without the switch, clip and diode.
 
 ## What to upload
 

@@ -2,7 +2,7 @@
 
 Originally the **"Hello My Name Is" SAO** (2024, LED version) by **davedarko (Dave Darko)**, his entry to Hackaday's Supercon 2024 simple add-on contest: https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/HelloMyNameIs (project page: https://hackaday.io/project/197693-hello-my-name-is-sao)
 
-> **Permission pending — this board is not open-licensed.** davedarko's repository states no license, and he has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). This port was built locally on 2026-11-12; the repo owner has **not yet decided** whether to publish it before permission arrives. Until the maker says otherwise:
+> **Permission pending — this board is not open-licensed.** davedarko's repository states no license, and he has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner chose on 2026-11-12 to publish this port anyway. Until the maker says otherwise:
 > - the original design in `original/`, the outline and all artwork remain **© davedarko, all rights reserved**; the repo's CERN-OHL-S / CC-BY-SA licenses would cover only the SAO++ additions (new parts placement, routing, scripts, documentation), not the original work
 > - do not treat these files as cleared for manufacture or sale
 >

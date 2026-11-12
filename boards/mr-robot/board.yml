@@ -12,7 +12,7 @@ original:
   license: "none stated"   # the repository (commit 1a08593) gives no license anywhere, so all rights are reserved by default
   permission: "pending"    # not asked yet; change to "written" and fill permission_ref when the maker answers
   permission_ref: ""
-  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-12 to publish before permission was received, accepting that it may have to come down."
   base_revision: "the only revision in the repo (Eagle saomr.brd/.sch, with the maker's KiCad 8 import in original/KiCad8); his readme says its amplifier does not work"
   art_note: "The face is the mask from the TV series Mr. Robot (Universal Content Productions / USA Network). It is a third-party likeness: not ours, and not the maker's to license. That is separate from davedarko's permission and would need its own clearance before any sale."
   inspired_by: "Brian Benchoff's large Mr. Robot badge (named in the maker's write-up)"

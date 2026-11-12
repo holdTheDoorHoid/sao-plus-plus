@@ -14,7 +14,7 @@ original:
   license: "none stated"   # no license anywhere in the maker's repo (commit 1a08593), so all rights are reserved by default
   permission: "pending"    # not yet asked; change to "written" and fill permission_ref when davedarko answers
   permission_ref: ""
-  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-12 to publish before permission was received, accepting that it may have to come down."
   art_note: "The chicken in a space helmet is the Spacehuhn logo, which belongs to Spacehuhn (Stefan Kremser). It is a third party's logo: not SAO++'s, and not davedarko's to license. Publishing or selling boards that show it needs Spacehuhn's permission as well as davedarko's: two people."
 
 changes:

@@ -12,7 +12,7 @@ original:
   license: "none stated"   # the repo (commit 1a08593) states no license, so all rights are reserved by default
   permission: "pending"
   permission_ref: ""
-  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-12 to publish before permission was received, accepting that it may have to come down."
   base_revision: "original/REV1 (the badge itself). original/programTester is a programming / test jig for the badge's chip (DIP socket, 12 LEDs in a row, AVR ISP header, silkscreen 'SLOTHBADGE TESTER'), not a badge, and is not used"
   art_note: "The maker's repo readme says the badge was 'inspired by some cute pimoroni pins'. The drawing appears to be davedarko's own, but whether it follows a Pimoroni design closely is not recorded; worth asking the maker along with the permission."
   scale: 1.3              # owner rule 2026-11-12: whole board scaled up uniformly to make room; maker's 40.0 x 30.0 mm -> 52.0 x 39.0 mm

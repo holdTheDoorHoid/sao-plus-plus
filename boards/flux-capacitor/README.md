@@ -2,7 +2,7 @@
 
 Originally the **Flux Capacitor trinket** by **davedarko (Dave Darko)**: https://hackaday.io/project/25898-flux-capacitor-trinket, files at https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/FluxCapacitor
 
-> **Permission pending — this board is not open-licensed.** The maker's repository states no license, and davedarko has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). Whether to publish this port before he answers has not been decided yet. Until the maker says otherwise:
+> **Permission pending — this board is not open-licensed.** The maker's repository states no license, and davedarko has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner chose on 2026-11-12 to publish this port anyway. Until the maker says otherwise:
 > - the original design in `original/`, the outline and all artwork remain **© davedarko, all rights reserved**; the repo's licenses cover only the SAO++ additions (parts placement, routing, scripts, documentation), not the original work
 > - do not treat these files as cleared for manufacture or sale
 >

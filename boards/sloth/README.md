@@ -2,7 +2,7 @@
 
 Originally the **Sloth Badge** by **davedarko (Dave Darko)**: https://hackaday.io/project/28330-sloth-badge, files at https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Sloth%20Badge
 
-> **Permission pending — this board is not open-licensed.** The maker's repository states no license, and davedarko has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner has not yet decided whether to publish this port before permission arrives. Until the maker says otherwise:
+> **Permission pending — this board is not open-licensed.** The maker's repository states no license, and davedarko has not yet been asked or answered (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner chose on 2026-11-12 to publish this port anyway. Until the maker says otherwise:
 > - the original design in `original/`, the outline and all artwork remain **© davedarko, all rights reserved**; the repo's licenses would cover only the SAO++ additions (parts placement, routing, scripts, documentation), not the original work
 > - do not treat these files as cleared for manufacture or sale
 >

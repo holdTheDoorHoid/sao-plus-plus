@@ -11,7 +11,7 @@ original:
   license: "none stated"   # no license anywhere in the maker's repo (commit 1a08593), so all rights are reserved by default
   permission: "pending"    # not yet asked; change to "written" and fill permission_ref when davedarko answers
   permission_ref: ""
-  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-12 to publish before permission was received, accepting that it may have to come down."
   art_note: "The front shows a real place, the Azzone Visconti bridge in Lecco with the mountains behind it, and the back message names the Hackaday Europe 2026 event. Hackaday names and marks belong to their owners; nothing of theirs is added. Everything of the maker's is kept exactly as drawn."
 
 scale:

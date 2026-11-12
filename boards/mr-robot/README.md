@@ -2,7 +2,7 @@
 
 Originally the **Mr. Robot Simple Add-on** by **davedarko (Dave Darko)**, 2019: https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Mr%20Robot%20Badge (write-up: https://hackaday.io/project/168037-mr-robot-shitty-addon). His write-up says it was inspired by Brian Benchoff's big Mr. Robot badge.
 
-> **Permission pending — this board is not open-licensed.** The maker's repository states no license anywhere, and he has not yet been asked (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). Whether to publish this port before he answers is **not yet decided** (built locally on 2026-11-12). Until the maker says otherwise:
+> **Permission pending — this board is not open-licensed.** The maker's repository states no license anywhere, and he has not yet been asked (draft request: [../han-saolo/docs/permission-request.md](../han-saolo/docs/permission-request.md)). The repo owner chose on 2026-11-12 to publish this port anyway. Until the maker says otherwise:
 > - the original design in `original/`, the outline and all artwork remain **© davedarko, all rights reserved**; the repo's CERN-OHL-S / CC-BY-SA licenses cover only the SAO++ additions (new parts placement, routing, scripts, documentation), not the original work
 > - do not treat these files as cleared for manufacture or sale
 >

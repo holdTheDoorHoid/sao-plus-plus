@@ -12,7 +12,7 @@ original:
   license: "none stated"   # the repo (commit 1a08593) states no license, so all rights are reserved by default
   permission: "pending"
   permission_ref: ""
-  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-12 to publish before permission was received, accepting that it may have to come down."
   base_revision: "original/attiny45.brd + .sch (Eagle, the only version in the folder; its readme is empty)"
   art_note: "The drawing is the flux capacitor from the film 'Back to the Future' (Universal). It is a third-party reference: not ours, and not davedarko's to license. That needs its own clearance before any sale, separately from davedarko's permission."
 

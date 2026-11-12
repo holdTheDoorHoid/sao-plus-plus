@@ -11,7 +11,7 @@ original:
   license: "none stated"   # the repo (commit 1a08593) states no license, so all rights are reserved by default
   permission: "pending"
   permission_ref: ""
-  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  pending_decision: "Repo owner (holdTheDoorHoid) chose on 2026-11-12 to publish before permission was received, accepting that it may have to come down."
   base_revision: "original/VendettaSAO (KiCad 6, board dated 2022/09, order files vendettaSAOV2.zip of 2022-09-20): the only board file; the loose .kicad_mod/.svg files beside it are its art and outline"
   art_note: "The front is a Guy Fawkes mask in the style popularised by the film and comic 'V for Vendetta' (Warner Bros. / DC). That stylised mask is a third-party likeness: not SAO++'s and not davedarko's to license. Any sale needs its own check, separately from davedarko's permission."
 
