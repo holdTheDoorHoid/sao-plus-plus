@@ -1,0 +1,15 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. One tab in the middle of each straight side; no part or track is within 2 mm of a tab.",
+  "rows": 2,
+  "cols": 3,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [112.0, 100.0], "dir": "-y", "why": "middle of the top edge"},
+    {"near": [112.0, 124.0], "dir": "+y", "why": "middle of the bottom edge"},
+    {"near": [100.0, 110.0], "dir": "-x", "why": "left edge, level with the connector"},
+    {"near": [124.0, 110.0], "dir": "+x", "why": "right edge, level with the connector"}
+  ]
+}
