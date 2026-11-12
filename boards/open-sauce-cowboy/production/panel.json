@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. All copper on this board stops 0.55 mm short of the edge. Tabs avoid the whole top of the crown (the connector's pads and keep-out box reach to 0.4 mm from that edge), the stretch of bottom edge the cell overhangs (x 216.5 to 223.4) and the switch (x 243.9 to 255.3).",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [220.0, 85.6], "dir": "-y", "why": "top of the left brim, 1.5 mm above the cell link track"},
+    {"near": [229.0, 107.8], "dir": "+y", "why": "bottom of the left brim, right of where the cell overhangs"},
+    {"near": [237.5, 105.4], "dir": "+y", "why": "bottom edge between the cell and the BAT label"},
+    {"near": [262.0, 92.9], "dir": "-y", "why": "top of the right brim, above the logo"},
+    {"near": [266.3, 96.7], "dir": "+x", "why": "tip of the right brim"}
+  ]
+}

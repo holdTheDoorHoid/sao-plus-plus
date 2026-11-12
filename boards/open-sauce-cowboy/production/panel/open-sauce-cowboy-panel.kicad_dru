@@ -1,0 +1,17 @@
+(version 1)
+
+# Same rules as hardware/open-sauce-cowboy.kicad_dru, with the panel's part numbers (J101, BT101, D101, J201 ...).
+# Hand-written: tools/panelize.py does not copy a board's rules to its panel.
+(rule "Fine gaps inside the artwork (brush strokes, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# Cell clip beside the connector on each board: the footprint's keep-out box is an estimate; checked against the TE
+# drawing in hardware/build_board.py (clip plate to connector body 0.25 mm or more).
+(rule "Cell clip beside the connector"
+  (condition "A.Reference == 'J?01' && B.Reference == 'BT?01'")
+  (constraint courtyard_clearance (min -2.2mm)))
+# Star LED below the connector on each board: LED pad 0.33 mm, LED body 0.75 mm from the connector's plastic body.
+(rule "Star LED below the connector"
+  (condition "A.Reference == 'J?01' && B.Reference == 'D?01'")
+  (constraint courtyard_clearance (min -1.7mm)))
