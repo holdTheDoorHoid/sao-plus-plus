@@ -1,0 +1,8 @@
+Designator,Mid X (mm),Mid Y (mm),Rotation,Layer
+BT1,30.0000,-31.8000,180,Bottom
+D1,19.5000,-18.0000,180,Bottom
+D2,40.5000,-18.0000,0,Bottom
+J1,30.0000,-12.4500,-90,Bottom
+R1,16.2000,-18.0000,90,Bottom
+R2,44.9000,-18.0000,180,Bottom
+SW1,48.4939,-12.5061,-45,Bottom

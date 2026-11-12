@@ -1,0 +1,29 @@
+G04 #@! TF.GenerationSoftware,KiCad,Pcbnew,10.0.8*
+G04 #@! TF.CreationDate,2026-11-11T22:42:33-05:00*
+G04 #@! TF.ProjectId,nsec-diamond-panel,6e736563-2d64-4696-916d-6f6e642d7061,A*
+G04 #@! TF.SameCoordinates,Original*
+G04 #@! TF.FileFunction,Soldermask,Top*
+G04 #@! TF.FilePolarity,Negative*
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 10.0.8) date 2026-11-11 22:42:33*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%ADD10C,1.252000*%
+%ADD11C,2.000000*%
+G04 APERTURE END LIST*
+D10*
+X4000000Y-111500000D03*
+D11*
+X9000000Y2500000D03*
+D10*
+X115000000Y-111500000D03*
+X115000000Y2500000D03*
+D11*
+X9000000Y-111500000D03*
+X110000000Y2500000D03*
+D10*
+X4000000Y2500000D03*
+M02*
