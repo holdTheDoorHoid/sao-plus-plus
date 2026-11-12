@@ -1,0 +1,46 @@
+name: "Eggplant"
+slug: eggplant
+status: porting            # designed and rule-checked; no physical SAO++ board built yet; firmware never compiled
+revision: "A"
+
+original:
+  title: "Darknet \"Official\" Eggplant Emoji Shitty Add-On (DEF CON 26)"
+  makers: ["Krux (design and firmware)", "DC Darknet / thedarknet (published by CmdC0de)"]
+  year: 2018
+  source_url: "https://github.com/thedarknet/dc26-badge/tree/63ec6ed78119f4a01306306670271d03764ec5c3/hardware/dc26-sao/eggplant"
+  firmware_url: "https://github.com/thedarknet/dc26-badge/tree/63ec6ed78119f4a01306306670271d03764ec5c3/firmware/dc26-sao/eggplant"
+  license: "MIT"           # LICENSE at the repo root (copied to original/LICENSE): plain MIT, "Copyright (c) 2017" with no name. No exception in the eggplant files
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "The eggplant shape is the maker's own drawing of the generic emoji; there is no logo or character on the board. The maker's back lettering is kept word for word: 'DC Darknet \"Official\" Shitty Addon Board #badgelife', 'krux was here', a two-line base64 joke and a block of tally marks. 'DC Darknet' is the makers' group name (used here as credit, as MIT asks) and DEF CON is named only in the credit line; neither group's logo is used. The word 'Official' is the maker's joke and could be misread on a board they did not make: the SAO++ line beside it says what this is. The firmware keeps the maker's 'infection' game, which names two sexually transmitted diseases in its code comments and README, not on the board."
+  not_copied: "firmware/dc26-sao/eggplant/EEPROMAnything.h (an Arduino Playground snippet by someone else, licence not stated in the file) is not in original/; the Rust firmware does not use it."
+
+changes:
+  - "The whole design is 1.3 times the maker's size (57.5 x 58.5 mm as worn, was 44.3 x 45.0): the smallest size at which the XIAO, the 6-pin connector (3 mm from every edge) and the switch all fit"
+  - "Controller changed from an ATtiny85 to a Seeed Studio XIAO ESP32 module (C3, S3 or C6) soldered flat on the back, USB-C at the eggplant's lower-left edge"
+  - "The maker's five two-colour (red + blue) LEDs became five SK6805 side-firing RGB LEDs near the edge, firing outward; two stand where the maker's were (within 3 mm), one moved 5 mm, one 7 mm and one 42 mm (to the far end of the copper-free stripe)"
+  - "4-pin header replaced by the 6-pin v1.69bis SMD shrouded header, key slot up when worn (the board still hangs tilted 45 degrees, as the maker's did). GPIO1 and GPIO2 stay unconnected, as on the original"
+  - "SAO / OFF / USB-BAT slide switch and a JST-PH LiPo connector added; no coin cell"
+  - "The maker's own I2C pull-up resistors (10 k on SDA and SCL) are gone: the standard leaves pull-ups to the badge"
+  - "Front art unchanged apart from the size; the maker's art was the same on both faces, and the back copy is replaced by the parts, ground copper and lettering"
+  - "The maker's back lettering and tally marks are kept, moved to where there is room"
+  - "Firmware: new Rust program that answers on I2C at 0x36 exactly as the maker's sketch did; name, light mode and infection are forgotten at power-off (the ATtiny kept them)"
+
+features:
+  power_select: true
+  coin_cell: none
+  lipo_connector: JST-PH 2-pin
+  side_leds: 5
+  through_board_leds: 0
+  i2c_device: true         # target at 0x36, the maker's noun / verb commands
+  gpio_use: "none (not connected, as on the maker's 4-pin board)"
+  controller: "Seeed Studio XIAO ESP32-C3 / S3 / C6"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-R-02
+  - SAOPP-MCU-01
+  - SAOPP-CONN-10
+  - SAOPP-LED-20
+  - SAOPP-C-01

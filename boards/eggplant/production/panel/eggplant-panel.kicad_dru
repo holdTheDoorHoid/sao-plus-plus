@@ -1,0 +1,46 @@
+(version 1)
+
+# The copper on this board is partly artwork (the body and the stalk on the front). This rule stops DRC from flagging
+# the art for being art; everything electrical (pads, tracks, the GND copper against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# Same three courtyard exceptions as the single board (hardware/eggplant.kicad_dru), once per copy: panel parts are renumbered.
+(rule "courtyard R101 U101"
+  (condition "A.Reference == 'R101' && B.Reference == 'U101'")
+  (constraint courtyard_clearance (min -2.0mm)))
+(rule "courtyard J101 U101"
+  (condition "A.Reference == 'J101' && B.Reference == 'U101'")
+  (constraint courtyard_clearance (min -3.0mm)))
+(rule "courtyard J101 D105"
+  (condition "A.Reference == 'J101' && B.Reference == 'D105'")
+  (constraint courtyard_clearance (min -3.0mm)))
+(rule "courtyard R201 U201"
+  (condition "A.Reference == 'R201' && B.Reference == 'U201'")
+  (constraint courtyard_clearance (min -2.0mm)))
+(rule "courtyard J201 U201"
+  (condition "A.Reference == 'J201' && B.Reference == 'U201'")
+  (constraint courtyard_clearance (min -3.0mm)))
+(rule "courtyard J201 D205"
+  (condition "A.Reference == 'J201' && B.Reference == 'D205'")
+  (constraint courtyard_clearance (min -3.0mm)))
+(rule "courtyard R301 U301"
+  (condition "A.Reference == 'R301' && B.Reference == 'U301'")
+  (constraint courtyard_clearance (min -2.0mm)))
+(rule "courtyard J301 U301"
+  (condition "A.Reference == 'J301' && B.Reference == 'U301'")
+  (constraint courtyard_clearance (min -3.0mm)))
+(rule "courtyard J301 D305"
+  (condition "A.Reference == 'J301' && B.Reference == 'D305'")
+  (constraint courtyard_clearance (min -3.0mm)))
+(rule "courtyard R401 U401"
+  (condition "A.Reference == 'R401' && B.Reference == 'U401'")
+  (constraint courtyard_clearance (min -2.0mm)))
+(rule "courtyard J401 U401"
+  (condition "A.Reference == 'J401' && B.Reference == 'U401'")
+  (constraint courtyard_clearance (min -3.0mm)))
+(rule "courtyard J401 D405"
+  (condition "A.Reference == 'J401' && B.Reference == 'D405'")
+  (constraint courtyard_clearance (min -3.0mm)))
