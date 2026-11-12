@@ -1,0 +1,17 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. The ground fill stops 0.55 mm short of the edge and no track runs near an edge, so tabs only have to stay clear of the notch for the Nunchuck plug (top edge, x 100.5-114.5), the Qwiic pads (both sides, y 117-125) and the SAO connector (bottom, x 100-115).",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [88.47, 132.0], "dir": "-x", "why": "left edge, below the Qwiic pads"},
+    {"near": [88.47, 152.0], "dir": "-x", "why": "left edge, lower"},
+    {"near": [126.57, 132.0], "dir": "+x", "why": "right edge, below the Qwiic pads"},
+    {"near": [126.57, 152.0], "dir": "+x", "why": "right edge, lower"},
+    {"near": [96.5, 165.03], "dir": "+y", "why": "bottom edge, left of the connector"},
+    {"near": [118.5, 165.03], "dir": "+y", "why": "bottom edge, right of the connector"}
+  ]
+}

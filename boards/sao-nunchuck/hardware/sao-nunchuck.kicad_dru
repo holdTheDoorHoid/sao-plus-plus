@@ -1,0 +1,8 @@
+(version 1)
+
+# The five gold fingers (X2) are an edge connector: a Nunchuck plug slides over the tongue, so the fingers have to
+# run to its tip. They are exactly where the maker drew them: the two front ones 0.14 mm and the three back ones 0.19 mm
+# from the tip of the tongue, 0.47 mm or more from its sides. Everything else on the board keeps the normal 0.25 mm from the edge.
+(rule "Plug fingers run to the tip of the tongue"
+  (condition "A.Type == 'Pad' && A.Reference == 'X2'")
+  (constraint edge_clearance (min 0.1mm)))

@@ -1,0 +1,25 @@
+{
+ "title": "SAO Nunchuck - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: Andy and Jared Geppert (ageppert), SAO Nunchuck V1.0, 2024, MIT license, github.com/ageppert/SAO_Nunchuck",
+ "parts": [
+  {"ref": "J1", "symbol": "SAO_Connector_v1.69bis", "at": [63.5, 71.12],
+   "nets": {"1": "3V3", "2": "GND", "3": "SDA", "4": "SCL"}},
+  {"ref": "X2", "symbol": "Nunchuck_Plug_EdgeFingers", "at": [152.4, 71.12],
+   "nets": {"3": "3V3", "1": "SDA", "4": "SCL", "6": "GND"}},
+  {"ref": "X3", "symbol": "Qwiic_JST_SH_NotFitted", "at": [63.5, 111.76],
+   "nets": {"2": "3V3", "3": "SDA", "4": "SCL", "1": "GND"}},
+  {"ref": "X4", "symbol": "Qwiic_JST_SH_NotFitted", "at": [152.4, 111.76],
+   "nets": {"2": "3V3", "3": "SDA", "4": "SCL", "1": "GND"}}
+ ],
+ "notes": [
+  ["A passive adaptor: the badge's 3.3 V, ground and I2C lines go straight to a Nunchuck plug. No chip, no LED, no resistor.", [38.1, 38.1]],
+  ["BADGE POWER ONLY. No coin cell and no SAO / OFF / BAT switch (a recorded exception to docs/standard.md section 3): there is nothing", [38.1, 41.91]],
+  ["to light, and a Nunchuck is only useful while the badge is talking to it. With no cell on the board nothing can back-feed one.", [38.1, 45.72]],
+  ["No I2C pull-ups on the board (docs/standard.md section 1; the maker fitted none either). A Nunchuck answers at I2C address 0x52.", [38.1, 49.53]],
+  ["J1 is the only part that is bought and placed.", [38.1, 92.71]],
+  ["X2 is board copper: five gold fingers on the board edge (three on the back, two on the front) that the Nunchuck plug grips.", [38.1, 96.52]],
+  ["X3 and X4 are the maker's two Qwiic sockets (JST SH 4-pin, SM04B-SRSS-TB): pads only, NOT FITTED, not in the BOM.", [38.1, 132.08]],
+  ["Solder one on by hand to chain other 3.3 V I2C boards. SAO GPIO1 and GPIO2 are not used.", [38.1, 135.89]]
+ ]
+}
