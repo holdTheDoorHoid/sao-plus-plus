@@ -1,6 +1,6 @@
 {
  "title": "Mysterio - SAO++ edition",
- "rev": "A",
+ "rev": "B",
  "credit": "Original design: davedarko (Dave Darko), 2025, github.com/davedarko/Simple-Add-ons-SAO",
  "parts": [
   {
@@ -32,6 +32,18 @@
     "2": "OFF_SW"
    },
    "value": "SAO / OFF / USB"
+  },
+  {
+   "ref": "J2",
+   "symbol": "LiPo_Connector_JST_PH",
+   "at": [
+    50.8,
+    147.32
+   ],
+   "nets": {
+    "1": "BAT+",
+    "2": "GND"
+   }
   },
   {
    "ref": "R2",
@@ -85,7 +97,8 @@
     "11": "LED_DATA",
     "12": "V3V3",
     "13": "GND",
-    "16": "GND"
+    "16": "GND",
+    "15": "BAT+"
    }
   },
   {
@@ -177,7 +190,7 @@
    ]
   ],
   [
-   "On USB the XIAO powers the rail itself. In OFF the firmware sees D1 high and blanks the LEDs. No coin cell and no LiPo connector on this board (no room: see README).",
+   "On USB-BAT the XIAO powers the rail itself, from USB-C or the LiPo on J2 (charged by the XIAO). In OFF the firmware sees D1 high and blanks the LEDs (a sleep, not a hard cut, with a LiPo attached). No coin cell.",
    [
     38.1,
     100.33

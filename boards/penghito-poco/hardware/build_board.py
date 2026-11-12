@@ -33,7 +33,28 @@ from saopp_symbols import SYMBOLS  # noqa: E402
 SLUG = "penghito-poco"
 OUT = os.path.join(HERE, SLUG + ".kicad_pcb")
 LIB = os.path.join(ROOT, "lib", "sao-plus-plus.pretty")
-ART = json.load(open(os.path.join(HERE, "..", "art", "art.json")))
+
+# ---- scale (rev B) --------------------------------------------------------------------------------
+# The whole outline and all the maker's art are scaled up by SCALE about the centre of the board's bounding box, so the
+# coin cell and its clip fit inside the outline (owner decision 2026-11-12, see README "Size"). 42.1 x 43.0 mm at 1.0;
+# 58.9 x 60.2 mm at 1.4. Parts keep their real size; only the two eye LEDs move with the art (they are the pupils).
+# Smaller factors were searched (1.15, 1.2, 1.25, 1.3, 1.35) and none fits the cell, its clip, the connector (3 mm from
+# the edge) and the switch without overlapping keep-out boxes. The part positions below are for SCALE = 1.4.
+SCALE = 1.40
+_RAW = json.load(open(os.path.join(HERE, "..", "art", "art.json")))
+_xs = [p[0] for p in _RAW["outline"]]
+_ys = [p[1] for p in _RAW["outline"]]
+CENTRE = ((min(_xs) + max(_xs)) / 2, (min(_ys) + max(_ys)) / 2)
+
+
+def _sc(p):
+    return [CENTRE[0] + (p[0] - CENTRE[0]) * SCALE, CENTRE[1] + (p[1] - CENTRE[1]) * SCALE]
+
+
+ART = {"outline": [_sc(p) for p in _RAW["outline"]],
+       "silk": [[_sc(p) for p in pts] for pts in _RAW["silk"]],
+       "mask": [[_sc(p) for p in pts] for pts in _RAW["mask"]],
+       "leds": {k: _sc(v) for k, v in _RAW["leds"].items()}}
 
 CLEAR = 0.30        # copper-to-copper gap cut into the GND copper
 EDGE = 0.55         # copper (both sides) stops this far short of the board edge (the maker's pour stopped at 0.38 mm;
@@ -44,21 +65,21 @@ WINDOW = 1.6        # radius kept free of copper on both sides around each LED c
 MASK_WINDOW = 1.0   # radius of the bare-board window in the front solder mask over each LED (2 mm across)
 
 # ---- placement (centre x, y) ------------------------------------------------------------------
-# The board is 42 x 43 mm but the eyes sit in the middle of it, so the 20 mm cell and the 15 mm connector cannot both
-# go on the centre line (see README "Where the parts went"). Chosen: connector right of centre, under the right wing's
-# shoulder, near where the maker's header was; cell lower left; switch on the bottom edge between the feet.
-CONN = (131.5, 124.0)
-BAT = (112.0, 126.5)
-BAT_ROT = 95.0      # pads almost vertical: the only angle at which both clip pads land on the board (found by a search in
-                    # 5 degree steps over cell positions, then tuned so the clip's closed end clears the connector's shroud)
-BAT_OPEN = (-1.0, 0.0)   # the open side faces the left edge, where the cell overhangs; the cell slides in from there
-SW_X = 122.0
+# The eyes sit in the middle of the board, so the 20 mm cell and the 15 mm connector still cannot both go on the centre
+# line (that needs SCALE 1.5, see README). Same arrangement as rev A, now with room: connector right of centre below the
+# right eye, near where the maker's header was; cell lower left with the clip's open side toward the left edge; switch on
+# the bottom edge between the feet. Found by a grid search over positions (keep-out boxes may not overlap; clip pads
+# >= 1 mm, cell >= 0.3 mm and connector shroud >= 3 mm inside the edge).
+CONN = (130.4, 127.4)
+BAT = (110.4, 127.9)
+BAT_ROT = 89.9      # pads vertical (89.9, not 90: KiCad 10 calls the clip's keep-out "malformed" at exact right angles)
+BAT_OPEN = (-1.0, 0.0)   # the open side faces the left edge; the cell slides in from there
+SW_X = 121.54
 LEDS = {"D1": tuple(ART["leds"]["LED1"]), "D2": tuple(ART["leds"]["LED2"])}    # D1 right eye, D2 left eye (front view)
-# where each LED's anode pad sits relative to its centre. D1: toward the middle of the face, where its resistor is.
-# D2 stands upright with its anode at the bottom: lying flat, its cathode pad came within 0.14 mm of the cell clip's pad.
-ANODE_AT = {"D1": (-1.55, 0.0), "D2": (0.0, 1.55)}
+# where each LED's anode pad sits relative to its centre: toward the middle of the face, where its resistor is.
+ANODE_AT = {"D1": (-1.55, 0.0), "D2": (1.55, 0.0)}
 RES_PAD2 = {"R1": +1, "R2": -1}           # resistor pad 2 (LED side) toward its LED: +1 = right of centre
-RES = {"R1": (124.0, LEDS["D1"][1]), "R2": (120.3, LEDS["D2"][1])}
+RES = {"R1": (LEDS["D1"][0] - 4.3, LEDS["D1"][1]), "R2": (LEDS["D2"][0] + 4.3, LEDS["D2"][1])}
 
 # ---- outline -----------------------------------------------------------------------------------
 body = poly(ART["outline"])
@@ -178,8 +199,8 @@ conn = place("J1", CONN, ("1", (CONN[0] - 2.54, CONN[1] - 3.4)))
 # switch: on the bottom edge between the feet, knob pointing down. Pushed as far down as its lower solder tabs allow
 # (they must stay 0.3 mm inside the edge), so as much knob as possible shows past the toes.
 sw = None
-for k in range(0, 400):
-    sy = 141.2 - k * 0.01
+for k in range(0, 800):
+    sy = by1 - 1.5 - k * 0.01
     sw_try = (SW_X, sy)
     if sw is None:
         sw = place("SW1", sw_try, ("1", (SW_X + 3.0, sy - 1.43)))
@@ -252,33 +273,25 @@ _deep = max(min(math.hypot(ToMM(_cell.Outline(0).CPoint(i).x) - ToMM(body.Outlin
 print(f"cell outside the outline: {area_mm2(_cell):.1f} mm2 in {_cell.OutlineCount()} piece(s), reaching {_deep:.2f} mm past the edge")
 print("battery clip angle", round(bat.GetOrientationDegrees(), 1))
 
-# The cell overhangs the left edge, and so would its 17 mm ground disc (the cell's - contact, pad 2). This board's copy
-# of the disc is trimmed to stop 0.6 mm inside the edge: a custom-shape pad, same centre, same net. The cell still
-# rests on the rest of the disc. KiCad reports the clip as differing from its library copy because of this.
+# rev B: the cell, its clip and the clip's 17 mm ground disc are all inside the outline (rev A trimmed the disc and the
+# cell overhung the left edge by 3.3 mm). Checked here so a change to SCALE or BAT cannot quietly bring it back.
 _disc = [p for p in bat.Pads() if p.GetNumber() == "2"][0]
-_full = pad_poly(_disc, B_Cu)
-_target = pcbnew.SHAPE_POLY_SET(_full)
-_target.BooleanIntersection(grown(body, -0.6))
-_target.Simplify()
-assert _target.OutlineCount() == 1
-_o = _target.Outline(0)
-_ang = math.radians(_disc.GetOrientationDegrees())
-_cx, _cy = mm(_disc.GetPosition())
-_loc = pcbnew.VECTOR_VECTOR2I()
-for i in range(_o.PointCount()):
-    x, y = ToMM(_o.CPoint(i).x) - _cx, ToMM(_o.CPoint(i).y) - _cy
-    _loc.append(P(x * math.cos(_ang) - y * math.sin(_ang), x * math.sin(_ang) + y * math.cos(_ang)))
-_L = pcbnew.F_Cu                         # the pad stack's "all layers" entry
-_disc.SetShape(_L, pcbnew.PAD_SHAPE_CUSTOM)
-_disc.SetAnchorPadShape(_L, pcbnew.PAD_SHAPE_CIRCLE)
-_disc.SetSize(_L, VECTOR2I(FromMM(1.0), FromMM(1.0)))
-_disc.DeletePrimitivesList(_L)
-_disc.AddPrimitivePoly(_L, _loc, 0, True)
-_got = pad_poly(_disc, B_Cu)
-_x = pcbnew.SHAPE_POLY_SET(_got)
+_x = pcbnew.SHAPE_POLY_SET(pad_poly(_disc, B_Cu))
 _x.BooleanSubtract(grown(body, -0.55))
-assert area_mm2(_x) < 1e-4, f"trimmed disc still reaches the edge ({area_mm2(_x):.4f} mm2)"
-print(f"cell ground disc trimmed at the edge: {area_mm2(_full):.1f} -> {area_mm2(_got):.1f} mm2")
+assert area_mm2(_x) < 1e-6, "the clip's ground disc reaches the edge copper limit"
+assert _cell.OutlineCount() == 0, "the coin cell overhangs the board edge"
+_cin = pcbnew.SHAPE_POLY_SET()
+add_circle(_cin, P(*BAT), 10.0)
+_cin.BooleanSubtract(grown(body, -0.3))
+assert area_mm2(_cin) < 1e-6, "the coin cell comes within 0.3 mm of the board edge"
+_fab_body = None
+for g in bat.GraphicalItems():
+    if g.GetLayer() == pcbnew.B_Fab and isinstance(g, pcbnew.PCB_SHAPE) and g.GetShape() in (pcbnew.SHAPE_T_RECT, pcbnew.SHAPE_T_POLY):
+        _fab_body = pcbnew.SHAPE_POLY_SET()
+        g.TransformShapeToPolygon(_fab_body, pcbnew.B_Fab, 0, ERR, pcbnew.ERROR_OUTSIDE)
+        break
+_fab_body.BooleanSubtract(grown(body, -0.25))
+assert area_mm2(_fab_body) < 1e-6, "the clip's body comes within 0.25 mm of the board edge"
 
 NEW = set(PARTS)
 for fp in board.GetFootprints():
@@ -286,6 +299,13 @@ for fp in board.GetFootprints():
     m = clearance_to_edge(fp)
     print(f"  {fp.GetReference()}: pads at least {m} mm inside the edge")
     assert m >= 0.3, f"{fp.GetReference()} has a pad within {m} mm of the board edge"
+    if fp.GetReference() == "BT1":
+        assert m >= 1.0, f"the clip's pads are only {m} mm inside the edge (want 1 mm)"
+_sh = pcbnew.SHAPE_POLY_SET(poly([(CONN[0] - 7.65, CONN[1] - 4.45), (CONN[0] + 7.65, CONN[1] - 4.45),
+                                  (CONN[0] + 7.65, CONN[1] + 4.45), (CONN[0] - 7.65, CONN[1] + 4.45)]))
+_sh.BooleanSubtract(grown(body, -3.0))
+assert area_mm2(_sh) < 1e-6, "the connector's plastic shroud comes within 3 mm of the board edge"
+print("connector shroud: at least 3 mm inside the edge")
 
 
 # ---- routing (back copper only) -----------------------------------------------------------------
@@ -314,18 +334,17 @@ r2a, r2b = padpos(res["R2"], "1"), padpos(res["R2"], "2")
 
 # each LED: resistor pad 2 -> straight across to the anode
 route("LED1_A", [r1b, padpos(led["D1"], "2")])
-_d2a = padpos(led["D2"], "2")
-route("LED2_A", [r2b, (_d2a[0] + 1.2, r2b[1]), (_d2a[0] + 1.2, _d2a[1]), _d2a])
+route("LED2_A", [r2b, padpos(led["D2"], "2")])
 
-# switched supply: switch pin 3 -> up past the cell's ground disc -> under the connector's left edge -> between the eyes
-TRUNK = 124.5
-route("VLOAD", [s3, (s3[0], 134.0), (TRUNK, 130.0), (TRUNK, 121.0), (122.6, 119.1), (122.6, r2a[1]), r2a])
-route("VLOAD", [(122.6, r1a[1]), r1a])
+# switched supply: switch pin 3 -> up between the cell's ground disc and the connector -> between the eyes, where it
+# feeds R2 (left eye, higher) at the top and R1 (right eye) on the way
+TRUNK = 122.4
+route("VLOAD", [s3, (s3[0], SW[1] - 3.5), (TRUNK, SW[1] - 4.9), (TRUNK, r2a[1]), r2a])
+route("VLOAD", [(TRUNK, r1a[1]), r1a])
 
-# badge 3.3 V: switch pin 1 -> up and right -> between the connector's left two pad columns -> pin 1 from below
-GAP_X = round((j1[0] + padpos(conn, "3")[0]) / 2, 3)    # midway between pin 1's column and pin 3's column
-ROWGAP_Y = CONN[1]
-route("VSAO", [s1, (s1[0], 136.5), (GAP_X, 136.5), (GAP_X, ROWGAP_Y), (j1[0], ROWGAP_Y), (j1[0], j1[1] + 1.6)])
+# badge 3.3 V: switch pin 1 -> up the left side of the connector -> into pin 1 (top left, front view) from the left
+VSAO_X = 125.6
+route("VSAO", [s1, (s1[0], SW[1] - 3.5), (VSAO_X, SW[1] - 4.5), (VSAO_X, j1[1]), j1])
 
 # coin cell +: switch pin 4 -> left -> the clip's lower pad
 route("VBAT", [s4, (s4[0], bt_low[1]), bt_low])
@@ -457,10 +476,12 @@ add_filled(board, silk, pcbnew.F_SilkS)
 print(f"front silk {_s_area:.1f} mm2")
 
 # ---- back silkscreen labels ---------------------------------------------------------------------
-LABELS = [("SAO", s1[0] + 0.4, 136.3, 0.8, 0), ("OFF", SW[0], 136.3, 0.8, 0), ("BAT", s4[0] - 0.2, 136.3, 0.8, 0),
+LABELS = [("SAO", s1[0] + 0.4, SW[1] - 3.3, 0.8, 0), ("OFF", SW[0], SW[1] - 3.3, 0.8, 0),
+          ("BAT", s4[0] - 0.2, SW[1] - 3.3, 0.8, 0),
           ("1", j1[0] - 1.6, j1[1] + 1.2, 0.9, 0),
-          ("CR2032", 127.35, 131.4, 0.8, 0), ("+ UP", 127.35, 132.8, 0.8, 0),
-          ("PENGHITO POCO", 121.4, 108.4, 0.9, 0), ("by davedarko", 121.4, 110.0, 0.8, 0), ("SAO++ rA", 121.4, 111.6, 0.8, 0)]
+          ("CR2032", BAT[0], bt_low[1] + 2.9, 0.8, 0), ("+ UP", BAT[0], bt_low[1] + 4.3, 0.8, 0),
+          ("PENGHITO POCO", 121.5, 103.2, 0.9, 0), ("by davedarko", 121.5, 104.8, 0.8, 0),
+          ("SAO++ r" + CIRCUIT["rev"], 121.5, 106.4, 0.8, 0)]
 for txt, x, y, size, rot in LABELS:
     t = pcbnew.PCB_TEXT(board)
     t.SetText(txt)
@@ -495,7 +516,7 @@ for it in conn.GraphicalItems():
                 break
 
 
-# ---- real gaps behind the courtyard overlaps (written into the .kicad_dru) ------------------------
+# ---- real gaps between the parts (rev A needed DRC exceptions for them; rev B has none, keep-out boxes do not overlap)
 def rect_of(fp, layer):
     for g in fp.GraphicalItems():
         if g.GetLayer() == layer and isinstance(g, pcbnew.PCB_SHAPE) and g.GetShape() in (pcbnew.SHAPE_T_RECT, pcbnew.SHAPE_T_POLY):
@@ -548,6 +569,7 @@ GAPS = {
     "D1 body to J1 shroud": gap(rect_of(led["D1"], pcbnew.B_Fab), _shroud_ps),
     "D1 pads to J1 pads": gap(_cu["D1"], _cu["J1"]),
     "R1 to the clip's outline": gap(rect_of(res["R1"], pcbnew.B_Fab), rect_of(bat, pcbnew.B_Fab)),
+    "clip's outline to J1 shroud": gap(rect_of(bat, pcbnew.B_Fab), _shroud_ps),
 }
 for k, v in GAPS.items():
     print(f"  gap {k}: {v} mm")

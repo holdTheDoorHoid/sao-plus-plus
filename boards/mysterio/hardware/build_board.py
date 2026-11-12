@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
-"""Build mysterio.kicad_pcb from the maker's KiCad 8 board plus the SAO++ changes.
+"""Build mysterio.kicad_pcb (rev B) from the maker's KiCad 8 board plus the SAO++ changes.
 
 Run with KiCad 10's Python, from the repo root:
   flatpak run --filesystem=$PWD --command=python3 org.kicad.KiCad boards/mysterio/hardware/build_board.py
 
 The maker's board is a 4-layer board: the helmet's skull-and-swirl art is copper on inner layer 2, lit from behind by
 four side-firing RGB LEDs round the bottom of the helmet. SAO++ boards are 2-layer, so this script:
-  - copies the front art (copper, mask, silkscreen) and the back credit exactly as drawn
-  - moves the inner-layer helmet art to the back copper (seen from the front through the board it sits 0.1 mm
-    deeper than before), and opens the back mask only where the maker's mask was open AND there is no copper, so
-    light gets into the board in the same places as on the original
+  - scales the maker's whole design (outline, every art layer, the credit, the LED positions) by SCALE about the
+    middle of his outline. Parts keep their real size; only the LEDs, which are part of the picture, move with the art
+  - copies the front art (copper, mask, silkscreen) and the back credit, scaled, exactly as drawn
+  - moves the inner-layer helmet art to the back copper and opens the back mask only where the maker's mask was open
+    AND there is no copper, so light gets into the board in the same places as on the original
   - uses the helmet's solid outer ring of art copper as the LEDs' 3.3 V conductor (it is copper anyway)
-  - replaces the CH32V003, its two I2C pull-ups and the through-hole header with the XIAO, the SMD SAO connector
-    and the power switch, on a strip added below the figure and a slightly wider right arm (see README)
+  - replaces the CH32V003, its two I2C pull-ups and the through-hole header with the XIAO, the SMD SAO connector,
+    the power switch and the JST-PH LiPo connector, below and beside the helmet and on a base strip under the figure
   - keeps the six round pads of the old header on the front as plain copper "buttons" on the chest plate
 Coordinates are millimetres in KiCad's front view (x grows right, y grows down).
 """
@@ -28,7 +29,7 @@ from pcbnew import FromMM, ToMM, VECTOR2I, B_Cu, F_Cu, B_SilkS
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
-from saopp_board import ERR, ROUND, P, mm, add_circle, poly, grown, area_mm2, bbox_mm, add_filled, pad_poly  # noqa: E402
+from saopp_board import ERR, P, mm, add_circle, poly, grown, area_mm2, bbox_mm, add_filled, pad_poly  # noqa: E402
 from saopp_symbols import SYMBOLS  # noqa: E402
 
 SLUG = "mysterio"
@@ -36,31 +37,42 @@ SRC = os.path.join(HERE, "..", "original", "mysterio", "mysterio.kicad_pcb")
 OUT = os.path.join(HERE, SLUG + ".kicad_pcb")
 LIB = os.path.join(ROOT, "lib", "sao-plus-plus.pretty")
 
+# ---- the one scale factor (README "Why the board is bigger") ----------------------------------------
+SCALE = 1.30        # the maker's outline and all art, about the middle of his outline. 1.25 left no room for R2/R3
+
 CLEAR = 0.30        # copper-to-copper gap cut into the GND copper and the art
 EDGE = 0.55         # GND copper stops this far short of the board edge (clear of the panel's mouse-bite holes)
 SIG = 0.20
 PWR = 0.30
-HELMET = (24.94, 25.64)   # centre of the helmet circle (from the maker's inner-layer ring)
-R_LED = 11.7              # the maker put D2 and D3 at this radius; D1 and D4 are moved out to it (see below)
+VIA_D, VIA_W = 0.3, 0.6
 
-# ---- placement constants (see README "Why the board grew") ----
-L_EDGE = 5.0        # new straight left edge below the arm (the maker's edge is at 5.26 there)
-E_EDGE = 45.7       # new straight right edge (the maker's right arm ends at 43.95)
-XC = 35.2           # XIAO centre x: its USB end is flush with the new bottom edge
-B_EDGE = 60.55      # new bottom edge (the maker's figure ends at 48.5)
-YC = B_EDGE - 10.5
-JX, JY = 17.8, 51.4  # SAO connector: body top 46.95, just below the maker's credit (which ends at 46.73)
-SX, SY = L_EDGE + 2.1, 53.2   # switch, knob out of the left edge below the credit
-
-# ---- the maker's art -----------------------------------------------------------------------------
+# ---- the maker's art, scaled -----------------------------------------------------------------------
 orig = pcbnew.LoadBoard(SRC)
+_bb = orig.GetBoardEdgesBoundingBox()
+C0 = (round(ToMM(_bb.GetCenter().x), 3), round(ToMM(_bb.GetCenter().y), 3))      # (24.6, 31.43)
+
+
+def sc(x, y):
+    return (C0[0] + SCALE * (x - C0[0]), C0[1] + SCALE * (y - C0[1]))
+
+
+def scaled(ps):
+    out = pcbnew.SHAPE_POLY_SET(ps)
+    out.Scale(SCALE, SCALE, P(*C0))
+    return out
+
+
 ART = {}
 for d in orig.GetDrawings():
     if d.GetClass() == "PCB_SHAPE" and d.GetShape() == pcbnew.SHAPE_T_POLY:
-        ART.setdefault(d.GetLayer(), []).append(pcbnew.SHAPE_POLY_SET(d.GetPolyShape()))
+        ART.setdefault(d.GetLayer(), []).append(scaled(pcbnew.SHAPE_POLY_SET(d.GetPolyShape())))
 assert len(ART[F_Cu]) == 12 and len(ART[pcbnew.In2_Cu]) == 23 and len(ART[pcbnew.B_Mask]) == 211, {k: len(v) for k, v in ART.items()}
 CREDIT = [d for d in orig.GetDrawings() if d.GetClass() == "PCB_TEXT" and "davedarko" in d.GetText()]
 assert len(CREDIT) == 1
+
+HELMET = sc(24.94, 25.64)        # centre of the helmet circle (from the maker's inner-layer ring)
+R_RING = 10.98 * SCALE           # outer edge of the helmet's art ring
+R_LED = 11.7 * SCALE             # the maker put D2 and D3 at this radius; D1 and D4 are moved out to it (see below)
 
 
 def union(parts):
@@ -85,18 +97,28 @@ for pad in _j1.Pads():
     pad.TransformShapeToPolygon(btn_mask, pcbnew.F_Mask, 0, ERR, pcbnew.ERROR_OUTSIDE)
 btn_cu.Simplify()
 btn_mask.Simplify()
+btn_cu, btn_mask = scaled(btn_cu), scaled(btn_mask)
 LED_ORIG = {fp.GetReference(): fp for fp in orig.GetFootprints() if fp.GetReference().startswith("D")}
 
-# ---- outline: the maker's outline plus a strip below and a straightened right arm ---------------
-_ol = orig.GetBoardEdgesBoundingBox()
-maker = pcbnew.SHAPE_POLY_SET()
-assert orig.GetBoardPolygonOutlines(maker, False)
-maker.Simplify()
-assert maker.OutlineCount() == 1
+# ---- outline: the maker's outline, scaled, plus a base strip below it ---------------------------------
+maker0 = pcbnew.SHAPE_POLY_SET()
+assert orig.GetBoardPolygonOutlines(maker0, False)
+maker0.Simplify()
+assert maker0.OutlineCount() == 1
+maker = scaled(maker0)
+
+XL, XR = sc(5.21, 47.25)[0], sc(44.0, 47.25)[0]       # bottom outer corners of the two arms (unchanged above them)
+Y_ARM = sc(0, 47.25)[1]
+# ---- placement constants ---------------------------------------------------------------------------
+XC, YC = 36.6, 51.6            # XIAO centre: USB end flush with the bottom edge, right pads clear of the arm's edge
+B_EDGE = YC + 10.53            # bottom edge
+JX, JY = 16.8, 45.9            # SAO connector: body clear of the maker's credit (left) and of LED D3 (above)
+SX, SY = 6.3, B_EDGE - 2.1     # switch, knob out of the bottom edge
+LX, LY = 17.2, B_EDGE - 4.9    # LiPo connector, plug in from the bottom edge
 
 
 def rounded(pts, r, corners):
-    """Polygon through pts, with the listed corner indices rounded to radius r."""
+    """Polygon through pts, with the listed corner indices rounded to radius r (right-angle corners only)."""
     out = []
     n = len(pts)
     for i, (x, y) in enumerate(pts):
@@ -108,7 +130,7 @@ def rounded(pts, r, corners):
         b = math.atan2(ny - y, nx - x)
         ux, uy = math.cos(a), math.sin(a)
         vx, vy = math.cos(b), math.sin(b)
-        cx, cy = x + (ux + vx) * r, y + (uy + vy) * r          # right-angle corners only
+        cx, cy = x + (ux + vx) * r, y + (uy + vy) * r
         a0 = math.atan2(y + uy * r - cy, x + ux * r - cx)
         a1 = math.atan2(y + vy * r - cy, x + vx * r - cx)
         da = (a1 - a0 + math.pi) % (2 * math.pi) - math.pi
@@ -118,12 +140,15 @@ def rounded(pts, r, corners):
     return out
 
 
-EXT = rounded([(5.58, 45.5), (14.0, 40.0), (24.0, 38.0), (41.64, 34.0), (E_EDGE, 39.0), (E_EDGE, B_EDGE), (L_EDGE, B_EDGE), (L_EDGE, 47.4)], 1.0, (5, 6))
-body = union([maker, poly(EXT)])
-print("outlines", body.OutlineCount(), [body.HoleCount(i) for i in range(body.OutlineCount())], [bbox_mm(pcbnew.SHAPE_POLY_SET(body.Polygon(i))) for i in range(body.OutlineCount())])
+# The strip starts at the arms' bottom corners and fills the two notches between arms and torso; its sides run
+# straight down from those corners, so nothing above them changes.
+_nl, _nr = sc(13.0, 42.3), sc(36.0, 42.3)
+STRIP = rounded([sc(5.21, 47.254), _nl, _nr, sc(44.0, 47.254), (XR, B_EDGE), (XL, B_EDGE)], 1.0, (4, 5))
+body = union([maker, poly(STRIP)])
 assert body.OutlineCount() == 1 and body.HoleCount(0) == 0
 bx0, by0, bx1, by1 = bbox_mm(body)
-print(f"board {bx1 - bx0:.2f} x {by1 - by0:.2f} mm, x {bx0:.2f}..{bx1:.2f}, y {by0:.2f}..{by1:.2f} (maker's: 38.80 x 34.14)")
+print(f"board {bx1 - bx0:.2f} x {by1 - by0:.2f} mm, x {bx0:.2f}..{bx1:.2f}, y {by0:.2f}..{by1:.2f} "
+      f"(maker's: 38.80 x 34.14; scale {SCALE})")
 inner = grown(body, -EDGE)
 
 board = pcbnew.CreateEmptyBoard()
@@ -206,7 +231,7 @@ def pp(fp, num, pick=None):
     return pts[0] if pick is None else sorted(pts, key=pick)[0]
 
 
-# ---- LEDs: same part, same direction as the maker's ---------------------------------------------
+# ---- LEDs: same part, same direction as the maker's, at the scaled positions --------------------------
 def lens_dir(fp, layer):
     """Unit vector from the footprint origin toward the lens arc the footprint draws on `layer`."""
     arcs = [g for g in fp.GraphicalItems() if g.GetLayer() == layer and g.GetShape() == pcbnew.SHAPE_T_ARC]
@@ -222,10 +247,10 @@ led = {}
 LED_SHIFT = {}
 for ref in ("D1", "D2", "D3", "D4"):
     mf = LED_ORIG[ref]
-    ox, oy = mm(mf.GetPosition())             # the maker's footprint origin = middle of the pads' back edge
+    ox, oy = sc(*mm(mf.GetPosition()))        # the maker's footprint origin (middle of the pads' back edge), scaled
     ux, uy = lens_dir(mf, pcbnew.Dwgs_User)
-    # D1 and D4 sat 0.74 mm further in than D2 and D3, with their pads over the helmet ring. On one copper layer the ring
-    # carries 3.3 V and would be cut through at their pads, so they move out along their own axis to D2/D3's radius.
+    # D1 and D4 sat 0.74 mm (scaled: 0.96) further in than D2 and D3, with their pads over the helmet ring. On one
+    # copper layer the ring carries 3.3 V and would be cut through at their pads, so they move out to D2/D3's radius.
     rx, ry = ox - HELMET[0], oy - HELMET[1]
     r0 = math.hypot(rx, ry)
     nx, ny = ox + rx / r0 * (R_LED - r0), oy + ry / r0 * (R_LED - r0)
@@ -235,14 +260,13 @@ for ref in ("D1", "D2", "D3", "D4"):
     fp.SetOrientationDegrees(0)
     vx, vy = lens_dir(fp, pcbnew.B_Fab)
     have = math.degrees(math.atan2(vy, vx))
-    for sgn in (1, -1):                        # which way an orientation step turns a flipped footprint
+    for sgn in (1, -1):
         fp.SetOrientationDegrees((sgn * (want - have)) % 360)
         vx, vy = lens_dir(fp, pcbnew.B_Fab)
         if vx * ux + vy * uy > 0.9999:
             break
     else:
         raise AssertionError(f"{ref}: could not match the lens direction")
-    # shared footprint: pads' back edge is at local y = -0.65; put its middle where the maker's origin (moved) is
     p1 = pp(fp, "1")
     p4 = pp(fp, "4")
     mid = ((p1[0] + p4[0]) / 2, (p1[1] + p4[1]) / 2)          # GND/VDD pad centres sit 0.25 in from the back edge
@@ -251,24 +275,49 @@ for ref in ("D1", "D2", "D3", "D4"):
     fp.SetPosition(P(_fx + nx - back[0], _fy + ny - back[1]))
     link(fp, ref)
     led[ref] = fp
-    toward = -(rx * ux + ry * uy) / r0
-    print(f"{ref}: maker at ({ox:.2f},{oy:.2f}) moved {LED_SHIFT[ref]} mm, lens {math.degrees(math.atan2(uy, ux)):.1f} deg, "
-          f"points {toward:.2f} toward the helmet centre, rot {fp.GetOrientationDegrees():.1f}")
+    print(f"{ref}: at ({nx:.2f},{ny:.2f}), moved out {LED_SHIFT[ref]} mm from the scaled spot, lens {want:.1f} deg")
 
 # ---- other parts ----------------------------------------------------------------------------------
 xiao = place("U1", (XC, YC), ("14", (XC + 8.11, YC + 7.56)))      # USB end down, flush with the bottom edge
 assert abs(pp(xiao, "1")[0] - (XC - 8.05)) < 0.01, "pads 1-7 (D0-D6) should face the connector"
 conn = place("J1", (JX, JY), ("1", (JX - 2.54, JY - 3.4)))          # VCC top-left in front view, key slot up
-sw = place("SW1", (SX, SY), ("1", (SX + 1.43, SY + 3.0)))           # knob out of the left edge; on the back, pin 1 is the lowest
+sw = place("SW1", (SX, SY), ("1", (SX + 3.0, SY - 1.43)))           # knob out of the bottom edge
+jst = place("J2", (LX, LY), ("1", (LX + 1.0, LY - 2.85)))           # plug in from the bottom edge, + on the right (front view)
 
-R1_C, R2_C, R3_C, R4_C, C1_C = (39.3, 37.0), (JX + 2.54, 44.0), (22.4, 57.9), (10.05, 57.4), (36.3, 38.3)
-r1 = place("R1", R1_C, ("1", (R1_C[0] + 0.82, R1_C[1])))       # data in from the XIAO on the right; the 3.3 V feed passes between its pads
-r2 = place("R2", R2_C, ("1", (R2_C[0], R2_C[1] + 0.82)))       # on GPIO1, above connector pin 5; SDA passes between its pads
-r3 = place("R3", R3_C, ("1", (R3_C[0], R3_C[1] - 0.82)))       # on GPIO2, below the connector; SCL passes between its pads
-r4 = place("R4", R4_C, ("1", (R4_C[0], R4_C[1] - 0.82)))       # on the OFF sense line, just below the connector body; badge 3.3 V passes between its pads
-c1 = place("C1", C1_C, ("1", (C1_C[0] + 0.78, C1_C[1])))       # 3.3 V on the right (under the feed to the LEDs), ground on the left
+RCOL = 25.9                                    # R2 / R3 stand upright between the connector and the XIAO
+R2_C, R3_C = (RCOL, 42.0), (RCOL, 46.4)
+R4_C = (SX + 2.25, SY - 3.2)
+r2 = place("R2", R2_C, ("1", (RCOL, R2_C[1] + 0.825)))      # GPIO1 in from below-left, D7 out of the top
+r3 = place("R3", R3_C, ("1", (RCOL, R3_C[1] + 0.825)))      # GPIO2 in from below, D6 out of the top; SCL passes between its pads
+r4 = place("R4", R4_C, ("1", (R4_C[0] - 0.825, R4_C[1])))   # OFF in on the left, out on the right; badge 3.3 V passes between its pads
+
+# R1 stands on LED D1's own axis, just outside it, so the 3.3 V feed can cross the data line between R1's pads on its
+# way to D1's supply pad (the two lines leave the XIAO in the opposite order to the one D1's pads need).
+D1V, D1I = pp(led["D1"], "4"), pp(led["D1"], "3")
+_l = lens_dir(led["D1"], pcbnew.B_Fab)
+NO = (-_l[0], -_l[1])                                   # outward from the helmet
+TD = ((D1I[0] - D1V[0]) / math.hypot(D1I[0] - D1V[0], D1I[1] - D1V[1]), (D1I[1] - D1V[1]) / math.hypot(D1I[0] - D1V[0], D1I[1] - D1V[1]))
+
+
+def d1(t_, n_, base=D1I):
+    return (round(base[0] + TD[0] * t_ + NO[0] * n_, 3), round(base[1] + TD[1] * t_ + NO[1] * n_, 3))
+
+
+R1_C = d1(0, 3.0)
+r1 = load("R1", R1_C)
+for rot in range(0, 360, 45):
+    r1.SetOrientationDegrees(rot)
+    if math.hypot(pp(r1, "2")[0] - d1(0, 3.0 - 0.825)[0], pp(r1, "2")[1] - d1(0, 3.0 - 0.825)[1]) < 0.05:
+        break
+else:
+    raise AssertionError("R1: no rotation puts pad 2 toward D1")
+link(r1, "R1")
+# C1 sits on the 3.3 V line where it leaves the XIAO's 3V3 pin, its ground pad in the ground copper below
+C1_C = (XC + 8.11 + 1.375 + 1.95, YC + 2.48 + 0.775)     # clear of the XIAO's courtyard
+c1 = place("C1", C1_C, ("1", (C1_C[0], C1_C[1] - 0.775)))
 
 _pad_ok = grown(body, -0.25)
+_crt_bad = disc(*HELMET, R_RING + 0.3)
 for fp in board.GetFootprints():
     for pad in fp.Pads():
         if pad.IsOnLayer(B_Cu) and pad.GetAttribute() != pcbnew.PAD_ATTRIB_NPTH:
@@ -281,14 +330,15 @@ for fp in board.GetFootprints():
     for g in fp.GraphicalItems():
         if g.GetLayer() == pcbnew.B_CrtYd:
             g.TransformShapeToPolygon(crt, pcbnew.B_CrtYd, 0, ERR, pcbnew.ERROR_OUTSIDE)
-    crt.BooleanIntersection(disc(*HELMET, 11.28))
+    crt.BooleanIntersection(_crt_bad)
     assert area_mm2(crt) < 0.01, f"{fp.GetReference()} sits over the helmet (the LEDs' light path)"
 
-# ---- routing (back copper only) -----------------------------------------------------------------
+# ---- routing ----------------------------------------------------------------------------------------
 TRACKS = []
+VIAS = []          # (x, y, net)
 
 
-def route(net, pts, width=SIG, clear=CLEAR):
+def route(net, pts, width=SIG, clear=CLEAR, layer=B_Cu):
     for a, b in zip(pts, pts[1:]):
         if a == b:
             continue
@@ -296,27 +346,43 @@ def route(net, pts, width=SIG, clear=CLEAR):
         t.SetStart(P(*a))
         t.SetEnd(P(*b))
         t.SetWidth(FromMM(width))
-        t.SetLayer(B_Cu)
+        t.SetLayer(layer)
         t.SetNet(nets[net])
         board.Add(t)
         TRACKS.append((t, clear, net))
 
 
+def via(x, y, net):
+    v = pcbnew.PCB_VIA(board)
+    board.Add(v)
+    v.SetPosition(P(x, y))
+    v.SetDrill(FromMM(VIA_D))
+    v.SetWidth(FromMM(VIA_W))
+    v.SetNet(nets[net])
+    for fn in ("SetFrontTentingMode", "SetBackTentingMode"):
+        if hasattr(v, fn):
+            getattr(v, fn)(pcbnew.TENTING_MODE_TENTED)
+    VIAS.append((x, y, net))
+
+
 s1, s2, s3 = pp(sw, "1"), pp(sw, "2"), pp(sw, "3")
 j = {n: pp(conn, n) for n in "123456"}
 u = {n: pp(xiao, n) for n in ("2", "5", "6", "7", "8", "11", "12")}
-GAP = JY                                  # between the connector's two pad rows
-PAD_IN_L = XC - 8.05 + 1.375              # inner ends of the XIAO's left pads (D0..D6)
-PAD_OUT_R = XC + 8.11 + 1.375             # outer ends of its right pads (D7..D10, 3V3, GND, 5V)
+GAP = JY                                   # between the connector's two pad rows
+PAD_L = XC - 8.05 - 1.375                  # outer ends of the XIAO's left pads (D0..D6)
+PAD_R = XC + 8.11 + 1.375                  # outer ends of its right pads (D7..D10, 3V3, GND, 5V)
+CONN_BOT = JY + 5.6                        # bottom ends of the connector's lower pads
+SDA_Y = (CONN_BOT + pp(jst, "1")[1] - 1.75) / 2      # lane between the connector's pads and the LiPo connector's pads
+JST_LANE = (pp(jst, "1")[1] + 1.75 + LY + 2.9 - 1.7) / 2   # between the LiPo connector's signal pads and its hold-downs
 
-# badge 3.3 V: switch pin 1 (lowest) -> through R4 -> connector pin 1
-route("VSAO", [s1, (9.2, R4_C[1]), (12.0, R4_C[1]), (12.0, 49.0), (j["1"][0], 49.0)], PWR)
-# OFF sense: switch pin 2 -> R4 -> through the gap between the connector's pad rows -> XIAO D1 from outside
-route("OFF_SW", [s2, (R4_C[0], s2[1]), pp(r4, "1")])
-route("OFF_SENSE", [pp(r4, "2"), (R4_C[0], 59.0), (13.6, 59.0), (13.6, GAP), (24.0, GAP), (24.0, u["2"][1]), u["2"]])
-# switched 3.3 V: switch pin 3 (above) -> up beside the connector, past the credit -> LED D4's VDD pad from outside
-V3X = 13.0
-d4v = pp(led["D4"], "4")
+# badge 3.3 V: switch pin 1 -> between R4's pads -> up the left of the connector -> connector pin 1 from the left
+VSX = JX - 5.2
+route("VSAO", [s1, (R4_C[0], s1[1] - 1.0), (R4_C[0], R4_C[1] - 1.4), (VSX, R4_C[1] - 1.4 - (VSX - R4_C[0])),
+               (VSX, j["1"][1]), j["1"]], PWR)
+# OFF: switch pin 2 -> R4 -> under the LiPo connector (between its signal pads and hold-downs) -> XIAO D1 from the left
+route("OFF_SW", [s2, (pp(r4, "1")[0], s2[1] - 0.6), pp(r4, "1")])
+route("OFF_SENSE", [pp(r4, "2"), (pp(r4, "2")[0] + 0.5, JST_LANE), (PAD_L - 1.0, JST_LANE), u["2"]])
+# switched 3.3 V: switch pin 3 -> up the left arm (under the credit's lettering) -> LED D4's VDD pad from outside
 OUTW = {k: ((mm(f.GetPosition())[0] - HELMET[0]), (mm(f.GetPosition())[1] - HELMET[1])) for k, f in led.items()}
 OUTW = {k: (x / math.hypot(x, y), y / math.hypot(x, y)) for k, (x, y) in OUTW.items()}
 
@@ -327,88 +393,80 @@ def outside(ref, num, d):
     return (round(x + ox * d, 3), round(y + oy * d, 3))
 
 
-route("V3V3", [s3, (11.2, s3[1]), (11.2, 47.1), (V3X, 47.1), (V3X, 34.6), outside("D4", "4", 0.75), d4v], PWR)
+V3L = SX
+d4o = outside("D4", "4", 0.9)
+route("V3V3", [s3, (s3[0], s3[1] - 1.6), (V3L, s3[1] - 1.6 - (s3[0] - V3L) if s3[0] > V3L else s3[1] - 1.6),
+               (V3L, d4o[1] + (d4o[0] - V3L)), d4o, pp(led["D4"], "4")], PWR)
 
-# I2C and GPIO
-route("SDA", [j["3"], (j["3"][0], R2_C[1]), (23.2, R2_C[1]), (23.2, u["5"][1]), u["5"]])         # under R2
-route("SAO_GPIO1", [j["5"], pp(r2, "1")])
-TOP = YC - 9.6                                                                                   # just inside the XIAO's top end
-route("D7_RX", [pp(r2, "2"), (R2_C[0], TOP), (u["8"][0], TOP), u["8"]])
-route("SCL", [j["4"], (j["4"][0], R3_C[1]), (23.5, R3_C[1]), (23.5, YC + 8.85), (PAD_IN_L + 0.29, YC + 8.85),
-              (PAD_IN_L + 0.29, u["6"][1]), u["6"]])                                             # under R3, then under the XIAO
-route("SAO_GPIO2", [j["6"], (j["6"][0] + 0.2, 56.0), (R3_C[0], 56.0), pp(r3, "1")])
-route("D6_TX", [pp(r3, "2"), (R3_C[0], YC + 9.25), (PAD_IN_L + 0.68, YC + 9.25), (PAD_IN_L + 0.68, u["7"][1]), u["7"]])
+# SDA: connector pin 3 -> into the gap between the pad rows -> out on the left -> down -> along under the connector's
+# lower pads -> up beside R2/R3 -> XIAO D4
+SDA_X = PAD_L - 0.55
+route("SDA", [j["3"], (j["3"][0], GAP - 0.5), (j["1"][0] - 1.2, GAP - 0.5), (j["1"][0] - 1.2, SDA_Y),
+              (SDA_X, SDA_Y), (SDA_X, u["5"][1]), u["5"]])
+# SCL: connector pin 4 -> into the gap -> out on the right -> between R3's pads -> XIAO D5
+route("SCL", [j["4"], (j["4"][0], R3_C[1]), (u["6"][0], R3_C[1]), u["6"]])
+# GPIO2: connector pin 6 -> R3 (from below) -> D6
+route("SAO_GPIO2", [j["6"], (RCOL - 1.2, j["6"][1]), (RCOL, j["6"][1] - 1.2), pp(r3, "1")])
+route("D6_TX", [pp(r3, "2"), (RCOL, u["7"][1]), u["7"]])
+# GPIO1: connector pin 5 -> R2 (from below) -> under the XIAO's top end -> D7 from above
+route("SAO_GPIO1", [j["5"], (RCOL - 1.4, j["5"][1]), (RCOL, j["5"][1] - 0.6 if j["5"][1] - 0.6 > pp(r2, "1")[1] else pp(r2, "1")[1]), pp(r2, "1")])
+TOP = YC - 9.95
+route("D7_RX", [pp(r2, "2"), (RCOL, TOP), (u["8"][0], TOP), u["8"]])
 
-# right edge: LED data and the XIAO's 3V3 pin run up outside the right pads, cross at R1, and feed LED D1
-DX, VX = PAD_OUT_R + 0.26, PAD_OUT_R + 0.64
-_n = (-0.776, 0.63)                                   # inward normal of the slanted edge above the XIAO
-_t = (-0.63, -0.776)
-_o = (E_EDGE + _n[0] * 0.45, 39.0 + _n[1] * 0.45)     # 3V3 line runs 0.45 inside that edge
+# right edge: LED data and the XIAO's 3V3 pin run up outside the right pads to R1 / C1 and LED D1
+DX, VX = PAD_R + 0.30, PAD_R + 0.72
+TURN = YC - 10.0
+route("LED_DATA", [u["11"], (DX, u["11"][1]), (DX, TURN), d1(0, 5.0), pp(r1, "1")])
+route("LED_DIN", [pp(r1, "2"), D1I])
+route("V3V3", [(VX, u["12"][1]), pp(c1, "1")], 0.25)
+route("V3V3", [u["12"], (VX, u["12"][1]), (VX, TURN - 0.4), d1(1.2, 4.0), d1(1.2, 3.0), d1(-0.98, 3.0, D1I),
+               D1V], 0.25)
 
+# LiPo +: connector pin 1 -> via -> a short front-copper track inside the plain base strip -> via under the XIAO ->
+# the C3/S3 battery pad -> the C6 battery pad. It crosses the SDA, OFF and GPIO lanes on the front.
+bp_a = pp(xiao, "15", pick=lambda p: -p[1])       # lower one (C3 / S3)
+bp_b = pp(xiao, "15", pick=lambda p: p[1])        # upper one (C6)
+lp = pp(jst, "1")
+BAT_Y = lp[1] + 0.55
+VB1 = (lp[0] + 2.0, BAT_Y)
+VB2 = (bp_a[0] + 1.75, BAT_Y)
+route("BAT+", [lp, (lp[0] + 0.6, BAT_Y), VB1], PWR)
+route("BAT+", [VB1, VB2], PWR, CLEAR, F_Cu)
+route("BAT+", [VB2, (VB2[0], bp_a[1]), bp_a], PWR)
+route("BAT+", [(VB2[0], bp_a[1]), (VB2[0], bp_b[1]), bp_b], PWR)
+via(*VB1, "BAT+")
+via(*VB2, "BAT+")
 
-def slant_x(off, x):
-    x0, y0 = _o[0] + _n[0] * off, _o[1] + _n[1] * off
-    k = (x - x0) / _t[0]
-    return (x, round(y0 + _t[1] * k, 3))
-
-
-def on_slant(off, y):
-    x0, y0 = _o[0] + _n[0] * off, _o[1] + _n[1] * off
-    k = (y - y0) / _t[1]
-    return (round(x0 + _t[0] * k, 3), y)
-
-
-route("LED_DATA", [u["11"], (DX, u["11"][1]), slant_x(0.43, DX), on_slant(0.43, 38.2), (pp(r1, "1")[0] + 0.6, R1_C[1]), pp(r1, "1")])
-route("LED_DIN", [pp(r1, "2"), outside("D1", "3", 0.75), pp(led["D1"], "3")])
-route("V3V3", [u["12"], (VX, u["12"][1]), slant_x(0.0, VX), on_slant(0.0, 36.2), (R1_C[0], 36.2), (R1_C[0], 37.8), (C1_C[0], 37.8),
-               outside("D1", "4", 0.75), pp(led["D1"], "4")], 0.24)
-route("V3V3", [pp(c1, "1"), (pp(c1, "1")[0], 37.8)], 0.24)
-route("unconnected-(U1-BAT+-Pad15)", [pp(xiao, "15", pick=lambda p: p[1]), (pp(xiao, "15", pick=lambda p: -p[1])[0], 47.2),
-               pp(xiao, "15", pick=lambda p: -p[1])], SIG)      # the two BAT+ pad positions (C6 / C3-S3) joined; no LiPo connector on this board, so the net goes nowhere else
-# LED chain round the bottom of the helmet, kept outside the art ring
-ARC = 11.65
+# LED chain round the bottom of the helmet, outside the art ring
+ARC = R_LED - 0.05
 
 
 def rim(deg):
     return (round(HELMET[0] + ARC * math.cos(math.radians(deg)), 3), round(HELMET[1] + ARC * math.sin(math.radians(deg)), 3))
 
 
-route("LED_D1", [pp(led["D1"], "2"), rim(49), pp(led["D2"], "3")], SIG, 0.2)
-route("LED_D2", [pp(led["D2"], "2"), rim(82), rim(98), pp(led["D3"], "3")], SIG, 0.2)
-route("LED_D3", [pp(led["D3"], "2"), rim(131.8), pp(led["D4"], "3")], SIG, 0.2)
-# each LED's VDD pad reaches in to the ring
+def ang(ref):
+    x, y = mm(led[ref].GetPosition())
+    return math.degrees(math.atan2(y - HELMET[1], x - HELMET[0]))
+
+
+route("LED_D1", [pp(led["D1"], "2"), rim((ang("D1") + ang("D2")) / 2), pp(led["D2"], "3")], SIG, 0.2)
+route("LED_D2", [pp(led["D2"], "2"), rim(ang("D2") + 0.33 * (ang("D3") - ang("D2"))), rim(ang("D2") + 0.67 * (ang("D3") - ang("D2"))),
+                 pp(led["D3"], "3")], SIG, 0.2)
+route("LED_D3", [pp(led["D3"], "2"), rim((ang("D3") + ang("D4")) / 2), pp(led["D4"], "3")], SIG, 0.2)
+STUB = R_LED - R_RING + 0.2
 for ref in led:
     x, y = pp(led[ref], "4")
     ox, oy = OUTW[ref]
-    route("V3V3", [(x, y), (round(x - ox * 0.75, 3), round(y - oy * 0.75, 3))], 0.25, 0.2)
+    route("V3V3", [(x, y), (round(x - ox * STUB, 3), round(y - oy * STUB, 3))], 0.25, 0.2)
 
-# ---- tented ground vias: the front art copper is the ground that joins the back's ground pieces ------------
-# The maker's board had seven ground vias in the front art; this one has two.
-VIAS = [(23.5, 49.0),      # ground under the helmet (LEDs D1-D3, C1), between the connector and the XIAO -> torso / base strip
-        (15.6, 57.9)]      # everything else (connector ground pin, XIAO ground pin, left arm) -> base strip
-gnd_code = nets["GND"].GetNetCode()
-for x, y in VIAS:
-    v = pcbnew.PCB_VIA(board)
-    board.Add(v)
-    v.SetPosition(P(x, y))
-    v.SetDrill(FromMM(0.3))
-    v.SetWidth(FromMM(0.6))
-    v.SetNet(nets["GND"])
-    for fn in ("SetFrontTentingMode", "SetBackTentingMode"):
-        if hasattr(v, fn):
-            getattr(v, fn)(pcbnew.TENTING_MODE_TENTED)
-
-# ---- back copper ----------------------------------------------------------------------------------
-# 1. the maker's inner-layer helmet art, now on the back. Its biggest piece (the outer ring and the swirl joined to it)
-#    is the LEDs' 3.3 V; the skull and the loose swirl flecks are plain art.
-_ha = union(ART[pcbnew.In2_Cu])                   # overlapping pieces merge here
+# ---- back copper: the helmet art -----------------------------------------------------------------
+_ha = union(ART[pcbnew.In2_Cu])
 helmet_art = sorted([pcbnew.SHAPE_POLY_SET(_ha.Polygon(i)) for i in range(_ha.OutlineCount())], key=lambda p_: -area_mm2(p_))
-# where the panel's break-off tabs meet the board (production/panel.json) no copper may come within EDGE of the edge:
-# the mouse-bite holes reach 0.25 mm in. The maker's art comes to 0.2-0.3 mm of his edge, so it is nibbled back there.
-TAB_EDGE = [(6.4, 41.0), (10.5, 32.0), (39.5, 31.5)]
+PANEL = json.load(open(os.path.join(HERE, "..", "production", "panel.json")))
 tab_keep = pcbnew.SHAPE_POLY_SET()
-for x, y in TAB_EDGE:
-    add_circle(tab_keep, P(x, y), 2.6)
+for t_ in PANEL["tabs"]:
+    add_circle(tab_keep, P(*t_["near"]), 2.6)
 tab_keep.BooleanIntersection(grown(body, 0.1))
 tab_keep.BooleanSubtract(inner)
 tab_keep.Simplify()
@@ -418,8 +476,9 @@ clip = grown(body, -0.3)
 ring.BooleanIntersection(clip)
 others.BooleanIntersection(clip)
 v3_code = nets["V3V3"].GetNetCode()
-cut_v3 = pcbnew.SHAPE_POLY_SET()           # around everything that is not 3.3 V
-cut_gnd = pcbnew.SHAPE_POLY_SET()          # around everything that is not ground
+gnd_code = nets["GND"].GetNetCode()
+cut_v3 = pcbnew.SHAPE_POLY_SET()
+cut_gnd = pcbnew.SHAPE_POLY_SET()
 for fp in board.GetFootprints():
     for pad in fp.Pads():
         if pad.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH:
@@ -433,10 +492,15 @@ for fp in board.GetFootprints():
         if pad.GetNetCode() != gnd_code:
             pad.TransformShapeToPolygon(cut_gnd, B_Cu, FromMM(CLEAR), ERR, pcbnew.ERROR_OUTSIDE)
 for t, clear, net in TRACKS:
+    if t.GetLayer() != B_Cu:
+        continue
     if net != "V3V3":
         t.TransformShapeToPolygon(cut_v3, B_Cu, FromMM(clear), ERR, pcbnew.ERROR_OUTSIDE)
     if net != "GND":
         t.TransformShapeToPolygon(cut_gnd, B_Cu, FromMM(clear), ERR, pcbnew.ERROR_OUTSIDE)
+for x, y, net in VIAS:
+    for c_ in (cut_v3, cut_gnd):
+        add_circle(c_, P(x, y), VIA_W / 2 + CLEAR)
 for g in xiao.GraphicalItems():                                  # the module's own underside test pads: no carrier copper there
     if g.GetLayer() == pcbnew.Dwgs_User and g.GetShape() == pcbnew.SHAPE_T_CIRCLE:
         add_circle(cut_gnd, g.GetCenter(), 0.85 + 0.15)
@@ -458,24 +522,74 @@ for t, clear, net in TRACKS:
         t.TransformShapeToPolygon(v3_pads, B_Cu, 0, ERR, pcbnew.ERROR_OUTSIDE)
 v3_pads.Simplify()
 n_ring = 0
+ring_v3 = pcbnew.SHAPE_POLY_SET()
 for i in range(ring.OutlineCount()):
     piece = pcbnew.SHAPE_POLY_SET(ring.Polygon(i))
     both = pcbnew.SHAPE_POLY_SET(piece)
     both.BooleanIntersection(v3_pads)
     if area_mm2(both) > 0.005:
         add_filled(board, piece, B_Cu, nets["V3V3"])
+        ring_v3.BooleanAdd(piece)
         n_ring += 1
-        print("  3.3 V ring piece mm2:", round(area_mm2(piece), 1))
     elif area_mm2(piece) > 0.02:
         others.BooleanAdd(piece)
+others.BooleanSubtract(grown(ring_v3, CLEAR))
 others.Simplify()
 for i in range(others.OutlineCount()):
     add_filled(board, pcbnew.SHAPE_POLY_SET(others.Polygon(i)), B_Cu)
 print("helmet art: 3.3 V pieces", n_ring, "plain art pieces", others.OutlineCount())
 
-# 2. ground everywhere else on the back, except the helmet (the LEDs light it from behind)
+# ---- front copper: the maker's art, the chest buttons, and a plain base strip below the figure ----------
+base = pcbnew.SHAPE_POLY_SET(grown(body, -EDGE))
+base.BooleanSubtract(grown(maker, 0.1))
+base.BooleanIntersection(poly([(-20, Y_ARM - 8), (80, Y_ARM - 8), (80, 90), (-20, 90)]))
+torso = [p_ for p_ in ART[F_Cu] if bbox_mm(p_)[3] > sc(0, 48.0)[1]]
+assert len(torso) == 1, "expected one front art piece reaching the old bottom edge (the torso)"
+_tb = bbox_mm(torso[0])
+bridge = poly([(sc(17.6, 0)[0], sc(0, 47.9)[1]), (sc(32.4, 0)[0], sc(0, 47.9)[1]), (sc(32.4, 0)[0], sc(0, 49.2)[1]),
+               (sc(17.6, 0)[0], sc(0, 49.2)[1])])                        # the torso runs on into the base strip
+bridge.BooleanIntersection(grown(body, -EDGE))
+plate = union([torso[0], base, bridge])
+fcu_other = union([p_ for p_ in ART[F_Cu] if p_ is not torso[0]] + [btn_cu])
+fcut = pcbnew.SHAPE_POLY_SET()                     # holes in the front ground plate: switch pegs, LiPo vias and track
+for pad in sw.Pads():
+    if pad.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH:
+        add_circle(fcut, pad.GetPosition(), ToMM(pad.GetDrillSize().x) / 2 + 0.3)
+for t, clear, net in TRACKS:
+    if t.GetLayer() == F_Cu:
+        t.TransformShapeToPolygon(fcut, F_Cu, FromMM(clear), ERR, pcbnew.ERROR_OUTSIDE)
+for x, y, net in VIAS:
+    add_circle(fcut, P(x, y), VIA_W / 2 + CLEAR)
+fcut.Simplify()
+_front_trk = pcbnew.SHAPE_POLY_SET()
+for t, clear, net in TRACKS:
+    if t.GetLayer() == F_Cu:
+        t.TransformShapeToPolygon(_front_trk, F_Cu, FromMM(0.4), ERR, pcbnew.ERROR_OUTSIDE)
+_chk = pcbnew.SHAPE_POLY_SET(_front_trk)
+_chk.BooleanIntersection(union(ART[F_Cu] + ART[pcbnew.F_SilkS] + ART[pcbnew.F_Mask] + [btn_cu]))
+assert area_mm2(_chk) < 0.001, "the front LiPo track touches the maker's art"
+plate.BooleanSubtract(fcut)
+plate.BooleanIntersection(grown(body, -0.26))
+plate.BooleanSubtract(tab_keep)
+plate.Simplify()
+fcu_other.BooleanSubtract(fcut)
+fcu_other.BooleanIntersection(grown(body, -0.26))
+fcu_other.BooleanSubtract(tab_keep)
+fcu_other.Simplify()
+plate_pieces = [pcbnew.SHAPE_POLY_SET(plate.Polygon(i)) for i in range(plate.OutlineCount())]
+plate_pieces = [q for q in plate_pieces if area_mm2(q) > 1]
+for q in plate_pieces:
+    add_filled(board, q, F_Cu, nets["GND"])
+print("front ground plate pieces", len(plate_pieces), [round(area_mm2(q), 1) for q in plate_pieces])
+for i in range(fcu_other.OutlineCount()):
+    add_filled(board, pcbnew.SHAPE_POLY_SET(fcu_other.Polygon(i)), F_Cu)
+fmask = union(ART[pcbnew.F_Mask] + [btn_mask])
+add_filled(board, fmask, pcbnew.F_Mask)
+add_filled(board, union(ART[pcbnew.F_SilkS]), pcbnew.F_SilkS)
+
+# ---- back ground everywhere else, except the helmet; each separate piece is stitched to the front plate ----
 gnd = pcbnew.SHAPE_POLY_SET(inner)
-gnd.BooleanSubtract(disc(*HELMET, 11.0 + CLEAR))
+gnd.BooleanSubtract(disc(*HELMET, 11.0 * SCALE + CLEAR))
 gnd.BooleanSubtract(cut_gnd)
 gnd.Simplify()
 gnd_seed = pcbnew.SHAPE_POLY_SET()
@@ -483,95 +597,86 @@ for fp in board.GetFootprints():
     for pad in fp.Pads():
         if pad.GetNetCode() == gnd_code and pad.IsOnLayer(B_Cu):
             gnd_seed.Append(pad_poly(pad, B_Cu))
-for x, y in VIAS:
-    add_circle(gnd_seed, P(x, y), 0.3)
 gnd_seed.Simplify()
-n_gnd = n_drop = 0
+base_ok = grown(base, -0.6)            # prefer stitching vias in the plain base strip, not in the maker's art
+base_ok.BooleanSubtract(grown(fcut, 0.45))
+_crt_all = pcbnew.SHAPE_POLY_SET()
+for fp in board.GetFootprints():
+    for g in fp.GraphicalItems():
+        if g.GetLayer() == pcbnew.B_CrtYd:                   # courtyards are outlines: take their extent
+            _b = g.GetBoundingBox()
+            _crt_all.BooleanAdd(poly([(ToMM(_b.GetLeft()), ToMM(_b.GetTop())), (ToMM(_b.GetRight()), ToMM(_b.GetTop())),
+                                      (ToMM(_b.GetRight()), ToMM(_b.GetBottom())), (ToMM(_b.GetLeft()), ToMM(_b.GetBottom()))]))
+_crt_all.Simplify()
+base_ok.BooleanSubtract(grown(_crt_all, 0.1))      # and not under a part
+plate_ok = grown(union(plate_pieces), -0.45)
+_bb0 = bbox_mm(base_ok)
+CAND_BASE = [(xx / 5, yy / 5) for yy in range(int(_bb0[3] * 5), int(_bb0[1] * 5) - 1, -1)
+             for xx in range(int(_bb0[0] * 5), int(_bb0[2] * 5) + 1) if base_ok.Contains(P(xx / 5, yy / 5))]
+n_drop = 0
+STITCH = []
 for i in range(gnd.OutlineCount()):
     piece = pcbnew.SHAPE_POLY_SET(gnd.Polygon(i))
     both = pcbnew.SHAPE_POLY_SET(piece)
     both.BooleanIntersection(gnd_seed)
-    if area_mm2(both) > 0.005:
-        add_filled(board, piece, B_Cu, nets["GND"])
-        n_gnd += 1
-        print("  GND piece mm2:", round(area_mm2(piece), 1), "at", [round(v_, 1) for v_ in bbox_mm(piece)])
-    else:
+    if area_mm2(both) <= 0.005:
         n_drop += 1
-        print("  dropped scrap mm2:", round(area_mm2(piece), 2), "at", [round(v_, 1) for v_ in bbox_mm(piece)])
-print("back ground pieces", n_gnd, "scraps dropped", n_drop)
+        continue
+    add_filled(board, piece, B_Cu, nets["GND"])
+    inside = grown(piece, -0.45)
+    spot = None
+    bb = bbox_mm(piece)
+    for x_, y_ in CAND_BASE:
+        if bb[0] <= x_ <= bb[2] and bb[1] <= y_ <= bb[3] and inside.Contains(P(x_, y_)):
+            spot = (x_, y_)
+            break
+    if spot is None:                   # no plain strip behind this piece: a via in the front art's ground (the torso)
+        for yy in range(int(bb[3] * 5), int(bb[1] * 5), -1):
+            for xx in range(int(bb[0] * 5), int(bb[2] * 5) + 1):
+                q = P(xx / 5, yy / 5)
+                if inside.Contains(q) and plate_ok.Contains(q):
+                    spot = (xx / 5, yy / 5)
+                    break
+            if spot:
+                break
+    assert spot, f"no room for a stitching via in the ground piece at {[round(v_, 1) for v_ in bb]}"
+    STITCH.append((spot, round(area_mm2(piece), 1)))
+for (x, y), a in STITCH:
+    via(x, y, "GND")
+print("back ground pieces", len(STITCH), "scraps dropped", n_drop)
+for (x, y), a in STITCH:
+    print(f"  stitching via at ({x:.1f}, {y:.1f}) for a {a} mm2 ground piece")
 
-# 3. back mask: open only where the maker's mask was open and there is no copper behind it now
+# ---- back mask: open only where the maker's mask was open and there is no copper behind it now ------
 bmask = union(ART[pcbnew.B_Mask])
 bmask.BooleanSubtract(grown(union(helmet_art), 0.05))
 bmask.BooleanIntersection(grown(body, -0.1))
 bmask.Simplify()
 add_filled(board, bmask, pcbnew.B_Mask)
 
-# ---- front copper: the maker's art, the chest buttons, and a plain base strip below the figure ----------
-maker_in = grown(maker, -0.4)                     # the base strip stays 0.4 mm clear of the maker's outline (a dark line)
-base = pcbnew.SHAPE_POLY_SET(grown(body, -EDGE))          # ground: kept clear of the panel's mouse-bite holes
-base.BooleanSubtract(grown(maker, 0.1))
-base.BooleanIntersection(poly([(0, 47.3), (60, 47.3), (60, 70), (0, 70)]))
-torso = [p_ for p_ in ART[F_Cu] if bbox_mm(p_)[3] > 48.0]
-assert len(torso) == 1, "expected one front art piece reaching the old bottom edge (the torso)"
-bridge = poly([(17.6, 47.9), (32.4, 47.9), (32.4, 49.2), (17.6, 49.2)])      # the torso runs on into the base strip
-bridge.BooleanIntersection(grown(body, -EDGE))
-plate = union([torso[0], base, bridge])
-fcu_other = union([p_ for p_ in ART[F_Cu] if p_ is not torso[0]] + [btn_cu])
-pegs = pcbnew.SHAPE_POLY_SET()
-for pad in sw.Pads():
-    if pad.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH:
-        add_circle(pegs, pad.GetPosition(), ToMM(pad.GetDrillSize().x) / 2 + 0.3)
-plate.BooleanSubtract(pegs)
-plate.BooleanIntersection(grown(body, -0.26))
-plate.BooleanSubtract(tab_keep)
-plate.Simplify()
-fcu_other.BooleanSubtract(pegs)
-fcu_other.BooleanIntersection(grown(body, -0.26))   # the maker's art came within 0.20 mm of his edge in three places
-fcu_other.BooleanSubtract(tab_keep)
-fcu_other.Simplify()
-for i in range(plate.OutlineCount()):
-    piece = pcbnew.SHAPE_POLY_SET(plate.Polygon(i))
-    if area_mm2(piece) > 1:
-        add_filled(board, piece, F_Cu, nets["GND"])
-if os.environ.get("VIAFIND"):
-    _bp = grown(plate, -0.45)
-    _bk = [pcbnew.SHAPE_POLY_SET(gnd.Polygon(i)) for i in range(gnd.OutlineCount())]
-    _bk = grown([q for q in _bk if q.Contains(P(24.94, 38.6))][0], -0.45)
-    for yy in range(300, 600, 5):
-        row = [xx / 10 for xx in range(50, 460, 5) if _bp.Contains(P(xx / 10, yy / 10)) and _bk.Contains(P(xx / 10, yy / 10))]
-        if row:
-            print("via ok y", yy / 10, row[:12])
-for x, y in VIAS:
-    assert plate.Contains(P(x, y)), f"via at ({x}, {y}) does not land on the front ground plate"
-for i in range(fcu_other.OutlineCount()):
-    add_filled(board, pcbnew.SHAPE_POLY_SET(fcu_other.Polygon(i)), F_Cu)
-fmask = union(ART[pcbnew.F_Mask] + [btn_mask])
-add_filled(board, fmask, pcbnew.F_Mask)
-add_filled(board, union(ART[pcbnew.F_SilkS]), pcbnew.F_SilkS)
-
-# ---- back silkscreen: the maker's credit exactly as drawn, plus small labels ----------------------------
+# ---- back silkscreen: the maker's credit, scaled with the art, plus small labels -------------------------
 cr = CREDIT[0]
 t = pcbnew.PCB_TEXT(board)
 t.SetText(cr.GetText())
 t.SetLayer(B_SilkS)
-t.SetTextSize(cr.GetTextSize())
-t.SetTextThickness(cr.GetTextThickness())
+t.SetTextSize(VECTOR2I(int(cr.GetTextSize().x * SCALE), int(cr.GetTextSize().y * SCALE)))
+t.SetTextThickness(int(cr.GetTextThickness() * SCALE))
 t.SetBold(cr.IsBold())
 t.SetMirrored(cr.IsMirrored())
 t.SetHorizJustify(cr.GetHorizJustify())
 t.SetVertJustify(cr.GetVertJustify())
 t.SetTextAngle(cr.GetTextAngle())
-t.SetPosition(cr.GetPosition())
+t.SetPosition(P(*sc(*mm(cr.GetPosition()))))
 board.Add(t)
 _a, _b = cr.GetBoundingBox(), t.GetBoundingBox()
-assert (_a.GetX(), _a.GetY(), _a.GetWidth(), _a.GetHeight()) == (_b.GetX(), _b.GetY(), _b.GetWidth(), _b.GetHeight()), "credit moved"
+_ca = sc(ToMM(_a.GetCenter().x), ToMM(_a.GetCenter().y))
+assert math.hypot(_ca[0] - ToMM(_b.GetCenter().x), _ca[1] - ToMM(_b.GetCenter().y)) < 0.05, "credit not where the scaled art puts it"
+assert abs(ToMM(_b.GetWidth()) - SCALE * ToMM(_a.GetWidth())) < 0.1, "credit not scaled with the art"
 
-# The switch sits between the connector and the edge with no room for labels beside it, so its legend goes with the
-# board name in the free patch of ground copper under the helmet.
-LABELS = [("NO USB ON SAO", 17.6, 37.9, 0.8, 0), ("MYSTERIO rA", 16.4, 39.1, 0.8, 0), ("SAO++", 16.4, 40.3, 0.8, 0),
-          ("SW UP: USB", 16.1, 41.5, 0.8, 0), ("SW DN: SAO", 16.1, 42.7, 0.8, 0),
-          ("1", 13.9, j["1"][1] - 2.7, 0.9, 0)]
+LABELS = [("MYSTERIO rB", 38.6, 37.3, 0.8, 0), ("SAO++", 38.6, 38.5, 0.8, 0), ("NO USB ON SAO", 38.6, 39.7, 0.8, 0),
+          ("SAO", s1[0] + 0.6, SY - 5.0, 0.8, 0), ("USB/BAT", s3[0] - 1.6, SY - 5.0, 0.8, 0),
+          ("+", lp[0] + 2.2, lp[1] - 1.0, 0.9, 0), ("-", pp(jst, "2")[0] - 1.6, lp[1] - 0.9, 0.9, 0),
+          ("1", j["1"][0] - 1.6, j["1"][1] - 2.6, 0.8, 0)]
 for txt, x, y, size, rot in LABELS:
     t = pcbnew.PCB_TEXT(board)
     t.SetText(txt)
@@ -593,9 +698,10 @@ ds.m_HoleClearance = FromMM(0.25)
 ds.m_TrackMinWidth = FromMM(0.15)
 ds.m_ViasMinSize = FromMM(0.5)
 ds.m_MinThroughDrill = FromMM(0.3)
-ds.m_NetSettings.GetDefaultNetclass().SetClearance(FromMM(0.15))   # the lanes under the XIAO are 0.19 mm apart
+ds.m_NetSettings.GetDefaultNetclass().SetClearance(FromMM(0.15))
 board.GetTitleBlock().SetTitle(CIRCUIT["title"])
 board.GetTitleBlock().SetRevision(CIRCUIT["rev"])
 board.GetTitleBlock().SetComment(0, CIRCUIT["credit"])
+print("vias:", [(round(x, 2), round(y, 2), n) for x, y, n in VIAS])
 pcbnew.SaveBoard(OUT, board)
 print("saved", OUT)

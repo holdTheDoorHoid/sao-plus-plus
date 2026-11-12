@@ -1,5 +1,5 @@
 (kicad_sch (version 20231120) (generator "saopp_gen_schematic") (uuid "18e9d727-5316-55c7-9912-e61dba282724") (paper "A4")
-  (title_block (title "Oh My Glob (LSP) - SAO++ edition") (rev "A") (comment 1 "Original design: lemons4all, LSP SAO, DEF CON 26 (2018), hackaday.io/project/161510") (comment 2 "Generated from circuit.json - edit that, not this file"))
+  (title_block (title "Oh My Glob (LSP) - SAO++ edition") (rev "B") (comment 1 "Original design: lemons4all, LSP SAO, DEF CON 26 (2018), hackaday.io/project/161510") (comment 2 "Generated from circuit.json - edit that, not this file"))
   (lib_symbols
   (symbol "sao-plus-plus:SAO_Connector_v1.69bis" (pin_names (offset 0.5)) (exclude_from_sim no) (in_bom yes) (on_board yes)
       (property "Reference" "J" (at 0 3.81 0) (effects (font (size 1.27 1.27))))

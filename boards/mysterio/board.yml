@@ -1,7 +1,23 @@
 name: "Mysterio"
 slug: mysterio
 status: porting            # designed and rule-checked; no physical SAO++ board built yet
-revision: "A"
+revision: "B"              # rev A (2026-11-11): maker's size, 40.7 x 46.2 mm, no LiPo connector
+scale:
+  factor: 1.3              # the maker's outline and all art together, about the middle of his outline (owner rule 2026-11-12)
+  maker_size_mm: [38.8, 34.1]
+  old_size_mm: [40.7, 46.2]      # rev A
+  new_size_mm: [50.4, 52.9]      # rev B: the scaled figure 50.4 x 44.4 plus a 10.1 mm base strip below the arms
+  why: "1.25 fitted the XIAO and the connector but left R2/R3 no room outside their spaces; 1.3 is the smallest that gives every part its own space"
+  compromises_gone:
+    - "right arm straightened (rev A): now exactly the maker's shape, scaled"
+    - "no LiPo connector (rev A): JST-PH added on the bottom edge"
+    - "three rule-check exceptions for crowded parts (R2, R3, R4, XIAO in the connector's space; R4 against the switch): removed"
+    - "two tracks 0.26 mm from the right edge (rev A): gone"
+  compromises_remaining:
+    - "base strip below the figure: kept but shrunk, 12.1 mm -> 10.1 mm below the arms; the notches between arms and torso are still filled"
+    - "connector 7.8 mm left of the board's middle (rev A: 7.5 mm), but higher, under the helmet"
+    - "four covered vias (rev A: two) and one 13.7 mm covered front track, all in the plain base strip, none in the art"
+    - "LED D1 and D4 moved out 0.96 / 0.78 mm along their aim lines"
 
 original:
   title: "Mysterio SAO"
@@ -18,19 +34,19 @@ original:
 changes:
   - "Controller changed from a WCH CH32V003 (8-pin) to a Seeed Studio XIAO ESP32 module (C3, S3 or C6) soldered flat on the back, USB-C at the bottom edge"
   - "4-layer board made 2-layer: the helmet's skull-and-swirl art moves from the maker's inner copper layer to the back copper; the back mask is opened only where his was open and no copper lies behind it, so light gets in at the same places"
-  - "Board grows from 38.8 x 34.1 mm to 40.7 x 46.2 mm: a 12 mm base strip below the figure (plain copper under mask on the front) and a straightened right arm, to fit the XIAO, the SAO connector and the switch below the helmet"
-  - "Through-hole IDC header replaced by the 6-pin v1.69bis SMD shrouded header on the back, below the maker's credit; the six old pads stay on the front as plain copper 'buttons' on the chest plate (no holes)"
-  - "SAO / OFF / USB slide switch on the left edge. No LiPo connector (no room; see README) and no coin cell"
-  - "Same four SK6805-EC3210R side-firing RGB LEDs in the same directions; D2 and D3 where they were, D1 and D4 moved 0.74 / 0.60 mm outward along their own axis so their pads clear the helmet ring, which now carries the LEDs' 3.3 V"
-  - "Dropped: the CH32V003, its two 10 k I2C pull-ups (the badge provides them). The maker's 100 nF capacitor stays, now beside LED D1"
+  - "Rev B: the maker's whole design scaled 1.3x (38.8 x 34.1 -> 50.4 x 44.4 mm) plus a 10.1 mm base strip below the arms (plain copper under mask on the front): 50.4 x 52.9 mm. Arms unchanged in shape"
+  - "Through-hole IDC header replaced by the 6-pin v1.69bis SMD shrouded header on the back, under the helmet left of middle; the six old pads stay on the front as plain copper 'buttons' on the chest plate (no holes)"
+  - "SAO / OFF / USB-BAT slide switch on the bottom edge, and a JST-PH LiPo connector on the bottom edge wired to the XIAO's battery pads (standard.md 3a). No coin cell"
+  - "Same four SK6805-EC3210R side-firing RGB LEDs, same order and directions, at the scaled positions; D2 and D3 there, D1 and D4 moved 0.96 / 0.78 mm outward along their own axis so their pads clear the helmet ring, which carries the LEDs' 3.3 V"
+  - "Dropped: the CH32V003, its two 10 k I2C pull-ups (the badge provides them). The maker's 100 nF capacitor stays, now beside the XIAO's 3V3 pin"
   - "Added: a 330 ohm resistor on each SAO GPIO line, on the LED data line and on the switch's OFF sense line (all the same part); three of them also let one track pass between their pads"
-  - "Two ground vias, covered by solder mask, through the front copper (the maker had seven); front art nibbled back to 0.55 mm from the edge at three panel tabs"
-  - "Maker's credit '@davedarko 2025/01' on the back unchanged and in place"
+  - "Four covered vias (0.3 mm), all in the plain base strip: two carry LiPo + over a 13.7 mm front track under mask, two join the back ground to the front ground plate (the maker had seven vias in his art). Front art nibbled back from the edge at the panel tabs"
+  - "Maker's credit '@davedarko 2025/01' on the back scaled 1.3x with the art and in the place the art puts it"
 
 features:
   power_select: true
   coin_cell: none
-  lipo_connector: none     # no room; the XIAO's battery pads are joined to each other only
+  lipo_connector: jst_ph   # SAOPP-CONN-10 on the bottom edge, to the XIAO's battery pads
   side_leds: 4
   through_board_leds: 0
   i2c_device: true         # wired to XIAO D4/D5; the firmware decides whether to use it
@@ -40,6 +56,7 @@ features:
 shared_parts:
   - SAOPP-CONN-01
   - SAOPP-SW-01
+  - SAOPP-CONN-10
   - SAOPP-R-02
   - SAOPP-MCU-01
   - SAOPP-LED-20

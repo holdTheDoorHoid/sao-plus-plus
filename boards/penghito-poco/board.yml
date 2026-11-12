@@ -1,7 +1,7 @@
 name: "Penghito Poco"
 slug: penghito-poco
 status: porting            # designed and rule-checked; no physical SAO++ board built yet
-revision: "A"
+revision: "B"            # rev B (2026-11-12): whole board scaled up 1.4x so the coin cell fits inside the outline
 
 original:
   title: "Penghito Poco (small version of the Penghicorn badge as a simple add-on)"
@@ -16,13 +16,28 @@ original:
 
 changes:
   - "Rebuilt in KiCad 10 from the maker's Eagle files: outline, front copper, front solder-mask openings (horn, beak, feet) and front silkscreen (face, belly) taken from the Eagle layers, turned upright (the Eagle drawing is at 45 degrees) and checked against the maker's OSH Park picture"
-  - "4-pin through-hole SAO header on the right wing replaced by the 6-pin v1.69bis SMD shrouded header on the back, just inside the right shoulder (near the old spot)"
+  - "4-pin through-hole SAO header on the right wing replaced by the 6-pin v1.69bis SMD shrouded header on the back, below the right eye and right of centre (near the old spot)"
   - "Added: SAO / OFF / BATTERY slide switch on the bottom edge between the feet; CR2032 clip on the lower left of the back"
   - "Two 5 mm through-hole LEDs in the eyes (straight on the badge 3.3 V, no resistor) replaced by two white reverse-mount 1206 LEDs on the back at the same centres, one 1.3 k resistor each, shining through a 2 mm bare-board window in the middle of each eye"
-  - "The coin cell overhangs the left side by up to 3.3 mm, and the connector's plastic shroud pokes up to 1.4 mm past the edge beside the right wing: no other layout fits (README, 'Where the parts went')"
-  - "This board's copy of the clip's 17 mm ground disc is trimmed where it would cross the left edge"
   - "Back copper (all ground in the original) is a ground pour again, cleared round the new parts and behind both LEDs"
+  - "Rev B: outline and all art scaled up 1.4x about the board centre (same proportions); parts keep their real size, the eye LEDs move with the art"
   - "Front art unchanged apart from: the four header holes and four LED holes gone (filled), two 0.9 mm switch-peg holes in the inner toes, the 2 mm eye windows, and the copper stepping back from 0.38 to 0.55 mm from the edge at the six panel tabs"
+
+scale:
+  factor: 1.4
+  original_size_mm: [42.1, 43.0]
+  new_size_mm: [58.9, 60.2]
+  why: "Smallest uniform factor found at which the coin cell, its clip, the SAO connector (shroud >= 3 mm from the edge) and the switch all sit inside the outline with no overlapping keep-out boxes; 1.15, 1.2, 1.25, 1.3 and 1.35 were searched and failed (clip tried at right angles only, switch kept on the bottom edge). A centred connector needs 1.5."
+  compromises_gone:
+    - "Coin cell overhanging the left edge by up to 3.3 mm (now fully inside, closest 0.37 mm, not visible from the front)"
+    - "Clip's 17 mm ground disc trimmed at the edge (now full size; clip pads 1.9 mm inside the edge)"
+    - "Connector shroud poking up to 1.4 mm past the edge, pads 0.4 mm from the edge (shroud now >= 3 mm inside, pads 7.2 mm)"
+    - "Two DRC exceptions letting keep-out boxes overlap (removed from the board and panel rule files)"
+    - "Left-eye LED stood upright to clear the clip (both eye LEDs now lie the same way)"
+    - "Switch knob only 0.2-0.6 mm proud of the toes (now >= 0.7 mm past the edge between the feet)"
+  compromises_remaining:
+    - "Connector still 9.4 mm right of and 5.9 mm below the board centre, near the maker's old header, not centred (centring needs scale 1.5)"
+    - "Board is about twice the area of the original (58.9 x 60.2 mm)"
 
 features:
   power_select: true

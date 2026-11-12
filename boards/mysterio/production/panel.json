@@ -9,43 +9,43 @@
   "tabs": [
     {
       "near": [
-        12.0,
-        60.55
+        24.0,
+        62.13
       ],
       "dir": "+y",
-      "why": "bottom edge, below the off-sense resistor"
+      "why": "bottom edge, between the LiPo connector and the XIAO. The XIAO's USB end and the switch and LiPo connector (whose pads sit near the edge) are left free"
     },
     {
       "near": [
-        22.0,
-        60.55
+        49.82,
+        59.5
       ],
-      "dir": "+y",
-      "why": "bottom edge, between the SAO connector and the XIAO. The XIAO's USB end (x 26-44) is left free"
+      "dir": "+x",
+      "why": "right edge of the base strip, below the two tracks that run up beside the XIAO"
     },
     {
       "near": [
-        6.4,
-        41.0
+        0.94,
+        43.87
       ],
       "dir": "-x",
       "why": "left arm, beside the maker's credit"
     },
     {
       "near": [
-        10.5,
-        32.2
+        6.27,
+        32.43
       ],
       "dir": "-y",
       "why": "top of the left shoulder"
     },
     {
       "near": [
-        39.5,
-        31.6
+        25.0,
+        9.24
       ],
       "dir": "-y",
-      "why": "top of the right shoulder. The helmet (art copper close to its edge) and the right edge (two tracks run 0.26 mm inside it) have no tabs"
+      "why": "top of the helmet. The back's art ring is nibbled 0.15 mm at its outer edge here; it stays a whole ring"
     }
   ]
 }

@@ -14,49 +14,60 @@ Originally the **LSP SAO** ("Oh My Glob SAO") by **lemons4all**, made for DEF CO
 
 The star on her forehead glows white and the ball on the tip of her crown glows red, both lit from behind through the bare board.
 
+**Rev B is the whole board scaled up 1.3 times** (owner decision 2026-11-12: scale up rather than squeeze). Outline and all of lemons4all's art grew together, keeping their proportions: **50.8 × 71.4 mm became 66.0 × 92.8 mm**. The parts did not grow; only the two LEDs, which are part of the picture, moved with it.
+
 ## What changed from the 2018 board
 
-| | 2018 original | SAO++ rev A |
+| | 2018 original | SAO++ rev B |
 |---|---|---|
-| Connector | 4-pin through-hole in the middle bottom lobe (pins visible on the art side) | 6-pin SAO v1.69bis, surface-mount, shrouded and keyed, in the same lobe. Nothing shows on the front |
+| Size | 50.8 × 71.4 mm | 66.0 × 92.8 mm (everything × 1.3) |
+| Connector | 4-pin through-hole in the middle bottom lobe (pins visible on the art side) | 6-pin SAO v1.69bis, surface-mount, shrouded and keyed, in the bottom lobes just below the credits. Nothing shows on the front |
 | Power | Badge only | Slide switch on the right side of the head: **SAO / OFF / BAT**. Runs from the badge or from its own CR2032, clipped to the right lobe on the back |
 | Star LED | OSRAM TOPLED (obsolete) on the back | White reverse-mount 1206 LED in the same spot, 1.3 kΩ resistor |
 | Crown-tip LED | 3 mm LED standing up on the **front**, legs through the board | Red reverse-mount 1206 LED on the **back**, shining through a 2 mm bare window (no copper, no solder mask) at the same spot. Nothing sticks out of the art any more |
-| Front art | — | Unchanged apart from: two 0.9 mm holes on the right side of the head (the switch's pegs), a 2 mm window at the crown tip, two tiny covered holes in the mouth (see below), and the old header's holes gone |
-| Back art | — | "OH MY GLOB / SAO / DEF CON 26" and the "Thanks To" credits are where they were and untouched. The fitted cell hides the end of "DEF CON 26" (see below). Labels added: SAO / OFF / BAT, "CR2032 + SIDE UP", an arrow for the cell, "SAO++ rA", "1" at the connector |
+| Front art | — | Unchanged apart from the scale and: two 0.9 mm holes on the right side of the head (the switch's pegs), a 2 mm window at the crown tip, and the old header's holes gone |
+| Back art | — | "OH MY GLOB / SAO / DEF CON 26" and the "Thanks To" credits are where the maker put them, scaled with the art, and nothing covers them. Labels added: SAO / OFF / BAT, "CR2032 + SIDE UP", an arrow for the cell, "SAO++ rB", "1" at the connector |
 
-## The trade-offs on this board (owner, please look)
+## Rev A's trade-offs, and what scaling did to each
 
-This outline is all round lobes, and the back is mostly lettering, so the standard parts only just fit. What was given up:
+| Rev A (2018 size) | Rev B (× 1.3) |
+|---|---|
+| Two tiny covered holes (vias) in the mouth, so the badge-power wire could hop over the LED-supply wire | **Gone.** No holes at all; one copper layer carries everything. Scaling alone did not do this: the switch's middle pin always fences one supply off from the other on one layer, at any size. The badge-power wire now passes between the two pads of R1 (a resistor that sits in the LED-supply wire), under R1's solder mask, 0.3 mm clear of each pad. Scaling gave the room to put R1 right beside the switch |
+| The coin cell hid the end of "DEF CON 26" and overhung the edge by about 1 mm | **Gone.** The cell is wholly on the board (0.4 mm from the edge at its closest) and covers no lettering. The clip's solder pads are 1.3 mm from the edge |
+| Switch knob about 0.4 mm past the edge | **Better, not perfect.** About 1.15 mm of knob shows in the middle position and at least 0.95 mm at either end of its travel. The head is a curved lobe; no spot on this outline gives more without moving the switch onto the gold crown (see below) |
+| Connector shroud 0.1 mm from the clip's solder pad, needing a special design-rule exception | **Gone**, and the exception is deleted. The connector and the clip are now well apart |
+| Connector body overhung the bottom notches (parts past the edge) | **Gone.** The whole connector, pads included, is at least 1.1 mm inside the edge. It is not the 3 mm the house standard asks for: with the cell in place and no lettering covered, no spot is that far from the edge at this size (the search found at most 1.8 mm even at 1.35 ×) |
+| Two wires ran through gaps between the words | **Gone.** No wire comes within 0.5 mm of any of the maker's lettering: the badge supply goes round the left of the lettering, the cell supply round the right of "OH" |
+| Cell clip turned to 269.9° to dodge a KiCad quirk | **Changed, still a workaround.** The clip now sits at 335°, open side toward the notch above the cell so the cell slides in from the board edge. KiCad also calls its courtyard "malformed" at 325–332°, so the build checks the angle |
 
-1. **Two tiny holes in the mouth.** On one copper layer the badge-power wire and the LED-supply wire have to cross once. They cross inside the open mouth: two 0.6 mm holes (vias), covered by solder mask on both sides, joined by a 1.6 mm copper link on the front. The mouth is the dark area of the art, so they sit on dark mask between the teeth; up close they may show as two pinprick bumps and a faint line. This was option B, approved 2026-11-11. Moving the "Thanks To" credits instead (as on Frida) was considered first. It would not have helped: without holes, the switch has to sit on the short stretch of edge between the connector and the cell, and no spot there leaves any knob showing without the switch hitting one of them. (This was worked out from the layout and a search of switch positions. A version with the credits moved was not built.)
-2. **The coin cell covers the end of "DEF CON 26".** Its 17 mm contact disc fits in exactly one spot on the back without printing over lettering. While a cell is fitted it hides about 1.2 mm² of ink ("26"). The disc's edge also trims a 0.005 mm² sliver (a few hundredths of a millimetre) off the tip of the "6". The cell overhangs the edge by about 1 mm at the notch below it.
-3. **The switch knob only just shows.** No part of this edge is straight for 10 mm; every lobe curves. A search over the whole outline found no spot where more than about 0.45 mm of the knob sticks out past the edge. Here it is about 0.4 mm, on the side of the head. A fingernail moves it; a thumb may not.
-4. **Two wires run between words.** The LED supply goes down the gap between "OH" and "MY", and the badge supply down the gap between "MY" and "GLOB" and round the end of "SAO". No wire crosses a letter (the script checks this; the closest is 0.5 mm), but under the mask they show as two faint lines through the lettering block.
+What a smaller scale would not do (from a search of each size): at 1.15 × the cell fits but the connector cannot sit fully on the board anywhere clear of the lettering and the cell; at 1.2 × the connector and the clip cannot both fit without overlapping; at 1.25 × they fit only with the connector moved to the left lobe, away from the old header spot (0.6 mm from the edge) or with the clip's open side facing into the board, straight at the connector.
+
+**Not chosen:** a switch spot at the base of the crown spike would give about 1.5 mm of knob. It would put the switch's two peg holes through the gold crown art and crowd the two LED wires up the spike, so the head side was kept.
 
 ## Things to check on the first prototype
 
 1. **Brightness.** Red tip: about 1.0 mA on a cell, 1.2 mA on the badge. White star: about 0.2 mA on a fresh cell, 0.45 mA on the badge; white is the weakest colour on a coin cell. If the star is too dim, change R2 alone to 330 Ω (SAOPP-R-02).
-2. **Knob.** Check the switch can be slid comfortably (about 0.4 mm of knob shows). The labels assume "knob toward the SAO label = badge power"; if it is the other way round, swap SAO and BAT on the silkscreen.
-3. **Connector and cell clip.** The connector's plastic shroud ends 0.1 mm from the clip's lower solder pad (DRC rule in `hardware/lumpy.kicad_dru`). Check the clip's leg clears the shroud. The clip's open side faces the right edge (the "<" arrow): the cell slides in from there.
-4. **Vias.** Check the two covered holes in the mouth are not noticeable, and that the board house tented them (no copper showing).
+2. **Knob.** Check the switch slides comfortably with a thumb (about 1.15 mm of knob shows). The labels assume "knob toward the SAO label = badge power"; if it is the other way round, swap SAO and BAT on the silkscreen.
+3. **Wire under R1.** The badge-power wire runs between R1's two pads. Check R1 is soldered cleanly with no solder bridging onto that wire (it is under solder mask, 0.3 mm from each pad).
+4. **Cell clip.** The clip's open side faces up and to the right, toward the notch above the cell: the cell slides in from that edge (the small arrow on the cell's rim). Check a cell goes in and out easily.
 5. **Pin 1 position.** VCC and GND are in the same corner as on the 2018 header. Confirm against a v1.69bis badge.
-6. **Weight.** A 51 × 71 mm board hanging from one surface-mount connector at the bottom, with the cell on one side. Check it sits firmly in a badge.
-7. **Notches.** The outline has very narrow notches between lobes (as in 2018). The router cannot cut them as narrow as drawn; they will come out slightly rounded.
+6. **Weight.** A 66 × 93 mm board hanging from one surface-mount connector near the bottom, with the cell on one side. It is about 70 % more board than rev A. Check it sits firmly in a badge and does not lever on the connector.
+7. **Notches.** The outline has narrow notches between lobes (as in 2018). The router cannot cut them as narrow as drawn; they will come out slightly rounded.
 
 **Battery life (calculated, not measured):** about 1.2 mA total on a cell, so roughly 150 hours from a CR2032, the white star fading first.
 
 ## Files
 
-- `hardware/lumpy.kicad_pro`: KiCad 10 project (schematic + board). ERC: 0. DRC: 0 errors, 0 unconnected, schematic matches the board. Warnings left: 3 for the art footprints' libraries not being installed; 1 because BT1 differs from its library copy (see below); 3 silkscreen clipped by pads (the "6" sliver, and the connector's outline line where it meets the clip pad); 2 connector outline lines clipped by the board edge at the bottom notches.
-- `hardware/circuit.json`: the circuit as data; `tools/gen_schematic.py lumpy` and `hardware/build_board.py` both read it. Standard switch wiring: pin 1 badge, pin 3 LEDs, pin 4 cell.
-- `hardware/build_board.py`: rebuilds the board from `original/` plus the SAO++ changes. Board-specific workarounds, all explained in comments there:
-  - the clip's two "+" pads are declared joined inside the part (`SetDuplicatePadNumbersAreJumpers`) instead of by a track that would have to cross the lettering;
-  - the clip sits at 269.9° rather than 270°, because KiCad 10 calls the shared clip footprint's courtyard "malformed" at exact right angles;
-  - the clip's own silkscreen (closed-end line, arrow, "+") moved to the fab layer, because it would print across the credits and off the edge; the board carries its own labels;
-  - the maker's 2 mm back mask window behind the star was dropped: it touched the new LED's pad openings, and the LED brings its own 1.9 mm window;
-  - the ground pour's two halves (split by the LED-supply wire) join in the gap between R1's pads.
-- `hardware/lumpy.kicad_dru`: the art rule, plus one rule letting the connector's and clip's keep-out boxes overlap (real gap 0.1 mm, see prototype item 3).
+- `hardware/lumpy.kicad_pro`: KiCad 10 project (schematic + board). ERC: 0. DRC: 0 errors, 0 unconnected, schematic matches the board. Warnings left: 3 for the art footprints' libraries not being installed; 2 because BT1 and SW1 differ from their library copies (both sit at angles that are not multiples of 90°).
+- `hardware/circuit.json`: the circuit as data; `tools/gen_schematic.py lumpy` and `hardware/build_board.py` both read it. Standard switch wiring: pin 1 badge, pin 3 LEDs, pin 4 cell. The circuit is unchanged from rev A.
+- `hardware/build_board.py`: rebuilds the board from `original/` plus the SAO++ changes. `SCALE` at the top sets the size. Board-specific details, all explained in comments there:
+  - the art is scaled in the KiCad 5 file text before loading (the three svg2mod art footprints and the credits text), about the centre of the outline's bounding box;
+  - the badge-power wire crosses the LED-supply wire between R1's pads (no vias);
+  - the clip's two "+" pads are declared joined inside the part (`SetDuplicatePadNumbersAreJumpers`); only the upper one is wired;
+  - the clip's own silkscreen moved to the fab layer; the board carries its own labels;
+  - the maker's 2 mm back mask window behind the star was dropped: the new LED brings its own window;
+  - the build stops if any part pad, part body or wire comes near the maker's lettering, if the cell would overhang or cover lettering, or if the ground copper is not one piece.
+- `hardware/lumpy.kicad_dru`: only the art rule now (rev A's connector/clip exception is gone).
 - `production/`: everything a board house needs, for one board and a 2×2 panel. Start with [production/README.md](production/README.md).
 - `original/`: the untouched 2018 KiCad 5 project and zip from hackaday.io.
 
@@ -72,4 +83,4 @@ This outline is all round lobes, and the back is mostly lettering, so the standa
 | Resistor 0603 1.3 kΩ (LCSC C22767) | 2 | <$0.01 |
 | **Total** | | **about $1.73** |
 
-The CR2032 cell and the bare board (51 × 71 mm) are not included. No new parts: everything is already on the SAO++ list.
+The CR2032 cell and the bare board (66 × 93 mm, about 1.7 times the area of rev A's 51 × 71 mm, so it costs more) are not included. No new parts: everything is already on the SAO++ list.

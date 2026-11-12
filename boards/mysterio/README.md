@@ -18,75 +18,87 @@ Mysterio's fishbowl helmet glows from inside: four colour-changing LEDs round th
 
 ## What changed from the original
 
-| | Original (2025) | SAO++ rev A |
+| | Original (2025) | SAO++ rev B |
 |---|---|---|
 | Controller | WCH CH32V003 (8-pin chip, programmed by the Supercon badge) | **Seeed Studio XIAO ESP32** module soldered flat on the back: C3, S3 or C6 all fit the same pads. USB-C at the bottom edge for power and programming |
-| Board | 4 copper layers. 38.8 × 34.1 mm | **2 copper layers**, like every SAO++ board. **40.7 × 46.2 mm** (see "Why the board grew") |
-| Helmet art | Skull and swirl in copper on the inner layer nearest the back | The same shapes, on the back copper (0.1 mm further from the front). The back's solder mask is open only where the maker's was open **and** no copper is behind it, so light gets into the board in the same places |
-| Connector | 2×3 through-hole IDC header, its six pads showing on the chest | 6-pin SAO v1.69bis, surface-mount, shrouded and keyed, on the back, lower down. The six round pads stay on the chest as plain copper "buttons" (no holes) |
-| Power | Badge only | Slide switch on the left edge: **SAO** (badge power) / **OFF** / **USB** (the module's own USB-C power). **No LiPo connector** (see below) |
-| LEDs | 4 × SK6805-EC3210R side-firing RGB, chained right to left (seen from the front) | Same part, same order, same directions. D2 and D3 are exactly where they were; D1 and D4 sit **0.74 mm and 0.60 mm further out** along their own aim line (see below) |
-| Other parts | two 10 kΩ, one 100 nF | 100 nF kept (now beside LED D1). The two 10 kΩ were I2C pull-ups to the chip's supply; the SAO standard leaves those to the badge, so they are gone. Four 330 Ω resistors added (all one part, see below) |
-| Front art | Robe, collar, chest plate, diamonds, helmet window; seven tiny via dots | All unchanged, plus a plain **base strip** below the figure (copper under the mask, the same green as the robe, joined to the chest plate). The maker's seven via dots are gone; two new covered vias instead (below); two 0.9 mm holes on the base strip (the switch's pegs). The art steps back from the edge at three panel tabs (about 0.3 mm, over 5 mm each) |
-| Back | Maker's credit "@davedarko 2025/01" | The credit is untouched and in the same place. Labels added: "NO USB ON SAO", "MYSTERIO rA", "SAO++", the switch legend, "1" at the connector |
+| Board | 4 copper layers. 38.8 × 34.1 mm | **2 copper layers**, like every SAO++ board. The maker's whole design **scaled up 1.3×** (39 → 50.4 mm wide), plus a 10 mm base strip below the arms: **50.4 × 52.9 mm** (see "Why the board is bigger") |
+| Helmet art | Skull and swirl in copper on the inner layer nearest the back | The same shapes, 1.3× larger, on the back copper (0.1 mm further from the front). The back's solder mask is open only where the maker's was open **and** no copper is behind it, so light gets into the board in the same places |
+| Connector | 2×3 through-hole IDC header, its six pads showing on the chest | 6-pin SAO v1.69bis, surface-mount, shrouded and keyed, on the back, below the helmet and left of middle. The six round pads stay on the chest as plain copper "buttons" (no holes) |
+| Power | Badge only | Slide switch on the bottom edge: **SAO** (badge power) / **OFF** / **USB/BAT** (the module's own USB-C or a LiPo). **JST-PH LiPo connector** on the bottom edge, charged by the XIAO |
+| LEDs | 4 × SK6805-EC3210R side-firing RGB, chained right to left (seen from the front) | Same part, **same order, same count, same directions**, at the scaled-up positions. D2 and D3 exactly there; D1 and D4 **0.96 mm and 0.78 mm further out** along their own aim line (see below) |
+| Other parts | two 10 kΩ, one 100 nF | 100 nF kept (now beside the XIAO's 3V3 pin). The two 10 kΩ were I2C pull-ups to the chip's supply; the SAO standard leaves those to the badge, so they are gone. Four 330 Ω resistors added (all one part, see below) |
+| Front art | Robe, collar, chest plate, diamonds, helmet window; seven tiny via dots | All unchanged except bigger, plus a plain **base strip** below the arms (copper under the mask, the same green as the robe, joined to the chest plate). The maker's seven via dots are gone. In the base strip only: four covered vias (pinpricks), one thin covered line 13.7 mm long (see "What shows on the front"), and two 0.9 mm holes (the switch's pegs). The art steps back from the edge at the panel tabs |
+| Back | Maker's credit "@davedarko 2025/01" | The credit is scaled with the art (1.3× larger) and sits where the art puts it, on the left arm. Labels added: "NO USB ON SAO", "MYSTERIO rB", "SAO++", the switch legend, "+" / "−" at the LiPo connector, "1" at the connector |
 
-**Parts shared with the rest of SAO++:** connector, switch, XIAO footprint, RGB LED, 100 nF capacitor and the 330 Ω resistor. **No new parts.**
+**Parts shared with the rest of SAO++:** connector, switch, XIAO footprint, LiPo connector, RGB LED, 100 nF capacitor and the 330 Ω resistor. **No new parts.**
 
-## Why the board grew (owner, please look)
+## Why the board is bigger (owner decision 2026-11-12)
 
-The original is a small bust: a 22 mm helmet sitting on 15 mm of shoulders. Nothing may sit behind the helmet, because the LEDs light it across the back of the board, so all the parts have to fit below and beside it. The maker's 8-pin chip fitted there. The XIAO (21 × 17.8 mm), the connector (15.3 × 8.9 mm body, 11.2 mm with its pads) and the switch (12 mm of straight edge) do not: the free space under the helmet is about 35 × 10 mm. The maker's credit also fills the whole left arm on the back.
+Rev A kept the maker's size and paid for it: a 12 mm strip under the figure, a straightened right arm (up to 3.4 mm wider), no LiPo connector (the controller standard asks for one), the connector 7.5 mm left of middle, and extra rule-check exceptions letting R2, R3, R4 and the XIAO crowd into the connector's space. Under the owner's scaling rule rev B scales the maker's whole design up **1.3×** (outline, all art, the credit and the LED positions together, about the middle of his outline; the parts keep their real size).
 
-What was built (the least-bad option found):
+| | rev A | rev B |
+|---|---|---|
+| Scale | 1.0 | **1.3** |
+| Size | 40.7 × 46.2 mm | **50.4 × 52.9 mm** |
+| Base strip below the arms | 12.1 mm, plus a straightened right arm | **10.1 mm** (shrunk), arms exactly as the maker drew them (scaled) |
+| LiPo connector | none | **yes**, JST-PH on the bottom edge |
+| Connector | 7.5 mm left of the board's middle, centre 9 mm above the bottom | 7.8 mm left of the middle, centre 16 mm above the bottom (higher, under the helmet; not more central sideways) |
+| Rule exceptions for crowded parts | 3 | **none** |
+| Vias | 2, in the front art | **4**, all in the plain base strip, plus one short covered front track (below) |
 
-- **A 12 mm base strip under the figure** (bottom edge from 48.5 to 60.6 mm). The XIAO stands upright on the right, its USB-C end flush with the new bottom edge. The connector sits bottom-left, just below the credit. The switch knob comes out of the left edge, below the credit.
-- **The right arm is straightened.** Its outer edge runs straight down from the shoulder instead of slanting in; it is up to 3.4 mm wider at the elbow and 1.75 mm wider at the bottom. Two tracks run up that edge. On the front this shows as a wider dark rim on the right arm.
-- **The left edge** below the arm moves out 0.26 mm (straight instead of a slight slant).
-- **No LiPo connector.** There was no spot for it that the wiring could reach on one copper layer. The board runs from the badge or from USB-C. The XIAO's two battery-pad positions are still joined to each other, so a LiPo can be soldered to them by hand later if wanted.
-- **The connector sits about 7.5 mm left of the middle and low on the board** (its centre is 9 mm above the bottom edge). The board is light, but check it sits straight in a badge.
+**Why 1.3 and not less.** The base strip cannot go: the XIAO is 21 × 17.8 mm and its USB end must sit at an edge, and the maker's figure (a helmet on shoulders, with notches between arms and torso) only has room for it at about 1.8× (some 70 × 61 mm). So the strip stays and the question was how little to scale. Below about 1.15× the XIAO and the connector do not fit side by side between the maker's credit and the unstraightened right arm. At 1.25× they fit (about 48.5 × 51 mm), but the two 330 Ω resistors on the SAO GPIO lines (R2, R3) have nowhere to go outside the connector's and the XIAO's space (0.9 mm between them), which would bring back the rule exceptions. At 1.3× there is 2.3 mm between connector and XIAO, enough for R2 and R3 to stand there upright, and every part has its own space.
 
-Alternatives, with numbers, if you prefer one of them:
+## What shows on the front
 
-| Option | Board size | Gives | Costs |
-|---|---|---|---|
-| **A. As built** | 40.7 × 46.2 mm | everything except the LiPo connector | right arm straightened; no LiPo connector |
-| B. Keep the LiPo connector | about 40.7 × 53 mm | LiPo connector, connector in the middle | a 19 mm base strip instead of 12 mm: connector centred under the helmet where the old header was, XIAO lying across below it, LiPo connector beside the XIAO |
-| C. Move the maker's credit | about 40.7 × 46 mm in theory | might free the left arm for the connector | the credit (14 × 5 mm) has no other free spot on the back that is not behind the helmet; not found workable |
-| D. Keep the original 4-layer board | same as A | the helmet art 0.1 mm closer to the front, exactly as the maker built it | a 4-layer order (dearer per board); does not help the space problem |
-| E. XIAO overhanging the edge | — | — | only about 1.8 mm of the module's 21 mm length has no pads, so it can overhang by at most that much: not enough to matter |
+All of it is in the plain base strip below the figure, under the green mask; none of it touches the maker's art or lettering.
+
+- **Four covered vias** (0.3 mm holes, covered by mask both sides): pinprick bumps. Two carry the LiPo + line (at 20.2, 54.9 and 33.9, 54.9 mm); two join the back's ground to the front's ground plate (at 10.6, 56.4 and 22.2, 60.8 mm).
+- **One thin line**, 13.7 mm long, between the two LiPo vias: a 0.3 mm copper track with a 0.3 mm gap either side in the strip's ground copper. Under green mask it shows as a faint straight line.
+- **Two 0.9 mm holes** for the switch's locating pegs, bottom left.
+
+The LiPo + line has to cross the SDA, OFF and connector-ground copper between the LiPo connector and the module's battery pads. That was chosen over squeezing it between two of the XIAO's edge pads with only 0.17 mm to spare.
 
 ## How the power switch works here
 
-| Knob (as printed, "SW UP"/"SW DN" seen on the back) | Badge 3.3 V | What runs the board |
+The switch now sits on the bottom edge, knob pointing down.
+
+| Knob (labels "SAO" and "USB/BAT" printed beside it on the back) | Badge 3.3 V | What runs the board |
 |---|---|---|
-| **SAO** (down, toward the bottom edge) | connected to the XIAO's 3V3 pin and the LEDs | the badge |
-| **OFF** (middle) | disconnected | nothing from the badge. If USB is plugged in, the switch tells the XIAO to blank the LEDs and sleep |
-| **USB** (up) | disconnected | the XIAO's own regulator, from USB-C |
+| **SAO** | connected to the XIAO's 3V3 pin and the LEDs | the badge |
+| **OFF** (middle) | disconnected | nothing from the badge. If USB or a LiPo is connected, the switch tells the XIAO to blank the LEDs and sleep (with a LiPo this is a sleep, not a hard cut) |
+| **USB/BAT** | disconnected | the XIAO's own regulator, from USB-C or the LiPo |
 
 - **Do not plug in USB while the knob is on SAO and the board is on a badge.** Two 3.3 V regulators would be joined. It is printed on the back.
+- **LiPo:** a 3.7 V single cell on the JST-PH connector, wired to the XIAO's battery pads (both the C3/S3 and the C6 positions). The XIAO charges it from USB-C. "+" and "−" are printed beside the connector; many cheap cells are wired the other way round and there is no protection, so check before plugging in.
 - **Feeding the XIAO through its 3V3 pin** is how badge power reaches it, as on Hack-Man. Seeed documents that pin as an output only. First thing to test on each module type.
 - **No coin cell:** these LEDs and an ESP32 need far more than a CR2032 gives.
 
-## How it is wired on one copper layer
+## How it is wired
 
-Everything is on the back copper. To get there without extra parts:
+Nearly everything is on the back copper:
 
-- The helmet's solid outer ring of art copper (it was copper on the maker's board too) now **carries the LEDs' 3.3 V**: each LED's supply pad reaches into it. Ground comes from the copper outside the ring. That is why D1 and D4 moved out 0.74 / 0.60 mm: at their old spots their pads sat on the ring, and clearing round them would have cut it.
-- Three of the 330 Ω resistors let one other track pass between their two pads: R2 (SAO GPIO1) lets SDA through, R3 (SAO GPIO2) lets SCL through, R4 (the switch's OFF sense line) lets the badge 3.3 V through. R4 exists only for this; a 330 Ω in a sense line changes nothing.
-- **Two vias** (0.3 mm holes, covered by solder mask both sides) join the two halves of the back ground through the front copper: one between the connector and the XIAO, one under the connector. On the front they sit on the chest plate / base strip and may show as pinprick bumps. The maker's board had seven such dots in the art.
+- The helmet's solid outer ring of art copper (it was copper on the maker's board too) **carries the LEDs' 3.3 V**: each LED's supply pad reaches into it. Ground comes from the copper outside the ring. That is why D1 and D4 moved out 0.96 / 0.78 mm: at their scaled spots their pads would sit on the ring.
+- The switched 3.3 V runs from the switch up the left arm (under the credit's lettering) to LED D4; the XIAO's 3V3 pin feeds LED D1 from the right. Both reach the ring.
+- **R1** (LED data) stands on LED D1's own axis just outside it, and the 3.3 V feed to D1 passes between its two pads; **R3** (SAO GPIO2) lets SCL pass between its pads; **R4** (the switch's OFF sense line) lets the badge 3.3 V pass between its pads. R4 exists only for this; a 330 Ω in a sense line changes nothing.
+- The LiPo + line hops to the front for 13.7 mm (above).
+- The back's ground comes out in two pieces (the small one round the LiPo connector's − pin, and everything else); each is joined to the front's ground plate by one covered via.
 
 ## Things to check on the first prototype
 
 1. **Badge power into the XIAO's 3V3 pin** (above). Check it boots from a badge with nothing else attached, and that nothing gets warm.
-2. **The glow.** The helmet art is now on the back copper instead of 0.1 mm inside the board. Compare with a built original if you can: the skull and swirl should look the same from the front, perhaps very slightly softer.
-3. **LED land pattern.** The shared LED footprint's pads are smaller than the maker's (which he built and which worked): see "LED footprint" below. Check the LEDs sit square and the lenses point at the helmet's centre. The maker's write-up does not mention a diffuser; Hack-Man's maker needed a blob of hot glue over each LED.
-4. **LED supply.** They are rated 3.7–5.5 V and run here from 3.3 V, as on the original.
-5. **Switch labels.** Which way the knob sits for "position 1" (SAO) is not drawn in the datasheet. If SAO and USB turn out swapped, the silkscreen is wrong, not the wiring.
-6. **Connector position and pin 1** against a v1.69bis badge, and that the board hangs straight with the connector left of centre.
-7. **USB plug clearance** at the bottom edge, and that the XIAO, its USB-C socket and the connector clear the badge behind.
-8. **XIAO pads underneath.** The ground pad under the module (and the unused battery pads) only solder with paste and hot air or a hot plate. Hand-soldered by its edge pads only, everything works.
-9. **Tracks along the right edge.** Two tracks run 0.26 mm inside the straightened right edge. Check the board house's routing did not nick them.
+2. **LiPo polarity and charging.** Plug a known-good cell in the right way round (+ as printed), check the XIAO charges it from USB-C, and that the board runs from it with the knob on USB/BAT.
+3. **The glow.** The helmet art is now on the back copper instead of 0.1 mm inside the board, and 1.3× larger. Compare with a built original if you can.
+4. **LED land pattern.** The shared LED footprint's pads are smaller than the maker's (which he built and which worked): see "LED footprint" below. Check the LEDs sit square and the lenses point at the helmet's centre. Hack-Man's maker needed a blob of hot glue over each LED as a diffuser.
+5. **LED supply.** They are rated 3.7–5.5 V and run here from 3.3 V, as on the original.
+6. **Switch labels.** Which way the knob sits for "position 1" (SAO) is not drawn in the datasheet. If SAO and USB/BAT turn out swapped, the silkscreen is wrong, not the wiring.
+7. **Connector position and pin 1** against a v1.69bis badge. The board is now bigger (50 × 53 mm) and hangs from one SMD connector 7.8 mm left of its middle: check it hangs straight and the joint does not flex.
+8. **USB plug clearance** at the bottom edge, and that the XIAO, its USB-C socket, the LiPo plug and the connector clear the badge behind.
+9. **XIAO pads underneath.** The ground and battery pads under the module only solder with paste and hot air or a hot plate. **The LiPo only reaches the module through those battery pads**, so a board with a LiPo needs the module reflowed (or the pads hand-tinned first). Without a LiPo, hand-soldering the edge pads only is enough.
+10. **The front line.** Look at the 13.7 mm LiPo track and the four vias in the base strip on a real board, to see how much they show through the mask.
 
 ## Pin map
+
+Unchanged from rev A, so the firmware in `firmware/` applies as it is. Same four LEDs, same order.
 
 | XIAO pin | Goes to |
 |---|---|
@@ -95,12 +107,12 @@ Everything is on the back copper. To get there without extra parts:
 | D7 / D6 | SAO GPIO1 / GPIO2, each through 330 Ω (R2 / R3) |
 | D1 | switch OFF sense, through R4 (330 Ω): high when the knob is on OFF |
 | 3V3, GND | the board's 3.3 V rail (switch common, LEDs) and ground |
-| BAT+ (two positions under the module) | joined to each other only (no LiPo connector) |
+| BAT+ (two positions under the module) | the LiPo connector's + pin (new in rev B) |
 | D0, D2, D3, D8, D9, 5V | not connected (D0, D2, D8, D9 are start-up strapping pins on one module or another) |
 
 ## Firmware
 
-There is no SAO++ firmware for this board yet. The maker's sketch for it is `original/Sketchbook/strandtest/strandtest.ino` (Arduino, Adafruit NeoPixel library, 4 LEDs; the other four sketches in that folder are for other projects: an 84-LED "hexaFlower", an SD-card test and a WAV player). What it does, so it can be reproduced:
+The SAO++ firmware (Rust, built but not yet run on a board) is in [firmware/](firmware/README.md); rev B did not change any pin, so it applies unchanged. The maker's sketch for it is `original/Sketchbook/strandtest/strandtest.ino` (Arduino, Adafruit NeoPixel library, 4 LEDs; the other four sketches in that folder are for other projects: an 84-LED "hexaFlower", an SD-card test and a WAV player). What it does, so it can be reproduced:
 
 - brightness 200 of 255; colours from a 12-step palette running from deep blue (#000b2d) through cyan to white (#ffffff)
 - every 40 ms it repaints one LED, in order 1→4, with palette entry (LED number + a counter) mod 12, and adds one to the counter
@@ -123,10 +135,10 @@ The shared pads sit almost entirely inside the maker's (within 0.03 mm), so a pa
 
 ## Files
 
-- `hardware/mysterio.kicad_pro`: KiCad 10 project (schematic + board). ERC: 0. DRC: 0 errors, 0 unconnected, schematic matches the board. 4 warnings, all "copper sliver" in the art (thin points in the maker's swirl and robe copper).
+- `hardware/mysterio.kicad_pro`: KiCad 10 project (schematic + board). ERC: 0. DRC: 0 errors, 0 unconnected, schematic matches the board; 5 warnings, all "copper sliver" in the art (thin points in the maker's swirl and robe copper).
 - `hardware/circuit.json`: the circuit as data; `tools/gen_schematic.py mysterio` and `hardware/build_board.py` both read it.
-- `hardware/build_board.py`: rebuilds the whole board from the maker's file in `original/` in one run; every placement and routing choice is commented there.
-- `hardware/mysterio.kicad_dru`: the art rule, plus two rules letting R2, R3, R4 and the XIAO sit inside the connector's keep-out box (it includes the long pads; the parts are 0.3–0.6 mm clear of the plastic body and pads), and R4 0.3 mm beside the switch.
+- `hardware/build_board.py`: rebuilds the whole board from the maker's file in `original/` in one run; the scale is the constant `SCALE` at the top, and every placement and routing choice is commented there.
+- `hardware/mysterio.kicad_dru`: the art rule only (rev A's crowded-part exceptions are gone).
 - `production/`: everything a board house needs, for one board and a 2×2 panel. Start with [production/README.md](production/README.md).
 - `original/`: the maker's untouched KiCad 8 project, art and sketches.
 
@@ -136,10 +148,11 @@ The shared pads sit almost entirely inside the maker's (within 0.03 mm), so a pa
 |---|---|---|
 | Connector XFCN BH254VS-6P (LCSC C492445) | 1 | $0.12 |
 | Switch C&K PCM13SMTR (Digikey) | 1 | ~$0.90 |
+| LiPo connector JST S2B-PH-SM4-TB (LCSC C295747) | 1 | $0.16–0.18 |
 | RGB LED OPSCO SK6805-EC3210R (LCSC C5378735) | 4 | $0.068 |
 | Capacitor 100 nF 0603 (LCSC C14663) | 1 | <$0.01 |
 | Resistor 330 Ω 0603 (LCSC C23138) | 4 | <$0.01 |
-| **Total without the module** | | **about $1.32** |
+| **Total without the module** | | **about $1.50** |
 | Seeed Studio XIAO ESP32-C3 / S3 / C6 | 1 | not priced here: check Seeed |
 
-The bare board is not included.
+The bare board is not included. It is bigger than rev A (50.4 × 52.9 mm instead of 40.7 × 46.2 mm), which may move it into a dearer size bracket at some board houses.

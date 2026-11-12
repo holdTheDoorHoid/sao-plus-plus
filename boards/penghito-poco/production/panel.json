@@ -1,5 +1,5 @@
 {
-  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. build_board.py reads this file too: the front art copper is pulled back to 0.55 mm from the edge at these tabs only.",
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. build_board.py reads this file too: the front art copper is pulled back to 0.55 mm from the edge at these tabs only. Rev B: the tab points are rev A's scaled by 1.4 about the board centre, like the art.",
   "rows": 2,
   "cols": 2,
   "slot": 2.0,
@@ -7,11 +7,11 @@
   "rail": 5.0,
   "tab_width": 3.0,
   "tabs": [
-    {"near": [100.2, 123.0], "dir": "-x", "why": "left wing tip"},
-    {"near": [141.9, 123.0], "dir": "+x", "why": "right wing tip"},
-    {"near": [109.4, 112.0], "dir": "-x", "why": "left side of the head, above the cell clip's top pad"},
-    {"near": [134.2, 114.5], "dir": "+x", "why": "right side of the head, above the connector"},
-    {"near": [106.6, 132.5], "dir": "-x", "why": "left flank, below the wing (where the cell overhangs once fitted)"},
-    {"near": [135.8, 132.5], "dir": "+x", "why": "right flank, below the wing"}
+    {"near": [91.86, 123.6], "dir": "-x", "why": "left wing tip"},
+    {"near": [150.24, 123.6], "dir": "+x", "why": "right wing tip"},
+    {"near": [104.74, 108.2], "dir": "-x", "why": "left side of the head, above the cell clip's top pad"},
+    {"near": [139.46, 111.7], "dir": "+x", "why": "right side of the head, above the connector"},
+    {"near": [100.82, 136.9], "dir": "-x", "why": "left flank, below the wing, beside the cell"},
+    {"near": [141.7, 136.9], "dir": "+x", "why": "right flank, below the wing"}
   ]
 }

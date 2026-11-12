@@ -1,5 +1,5 @@
 {
-  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge.",
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. Rev B: the board is scaled 1.3x about (95.18, 105.62); the tab points were scaled with it.",
   "rows": 2,
   "cols": 2,
   "slot": 2.0,
@@ -7,11 +7,11 @@
   "rail": 5.0,
   "tab_width": 3.0,
   "tabs": [
-    {"near": [69.9, 105.0], "dir": "-x", "why": "left arm lobe"},
-    {"near": [73.6, 119.0], "dir": "-x", "why": "lower left lobe"},
-    {"near": [88.6, 140.0], "dir": "+y", "why": "bottom of the lower left lobe, clear of the connector"},
-    {"near": [120.4, 121.0], "dir": "+x", "why": "right lobe, where the cell slides in"},
-    {"near": [111.0, 97.0], "dir": "-y", "why": "top of the right shoulder"},
-    {"near": [77.0, 97.5], "dir": "-y", "why": "top of the left shoulder"}
+    {"near": [62.32, 104.82], "dir": "-x", "why": "left arm lobe"},
+    {"near": [67.13, 123.02], "dir": "-x", "why": "lower left lobe"},
+    {"near": [86.63, 150.32], "dir": "+y", "why": "bottom of the lower left lobe, clear of the connector"},
+    {"near": [127.97, 125.62], "dir": "+x", "why": "right lobe, beside the cell"},
+    {"near": [115.75, 94.42], "dir": "-y", "why": "top of the right shoulder"},
+    {"near": [71.55, 95.07], "dir": "-y", "why": "top of the left shoulder"}
   ]
 }

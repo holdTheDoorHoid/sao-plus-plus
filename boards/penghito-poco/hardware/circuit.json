@@ -1,6 +1,6 @@
 {
  "title": "Penghito Poco - SAO++ edition",
- "rev": "A",
+ "rev": "B",
  "credit": "Original design: davedarko (Dave Darko), Simple-Add-ons-SAO, github.com/davedarko/Simple-Add-ons-SAO",
  "parts": [
   {"ref": "J1", "symbol": "SAO_Connector_v1.69bis", "at": [50.8, 63.5], "nets": {"1": "VSAO", "2": "GND"}},

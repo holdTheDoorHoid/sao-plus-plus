@@ -1,4 +1,4 @@
-# Penghito Poco rev A — ordering files
+# Penghito Poco rev B — ordering files
 
 > Design-checked only. No board has been built from these files yet, and **the maker's permission is still pending** (see [../README.md](../README.md)). Order a small first batch (5–10) only once the owner has decided, and go through the prototype checklist in the README first.
 
@@ -20,7 +20,7 @@ Each zip holds: front/back copper, solder mask, paste and silkscreen, the board 
 | Setting | Value | Why |
 |---|---|---|
 | Layers | 2 | |
-| Size | single 42.1 × 43.0 mm; panel 101.2 × 113.0 mm | |
+| Size | single 58.9 × 60.2 mm; panel 134.8 × 147.4 mm | rev B is the maker's outline scaled up 1.4 times (rev A was 42.1 × 43.0 mm) |
 | Thickness | 1.6 mm | the eye LEDs shine through the board |
 | Surface finish | **ENIG** | the horn, beak and feet are bare copper art, and the coin cell rests on a bare copper disc; ENIG keeps both gold and flat |
 | Solder mask / silkscreen | **Purple mask, white silkscreen** to match the maker's picture | The maker's picture is an OSH Park render: purple board, gold horn, beak and feet, and the face and belly in silkscreen. JLCPCB and PCBWay both offer purple |
@@ -50,11 +50,11 @@ Each zip holds: front/back copper, solder mask, paste and silkscreen, the board 
 
 ## The panel
 
-2 × 2 boards, each in its own routed pocket (2 mm slot), held by six break-off tabs with 0.5 mm mouse-bite holes on the board edge. 5 mm rails top and bottom carry three fiducials (both sides) and four 1.152 mm tooling holes. Recipe: `panel.json`; rebuilt by `tools/panelize.py penghito-poco`. Panel DRC: 0 errors, 0 unconnected; the nearest copper is 0.30 mm from a mouse-bite hole. The 28 warnings only say the panel project does not list the parts library (the parts are embedded in the file).
+2 × 2 boards, each in its own routed pocket (2 mm slot), held by six break-off tabs with 0.5 mm mouse-bite holes on the board edge. 5 mm rails top and bottom carry three fiducials (both sides) and four 1.152 mm tooling holes. Recipe: `panel.json`; rebuilt by `tools/panelize.py penghito-poco`. Panel DRC: 0 errors, 0 unconnected. The 28 warnings only say the panel project does not list the parts library (the parts are embedded in the file).
 
 After snapping boards out, each tab leaves a small rough spot on the edge: both wing tips, both sides of the head, and both flanks below the wings. A few strokes with a file cleans it up. The front copper art steps back from 0.4 to 0.55 mm from the edge at the tabs only, so the mouse-bite holes do not cut it.
 
-Three things reach past the board edge into the 2 mm routed slot, all intended: the switch knob (0.2 to 0.6 mm, at the bottom), and two corners of the connector's plastic shroud beside the right wing (up to 1.4 mm). The coin cell overhangs the left side by up to 3.3 mm, but it is fitted by the user after the boards are snapped out.
+Only the switch knob reaches past the board edge into the 2 mm routed slot (about 0.7 to 1.5 mm, at the bottom), as intended. Rev A's connector-shroud corners and overhanging cell are gone: in rev B every part, and the fitted cell, is inside the outline.
 
 ## Regenerating
 
@@ -66,4 +66,4 @@ flatpak run --filesystem=$PWD --command=python3 org.kicad.KiCad tools/panelize.p
 python3 tools/export_fab.py penghito-poco
 ```
 
-`production/panel/penghito-poco-panel.kicad_dru` is written by hand (panelize does not copy the board's rules); keep it in step with `hardware/penghito-poco.kicad_dru`.
+`production/panel/penghito-poco-panel.kicad_dru` is written by hand (panelize does not copy the board's rules); keep it in step with `hardware/penghito-poco.kicad_dru`. In rev B both hold only the art rule.

@@ -1,4 +1,4 @@
-# Oh My Glob (LSP) rev A — ordering files
+# Oh My Glob (LSP) rev B — ordering files
 
 > Design-checked only. No board has been built from these files yet: order a small first batch (5–10) before any production run, and go through the prototype checklist in [../README.md](../README.md).
 
@@ -13,19 +13,18 @@
 
 Use the files from **one** folder together. The panel's parts are numbered per board (J101, J201, J301, J401 …), so the panel BOM and placement files only match the panel Gerbers.
 
-Each zip holds: front/back copper, solder mask, paste and silkscreen, the board outline (`Edge_Cuts.gm1`), and two drill files: `NPTH.drl` (the switch's two peg holes) and `PTH.drl` (two 0.3 mm vias in the mouth).
+Each zip holds: front/back copper, solder mask, paste and silkscreen, the board outline (`Edge_Cuts.gm1`), and one drill file: `NPTH.drl` (the switch's two peg holes). Rev B has no vias, so there is no plated-hole drill file.
 
 ## Order settings
 
 | Setting | Value | Why |
 |---|---|---|
 | Layers | 2 | |
-| Size | single 50.8 × 71.4 mm; panel 118.5 × 169.7 mm | |
+| Size | single 66.0 × 92.8 mm; panel 149.0 × 212.6 mm | rev B is rev A scaled up 1.3 times |
 | Thickness | 1.6 mm | the star and crown-tip LEDs shine through the board |
 | Surface finish | **ENIG** | the coin cell rests on a bare copper disc, and the crown is exposed gold art |
 | Solder mask / silkscreen | **Your choice; the 2018 colours are not recorded.** White silkscreen is needed for the eyes, teeth and back lettering | Check a photo of the original on hackaday.io before ordering |
 | Copper | 1 oz | |
-| Via covering | **Tented** (vias covered with solder mask, both sides) | the two vias sit in the mouth art and must not show |
 | "Remove order number" / "specify location" | Remove it, or it gets printed on the art | costs a little extra at JLCPCB |
 | Panel option at the fab | single files: "single piece". Panel files: "panel by customer", 4 boards | |
 | Assembly side | **Bottom only** | every part is on the back |
@@ -34,10 +33,10 @@ Each zip holds: front/back copper, solder mask, paste and silkscreen, the board 
 ## Notes for the assembler (paste into the order remarks)
 
 1. All parts are on the **bottom** side.
-2. **BT1 (CR2032 clip)** fits its pads both ways round. The open end must face the board's right-hand edge (the "<" arrow printed beside the cell spot). The large round pad under it gets **no solder**.
+2. **BT1 (CR2032 clip)** fits its pads both ways round. The open end must face up and to the right in the front view, toward the notch above the cell (the small arrow printed on the cell's rim points into the clip from that side). The large round pad under it gets **no solder**.
 3. **D1 and D2** are reverse-mount LEDs: lens faces **into** the board. D1 is red (crown tip), D2 is white (star).
 4. **SW1** has two plastic pegs that sit in the two 0.9 mm holes.
-5. BT1's placement angle is 269.9°, not 270°: that is a KiCad workaround, so place it square.
+5. BT1 sits at an angle on purpose: -25° (335°) in the placement file. SW1 is at -87°: also on purpose (it follows the curve of the head).
 6. Please confirm part rotations in your placement preview before running. The rotation values come straight from KiCad and have **not** been tried on a real line.
 
 ## Parts availability (checked 2026-11-10)
@@ -53,9 +52,9 @@ Each zip holds: front/back copper, solder mask, paste and silkscreen, the board 
 
 ## The panel
 
-2 × 2 boards, each in its own routed pocket (2 mm slot), held by six break-off tabs with 0.5 mm mouse-bite holes on the board edge. 5 mm rails top and bottom carry three fiducials (both sides) and four 1.152 mm tooling holes. Recipe: `panel.json`; rebuilt by `tools/panelize.py lumpy`. The panel needs its own rules file, `panel/lumpy-panel.kicad_dru` (a hand-made copy of the board's, because the panel renumbers parts). Panel DRC: 0 errors, 0 unconnected.
+2 × 2 boards, each in its own routed pocket (2 mm slot), held by six break-off tabs with 0.5 mm mouse-bite holes on the board edge. 5 mm rails top and bottom carry three fiducials (both sides) and four 1.152 mm tooling holes. Recipe: `panel.json` (the tab points were scaled with the board); rebuilt by `tools/panelize.py lumpy`. The panel keeps its own rules file, `panel/lumpy-panel.kicad_dru` (a hand-made copy of the board's; rev B needs only the art rule). Panel DRC: 0 errors, 0 unconnected (40 warnings, all "footprint library not configured").
 
-After snapping boards out, each tab leaves a small rough spot on the edge: the left arm lobe, the lower left lobe, the bottom of the lower left lobe, the right lobe, and the tops of both shoulders. A few strokes with a file cleans it up. The front art steps back 0.55 mm from the edge at those six spots so the mouse-bite holes do not cut through it.
+After snapping boards out, each tab leaves a small rough spot on the edge: the left arm lobe, the lower left lobe, the bottom of the lower left lobe, the right lobe beside the cell, and the tops of both shoulders. A few strokes with a file cleans it up. The front art steps back 0.55 mm from the edge at those six spots so the mouse-bite holes do not cut through it.
 
 ## Regenerating
 

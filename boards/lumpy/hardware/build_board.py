@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Rebuild lumpy.kicad_pcb from the 2018 original plus the SAO++ changes.
+"""Rebuild lumpy.kicad_pcb from the 2018 original plus the SAO++ changes (rev B: the whole board scaled up).
 
 Run with KiCad 10's Python, from the repo root:
   flatpak run --filesystem=$PWD --command=python3 org.kicad.KiCad boards/lumpy/hardware/build_board.py
 
 What it does
-  - loads original/lumpyv2.kicad_pcb (KiCad 5) so the art stays exactly as drawn
+  - loads original/lumpyv2.kicad_pcb (KiCad 5) and scales the outline and every piece of the maker's art by SCALE
+    about the centre of the board's bounding box, so the drawing keeps its proportions (rev B, owner decision
+    2026-11-12: scale up rather than squeeze). Parts do not scale: footprints keep their real size. Only the two
+    LEDs, which are part of the picture (the star and the crown tip), move with the art.
   - removes the 4-pin through-hole header, the two 2018 LEDs (a reverse-mount TOPLED behind the star and a
     through-hole 3 mm LED standing up on the FRONT at the tip of the crown spike), both resistors, the old tracks,
     and the four small 2018 labels that belonged to those parts ("VCC", "+", "-" on the back, a pin-1 "o" on the front)
@@ -13,7 +16,7 @@ What it does
   - pours the back copper as the GND net (the 2018 back had no copper art at all, only silkscreen), cleared around
     the new pads and tracks and behind both LEDs
   - front copper art: the same shapes, with the old header's window filled and the switch's two peg holes cleared
-  - front mask: a 2 mm bare window at the tip of the spike, where the 2018 LED's legs went through
+  - front mask: a bare window at the tip of the spike, where the 2018 LED's legs went through
 
 Coordinates are millimetres in KiCad's front view (x grows right, y grows down).
 
@@ -42,6 +45,9 @@ from saopp_board import (ERR, P, mm, add_circle, poly, grown, area_mm2, blocks, 
                          footprint_polys, bbox_mm, add_filled, pad_poly, stray_frames)
 from saopp_symbols import SYMBOLS  # noqa: E402
 
+# ---- the one number that sets the board's size --------------------------------------------------
+SCALE = 1.30        # rev B. 1.0 (rev A) needed two vias, an overhanging cell and a 0.4 mm knob; see README for 1.15/1.2
+
 SLUG = "lumpy"
 SRC = os.path.join(HERE, "..", "original", "lumpyv2.kicad_pcb")
 OUT = os.path.join(HERE, SLUG + ".kicad_pcb")
@@ -49,24 +55,74 @@ LIB = os.path.join(ROOT, "lib", "sao-plus-plus.pretty")
 
 CLEAR = 0.30        # copper-to-copper gap cut into the GND pour
 TRACK = 0.30        # normal track width
-THIN = 0.25         # track width up the crown spike, which is 2.06 mm wide at its narrowest
+THIN = 0.25         # track width up the crown spike and under R1
 EDGE = 0.30         # copper stops this far short of the board edge
 TAB_EDGE = 0.55     # ... and this far at the panel tabs, where 0.5 mm mouse-bite holes sit on the edge line
 
-# ---- placement (centre x, y) ------------------------------------------------------------------
-TIP = (93.9292, 72.8472)    # 2018 D1 (3 mm LED, front) centre: pad 1 was at 92.6592 and pad 2 2.54 mm to its right
-STAR = (93.2972, 93.1164)   # 2018 D2 (TOPLED, back) centre, behind the star on the forehead
+# ---- scaling about the centre of the 2018 outline's bounding box ---------------------------------
+_ol = json.load(open(os.path.join(HERE, "outline.json")))
+assert not _ol["holes"]
+_xs = [p[0] for p in _ol["outer"]]
+_ys = [p[1] for p in _ol["outer"]]
+CX, CY = (min(_xs) + max(_xs)) / 2, (min(_ys) + max(_ys)) / 2
+
+
+def S(x, y):
+    """A point of the 2018 drawing, moved to where it lands on the scaled board."""
+    return (CX + SCALE * (x - CX), CY + SCALE * (y - CY))
+
+
+ART_MODULES = ("lumpyv2:lumpyTop ", "lumpyv2:lumpyBottom ", "lumpyback:lumpyback ")
+
+
+def scale_art(txt):
+    """Scale the three svg2mod art footprints and the credits text in the KiCad 5 file text."""
+    edits = []
+    n = 0
+    for a, b in blocks(txt, "module"):
+        blk = txt[a:b]
+        if not any(("(module " + m) in blk[:80] for m in ART_MODULES):
+            continue
+        n += 1
+        blk = re.sub(r"\(at ([-0-9.]+) ([-0-9.]+)",
+                     lambda m: "(at %.6f %.6f" % S(float(m.group(1)), float(m.group(2))), blk, count=1)
+        blk = re.sub(r"\(xy ([-0-9.]+) ([-0-9.]+)\)",
+                     lambda m: "(xy %.6f %.6f)" % (SCALE * float(m.group(1)), SCALE * float(m.group(2))), blk)
+        edits.append((a, b, blk))
+    assert n == 3, n
+    for a, b in blocks(txt, "gr_text"):
+        blk = txt[a:b]
+        if '"Thanks To' not in blk[:30]:
+            continue
+        blk = re.sub(r"\(at ([-0-9.]+) ([-0-9.]+)\)",
+                     lambda m: "(at %.6f %.6f)" % S(float(m.group(1)), float(m.group(2))), blk, count=1)
+        blk = re.sub(r"\(size ([-0-9.]+) ([-0-9.]+)\)",
+                     lambda m: "(size %.6f %.6f)" % (SCALE * float(m.group(1)), SCALE * float(m.group(2))), blk)
+        blk = re.sub(r"\(thickness ([-0-9.]+)\)", lambda m: "(thickness %.6f)" % (SCALE * float(m.group(1))), blk)
+        edits.append((a, b, blk))
+    assert len(edits) == 4, len(edits)
+    for a, b, blk in sorted(edits, reverse=True):
+        txt = txt[:a] + blk + txt[b:]
+    return txt
+
+
+# ---- placement (centre x, y) on the scaled board ---------------------------------------------------
+TIP = S(93.9292, 72.8472)   # 2018 D1 (3 mm LED, front) centre: pad 1 was at 92.6592 and pad 2 2.54 mm to its right
+STAR = S(93.2972, 93.1164)  # 2018 D2 (TOPLED, back) centre, behind the star on the forehead
 WINDOW = 1.6                # radius kept free of copper on both sides behind each LED so light gets into the board
 TIP_MASK = 1.0              # radius of the bare (no copper, no mask) front window at the spike tip
-CONN = (99.3, 134.05)       # J1, in the middle bottom lobe where the 2018 header was; as low as the lobe allows
-SW = (101.6, 95.0)          # SW1 on the right side of the head, knob pointing right (found by a search of the whole edge)
-SW_ROT = 280                # footprint rotation on the back: knob right and 10 degrees up, pin 1 at the top
-BAT = (108.8, 118.1)        # BT1 on the right side: the only place a 17 mm cell disc fits at all (see README).
-                            # Its bare disc pad comes to 0.25 mm from the edge (KiCad's minimum) at the notch below it,
-                            # and grazes the tip of the "6" in "DEF CON 26" (about 0.01 mm2, a nick the fab clips off the ink)
+CONN = (102.5, 139.0)       # J1, in the bottom lobes below the credits, as far from the edges as the lettering allows
+SW = (103.64, 90.16)        # SW1 on the right side of the head: footprint origin, found by a search of the whole edge
+SW_KNOB = -3.0              # direction the knob points, degrees in the front view (0 = right, -90 = up)
+BAT = (115.4, 121.6)        # BT1 in the right lobe: cell fully on the board, no lettering under the cell or the clip
+BAT_OPEN = -65.0            # direction the clip's open side faces, degrees: up and right, toward the edge above the cell
 
 # ---- strip the 2018 electrical parts out of the file text (KiCad 10's Python crashes on Remove()) ----
-_txt = open(SRC, encoding="utf-8").read()
+_raw = open(SRC, encoding="utf-8").read()
+_txt = scale_art(_raw)
+_tmp_dir = tempfile.mkdtemp()
+_scaled_src = os.path.join(_tmp_dir, "lumpyv2_scaled.kicad_pcb")
+open(_scaled_src, "w", encoding="utf-8").write(_txt)
 _cut = list(blocks(_txt, "segment"))
 assert len(_cut) == 32, len(_cut)
 _edges = [(a_, b_) for a_, b_ in blocks(_txt, "gr_line") if "(layer Edge.Cuts)" in _txt[a_:b_]]
@@ -86,7 +142,7 @@ for a_, b_ in blocks(_txt, "gr_text"):
         _cut.append((a_, b_))
         _old_labels.append(s_.split()[1])
 assert sorted(_old_labels) == ["+", "-", "VCC", "o"], _old_labels
-# the front copper art is rebuilt below (old header window filled, peg holes cleared): read it from the untouched original
+# the front copper art is rebuilt below (old header window filled, peg holes cleared): read it from the scaled original
 _fcu = [(a_, b_) for a_, b_ in blocks(_txt, "fp_poly", 4) if "(layer F.Cu)" in _txt[b_ - 40:b_]]
 assert len(_fcu) == 2, f"expected 2 front copper art polygons (head, body), found {len(_fcu)}"
 _cut += _fcu
@@ -96,12 +152,12 @@ _bmask = [(a_, b_) for a_, b_ in blocks(_txt, "fp_poly", 4) if "(layer B.Mask)" 
 assert len(_bmask) == 1, len(_bmask)
 _cut += _bmask
 _txt = cut_blocks(_txt, _cut)
-_frames = stray_frames(_txt, 52)         # this board's svg2mod art carries no 2018 page frame; prove it
+_frames = stray_frames(_txt, 52 * SCALE)  # this board's svg2mod art carries no 2018 page frame; prove it
 assert not _frames, f"{len(_frames)} stray page-frame polygons found"
-_tmp = os.path.join(tempfile.mkdtemp(), "lumpyv2.kicad_pcb")
+_tmp = os.path.join(_tmp_dir, "lumpyv2.kicad_pcb")
 open(_tmp, "w", encoding="utf-8").write(_txt)
 
-_orig = pcbnew.LoadBoard(SRC)
+_orig = pcbnew.LoadBoard(_scaled_src)
 front = pcbnew.SHAPE_POLY_SET()
 for p_ in footprint_polys(_orig, F_Cu):
     front.Append(p_)
@@ -112,17 +168,18 @@ board = pcbnew.LoadBoard(_tmp)
 TRACKS = []                              # (track, clearance to cut around it)
 
 # ---- outline: the 2018 edge was 578 short lines; outline.json is the same path as one closed polygon ----
-_ol = json.load(open(os.path.join(HERE, "outline.json")))
-assert not _ol["holes"]
-body = poly(_ol["outer"])
+OUTLINE = [S(x, y) for x, y in _ol["outer"]]
+body = poly(OUTLINE)
 e = pcbnew.PCB_SHAPE(board, pcbnew.SHAPE_T_POLY)
-e.SetPolyShape(poly(_ol["outer"]))
+e.SetPolyShape(poly(OUTLINE))
 e.SetLayer(pcbnew.Edge_Cuts)
 e.SetFilled(False)
 e.SetWidth(FromMM(0.1))
 board.Add(e)
 inner = grown(body, -EDGE)               # where copper may be
 pour_area = grown(body, -TAB_EDGE)       # the back pour keeps 0.55 mm back everywhere (it is not art, so nothing is lost)
+_bb = bbox_mm(body)
+print("board size %.2f x %.2f mm (scale %.2f)" % (_bb[2] - _bb[0], _bb[3] - _bb[1], SCALE))
 
 # ---- the maker's back lettering (silkscreen): nothing new may cover it -----------------------------
 LETTERS = pcbnew.SHAPE_POLY_SET()
@@ -210,55 +267,97 @@ def padpos(fp, num, pick=None):
     return pts[0] if pick is None else sorted(pts, key=pick)[0]
 
 
+def angle_diff(a, b):
+    return abs((a - b + 180) % 360 - 180)
+
+
+def turn_to(fp, centre, direction_of, want, step=0.5):
+    """Rotate fp (in `step` degree steps) until direction_of(fp) points along `want` degrees."""
+    best = None
+    for k in range(int(360 / step)):
+        rot = k * step
+        fp.SetOrientationDegrees(rot)
+        d = angle_diff(direction_of(fp), want)
+        if best is None or d < best[0]:
+            best = (d, rot)
+    fp.SetOrientationDegrees(best[1])
+    assert best[0] < step, f"{fp.GetReference()}: cannot point at {want} degrees"
+    return best[1]
+
+
 # J1: VCC (pin 1) top row, left in front view = the same corner as the 2018 header's VCC pin; key slot up
 conn = place("J1", CONN, ("1", (CONN[0] - 2.54, CONN[1] - 3.4)))
-# SW1: a search over the whole outline (every pad >= 0.25 mm inside the edge, peg holes inside, switch body no more
-# than 0.25 mm2 past the edge) found no spot where more than ~0.45 mm of knob shows: every lobe of this outline curves
-# too tightly for a 10 mm long switch. This spot, on the side of the head just above the shoulder, is among the best.
+
+
+# SW1: the knob points away from the pins, through the middle of the two locating pegs
+def _knob_dir(fp):
+    pegs = [p.GetPosition() for p in fp.Pads() if p.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH]
+    pins = [p.GetPosition() for p in fp.Pads() if p.GetNumber() in ("1", "4")]
+    mx, my = sum(ToMM(p.x) for p in pegs) / 2, sum(ToMM(p.y) for p in pegs) / 2
+    nx, ny = sum(ToMM(p.x) for p in pins) / 2, sum(ToMM(p.y) for p in pins) / 2
+    return math.degrees(math.atan2(my - ny, mx - nx))
+
+
 sw = load("SW1", SW)
-sw.SetOrientationDegrees(SW_ROT)
+SW_ROT = turn_to(sw, SW, _knob_dir, SW_KNOB)
 link(sw, "SW1")
-# D1 (tip, red): anode (pad 2) on the left, so the anode track takes the left side of the spike and its resistor sits
-# on the left of the spike base; the cathode track takes the right side.  D2 (star, white): anode on the left, toward R2.
-d1 = place("D1", TIP, ("2", (TIP[0] - 1.55, TIP[1])))
-d2 = place("D2", STAR, ("2", (STAR[0] - 1.55, STAR[1])))
-R1C = (93.55, 86.60)        # vertical, in line with the spike's anode track; pad 2 (LED side) at the top
-R2C = (88.90, STAR[1])      # horizontal, left of the star, outside its light window; pad 2 (LED side) toward the LED
-r1 = place("R1", R1C, ("2", (R1C[0], R1C[1] - 0.825)))
-r2 = place("R2", R2C, ("2", (R2C[0] + 0.825, R2C[1])))
 
 # battery: both clip pads are "1" and the clip fits either way, so choose the angle by where the open side faces
 bat = load("BT1", BAT)
-BAT_OPEN = (1.0, 0.0)                    # the open side faces the right-hand board edge; the cell slides in from there
 
 
-def _open_dir(rot):
-    bat.SetOrientationDegrees(rot)
-    fab = [g for g in bat.GraphicalItems() if g.GetLayer() == pcbnew.B_Fab and g.GetShape() == pcbnew.SHAPE_T_RECT]
+def _open_dir(fp):
+    fab = [g for g in fp.GraphicalItems() if g.GetLayer() == pcbnew.B_Fab and hasattr(g, "GetShape") and g.GetShape() in (pcbnew.SHAPE_T_RECT, pcbnew.SHAPE_T_POLY)
+           and ToMM(g.GetBoundingBox().GetWidth()) > 15]
     c = fab[0].GetBoundingBox().GetCenter()             # the clip body rectangle is off-centre toward the closed end
     return math.degrees(math.atan2(BAT[1] - ToMM(c.y), BAT[0] - ToMM(c.x)))
 
 
-for _rot in (0, 90, 180, 270):
-    _d = _open_dir(_rot)
-    if abs((_d - math.degrees(math.atan2(BAT_OPEN[1], BAT_OPEN[0])) + 180) % 360 - 180) < 1:
+# Measured at 0/90/180/270 degrees (a rectangle turns into a polygon at other angles): the open side faces the
+# direction from the body rectangle's centre to the clip's centre. Then the clip is turned by the remaining angle.
+for _r in (0, 90, 180, 270):
+    bat.SetOrientationDegrees(_r)
+    _d0 = _open_dir(bat)
+    if angle_diff(_d0, 0.0) < 1:
         break
 else:
     raise AssertionError("no right-angle rotation turns the clip's open side to the right")
-# KiCad 10 reports the shared clip footprint's courtyard (a circle overlapping a rectangle) as "malformed" at exactly
-# 0/90/180/270 degrees; 0.1 degree off a right angle it is accepted. The 0.1 degree moves nothing by more than 0.02 mm.
-bat.SetOrientationDegrees(_rot - 0.1)
+# turning the footprint by +a degrees turns its open side by -a degrees in the front view (y grows down)
+BAT_ROT = (_r - BAT_OPEN) % 360
+bat.SetOrientationDegrees(BAT_ROT)
+# KiCad 10 calls this clip's courtyard (a circle overlapping a rectangle) "malformed" at exact right angles and, it
+# turns out, at some others (325-332 degrees fail, 335 passes): check it here rather than wait for DRC.
+bat.BuildCourtyardCaches()
+assert not bat.GetFlags() & pcbnew.MALFORMED_COURTYARDS, f"KiCad finds the clip's courtyard malformed at {BAT_ROT} degrees"
 link(bat, "BT1")
-# The clip is one piece of metal joining its two "+" pads. Mad Cat also joins them with a track round the closed end;
-# here that track would have to run through the maker's lettering ("26" and the credits), so instead the footprint is
-# told that pads with the same number are joined inside the part (KiCad 9+ "jumper" pads). Only the lower pad is routed.
+# The clip is one piece of metal joining its two "+" pads; the footprint is told so (KiCad 9+ "jumper" pads), and
+# only the pad nearer the switch is routed.
 bat.SetDuplicatePadNumbersAreJumpers(True)
-# The clip's own silkscreen (closed-end line, open-side arrow, "+") would print across the lettering and off the
-# board edge here; it moves to the fab drawing, and the board carries its own marks (see labels below).
+# The clip's own silkscreen (closed-end line, open-side arrow, "+") moves to the fab drawing; the board carries its
+# own labels (see below), placed clear of the maker's lettering.
 for it in bat.GraphicalItems():
     if it.GetLayer() == B_SilkS:
         it.SetLayer(pcbnew.B_Fab)
-print("battery clip angle", _rot)
+print("battery clip angle", BAT_ROT)
+
+_od = _open_dir(bat)
+assert angle_diff(_od, BAT_OPEN) < 1, f"clip open side faces {_od:.1f}, wanted {BAT_OPEN}"
+
+# D1 (tip, red) and D2 (star, white): reverse-mount, lens into the board, centred on the art
+d1 = load("D1", TIP)
+d2 = load("D2", STAR)
+for _fp in (d1, d2):
+    _fp.SetOrientationDegrees(0)
+    link(_fp, _fp.GetReference())
+
+# Resistors, beside the switch. R1 stands upright so the badge-power wire (VSAO) can pass straight between its two
+# pads (0.85 mm apart: 0.3 mm of clearance on each side of a 0.25 mm wire, under the resistor's solder mask). That is
+# how the badge supply gets past the LED-supply wire on one copper layer without vias (see "Routing" below).
+P1 = padpos(sw, "1")
+R1C = (99.5, P1[1])                  # gap centred on switch pin 1's height, so VSAO runs dead straight
+R2C = (97.15, STAR[1])               # level with the star LED, east of it, outside its light window
+r1 = place("R1", R1C, ("1", (R1C[0], R1C[1] + 0.825)))     # pad 1 (LED supply) below, pad 2 (to the tip LED) above
+r2 = place("R2", R2C, ("1", (R2C[0] + 0.825, R2C[1])))     # pad 1 (LED supply) east, pad 2 west toward the star
 
 NEW = set(PARTS)
 for fp in board.GetFootprints():        # the 2018 art lives in footprints with no schematic symbol: mark them board-only
@@ -266,35 +365,114 @@ for fp in board.GetFootprints():        # the 2018 art lives in footprints with 
         fp.SetAttributes(fp.GetAttributes() | pcbnew.FP_BOARD_ONLY | pcbnew.FP_EXCLUDE_FROM_BOM | pcbnew.FP_EXCLUDE_FROM_POS_FILES)
 
 # every new part must sit on the board, and no new pad may touch the maker's lettering
+CLIP_EDGE = 1.0                          # the cell clip's pads and bare disc stay at least 1 mm inside the edge
 for fp in board.GetFootprints():
     if fp.GetReference() in NEW:
         for pad in fp.Pads():
             if pad.IsOnLayer(B_Cu) and pad.GetAttribute() != pcbnew.PAD_ATTRIB_NPTH:
-                disc = fp.GetReference() == "BT1" and pad.GetNumber() == "2"
+                keep = CLIP_EDGE if fp.GetReference() == "BT1" else (0.25 if fp.GetReference() == "SW1" else EDGE)
                 off = pad_poly(pad, B_Cu)
-                off.BooleanSubtract(grown(body, -0.25) if (disc or fp.GetReference() == "SW1") else inner)
-                assert off.OutlineCount() == 0, f"{fp.GetReference()} pad {pad.GetNumber()} is closer than {EDGE} mm to the board edge"
-                hit = pad_poly(pad, B_Cu, 0.0 if disc else 0.05)
+                off.BooleanSubtract(grown(body, -keep))
+                assert off.OutlineCount() == 0, f"{fp.GetReference()} pad {pad.GetNumber()} is closer than {keep} mm to the board edge"
+                hit = pad_poly(pad, B_Cu, 0.3)
                 hit.BooleanIntersection(LETTERS)
-                if disc:
-                    print("cell disc over the maker's lettering, mm2:", round(area_mm2(hit), 4))
-                assert area_mm2(hit) < (0.02 if disc else 0.005), f"{fp.GetReference()} pad {pad.GetNumber()} lies on the maker's lettering ({area_mm2(hit):.3f} mm2)"
+                assert area_mm2(hit) < 1e-4, f"{fp.GetReference()} pad {pad.GetNumber()} is within 0.3 mm of the maker's lettering"
             if pad.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH:
                 off = pcbnew.SHAPE_POLY_SET()
-                add_circle(off, pad.GetPosition(), ToMM(pad.GetDrillSize().x) / 2 + 0.2)
+                add_circle(off, pad.GetPosition(), ToMM(pad.GetDrillSize().x) / 2 + 0.25)
                 off.BooleanSubtract(body)
                 assert off.OutlineCount() == 0, f"{fp.GetReference()} peg hole is too close to the edge"
+# the fitted cell (20 mm) lies wholly on the board and covers none of the maker's lettering
+CELL = pcbnew.SHAPE_POLY_SET()
+add_circle(CELL, P(*BAT), 10.0)
+_c = pcbnew.SHAPE_POLY_SET(CELL)
+_c.BooleanSubtract(body)
+assert area_mm2(_c) < 1e-4, "the cell overhangs the board edge"
+_c = grown(CELL, 0.3)
+_c.BooleanIntersection(LETTERS)
+assert area_mm2(_c) < 1e-4, "the cell covers the maker's lettering"
+# and no part body covers lettering either: J1's shroud, the clip and the switch are opaque. A body is the largest
+# outline on the part's fab drawing, plus its pads.
+def fab_body(fp):
+    best = None
+    for it in fp.GraphicalItems():
+        if it.GetLayer() != pcbnew.B_Fab or not hasattr(it, "GetShape"):
+            continue
+        if it.GetShape() == pcbnew.SHAPE_T_RECT:
+            ps = poly([mm(c) for c in it.GetRectCorners()])
+        elif it.GetShape() == pcbnew.SHAPE_T_POLY:
+            ps = pcbnew.SHAPE_POLY_SET(it.GetPolyShape())
+        else:
+            continue
+        if best is None or area_mm2(ps) > area_mm2(best):
+            best = ps
+    for pad in fp.Pads():
+        if pad.IsOnLayer(B_Cu):
+            best.Append(pad_poly(pad, B_Cu))
+    best.Simplify()
+    return best
+
+
+for ref in ("J1", "BT1", "SW1"):
+    fp = [f for f in board.GetFootprints() if f.GetReference() == ref][0]
+    cy = fab_body(fp)
+    cy.BooleanIntersection(grown(LETTERS, 0.3))
+    print(f"{ref} body within 0.3 mm of the maker's lettering, mm2:", round(area_mm2(cy), 3))
+    assert area_mm2(cy) < 1e-3, f"{ref} would hide some of the maker's lettering"
+
+
+def edge_dist(fp):
+    """Smallest distance from a part's body and pads to the board edge (mm), in 0.05 mm steps."""
+    cy = fab_body(fp)
+    for k in range(0, 200):
+        g = grown(cy, k * 0.05)
+        g.BooleanSubtract(body)
+        if area_mm2(g) > 1e-4:
+            return k * 0.05
+    return 10.0
+
+
+print("J1 body and pads to the board edge, mm:", edge_dist(conn))
 
 for ref in ("J1", "SW1", "BT1", "D1", "D2", "R1", "R2"):
     fp = [f for f in board.GetFootprints() if f.GetReference() == ref][0]
-    print(ref, "at", mm(fp.GetPosition()), "rot", fp.GetOrientationDegrees(), {p.GetNumber(): mm(p.GetPosition()) for p in fp.Pads() if p.GetNumber()})
+    print(ref, "at", mm(fp.GetPosition()), "rot", round(fp.GetOrientationDegrees(), 2), {p.GetNumber(): mm(p.GetPosition()) for p in fp.Pads() if p.GetNumber()})
+
+
+# ---- how far the switch knob sticks out past the edge ----------------------------------------------
+def knob_proud():
+    """(at the middle position, worst over the whole slide) distance the knob tip reaches past the board edge."""
+    k = _knob_dir(sw)
+    u = (math.cos(math.radians(k)), math.sin(math.radians(k)))
+    v = (-u[1], u[0])
+    o = mm(sw.GetPosition())
+
+    def furthest_board(xs):
+        far = 1.6
+        for x in xs:
+            for i in range(0, 31):
+                y = 1.6 + i * 0.05
+                pt = P(o[0] + x * v[0] + y * u[0], o[1] + x * v[1] + y * u[1])
+                if body.Contains(pt):
+                    far = max(far, y)
+        return far
+    mid = 3.1 - furthest_board([x / 10 for x in range(-6, 7)])
+    worst = 3.1 - furthest_board([x / 10 for x in range(-21, 22)])
+    return round(mid, 2), round(worst, 2)
+
+
+print("switch knob past the edge (middle position, worst position), mm:", knob_proud())
 
 if os.environ.get("PLACE_ONLY"):
     pcbnew.SaveBoard(OUT, board)
     sys.exit(0)
 
 
-# ---- routing (back copper only) -----------------------------------------------------------------
+# ---- Routing (back copper only, no vias) ------------------------------------------------------------
+# The switch's common pin 3 lies between its badge pin 1 and cell pin 4, and the LED supply that leaves pin 3 has to
+# reach the tip of the crown, at the board edge. So on one layer the LED-supply wire always fences pin 1 off from
+# pin 4: one of the two supplies has to get across it. Rev A crossed with two vias. Here the badge supply crosses
+# between the two pads of R1, the resistor that sits in that wire, under the resistor's solder mask.
 def route(net, pts, width=TRACK, clear=CLEAR):
     for a, b in zip(pts, pts[1:]):
         if a == b:
@@ -309,69 +487,78 @@ def route(net, pts, width=TRACK, clear=CLEAR):
         TRACKS.append((t, clear))
 
 
-j1 = padpos(conn, "1")
+def spike_centre(y):
+    """Middle of the crown spike at height y (front view), from the outline."""
+    xs = []
+    for (x1, y1), (x2, y2) in zip(OUTLINE, OUTLINE[1:] + OUTLINE[:1]):
+        if (y1 <= y) != (y2 <= y):
+            xs.append(x1 + (y - y1) * (x2 - x1) / (y2 - y1))
+    xs = sorted(x for x in xs if abs(x - TIP[0]) < 6)
+    return ((xs[0] + xs[1]) / 2, xs[1] - xs[0]) if len(xs) == 2 else None
+
+
 s1, s3, s4 = padpos(sw, "1"), padpos(sw, "3"), padpos(sw, "4")
 bt = padpos(bat, "1", pick=lambda p: p[1])               # the clip pad nearer the switch (the upper one)
 d1a, d1k = padpos(d1, "2"), padpos(d1, "1")
 d2a = padpos(d2, "2")
+r1p1, r1p2 = padpos(r1, "1"), padpos(r1, "2")
+r2p1, r2p2 = padpos(r2, "1"), padpos(r2, "2")
+j1 = padpos(conn, "1")
 
-# How the wires get past each other on one layer. The LED supply (switch pin 3) runs to R2, R1 and up the spike to
-# the tip, so with the switch on the head it fences in pin 1 (badge 3.3 V), which must reach the connector at the
-# bottom. Pin 1's wire therefore hops over the LED supply once: two small holes ("vias", covered by solder mask on
-# both sides) inside the dark open mouth on the front, joined by a 1.6 mm copper link under the mask.
-VIA_A, VIA_B = (90.6, 110.8), (90.6, 112.2)   # the only spots in the mouth clear of teeth, copper and back lettering
+# LED supply: switch pin 3 -> west -> up into R1's lower pad, with a branch to R2's east pad
+VX = r1p1[0]
+route("VLOAD", [s3, (VX + 0.7, s3[1]), (VX, s3[1] - 0.7), r1p1])
+route("VLOAD", [(VX, r2p1[1]), r2p1])
+# star: R2 west pad -> straight across to the anode
+route("LED2_A", [r2p2, d2a])
+# crown spike: the tip LED's anode wire on the east side of the spike, its cathode (GND) wire on the west side,
+# 0.8 mm apart, following the middle of the spike down to its base
+SPIKE = []
+for k in range(0, 20):
+    y = d1a[1] + 3.6 + k * 1.2
+    cw = spike_centre(y)
+    if cw is None:
+        break
+    SPIKE.append((round(y, 3), cw[0], cw[1]))
+print("spike centre/width (y, x, w):", [(round(a, 1), round(b, 2), round(c, 2)) for a, b, c in SPIKE[:4]], "...")
+assert min(w for _, _, w in SPIKE) > 2.4, "spike too narrow for two wires"
+route("LED1_A", [d1a, (d1a[0], SPIKE[0][0] - 1.0)] + [(c + 0.4, y) for y, c, w in SPIKE] +
+      [(r1p2[0], r1p2[1] - 2.0), r1p2], width=THIN)
+route("GND", [d1k, (d1k[0], SPIKE[0][0] - 1.0)] + [(c - 0.4, y) for y, c, w in SPIKE] +
+      [(SPIKE[-1][1] - 1.2, SPIKE[-1][0] + 2.0)], width=THIN)
+# badge 3.3 V: switch pin 1 -> straight west between R1's pads -> along the top of the star's light window ->
+# down the west side of the star -> south-west across the neck -> down the left side of the board, outside the
+# lettering -> east under the credits -> into connector pin 1 from the west
+SX = STAR[0] - WINDOW - 1.6
+route("VSAO", [s1, (VX - 1.2, s1[1]), (SX, s1[1]), (SX, STAR[1] + 3.0), (80.5, 97.0), (72.5, 99.5), (72.5, 108.5),
+               (75.5, 111.5), (75.5, 134.0), (77.0, j1[1] + 1.2), (j1[0] - 1.6, j1[1] + 1.2), (j1[0] - 0.55, j1[1] + 1.2)], width=THIN)
+# coin cell +: switch pin 4 -> round the switch's lower solder tab -> down the right side of "OH" -> the clip's upper pad
+# (into the clip pad from its outer end, so the wire stays outside the 20 mm circle the cell covers)
+_ax = ((bt[0] - BAT[0]) / 10.5, (bt[1] - BAT[1]) / 10.5)
+_end = (bt[0] - 1.6 * _ax[1], bt[1] + 1.6 * _ax[0]) if _ax[0] < 0 else (bt[0] + 1.6 * _ax[1], bt[1] - 1.6 * _ax[0])
+route("VBAT", [s4, (s4[0] - 0.7, s4[1] + 0.7), (s4[0] - 0.7, 96.6), (104.5, 97.6), (110.8, 100.5), (110.8, 111.8),
+               (_end[0], _end[1] - 0.6), _end])
 
-# LED supply: switch pin 3 -> down the gap between "OH" and "MY" -> across under the mouth, between "SAO" and
-# "DEF CON 26" (and between the two vias) -> up the left side, outside the lettering -> into the head -> R2 -> R1
-TRUNK = [s3, (99.15, 97.5), (99.15, 109.0), (98.0, 111.5), (79.8, 111.5), (79.8, 100.5), (84.6, 98.0),
-         (padpos(r2, "1")[0], 95.6), padpos(r2, "1")]
-route("VLOAD", TRUNK)
-r1p1 = padpos(r1, "1")
-route("VLOAD", [padpos(r2, "1"), (padpos(r2, "1")[0], 90.4), (91.4, 88.6), (r1p1[0], 88.6), r1p1])
-# badge 3.3 V: switch pin 1 -> down beside the star -> the gap between "MY" and "GLOB" -> round the end of "SAO" ->
-# via A ... (front link) ... via B -> left under "DEF CON 26" -> down the left side -> into connector pin 1
-route("VSAO", [s1, (97.6, s1[1]), (97.0, 92.9), (97.0, 99.5), (91.14, 101.6), (91.14, 105.9), (89.3, 106.9),
-               (89.3, VIA_A[1]), VIA_A])
-route("VSAO", [VIA_B, (85.6, 112.45), (85.6, j1[1]), j1])
-# coin cell +: switch pin 4 -> down past the switch's lower solder tabs -> across the shoulder -> the upper clip pad
-route("VBAT", [s4, (s4[0], 101.4), (106.3, 101.4), (bt[0] - 1.2, bt[1] - 0.9)])
-# star: R2 pad 2 -> straight across to the anode
-route("LED2_A", [padpos(r2, "2"), d2a])
-# spike: anode track on the left, cathode (GND) track on the right; 0.25 mm wide, 0.55 mm apart through the 2.06 mm neck
-NECK_A, NECK_K = 93.55, 94.35
-route("LED1_A", [padpos(r1, "2"), (NECK_A, 76.2), (NECK_A, 75.6), (d1a[0], 74.3), d1a], width=THIN)
-route("GND", [d1k, (d1k[0], 74.3), (NECK_K, 75.6), (NECK_K, 77.3), (94.6, 78.2), (94.6, 85.9)], width=THIN)
-
-VIAS = []
-for c_ in (VIA_A, VIA_B):
-    v = pcbnew.PCB_VIA(board)
-    v.SetPosition(P(*c_))
-    v.SetWidth(FromMM(0.6))
-    v.SetDrill(FromMM(0.3))
-    v.SetLayerPair(pcbnew.F_Cu, B_Cu)
-    v.SetNet(nets["VSAO"])
-    v.SetFrontTentingMode(pcbnew.TENTING_MODE_TENTED)
-    v.SetBackTentingMode(pcbnew.TENTING_MODE_TENTED)
-    board.Add(v)
-    VIAS.append(v)
-link_ = pcbnew.PCB_TRACK(board)
-link_.SetStart(P(*VIA_A))
-link_.SetEnd(P(*VIA_B))
-link_.SetWidth(FromMM(THIN))
-link_.SetLayer(F_Cu)
-link_.SetNet(nets["VSAO"])
-board.Add(link_)
-
-# every track inside the board, clear of the edge
+# every track inside the board, clear of the edge, and none across the maker's lettering
 for t, _c in TRACKS:
     o = pcbnew.SHAPE_POLY_SET()
     t.TransformShapeToPolygon(o, B_Cu, 0, ERR, pcbnew.ERROR_OUTSIDE)
     o.BooleanSubtract(inner)
     assert area_mm2(o) < 1e-4, f"track {mm(t.GetStart())}-{mm(t.GetEnd())} comes within {EDGE} mm of the edge"
+    o = pcbnew.SHAPE_POLY_SET()
+    t.TransformShapeToPolygon(o, B_Cu, FromMM(0.5), ERR, pcbnew.ERROR_OUTSIDE)
+    o.BooleanIntersection(LETTERS)
+    assert area_mm2(o) < 1e-4, f"track {mm(t.GetStart())}-{mm(t.GetEnd())} comes within 0.5 mm of the maker's lettering"
+    if t.GetNetCode() != nets["GND"].GetNetCode():
+        o = pcbnew.SHAPE_POLY_SET()
+        t.TransformShapeToPolygon(o, B_Cu, 0, ERR, pcbnew.ERROR_OUTSIDE)
+        o.BooleanIntersection(CELL)
+        assert area_mm2(o) < 1e-4, f"track {mm(t.GetStart())}-{mm(t.GetEnd())} runs under the coin cell"
 
 # ---- GND copper: one pour over the back, cleared around everything that is not GND -----------------
 art = pcbnew.SHAPE_POLY_SET(pour_area)
-art.BooleanSubtract(poly([(85, 60), (103, 60), (103, 84.3), (85, 84.3)]))  # no pour up the spike: only its two tracks
+_spike_box = [S(85, 60), S(103, 60), S(103, 84.3), S(85, 84.3)]
+art.BooleanSubtract(poly(_spike_box))   # no pour up the spike: only its two wires
 disc = pcbnew.SHAPE_POLY_SET()
 add_circle(disc, P(*BAT), 8.55)                          # solid copper under the cell so the bare cell pad is whole
 disc.BooleanIntersection(grown(body, -0.27))
@@ -386,33 +573,18 @@ for fp in board.GetFootprints():
         if pad.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH:
             add_circle(cut, pad.GetPosition(), ToMM(pad.GetDrillSize().x) / 2 + CLEAR + 0.02)
         elif pad.IsOnLayer(B_Cu):
-            # R1 is narrower: the gap between its two pads is the copper bridge that joins the left and right halves
-            # of the ground pour (the LED-supply track runs from the switch to the spike tip and would split it)
-            c_ = 0.2 if fp.GetReference() == "R1" else CLEAR
-            pad.TransformShapeToPolygon(cut, B_Cu, FromMM(c_), ERR, pcbnew.ERROR_OUTSIDE)
+            pad.TransformShapeToPolygon(cut, B_Cu, FromMM(CLEAR), ERR, pcbnew.ERROR_OUTSIDE)
 channels = pcbnew.SHAPE_POLY_SET()
 for t, clear in TRACKS:
     if t.GetNetCode() != gnd_code:
         t.TransformShapeToPolygon(channels, B_Cu, FromMM(clear), ERR, pcbnew.ERROR_OUTSIDE)
 channels.Simplify()
 cut.Append(channels)
-for v in VIAS:
-    add_circle(cut, v.GetPosition(), 0.3 + CLEAR)
 for c_ in (TIP, STAR):                                   # light path behind the star and the spike tip
     add_circle(cut, P(*c_), WINDOW)
 cut.Simplify()
 art.BooleanSubtract(cut)
 art.Simplify()
-
-# no new track may run through the maker's lettering
-_hit = pcbnew.SHAPE_POLY_SET(channels)
-_hit.BooleanIntersection(grown(LETTERS, 0.1))
-assert area_mm2(_hit) < 0.001, f"a track channel overlaps the maker's lettering by {area_mm2(_hit):.3f} mm2"
-for v in VIAS:                                           # the vias: their pads clear of the back lettering ...
-    _h = pcbnew.SHAPE_POLY_SET()
-    add_circle(_h, v.GetPosition(), 0.3)
-    _h.BooleanIntersection(grown(LETTERS, 0.15))
-    assert area_mm2(_h) < 1e-4, "a via touches the back lettering"
 
 # every separate piece that touches a GND pad or the spike's GND track carries the GND net; the rest is dropped
 gnd_cu = pcbnew.SHAPE_POLY_SET()
@@ -435,19 +607,20 @@ for i in range(art.OutlineCount()):
     else:
         print("  dropped loose pour piece, mm2:", round(area_mm2(piece), 2), "at", [round(v, 1) for v in bbox_mm(piece)])
 print("back GND pour pieces:", n_gnd)
+assert n_gnd == 1, "the ground pour should be one piece"
 
 # ---- front copper art: same shapes as 2018, minus the window the old through-hole header sat in ----
 fgaps = pcbnew.SHAPE_POLY_SET(grown(body, -0.3))
 fgaps.BooleanSubtract(front)
-fgaps.BooleanIntersection(poly([(94.0, 133.0), (104.5, 133.0), (104.5, 141.5), (94.0, 141.5)]))
+fgaps.BooleanIntersection(poly([S(94.0, 133.0), S(104.5, 133.0), S(104.5, 141.5), S(94.0, 141.5)]))
 fgaps.Simplify()
 _filled = 0
 for i in range(fgaps.OutlineCount()):
     one = pcbnew.SHAPE_POLY_SET(fgaps.Polygon(i))
-    if one.Contains(P(99.31, 137.31)):                   # centre of the 2018 header
+    if one.Contains(P(*S(99.31, 137.31))):               # centre of the 2018 header
         front.BooleanAdd(grown(one, 0.05))
         _filled = area_mm2(one)
-assert 10 < _filled < 60, f"front window at the old header: {_filled:.1f} mm2"
+assert 10 * SCALE ** 2 < _filled < 60 * SCALE ** 2, f"front window at the old header: {_filled:.1f} mm2"
 print("filled old header window on the front, area mm2:", round(_filled, 1))
 _star = pcbnew.SHAPE_POLY_SET(front)
 _win = pcbnew.SHAPE_POLY_SET()
@@ -459,21 +632,6 @@ _win = pcbnew.SHAPE_POLY_SET()
 add_circle(_win, P(*TIP), WINDOW)
 _tipf.BooleanIntersection(_win)
 assert area_mm2(_tipf) < 1e-4, "front copper at the spike tip"
-# ... and on the front they sit in bare dark mouth: no art copper within 0.25 mm, no white tooth within 0.1 mm
-_fv = pcbnew.SHAPE_POLY_SET()
-for v in VIAS:
-    add_circle(_fv, v.GetPosition(), 0.3 + 0.25)
-link_.TransformShapeToPolygon(_fv, F_Cu, FromMM(0.25), ERR, pcbnew.ERROR_OUTSIDE)
-_fv.BooleanIntersection(front)
-assert area_mm2(_fv) < 1e-4, "front art copper too close to the vias or their link"
-_fs = pcbnew.SHAPE_POLY_SET()
-for p_ in footprint_polys(board, pcbnew.F_SilkS):
-    _fs.Append(p_)
-_fv = pcbnew.SHAPE_POLY_SET()
-for v in VIAS:
-    add_circle(_fv, v.GetPosition(), 0.4)
-_fv.BooleanIntersection(_fs)
-assert area_mm2(_fv) < 1e-4, "a via lands on a white tooth"
 pegs = pcbnew.SHAPE_POLY_SET()
 for pad in sw.Pads():
     if pad.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH:
@@ -492,16 +650,27 @@ band.BooleanIntersection(tabzone)
 front.BooleanSubtract(band)
 front.Simplify()
 add_filled(board, front, F_Cu)
+# nothing electrical sits near a panel tab: the mouse-bite holes reach 0.25 mm into the board
+for fp in board.GetFootprints():
+    if fp.GetReference() in NEW:
+        for pad in fp.Pads():
+            if pad.IsOnLayer(B_Cu):
+                h = pad_poly(pad, B_Cu, 0.3)
+                h.BooleanIntersection(band)
+                assert area_mm2(h) < 1e-4, f"{fp.GetReference()} pad {pad.GetNumber()} is too near a panel tab"
 
-# front mask: a bare 2 mm window at the spike tip (the 2018 LED's legs went through here; now light comes through)
+# front mask: a bare window at the spike tip (the 2018 LED's legs went through here; now light comes through)
 tipmask = pcbnew.SHAPE_POLY_SET()
 add_circle(tipmask, P(*TIP), TIP_MASK)
 add_filled(board, tipmask, pcbnew.F_Mask)
 
-# ---- back silkscreen labels (none may touch the maker's lettering or a pad) ------------------------
-LABELS = [("SAO", 98.0, 91.9, 0.8, 90), ("OFF", 98.0, 94.6, 0.8, 90), ("BAT", 98.0, 97.3, 0.8, 90),
-          ("CR2032", 111.2, 100.4, 0.8, 0), ("+ SIDE UP", 111.2, 101.7, 0.8, 0), ("<", 118.7, BAT[1], 1.0, 0),
-          ("SAO++ rA", 81.0, 127.0, 0.9, 0), ("1", 95.0, 128.8, 0.9, 0)]
+# ---- back silkscreen (none may touch the maker's lettering or a pad) --------------------------------
+_od = math.radians(BAT_OPEN)
+_lbl = (BAT[0] + 13.0 * math.cos(_od) - 3.0, BAT[1] + 13.0 * math.sin(_od) + 1.0)
+LABELS = [("SAO", 100.5, r1p2[1] - 1.9, 0.8, 90), ("OFF", 100.5, r1p1[1] + 2.1, 0.8, 90),
+          ("BAT", 100.5, s4[1] + 0.4, 0.8, 90),
+          ("CR2032", 117.6, 102.6, 0.8, 0), ("+ SIDE UP", 117.6, 103.9, 0.8, 0),
+          ("SAO++ rB", 78.0, 129.0, 0.9, 0), ("1", 97.9, j1[1], 0.9, 0)]
 bare = pcbnew.SHAPE_POLY_SET()
 for fp in board.GetFootprints():
     if fp.GetReference() in NEW:
@@ -509,6 +678,7 @@ for fp in board.GetFootprints():
             if pad.IsOnLayer(pcbnew.B_Mask):
                 bare.Append(pad_poly(pad, B_Cu, 0.15))
 bare.Simplify()
+SILK = []
 for txt, x, y, size, rot in LABELS:
     t = pcbnew.PCB_TEXT(board)
     t.SetText(txt)
@@ -521,24 +691,41 @@ for txt, x, y, size, rot in LABELS:
     board.Add(t)
     ps = pcbnew.SHAPE_POLY_SET()
     t.TransformTextToPolySet(ps, 0, ERR, pcbnew.ERROR_INSIDE)
+    SILK.append((txt, ps))
+# an arrow at the clip's open side, pointing at the cell: it slides in from here
+# (the edge is only about 10.6 mm from the cell's centre on that side, so the arrow sits on the cell's rim, outside the bare disc)
+_tip_a = (BAT[0] + 9.0 * math.cos(_od), BAT[1] + 9.0 * math.sin(_od))
+_tail_a = (BAT[0] + 10.05 * math.cos(_od), BAT[1] + 10.05 * math.sin(_od))
+for a_, b_ in [(_tail_a, _tip_a), (_tip_a, (_tip_a[0] + 0.5 * math.cos(_od + 0.6), _tip_a[1] + 0.5 * math.sin(_od + 0.6))),
+               (_tip_a, (_tip_a[0] + 0.5 * math.cos(_od - 0.6), _tip_a[1] + 0.5 * math.sin(_od - 0.6)))]:
+    ln = pcbnew.PCB_SHAPE(board, pcbnew.SHAPE_T_SEGMENT)
+    ln.SetStart(P(*a_))
+    ln.SetEnd(P(*b_))
+    ln.SetWidth(FromMM(0.15))
+    ln.SetLayer(B_SilkS)
+    board.Add(ln)
+    ps = pcbnew.SHAPE_POLY_SET()
+    ln.TransformShapeToPolygon(ps, B_SilkS, 0, ERR, pcbnew.ERROR_OUTSIDE)
+    SILK.append(("arrow", ps))
+for txt, ps in SILK:
     for other, what in ((LETTERS, "the maker's lettering"), (bare, "a pad")):
         h = pcbnew.SHAPE_POLY_SET(ps)
         h.BooleanIntersection(grown(other, 0.15))
         assert area_mm2(h) < 1e-4, f"label {txt!r} touches {what}"
     o = pcbnew.SHAPE_POLY_SET(ps)
-    o.BooleanSubtract(grown(body, -0.3))
+    o.BooleanSubtract(grown(body, -0.2))
     assert area_mm2(o) < 1e-4, f"label {txt!r} is off the board"
 
 # ---- nothing may lie outside the outline on any manufactured layer --------------------------------
 MADE = [pcbnew.F_Cu, B_Cu, pcbnew.F_SilkS, B_SilkS, pcbnew.F_Mask, pcbnew.B_Mask, pcbnew.F_Paste, pcbnew.B_Paste]
-_bb = body.BBox()
-_bb.Inflate(FromMM(0.05))
+_bbx = body.BBox()
+_bbx.Inflate(FromMM(0.05))
 for it in list(board.GetDrawings()) + [g for fp in board.GetFootprints() for g in fp.GraphicalItems()] + \
         [p for fp in board.GetFootprints() for p in fp.Pads()] + list(board.Tracks()):
     lays = [L for L in MADE if it.IsOnLayer(L)]
     if lays and it.GetClass() != "PCB_FIELD":
         bb = it.GetBoundingBox()
-        assert _bb.Contains(bb.GetOrigin()) and _bb.Contains(bb.GetEnd()), f"{it.GetClass()} on {board.GetLayerName(lays[0])} lies outside the board outline"
+        assert _bbx.Contains(bb.GetOrigin()) and _bbx.Contains(bb.GetEnd()), f"{it.GetClass()} on {board.GetLayerName(lays[0])} lies outside the board outline"
 
 # ---- report -------------------------------------------------------------------------------------
 ds = board.GetDesignSettings()

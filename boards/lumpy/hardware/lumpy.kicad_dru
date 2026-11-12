@@ -1,16 +1,10 @@
 (version 1)
 
-# The copper on this board is artwork. These rules stop DRC from flagging the art for being art;
+# The copper on this board is artwork. This rule stops DRC from flagging the art for being art;
 # everything electrical (pads, tracks, the GND art against other nets) is still checked at full rules.
+# (Rev A also needed a rule letting the connector's and the cell clip's keep-out boxes overlap. Rev B is scaled up
+# 1.3x and the two parts no longer come near each other, so that rule is gone.)
 
 (rule "Fine gaps inside the artwork (lettering, line art)"
   (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
   (constraint clearance (min 0.01mm)))
-
-# The connector (bottom lobe) and the coin-cell clip (right lobe) each have only one spot on this board. Their keep-out
-# boxes overlap by about 2 mm, but the parts do not touch: the connector's plastic shroud ends 0.1 mm short of the
-# clip's lower solder pad, and the two connector pads that sit inside the clip's outline (pins 3 and 5) are unused.
-# Check the clip's leg against the shroud on the first prototype.
-(rule "Connector beside the coin-cell clip"
-  (condition "A.Reference == 'J1' && B.Reference == 'BT1'")
-  (constraint courtyard_clearance (min -2.2mm)))

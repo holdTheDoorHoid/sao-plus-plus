@@ -1,7 +1,8 @@
 name: "Oh My Glob (LSP)"
 slug: lumpy
 status: porting            # designed and rule-checked; no physical SAO++ board built yet
-revision: "A"
+revision: "B"
+scale: 1.3                 # rev B: outline and art scaled 1.3x about the outline's centre; 50.8 x 71.4 mm -> 66.0 x 92.8 mm
 
 original:
   title: "LSP SAO, DEF CON 26 LSP SAO Badge (\"Oh My Glob SAO\")"
@@ -15,14 +16,35 @@ original:
   art_note: "Lumpy Space Princess is a character from the cartoon Adventure Time, owned by Cartoon Network / Warner Bros. Discovery. Using her likeness needs its own permission (or new art), separate from the maker's permission for the board design."
 
 changes:
-  - "4-pin through-hole SAO v1 header replaced by the 6-pin v1.69bis SMD shrouded header, in the same bottom lobe"
-  - "SAO / OFF / BATTERY slide switch on the right side of the head; CR2032 clip on the right lobe of the back"
+  - "Rev B (2026-11-12): the whole board scaled up 1.3x (outline and all art together, same proportions): 50.8 x 71.4 mm -> 66.0 x 92.8 mm. Parts keep their real size; only the two LEDs, which are part of the picture, moved with the art"
+  - "4-pin through-hole SAO v1 header replaced by the 6-pin v1.69bis SMD shrouded header, in the bottom lobes just below the credits (near the old header spot), wholly on the board, 1.1 mm from the edge at its closest"
+  - "SAO / OFF / BATTERY slide switch on the right side of the head (about 1.15 mm of knob past the edge, at least 0.95 mm at either end of its travel); CR2032 clip in the right lobe of the back, cell wholly on the board, covering no lettering, open side toward the notch above it"
   - "TOPLED behind the star replaced by a white reverse-mount 1206 LED; the 3 mm LED that stood up on the front at the spike tip replaced by a red reverse-mount LED on the back, shining through a 2 mm bare window; one 1.3 k resistor each"
-  - "Two tiny holes (vias), covered by solder mask on both sides, inside the dark open mouth, joined by a 1.6 mm copper link on the front: the only way to get the badge supply past the LED supply on this outline (owner-approved option, 2026-11-11)"
+  - "No vias: one copper layer carries every wire. The badge supply crosses the LED supply between the two pads of R1, under its solder mask (0.3 mm clearance each side)"
   - "Back copper (the 2018 back had none) is now a ground pour under the mask, cleared around the new parts and behind both LEDs"
-  - "The coin cell covers the end of 'DEF CON 26' while it is fitted; its bare contact disc trims a 0.005 mm2 sliver off the tip of the '6'"
   - "Removed: the old part labels ('VCC', '+', '-' on the back, a pin-1 'o' on the front) and the 2 mm back mask window behind the star (the new LED brings its own)"
-  - "Outline redrawn as one closed path (same shape); front art unchanged apart from the old header window (filled), two 0.9 mm switch peg holes on the head, the 2 mm tip window, and the art stepping back to 0.55 mm from the edge at the six panel tabs"
+  - "Outline redrawn as one closed path (same shape, scaled); front art unchanged apart from the scale, the old header window (filled), two 0.9 mm switch peg holes on the head, the 2 mm tip window, and the art stepping back to 0.55 mm from the edge at the six panel tabs"
+
+rev_b:
+  scale: 1.3
+  size_mm: {old: [50.8, 71.4], new: [66.0, 92.8]}
+  compromises_gone:
+    - "two tented vias in the mouth (now none; the badge supply passes between R1's pads instead)"
+    - "coin cell overhanging the edge by about 1 mm (now wholly on the board, 0.4 mm inside; clip pads 1.3 mm from the edge)"
+    - "coin cell hiding the end of 'DEF CON 26' and nicking the '6' (now covers no lettering)"
+    - "connector shroud 0.1 mm from the clip pad and the DRC rule that allowed it (rule deleted from both .kicad_dru files)"
+    - "connector body overhanging the bottom notches"
+    - "two wires running through the gaps between words (no wire within 0.5 mm of the lettering now)"
+  compromises_reduced:
+    - "switch knob: about 0.4 mm past the edge -> about 1.15 mm (0.95 mm at the ends of its travel); the head is a curved lobe"
+  compromises_remaining:
+    - "connector 1.1 mm from the edge, not the 3 mm the standard asks for (no such spot with the cell in place, even at 1.35x)"
+    - "cell clip at 335 degrees: KiCad 10 calls the clip's courtyard malformed at right angles and at 325-332 degrees"
+    - "board is about 1.7x the area and weight of rev A"
+  smaller_factors_tried:
+    "1.15": "cell fits; connector cannot sit wholly on the board anywhere clear of the lettering and the cell"
+    "1.2": "connector and clip cannot both fit without their keep-out boxes overlapping"
+    "1.25": "fits only with the connector on the left lobe (0.6 mm from the edge, away from the old header spot) or with the clip's open side facing into the board at the connector"
 
 features:
   power_select: true

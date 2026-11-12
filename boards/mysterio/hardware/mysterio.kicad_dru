@@ -3,17 +3,9 @@
 # Much of the copper on this board is artwork: the robe, collar and chest plate on the front, and the maker's helmet
 # art (moved from his inner layer) on the back. This rule stops DRC from flagging the art for being art; everything
 # electrical (pads, tracks, the GND and 3.3 V copper against other nets) is still checked at full rules.
+# Rev B is scaled up 1.3x, which gave every part its own space: the rev A rules letting R2, R3, R4 and the XIAO sit
+# inside the SAO connector's courtyard, and R4 beside the switch, are gone.
 
 (rule "Fine gaps inside the artwork"
   (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
   (constraint clearance (min 0.01mm)))
-
-# The SAO connector's courtyard includes its long SMD pads. R2 (above it), R3 (below it) and R4 (below its left end)
-# sit outside the connector's plastic body, 0.5 mm or more from its pads, but inside that courtyard. R4 also sits
-# 0.3 mm (pad to pin) beside the switch. The XIAO's first pad column is 0.3 mm from the connector body.
-(rule "Resistors and XIAO beside the SAO connector"
-  (condition "A.Reference == 'J1' && (B.Reference == 'R2' || B.Reference == 'R3' || B.Reference == 'R4' || B.Reference == 'U1')")
-  (constraint courtyard_clearance (min -2.0mm)))
-(rule "R4 beside the switch"
-  (condition "A.Reference == 'SW1' && B.Reference == 'R4'")
-  (constraint courtyard_clearance (min -0.5mm)))
