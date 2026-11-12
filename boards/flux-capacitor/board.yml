@@ -1,0 +1,61 @@
+name: "Flux Capacitor"
+slug: flux-capacitor
+status: porting            # designed, routed and rule-checked; no physical board built yet
+revision: "A"
+
+original:
+  title: "Flux Capacitor trinket (Simple Add-ons SAO, 'Flux Capacitor')"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2017
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/FluxCapacitor"
+  project_url: "https://hackaday.io/project/25898-flux-capacitor-trinket"
+  license: "none stated"   # the repo (commit 1a08593) states no license, so all rights are reserved by default
+  permission: "pending"
+  permission_ref: ""
+  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  base_revision: "original/attiny45.brd + .sch (Eagle, the only version in the folder; its readme is empty)"
+  art_note: "The drawing is the flux capacitor from the film 'Back to the Future' (Universal). It is a third-party reference: not ours, and not davedarko's to license. That needs its own clearance before any sale, separately from davedarko's permission."
+
+scale:
+  factor: 1.35
+  original_size_mm: [25.40, 30.47]
+  new_size_mm: [34.29, 41.13]
+  why: "The SAO connector (15.4 x 11.2 mm with pads), the 24 x 17 mm CR2032 clip with its 20 mm cell, and the switch do not fit on the maker's 25.4 x 30.5 mm board: the connector and the clip stacked need about 34 mm of height alone. Owner rule 2026-11-12: scale the whole board up instead of overhanging the cell. Tried 1.20-1.33: the switch, chip or ISP pads still overlap the clip's keep-clear box; 1.35 is the smallest tried that fits cleanly (1.34 not tried)."
+
+changes:
+  - "Whole board scaled up 1.35x (outline, the Y, the warning text, the bare cables, the three electrode holes, the LED positions and the maker's credit together); parts keep their real sizes"
+  - "Was a pin (brooch) with no connector: the two bare brooch-pin pads on the back are dropped; the shared shrouded SAO v1.69bis connector added on the back, top centre, key slot up"
+  - "Maker's on/off slide switch replaced by the shared SAO / OFF / BAT switch, knob out of the left edge"
+  - "Maker's CR1220 holder replaced by the shared CR2032 clip, back, bottom half; the cell slides in from the bottom edge"
+  - "Series cell diode D10 added (a chip runs from the cell, and a programmer feeds the same supply)"
+  - "100 nF supply capacitor added beside the chip (the maker had none)"
+  - "ATtiny45-20 -> ATtiny85V (same pins and package; Knight Rider's part, so the two boards share one reel)"
+  - "The three LED resistors (values not recorded by the maker) are the shared 330 ohm: each drives three LEDs in parallel"
+  - "The nine 1206 LEDs stay forward-facing on the FRONT where the maker put them (stock KiCad 1206 land pattern; the maker's own was a hand-solder pattern)"
+  - "The maker's lettering (front warning lines, back credit) is redrawn in KiCad's font at the same height and length; the credit stays in place on the back right edge"
+  - "Routed on both copper layers: the maker's own front ring tracks kept (scaled), 20 small tented vias (0.3/0.6 mm) plus his three electrode holes; his board had six small vias and front tracks too"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 0
+  front_leds: 9
+  copper_layers_used: 2
+  vias: 20               # small, tented; plus the maker's three bare electrode holes (art)
+  i2c_device: false
+  gpio_use: "none (SDA, SCL, GPIO1, GPIO2 unconnected, as in the maker's circuit)"
+  controller: "ATtiny85V (maker's circuit, not a XIAO)"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-R-02
+  - SAOPP-C-01
+
+local_parts:
+  - {name: ATtiny85_SOIC8_EIAJ, ref: U1, mpn: ATTINY85V-10SU, lcsc: C152192, footprint: "SparkFun SO08-EIAJ (copied from knight-rider-local; identical to the maker's)"}
+  - {name: LED_1206_Red_Front, ref: D1-D9, mpn: LTST-C150KRKT, lcsc: "", footprint: "KiCad stock LED_SMD:LED_1206_3216Metric"}
+  - {name: ISP_Pads_AVR_2x3, ref: JP1, mpn: "none (bare pads)", footprint: "SparkFun 2X3_SMD_PAD (copied from knight-rider-local; identical to the maker's), keep-clear box drawn tighter"}
+  - {name: D_Schottky_Cell, ref: D10, mpn: RB751S40T1G, implements: SAOPP-D-01, lcsc: C232576, footprint: "KiCad stock Diode_SMD:D_SOD-523 (copied from knight-rider-local)"}

@@ -1,0 +1,8 @@
+(version 1)
+
+# The front copper is the maker's ground copper and the white Y is his artwork. This rule stops DRC from flagging the
+# art for being art; everything electrical (pads, tracks, vias, the ground copper against other nets) is still checked
+# at full rules.
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))

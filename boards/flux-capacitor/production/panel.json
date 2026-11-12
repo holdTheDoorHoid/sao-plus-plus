@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. The switch knob sticks out of the left edge (y 108-120), so no tab there.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [100.0, 132.0], "dir": "-x", "why": "left side, below the switch"},
+    {"near": [134.29, 105.2], "dir": "+x", "why": "right side, top (beside the right electrode; clear of the chip and the credit lines)"},
+    {"near": [117.15, 100.0], "dir": "-y", "why": "middle of the top edge"},
+    {"near": [109.0, 141.13], "dir": "+y", "why": "bottom edge, left of the centre"},
+    {"near": [125.3, 141.13], "dir": "+y", "why": "bottom edge, right of the centre"}
+  ]
+}
