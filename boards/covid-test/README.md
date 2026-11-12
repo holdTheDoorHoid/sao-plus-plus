@@ -10,20 +10,21 @@ Originally the **COVID-19 Test SAO** by **davedarko (Dave Darko)**, 2022: https:
 
 ![front](docs/render-front.png) ![back](docs/render-back.png)
 
-A rapid antigen test cassette, 16 × 50 mm. The control line **C** stays lit; the test line **T** blinks, positive, negative, positive: the maker's joke about not knowing.
+A rapid antigen test cassette, 23.7 × 74 mm (rev B: the maker's 16 × 50 mm board scaled up 1.48 times, see "Rev B: why the board grew"). The control line **C** stays lit; the test line **T** blinks, positive, negative, positive: the maker's joke about not knowing.
 
 ## What changed from the 2022 board
 
-| | 2022 original | SAO++ rev A |
+| | 2022 original | SAO++ rev B |
 |---|---|---|
-| Connector | 2×3 through-hole IDC header (pins visible on the front) | 6-pin SAO v1.69bis, surface-mount shrouded and keyed, 0.6 mm higher than the old header. Nothing shows on the front |
-| Power | Badge only | Slide switch on the top edge, knob up: **SAO / OFF / BAT**. Runs from the badge or from its own CR2032, which clips over the lower half of the back |
+| Size | 16 × 50 mm | **23.68 × 74.0 mm**: outline and all art scaled 1.48× together, same proportions; parts keep their real size |
+| Connector | 2×3 through-hole IDC header (pins visible on the front) | 6-pin SAO v1.69bis, surface-mount shrouded and keyed, where the maker's header was (scaled). Nothing shows on the front |
+| Power | Badge only | Slide switch on the right edge (front view), knob out to the right: **SAO / OFF / BAT**. Runs from the badge or from its own CR2032, which clips over the lower part of the back |
 | Timer | Readme: LMC555. Schematic and board: NE555D | **LMC555**. The NE555 needs 4.5 V and will not run from 3.3 V or a coin cell; the LMC555 runs down to 1.5 V, same pins |
-| LEDs | 2 ordinary red LEDs soldered upside down | 2 red LEDs made to be mounted upside down (same Lite-On family the other boards use), in the same spots, one 1.3 kΩ resistor each |
+| LEDs | 2 ordinary red LEDs soldered upside down | 2 red LEDs made to be mounted upside down (same Lite-On family the other boards use), in the same spots (scaled with the art), one 1.3 kΩ resistor each |
 | Blink | see below: three different answers in the maker's files | T on 0.46 s, off 0.23 s, about 1.5 times a second |
-| Front art | — | Window, C and T lines, sample well, shading and "COVID-19Ag" unchanged. **Added:** the maker's credits (moved from the back, same words and size), two 0.9 mm holes above "COVID-19Ag" (the switch's pegs), two tiny dimples from covered vias |
+| Art | — | Everything the maker drew, scaled 1.48×: front window, C and T lines, sample well, shading and "COVID-19Ag"; on the back his URL, handle, date and dd logo **where he put them**. **Added:** two 0.9 mm holes near the right edge of the front (the switch's pegs). **Removed:** his back assembly note (it names his old parts and would sit under the cell) |
 
-**Parts shared with the rest of SAO++:** connector, switch, cell clip, red LED, 1.3 kΩ resistor and 100 nF capacitor. **New parts:** the LMC555 timer and one resistor value (3.3 MΩ, used twice). The clip is the shared part on a board-specific footprint (see "The coin cell").
+**Parts shared with the rest of SAO++:** connector, switch, cell clip, red LED, 1.3 kΩ resistor and 100 nF capacitor. **New parts:** the LMC555 timer and one resistor value (3.3 MΩ, used twice). The clip uses the shared footprint unchanged.
 
 ### The blink, and the three sets of values
 
@@ -40,53 +41,44 @@ Why not keep the built board's 50/50 rhythm: with a 555, an even blink needs a s
 
 **Battery life (calculated, not measured):** C lit ~0.9 mA + T on two-thirds of the time ~0.6 mA + timer ~0.1 mA ≈ 1.6 mA, so a CR2032 should last roughly 100–130 hours, dimming toward the end. Both LEDs still glow at 2.4 V.
 
-### The coin cell: the board is narrower than the cell
+## Rev B: why the board grew
 
-The board is 16 mm wide; a CR2032 is 20 mm across. The clip's two solder pads are 22.8 mm apart, so the clip can only lie lengthwise. As built:
+Rev A kept the maker's 16 × 50 mm and paid for it: the 20 mm coin cell hung 2 mm past both long edges, the clip's closed end stuck out 3.1 mm, the clip needed a home-made narrowed footprint, the maker's back credits had to move to the front, and two covered vias tied the front copper in as ground. The owner decided on 2026-11-12 that tight boards may be scaled up instead. Rev B scales the outline and all the art together by **1.48** (23.68 × 74.0 mm); the parts keep their real size.
 
-- the cell overhangs **both long edges by 2.0 mm**, over the lower 20 mm of the board;
-- the clip's closed end sticks out **3.1 mm** past the right edge (front view); the cell slides in from the left;
-- the clip footprint's 17 mm contact disc is wider than the board, so this board uses a copy of it with the disc cut to a 14.9 mm band (owner decision needed, below). The clip pads are unchanged;
-- the cell covers the back of the sample well, which used to be see-through bare board.
+**Why 1.48 and not less.** The cell clip lies lengthwise (its pads 21 mm apart run along the board): cell on one side, the clip's closed end on the other, 21 mm in all. That needs the board at least 21.5 mm wide (**1.344**), and at that size everything is on the board. But the maker's hackaday URL runs up the left edge of the back, and from 1.344 up to 1.47 the cell would sit over its first few letters ("https:"). At 1.344 the switch also has no room between the maker's logo and the clip. **1.48 is the smallest factor at which the cell, clip, switch and connector all fit with every one of the maker's credits uncovered.** Tried: 1.344, 1.375, 1.45 (URL start hidden under the cell), 1.48 (clean).
 
-Alternatives considered:
+**If a slight overhang is acceptable instead** (calculated, not built): letting the cell and the clip's closed end stick out up to 1 mm, the smallest factor is **1.41** (22.6 × 70.5 mm) with the URL still uncovered, or **1.36** (21.8 × 68 mm) if the cell may also cover the start of the URL. Below about 1.36 the switch no longer fits between the logo and the clip, so overhang buys little: the cell is not the only thing that is tight.
 
-| Option | Width | What it costs |
-|---|---|---|
-| **As built: overhang** | 16 mm board, 21.4 mm with cell and clip | cell 2 mm past each side, clip 3.1 mm past one side; credits moved to the front |
-| Badge power only (as the maker did) | 16 mm | no switch, no clip, no cell (saves ~$1.50 a board); the maker's back credits could stay where they were |
-| Wider outline | 21.6 mm (+5.6 mm) to hold cell **and** clip; 20.5 mm (+4.5 mm) for the cell alone | changes the maker's cassette proportions; the full 17 mm disc then fits |
+### The coin cell
+
+The cell sits in the shared clip, lengthwise on the lower part of the back, wholly on the board: 2.3 mm inside the left edge (front view), where its open side faces and the cell slides in; the clip's closed end is 0.39 mm inside the right edge, and its pads are at least 2 mm from the bottom edge. The full 17 mm contact disc is used. The cell still covers the back of the sample well, as in rev A.
 
 ### Where things are on the back
 
-From the top: the switch; the connector (its 15.3 mm body leaves 0.37 mm to each long edge, so the house "3 mm from the edge" rule cannot be met); the timer and its three timing parts left of the LEDs (front view), the two LED resistors and the supply capacitor right of them; then the coin cell.
+Seen from the front, so mirrored compared with looking at the back: at the top, the maker's "2022/11" and "@davedarko@chaos.social", then the connector (where his header was, 4.2 mm from each long edge). His URL runs up the left edge, his dd logo sits right of the result window. The switch is on the right edge between the logo and the cell clip; the two LED resistors sit left of the LEDs; the timer and its timing parts sit below the result window, the timing capacitor right of it and the supply capacitor left of it; then the cell clip.
 
-The board is routed on the back copper only, plus **two vias** (0.3 mm hole, covered by solder mask both sides): one under the timer at (-6.35, -2.65) mm and one right of the T line at (6.4, 1.2) mm, both where the front is plain dark copper. The front copper (the maker's pour) now serves as ground between them: the timing capacitor and the timer's ground pin are boxed in by other tracks and had no other way to reach ground.
+Everything is routed on the back copper, which is otherwise ground. **No vias.** The front copper is the maker's pour, unconnected, as he had it.
 
 ## Things to check on the first prototype
 
 1. **Blink and brightness.** Both LEDs at about 1 mA through 1.6 mm of board. Check C and T in room light, on badge power and on a cell. If too dim, R3/R4 can drop to the shared 330 Ω (about 3–4 mA each, shorter cell life).
-2. **Coin cell fit.** The cell overhangs 2 mm each side and the clip's end 3.1 mm on the right. Check the cell seats firmly on the narrowed contact, slides in from the left, and that nothing snags when worn.
+2. **Coin cell fit.** Check the cell slides in from the left (front view) and seats firmly on the contact.
 3. **Pin 1 position.** VCC is top left in front view, as on Mad Cat. Confirm against a v1.69bis badge.
-4. **Switch labels.** Only SAO and BAT are printed (no room for OFF; it is the middle). The labels assume the knob points at the label for that position; if wrong, swap them.
-5. **Connector at the edges.** Its body comes within 0.37 mm of both long edges. Check it looks right and is solid.
-6. **Vias.** Check the two covered vias do not show as more than a dimple on the front.
-7. **Front credits.** The maker's URL, date, handle and logo are now on the front (owner decision, below).
+4. **Switch labels.** "SAO" is printed above the switch and "BAT" below it (on the back). The labels assume the knob points at the label for that position; if wrong, swap them.
+5. **Size and weight.** The board is now 23.7 × 74 mm, with the cell near the bottom; check it hangs well from the badge connector.
 
 ## Decisions for the owner
 
 1. **Publish or not before davedarko answers:** the owner chose on 2026-11-11 to publish with permission pending.
-2. **Credits on the front.** The back is covered by the switch, connector and cell, so the maker's credits moved to blank spots on the front, unchanged in words and size. Alternative: badge-power-only version with the credits back where they were.
-3. **Narrowed cell contact disc** (local copy of the shared clip footprint). Alternative: a wider outline.
-4. **Front copper as ground with two vias.** Alternative: none found without moving parts off the board.
+2. **1.48 (no overhang, every credit visible) or smaller.** Built at 1.48. Alternatives: 1.41 with up to 1 mm of cell and clip past the edges, or 1.36 if the cell may also hide the start of the maker's URL (see "Rev B: why the board grew").
+3. **Switch on the side.** It moved from the top edge to the right edge, because the top of the back is the maker's credit block.
 
 ## Files
 
-- `hardware/covid-test.kicad_pro` — KiCad 10 project. ERC: 0 violations. DRC: 0 errors, 0 unconnected, schematic matches board. 25 warnings, none electrical: 17 the maker's shading dots crossing his own mask windows (as in 2022), 4 timer and LED outline marks touching, 3 art libraries not installed, 1 "clip footprint differs from library" (its silk moved to the fab layer).
+- `hardware/covid-test.kicad_pro` — KiCad 10 project. ERC: 0 violations. DRC: 0 errors, 0 unconnected, schematic matches board. 21 warnings, none electrical: 17 the maker's shading dots crossing his own mask windows (as in 2022), 3 art libraries not installed, 1 "clip footprint differs from library" (its silk moved to the fab layer).
 - `hardware/circuit.json` — the circuit as data; `tools/gen_schematic.py covid-test` and `hardware/build_board.py` both read it.
-- `hardware/build_board.py` — rebuilds the board from `original/` plus the SAO++ changes.
-- `hardware/parts_local.py`, `hardware/covid-test-local.pretty/` — the three board-only parts (timer, 3.3 MΩ resistor, narrowed clip footprint).
-- `hardware/covid-test.kicad_dru` — one extra rule: fine gaps inside the artwork are allowed.
+- `hardware/build_board.py` — rebuilds the board from `original/` plus the SAO++ changes; `SCALE` at the top is the scale factor.
+- `hardware/parts_local.py`, `hardware/covid-test-local.pretty/` — the two board-only parts (timer, 3.3 MΩ resistor).
 - `production/` — files for one board and a 2×2 panel; see [production/README.md](production/README.md).
 - `original/` — the maker's files, untouched. The three Gerber zips are three revisions: `CovidSAO.zip` (2022-09-06, back reads "2022/08", one long front window, different LED layout), `CovidSAO2.zip` (2022-09-21, "2022/09", same copper as the board file), `CovidSAO3.zip` (2022-11-14, "2022/11", Mastodon handle, URL, assembly note) — **the last one matches `drawing.kicad_pcb`**, which is what this port starts from. The iBOM (2022-09-21) lists the board file's values.
 

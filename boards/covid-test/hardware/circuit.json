@@ -1,11 +1,11 @@
 {
  "title": "COVID-19 Test - SAO++ edition",
- "rev": "A",
+ "rev": "B",
  "credit": "Original design: davedarko (Dave Darko), 2022, github.com/davedarko/Simple-Add-ons-SAO",
  "parts": [
   {"ref": "J1", "symbol": "SAO_Connector_v1.69bis", "at": [50.8, 50.8], "nets": {"1": "VSAO", "2": "GND"}},
   {"ref": "SW1", "symbol": "Power_Switch_SP3T_PCM13", "at": [50.8, 81.28], "nets": {"3": "VLOAD", "1": "VSAO", "4": "VBAT"}},
-  {"ref": "BT1", "symbol": "CR2032_Clip_Narrow", "at": [50.8, 109.22], "nets": {"1": "VBAT", "2": "GND"}},
+  {"ref": "BT1", "symbol": "CR2032_Clip", "at": [50.8, 109.22], "nets": {"1": "VBAT", "2": "GND"}},
   {"ref": "U1", "symbol": "Timer_LMC555_SOIC8", "at": [127.0, 76.2],
    "nets": {"8": "VLOAD", "4": "VLOAD", "2": "TIM", "6": "TIM", "7": "DIS", "3": "OUT", "1": "GND"}},
   {"ref": "R1", "symbol": "R_Timing_3M3", "at": [175.26, 60.96], "nets": {"1": "VLOAD", "2": "DIS"}},

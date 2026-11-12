@@ -1,36 +1,59 @@
 {
-  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. The slot is 3.5 mm (not the usual 2 mm) because the coin-cell clip's closed end sticks out 3.07 mm past the right edge: it must hang over the slot, not over the frame. The supply track runs 0.3 mm from the left edge (y -14.6 to 1.8) and the cell track 0.3 mm from the right edge (y -19.7 to 2.8), so no tab sits on those stretches. No tab on the right edge: the cell track and then the clip's closed end occupy all of it below the switch.",
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. Rev B (scaled 1.48x, 23.68 x 74.0 mm): nothing overhangs any more except the switch knob (0.75 mm past the right edge, over the slot), so the slot is back to the usual 2 mm. No tab on the left edge between y -12 and 22 (the maker's back URL runs along it), none on the right edge below y 11 (the cell clip's closed end) or at the switch, and none near the 'SAO++ rB' label at the bottom right.",
   "rows": 2,
   "cols": 2,
-  "slot": 3.5,
+  "slot": 2.0,
   "web": 3.0,
   "rail": 5.0,
   "tab_width": 3.0,
   "tabs": [
     {
-      "near": [-3.6, -25.0],
+      "near": [
+        -5.0,
+        -37.0
+      ],
       "dir": "-y",
-      "why": "top edge, left of the switch knob"
+      "why": "top edge, left"
     },
     {
-      "near": [3.6, -25.0],
+      "near": [
+        5.0,
+        -37.0
+      ],
       "dir": "-y",
-      "why": "top edge, right of the switch knob"
+      "why": "top edge, right"
     },
     {
-      "near": [-8.0, -22.4],
+      "near": [
+        -11.84,
+        -25.0
+      ],
       "dir": "-x",
-      "why": "left edge beside the switch, above the connector body"
+      "why": "left edge beside the connector, below the maker's handle line"
     },
     {
-      "near": [-8.0, 8.0],
+      "near": [
+        -11.84,
+        30.0
+      ],
       "dir": "-x",
-      "why": "left edge, open side of the cell clip"
+      "why": "left edge, below the URL, on the cell's open side"
     },
     {
-      "near": [-6.4, 25.0],
+      "near": [
+        11.84,
+        -20.0
+      ],
+      "dir": "+x",
+      "why": "right edge beside the connector, above the logo"
+    },
+    {
+      "near": [
+        -7.0,
+        37.0
+      ],
       "dir": "+y",
-      "why": "bottom edge, left of the lower clip pad and clear of the clip body"
+      "why": "bottom edge, left of the clip's lower pad"
     }
   ]
 }

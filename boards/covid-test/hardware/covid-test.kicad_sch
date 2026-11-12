@@ -1,5 +1,5 @@
 (kicad_sch (version 20231120) (generator "saopp_gen_schematic") (uuid "dcf6b7ee-db8c-5e91-a402-387bd6b4c9c7") (paper "A4")
-  (title_block (title "COVID-19 Test - SAO++ edition") (rev "A") (comment 1 "Original design: davedarko (Dave Darko), 2022, github.com/davedarko/Simple-Add-ons-SAO") (comment 2 "Generated from circuit.json - edit that, not this file"))
+  (title_block (title "COVID-19 Test - SAO++ edition") (rev "B") (comment 1 "Original design: davedarko (Dave Darko), 2022, github.com/davedarko/Simple-Add-ons-SAO") (comment 2 "Generated from circuit.json - edit that, not this file"))
   (lib_symbols
   (symbol "sao-plus-plus:SAO_Connector_v1.69bis" (pin_names (offset 0.5)) (exclude_from_sim no) (in_bom yes) (on_board yes)
       (property "Reference" "J" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
@@ -38,17 +38,17 @@
         (pin passive line (at 12.7 -5.08 180) (length 2.54) (name "POS3" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27)))))
       )
     )
-    (symbol "covid-test-local:CR2032_Clip_Narrow" (pin_names (offset 0.5)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+    (symbol "sao-plus-plus:CR2032_Clip" (pin_names (offset 0.5)) (exclude_from_sim no) (in_bom yes) (on_board yes)
       (property "Reference" "BT" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
       (property "Value" "CR2032" (at 0 -3.81 0) (effects (font (size 1.27 1.27))))
-      (property "Footprint" "covid-test-local:BAT-HLD-001_CR2032_NarrowBoard" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+      (property "Footprint" "sao-plus-plus:SAOPP_BAT-01_CR2032_SMD_TE_BAT-HLD-001" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (property "SAOPP_ID" "SAOPP-BAT-01" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (property "MPN" "BAT-HLD-001" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (property "LCSC" "C7501066" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-      (symbol "CR2032_Clip_Narrow_0_1"
+      (symbol "CR2032_Clip_0_1"
         (rectangle (start -5.08 2.54) (end 5.08 -2.54) (stroke (width 0.254) (type default)) (fill (type background))))
-      (symbol "CR2032_Clip_Narrow_1_1"
+      (symbol "CR2032_Clip_1_1"
         (pin passive line (at -7.62 0.0 0) (length 2.54) (name "+" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
         (pin passive line (at 7.62 0.0 180) (length 2.54) (name "-" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
       )
@@ -181,10 +181,10 @@
   (no_connect (at 63.5 83.82) (uuid "38a64069-9b07-558d-bc38-9f87bfc080a6"))
   (global_label "VBAT" (shape passive) (at 63.5 86.36 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "5e45f6dd-3710-5324-beea-90b313bbd6f0")
     (property "Intersheetrefs" "" (at 63.5 86.36 0) (effects (font (size 1.27 1.27)) hide)))
-  (symbol (lib_id "covid-test-local:CR2032_Clip_Narrow") (at 50.8 109.22 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "16f130b4-c67f-5501-8ce4-08dae3eddb58")
+  (symbol (lib_id "sao-plus-plus:CR2032_Clip") (at 50.8 109.22 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "16f130b4-c67f-5501-8ce4-08dae3eddb58")
     (property "Reference" "BT1" (at 50.8 104.14 0) (effects (font (size 1.27 1.27))))
     (property "Value" "CR2032" (at 50.8 114.3 0) (effects (font (size 1.27 1.27))))
-    (property "Footprint" "covid-test-local:BAT-HLD-001_CR2032_NarrowBoard" (at 50.8 109.22 0) (effects (font (size 1.27 1.27)) hide))
+    (property "Footprint" "sao-plus-plus:SAOPP_BAT-01_CR2032_SMD_TE_BAT-HLD-001" (at 50.8 109.22 0) (effects (font (size 1.27 1.27)) hide))
     (property "Datasheet" "" (at 50.8 109.22 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "SAOPP-BAT-01" (at 50.8 109.22 0) (effects (font (size 1.27 1.27)) hide))
     (property "MPN" "BAT-HLD-001" (at 50.8 109.22 0) (effects (font (size 1.27 1.27)) hide))

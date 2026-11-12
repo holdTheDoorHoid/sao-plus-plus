@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
-"""Rebuild covid-test.kicad_pcb from davedarko's 2022 original plus the SAO++ changes.
+"""Rebuild covid-test.kicad_pcb from davedarko's 2022 original plus the SAO++ changes (rev B: scaled up).
 
 Run with KiCad 10's Python, from the repo root:
   flatpak run --filesystem=$PWD --command=python3 org.kicad.KiCad boards/covid-test/hardware/build_board.py
 
 What it does
-  - loads original/KiCad/drawing.kicad_pcb (KiCad 6, the 2022/11 revision) so the front art stays exactly as drawn
-  - removes the through-hole header, the 555, the resistors, the capacitor, the two LEDs, the tracks and both copper pours
-  - places the SAO++ parts on the back (switch at the top, connector where the header was, 555 and parts beside the
-    result window, coin cell over the lower half) and routes them on the back copper
-  - rebuilds the back copper as GND, cleared around the new pads and tracks and behind the two LEDs
-  - rebuilds the front copper exactly as the maker's pour (window and sample well left bare), now tied to GND
-  - moves the maker's back-side credits, which the switch, connector and cell would cover, to blank spots on the front,
-    unchanged in wording and size
+  - loads original/KiCad/drawing.kicad_pcb (KiCad 6, the 2022/11 revision)
+  - removes the through-hole header, the 555, the resistors, the capacitor, the two LEDs, the tracks, both copper pours
+    and the maker's back assembly note (it names his old parts and would sit under the cell)
+  - scales the outline and ALL the remaining art (front art, mask windows, the maker's back credits and logo) by SCALE
+    about the board centre, so the cassette keeps its proportions; parts keep their real size
+  - places the SAO++ parts on the back around the maker's credits, which stay where he put them (scaled)
+  - routes everything on the back copper only, no vias, and fills the rest of the back with GND
+  - rebuilds the front copper as the maker's pour (window and sample well left bare), unconnected as he had it
 
 Coordinates are millimetres in KiCad's front view (x grows right, y grows down); the board is centred on (0, 0).
+Part positions below are laid out for SCALE = 1.48; the assertions stop the build if a change of scale breaks them.
 """
 import json
 import math
@@ -25,7 +26,10 @@ import tempfile
 import uuid
 
 import pcbnew
-from pcbnew import FromMM, ToMM, VECTOR2I, B_Cu, F_Cu, B_SilkS, F_SilkS
+from pcbnew import FromMM, ToMM, VECTOR2I, B_Cu, F_Cu, B_SilkS
+
+SCALE = 1.48        # 16 x 50 mm -> 23.68 x 74.0 mm. The smallest factor at which the cell sits inside the outline without
+                    # covering the maker's back URL (see README "Why 1.48")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
@@ -41,27 +45,27 @@ OUT = os.path.join(HERE, SLUG + ".kicad_pcb")
 LIBS = {"sao-plus-plus": os.path.join(ROOT, "lib", "sao-plus-plus.pretty"),
         SLUG + "-local": os.path.join(HERE, SLUG + "-local.pretty")}
 
+S = SCALE
+W, L = 8.0 * S, 25.0 * S    # half width, half length
 CLEAR = 0.25        # copper-to-copper gap cut into the GND copper
 TRACK = 0.25
-THIN = 0.20         # where a track passes between two pads
+THIN = 0.20
 EDGE = 0.55         # GND copper stops this far short of the board edge (panel mouse bites reach 0.25 mm in)
-WINDOW = 1.6        # radius kept free of back copper behind each LED (house rule)
+WINDOW = 1.6        # radius kept free of back copper behind each LED (house rule; not scaled)
 
 # ---- placement (centre x, y) ------------------------------------------------------------------
-SW = (0.0, -22.65)          # top edge, knob up; the knob ends 0.75 mm past the edge
-CONN = (0.0, -14.1)         # where the maker's header was (-13.48), 0.6 mm higher to clear the switch
-LED = {"D1": (0.0, -5.5), "D2": (0.0, -1.5)}     # under the maker's C and T line windows, unchanged
-U1C = (-5.05, -2.65)        # 555 left of the result window, turned so its pins run across the board
-C1C = (-5.95, -7.17)        # timing capacitor above the 555, between pin 1 (GND) and pin 2 (TRIG)
-R1C = (-6.28, 1.78)         # RA below the 555, between pin 8 (VCC) and pin 7 (DIS)
-R2C = (-6.28, 3.24)         # RB below RA; the corner beside the clip's open side is the only room left
-R3C = (3.2, -6.0)           # control-line LED resistor, right of D1
-R4C = (3.2, -2.6)           # test-line LED resistor, right of D2
-C2C = (4.9, -6.0)           # supply decoupling
-BAT = (0.0, 13.3)           # cell centred across the board, clip pads 0.3 mm inside the bottom edge
-BAT_OPEN = (-1.0, 0.0)      # open side to the left (front view): cell slides in from the left, the clip's closed end is on the right
-VIAS = []                   # tented GND vias to the front copper (added below)
-VIA_AT = [(-6.35, -2.65), (6.4, 1.2)]   # see "front copper" below
+SW = (W - 2.35, 4.4)        # right edge, knob out to the right; between the maker's logo and the cell clip
+CONN = (0.0, -13.48 * S)    # where the maker's header was, scaled with the art
+LED = {"D1": (0.0, -5.5 * S), "D2": (0.0, -1.5 * S)}     # under the maker's C and T line windows (art-tied: scaled)
+U1C = (-1.4, 5.8)           # 555 below the result window, pins in two columns
+R1C = (-7.4, 5.8)           # RA, left of the 555
+R2C = (-5.9, 5.8)           # RB, between RA and the 555
+C1C = (3.1, 4.53)           # timing capacitor right of pins 1 and 2
+C2C = (-6.4, 2.75)          # supply decoupling, on the supply track left of pin 8
+R3C = (-3.875, LED["D1"][1])   # control-line LED resistor, left of D1
+R4C = (-3.875, LED["D2"][1])   # test-line LED resistor, left of D2
+BAT = (0.45, 23.4)          # cell clip, lengthwise; the closed end toward the right edge
+BAT_OPEN = (-1.0, 0.0)      # open side to the left (front view): the cell slides in from the left
 
 # ---- strip the 2022 electrical parts out of the file text (KiCad 10's Python crashes on Remove()) ----
 _txt = open(SRC, encoding="utf-8").read()
@@ -89,23 +93,61 @@ _edges = [(a_, b_) for op in ("gr_line", "gr_arc") for a_, b_ in blocks(_txt, op
 assert len(_edges) == 8, len(_edges)
 _cut += _edges
 _txt = cut_blocks(_txt, _cut)
+
+# ---- scale every remaining art item (footprints, mask rectangles, texts) about the board centre -----
+_NUM = r"(-?[0-9.]+)"
+
+
+def _f(v):
+    return ("%.6f" % (float(v) * S)).rstrip("0").rstrip(".")
+
+
+def _scale_block(t):
+    t = re.sub(r"\((xy|start|end|mid|center|size) " + _NUM + " " + _NUM + r"\)",
+               lambda m: "(%s %s %s)" % (m.group(1), _f(m.group(2)), _f(m.group(3))), t)
+    t = re.sub(r"\(at " + _NUM + " " + _NUM, lambda m: "(at %s %s" % (_f(m.group(1)), _f(m.group(2))), t)
+    t = re.sub(r"\((thickness|width) " + _NUM + r"\)", lambda m: "(%s %s)" % (m.group(1), _f(m.group(2))), t)
+    return t
+
+
+_spans = sorted([sp for op in ("footprint", "gr_rect", "gr_text") for sp in blocks(_txt, op)], reverse=True)
+_nscaled = 0
+for a_, b_ in _spans:
+    _txt = _txt[:a_] + _scale_block(_txt[a_:b_]) + _txt[b_:]
+    _nscaled += 1
+assert _nscaled == 3 + 4 + 6, _nscaled          # stopmask, shading, logo; 4 mask rectangles; 6 texts
 _tmp = os.path.join(tempfile.mkdtemp(), "drawing.kicad_pcb")
 open(_tmp, "w", encoding="utf-8").write(_txt)
 
 board = pcbnew.LoadBoard(_tmp)
 TRACKS = []                              # (track, clearance to cut around it)
 
-# ---- outline: the maker's 16 x 50 mm rounded rectangle, as one polygon (tools/panelize.py needs that) ----
+# ---- outline: the maker's rounded rectangle, scaled, as one polygon (tools/panelize.py needs that) ----
 _ol = json.load(open(os.path.join(HERE, "outline.json")))
 assert not _ol["holes"]
-body = poly(_ol["outer"])
+OUTER = [(x * S, y * S) for x, y in _ol["outer"]]
+body = poly(OUTER)
 e = pcbnew.PCB_SHAPE(board, pcbnew.SHAPE_T_POLY)
-e.SetPolyShape(poly(_ol["outer"]))
+e.SetPolyShape(poly(OUTER))
 e.SetLayer(pcbnew.Edge_Cuts)
 e.SetFilled(False)
 e.SetWidth(FromMM(0.1))
 board.Add(e)
 inner = grown(body, -EDGE)
+
+# the maker's back credits after scaling: parts must not cover them
+CREDITS = {}
+for d in board.GetDrawings():
+    if d.GetClass() == "PCB_TEXT" and d.GetLayer() == B_SilkS:
+        bb = d.GetBoundingBox()
+        CREDITS[d.GetText()] = (ToMM(bb.GetLeft()), ToMM(bb.GetTop()), ToMM(bb.GetRight()), ToMM(bb.GetBottom()))
+for fp in board.GetFootprints():
+    if fp.GetFPID().GetUniStringLibItemName() == "davedarko_logo_silk_ext":
+        bb = fp.GetBoundingBox(False)
+        CREDITS["logo"] = (ToMM(bb.GetLeft()), ToMM(bb.GetTop()), ToMM(bb.GetRight()), ToMM(bb.GetBottom()))
+assert len(CREDITS) == 4, CREDITS
+for k, v in CREDITS.items():
+    print("credit %-36s x %.2f..%.2f y %.2f..%.2f" % (k, v[0], v[2], v[1], v[3]))
 
 # ---- the circuit (shared with the schematic generator) ------------------------------------------
 CIRCUIT = json.load(open(os.path.join(HERE, "circuit.json")))
@@ -183,20 +225,20 @@ def padpos(fp, num):
 
 
 FP = {}
-FP["SW1"] = place("SW1", SW, ("1", (SW[0] - 3.0, SW[1] + 1.43)))                    # knob toward the top edge
+FP["SW1"] = place("SW1", SW, ("1", (SW[0] - 1.43, SW[1] - 3.0)))                    # knob to the right, pin 1 (SAO) at the top
 FP["J1"] = place("J1", CONN, ("1", (CONN[0] - 2.54, CONN[1] - 3.4)))                # VCC top left in front view, key up
 for ref, (x, y) in LED.items():
-    FP[ref] = place(ref, (x, y), ("2", (x + 1.55, y)))                               # anode to the right
-FP["U1"] = place("U1", U1C, ("1", (U1C[0] - 1.905, U1C[1] - 2.475)))               # pin 1 top-left; pins 1-4 along the top row
-FP["C1"] = place("C1", C1C, ("1", (C1C[0] - 0.775, C1C[1])))                        # GND pad left, over pin 1
-FP["R1"] = place("R1", R1C, ("1", (R1C[0] - 0.825, R1C[1])))                        # VLOAD pad left, under pin 8
-FP["R2"] = place("R2", R2C, ("1", (R2C[0] - 0.825, R2C[1])))                        # TIM pad left, DIS pad right (under R1's DIS pad)
-FP["R3"] = place("R3", R3C, ("1", (R3C[0], R3C[1] - 0.825)))                        # VLOAD at the top
-FP["R4"] = place("R4", R4C, ("1", (R4C[0], R4C[1] - 0.825)))                        # OUT at the top
-FP["C2"] = place("C2", C2C, ("1", (C2C[0], C2C[1] - 0.775)))                        # VLOAD at the top
+    FP[ref] = place(ref, (x, y), ("2", (x - 1.55, y)))                               # anode to the left
+FP["U1"] = place("U1", U1C, ("1", (U1C[0] + 2.475, U1C[1] - 1.905)))               # pin 1 top right, pins 1-4 down the right
+FP["R1"] = place("R1", R1C, ("1", (R1C[0], R1C[1] + 0.825)))                        # VLOAD pad at the bottom
+FP["R2"] = place("R2", R2C, ("1", (R2C[0], R2C[1] + 0.825)))                        # TIM pad at the bottom, DIS at the top
+FP["C1"] = place("C1", C1C, ("1", (C1C[0], C1C[1] - 0.775)))                        # GND pad at the top (beside pin 1)
+FP["C2"] = place("C2", C2C, ("1", (C2C[0], C2C[1] + 0.775)))                        # VLOAD pad at the bottom, on the supply
+FP["R3"] = place("R3", R3C, ("1", (R3C[0] - 0.825, R3C[1])))                        # VLOAD pad left
+FP["R4"] = place("R4", R4C, ("1", (R4C[0] - 0.825, R4C[1])))                        # OUT pad left
 u = {n: padpos(FP["U1"], n) for n in "12345678"}
-assert abs(u["4"][0] - (U1C[0] + 1.905)) < 0.01 and abs(u["4"][1] - u["1"][1]) < 0.01, u
-assert abs(u["8"][0] - u["1"][0]) < 0.01 and u["8"][1] > U1C[1], u
+assert abs(u["4"][0] - u["1"][0]) < 0.01 and u["4"][1] > u["1"][1], u          # pins 1-4 down the right column
+assert abs(u["8"][1] - u["1"][1]) < 0.01 and u["8"][0] < u["1"][0], u          # pin 8 top left
 
 # battery: both clip pads are "1" and the clip fits either way, so choose the angle by where the open side faces
 bat = load("BT1", BAT)
@@ -217,18 +259,16 @@ else:
     raise AssertionError("no right-angle rotation turns the clip's open side to the left")
 _pads = sorted(mm(p.GetPosition()) for p in bat.Pads() if p.GetNumber() == "1")
 assert abs(_pads[0][0] - BAT[0]) < 0.01 and abs(_pads[1][0] - BAT[0]) < 0.01, "clip pads are not along the board"
+_bb = [g for g in bat.GraphicalItems() if g.GetLayer() == pcbnew.B_Fab and g.GetShape() == pcbnew.SHAPE_T_RECT][0].GetBoundingBox()
+CLIP_BODY = (ToMM(_bb.GetLeft()) + 0.05, ToMM(_bb.GetTop()) + 0.05, ToMM(_bb.GetRight()) - 0.05, ToMM(_bb.GetBottom()) - 0.05)   # less the 0.1 mm line
 # KiCad 10 calls the clip's courtyard (circle + rectangle) "malformed" at exact right angles; 0.1 degree off is accepted
 bat.SetOrientationDegrees(_rot - 0.1)
 link(bat, "BT1")
 bat.SetDuplicatePadNumbersAreJumpers(True)               # the clip joins its two "+" pads; only the top one is routed
-for it in bat.GraphicalItems():                          # its silk arrow and "+" would land off the board: fab layer only
+for it in bat.GraphicalItems():                          # its silk arrow and "+" land on the maker's credits: fab layer only
     if it.GetLayer() == B_SilkS:
         it.SetLayer(pcbnew.B_Fab)
-_bb = None
-for g in bat.GraphicalItems():
-    if g.GetLayer() == pcbnew.B_Fab and g.GetClass() == "PCB_SHAPE" and g.GetShape() in (pcbnew.SHAPE_T_RECT, pcbnew.SHAPE_T_POLY):
-        _bb = g.GetBoundingBox()
-print("clip body (fab) x %.2f..%.2f, y %.2f..%.2f" % (ToMM(_bb.GetLeft()), ToMM(_bb.GetRight()), ToMM(_bb.GetTop()), ToMM(_bb.GetBottom())))
+print("clip body (fab) x %.2f..%.2f, y %.2f..%.2f" % (CLIP_BODY[0], CLIP_BODY[2], CLIP_BODY[1], CLIP_BODY[3]))
 print("clip pads", _pads)
 
 NEW = set(PARTS)
@@ -236,8 +276,10 @@ for fp in board.GetFootprints():        # the maker's art lives in footprints wi
     if fp.GetReference() not in NEW:
         fp.SetAttributes(fp.GetAttributes() | pcbnew.FP_BOARD_ONLY | pcbnew.FP_EXCLUDE_FROM_BOM | pcbnew.FP_EXCLUDE_FROM_POS_FILES)
 
-# every new pad must sit on the board, >= 0.25 mm from the edge
+# ---- checks: every new pad >= 0.25 mm inside the edge (clip pads >= 1 mm), the clip body and the cell on the board,
+#      and no part (courtyard) over the maker's credits; the cell clear of the credits too
 _edge25 = grown(body, -0.25)
+_edge1 = grown(body, -1.0)
 for fp in board.GetFootprints():
     if fp.GetReference() in NEW:
         for pad in fp.Pads():
@@ -246,8 +288,27 @@ for fp in board.GetFootprints():
                 add_circle(off, pad.GetPosition(), ToMM(pad.GetDrillSize().x) / 2 + 0.25)
             else:
                 off = pad_poly(pad, B_Cu)
-            off.BooleanSubtract(_edge25)
-            assert off.OutlineCount() == 0, f"{fp.GetReference()} pad {pad.GetNumber()} is closer than 0.25 mm to the board edge"
+            off.BooleanSubtract(_edge1 if fp.GetReference() == "BT1" else _edge25)
+            assert off.OutlineCount() == 0, f"{fp.GetReference()} pad {pad.GetNumber()} is too close to the board edge"
+_cell = pcbnew.SHAPE_POLY_SET()
+add_circle(_cell, P(*BAT), 10.0)
+_clip = poly([(CLIP_BODY[0], CLIP_BODY[1]), (CLIP_BODY[2], CLIP_BODY[1]), (CLIP_BODY[2], CLIP_BODY[3]), (CLIP_BODY[0], CLIP_BODY[3])])
+for name, shape in (("cell", _cell), ("clip body", _clip)):
+    o = pcbnew.SHAPE_POLY_SET(shape)
+    o.BooleanSubtract(_edge25)
+    assert o.OutlineCount() == 0, f"the {name} is not 0.25 mm inside the outline"
+for cname, (x0, y0, x1, y1) in CREDITS.items():
+    box = poly([(x0 - 0.2, y0 - 0.2), (x1 + 0.2, y0 - 0.2), (x1 + 0.2, y1 + 0.2), (x0 - 0.2, y1 + 0.2)])
+    for fp in board.GetFootprints():
+        if fp.GetReference() in NEW:
+            fp.BuildCourtyardCaches()
+            cy = fp.GetCourtyard(pcbnew.B_CrtYd)
+            o = pcbnew.SHAPE_POLY_SET(cy)
+            o.BooleanIntersection(box)
+            assert o.OutlineCount() == 0, f"{fp.GetReference()} sits on the maker's credit '{cname}'"
+    o = pcbnew.SHAPE_POLY_SET(_cell)
+    o.BooleanIntersection(box)
+    assert o.OutlineCount() == 0, f"the cell covers the maker's credit '{cname}'"
 
 for ref in sorted(FP):
     fp = FP[ref]
@@ -259,7 +320,7 @@ if os.environ.get("PLACE_ONLY"):
     sys.exit(0)
 
 
-# ---- routing (back copper only) -----------------------------------------------------------------
+# ---- routing (back copper only, no vias) --------------------------------------------------------
 def route(net, pts, width=TRACK, clear=CLEAR):
     for a, b in zip(pts, pts[1:]):
         if a == b:
@@ -278,46 +339,45 @@ sw = {n: padpos(FP["SW1"], n) for n in "134"}
 j1 = padpos(FP["J1"], "1")
 r = {ref: {n: padpos(FP[ref], n) for n in "12"} for ref in ("R1", "R2", "R3", "R4", "C1", "C2")}
 bt_top = min(_pads, key=lambda p: p[1])
-EDGE_X = 7.58                                            # the two edge tracks: 0.3 mm from the board edge
-
-# badge 3.3 V: switch pin 1 -> connector pin 1
-route("VSAO", [sw["1"], (sw["1"][0], -20.2), (j1[0], -19.74), j1])
-
-# switched supply. From switch pin 3 down between the connector's pin columns, then
-#  - west along the gap between the connector's two pin rows and down the left edge to RA and pin 8 (VCC)
-#  - from the left edge across above the timing capacitor to pin 4 (RESET)
-#  - on down to the bus above the result window and east to R3 and C2
-CORR = -14.6                                             # between the connector's pin rows (pads end at -15.3 and -12.9)
-BUS = -8.05                                              # above the C window (it starts at -7.1), below the connector pads (-8.5)
-X127 = 1.27
-route("VLOAD", [sw["3"], (X127, -20.2), (X127, CORR)])
-route("VLOAD", [(X127, CORR), (-EDGE_X + 0.4, CORR), (-EDGE_X, CORR + 0.4), (-EDGE_X, r["R1"]["1"][1]), r["R1"]["1"]], width=THIN)
-route("VLOAD", [u["8"], (u["8"][0], r["R1"]["1"][1])])
-route("VLOAD", [(-EDGE_X, BUS), (u["4"][0], BUS), u["4"]], width=THIN)
-route("VLOAD", [(X127, CORR), (X127, BUS), (r["C2"]["1"][0], BUS), r["C2"]["1"]])
-route("VLOAD", [(r["R3"]["1"][0], BUS), r["R3"]["1"]])
-
-# coin cell +: switch pin 4 -> right edge -> top clip pad
-route("VBAT", [sw["4"], (sw["4"][0], -20.1), (EDGE_X - 0.4, -20.1), (EDGE_X, -19.7), (EDGE_X, bt_top[1] - 0.4),
-               (EDGE_X - 0.4, bt_top[1]), bt_top], width=0.3)
-
-# timing: C1 -> pin 2 (TRIG); pin 2 -> under the chip -> pin 6 (THR); pin 6 -> round RA and RB -> RB
-route("TIM", [r["C1"]["2"], (r["C1"]["2"][0], -6.62), (u["2"][0], -6.2), u["2"]], width=THIN)
-route("TIM", [u["2"], (u["2"][0], -4.0), (u["6"][0], -1.6), u["6"]], width=THIN)
-TIMX = -4.55
-TIMY = 4.05
-route("TIM", [u["6"], (u["6"][0], 0.9), (TIMX, 1.2), (TIMX, TIMY), (r["R2"]["1"][0], TIMY), r["R2"]["1"]], width=THIN)
-# discharge: pin 7 -> RA -> RB
-route("DIS", [u["7"], (u["7"][0], 0.95), (r["R1"]["2"][0], 1.3), r["R1"]["2"]], width=THIN)
-route("DIS", [r["R1"]["2"], r["R2"]["2"]], width=THIN)
-route("GND", [u["1"], r["C1"]["1"]], width=THIN)
-# output: pin 3 -> under the chip -> out between pins 4 and 5 -> between the two LED windows -> R4
-OUTY = -3.5
-route("OUT", [u["3"], (u["3"][0], OUTY), (r["R4"]["1"][0], OUTY), r["R4"]["1"]], width=THIN)
-# LED anodes: each resistor's lower pad -> across to the anode pad, ending inside the pad outside the window
 d1a, d2a = padpos(FP["D1"], "2"), padpos(FP["D2"], "2")
-route("LED1_A", [r["R3"]["2"], (d1a[0] + 0.35, r["R3"]["2"][1])])
-route("LED2_A", [r["R4"]["2"], (d2a[0] + 0.35, r["R4"]["2"][1])])
+
+# badge 3.3 V: switch pin 1 -> up the right of the window -> between the connector's two pin rows -> pin 1
+VSAO_X = 5.0
+route("VSAO", [sw["1"], (VSAO_X, sw["1"][1]), (VSAO_X, CONN[1]), (j1[0], CONN[1]), j1])
+
+# switched supply (VLOAD): switch pin 3 -> down and under the 555 to pin 4 (from below) -> on round the left of the
+# chip to pin 8 (this loop encloses only pins 5-7 and the two timing resistors, so no GND is boxed in) -> up the left
+# to R3 beside the control-line LED
+SUP_X = 6.2
+LOOP_Y = 9.0
+LOOP_X = -8.4
+route("VLOAD", [sw["3"], (SUP_X, sw["3"][1]), (SUP_X, LOOP_Y), (u["4"][0] + 0.4, LOOP_Y), (u["4"][0] + 0.4, u["4"][1])])
+route("VLOAD", [(u["4"][0] + 0.4, LOOP_Y), (LOOP_X, LOOP_Y), (LOOP_X, u["8"][1]), (u["8"][0], u["8"][1])])
+route("VLOAD", [r["R1"]["1"], (LOOP_X, r["R1"]["1"][1])], width=THIN)
+route("VLOAD", [(LOOP_X, u["8"][1]), (LOOP_X, r["R3"]["1"][1]), r["R3"]["1"]])
+route("VLOAD", [r["C2"]["1"], (r["C2"]["1"][0], u["8"][1])])
+
+# coin cell +: switch pin 4 -> down, under the supply loop -> top clip pad
+VBAT_X = 7.0
+VBAT_Y = 10.6
+route("VBAT", [sw["4"], (VBAT_X, sw["4"][1]), (VBAT_X, VBAT_Y), (2.5, VBAT_Y), (2.5, bt_top[1])], width=0.3)
+
+# timing: pin 2 <-> pin 6 under the chip; pin 6 -> RB; pin 7 -> RB and RA; pin 2 -> C1
+route("TIM", [(u["2"][0] - 0.675, u["2"][1]), (u["6"][0] + 0.675, u["6"][1])], width=THIN)     # inner pad ends, under the body
+route("TIM", [u["6"], r["R2"]["1"]], width=THIN)
+route("DIS", [u["7"], r["R2"]["2"]], width=THIN)
+route("DIS", [r["R2"]["2"], r["R1"]["2"]], width=THIN)
+route("TIM", [u["2"], r["C1"]["2"]], width=THIN)
+route("GND", [u["1"], r["C1"]["1"]], width=THIN)
+
+# output: pin 3 -> right, up past C1, left above the chip (below the result window) -> up to R4
+OUT_X = 4.1
+OUT_Y = 2.6
+OUT_UP = r["R4"]["1"][0]
+route("OUT", [u["3"], (OUT_X, u["3"][1]), (OUT_X, OUT_Y), (OUT_UP, OUT_Y), r["R4"]["1"]], width=THIN)
+# LED anodes: each resistor's right pad -> across to the anode pad, ending inside the pad outside the window
+route("LED1_A", [r["R3"]["2"], (d1a[0] - 0.35, r["R3"]["2"][1])])
+route("LED2_A", [r["R4"]["2"], (d2a[0] - 0.35, r["R4"]["2"][1])])
 
 
 # ---- GND copper on the back: the whole board, cleared around everything that is not GND -----------
@@ -353,8 +413,6 @@ for fp in board.GetFootprints():
     for pad in fp.Pads():
         if is_gnd(pad):
             gnd_pads.Append(pad_poly(pad, B_Cu))
-for pos in VIA_AT:
-    add_circle(gnd_pads, P(*pos), 0.3)
 gnd_pads.Simplify()
 pieces = []
 for i in range(back.OutlineCount()):
@@ -367,67 +425,22 @@ for i in range(back.OutlineCount()):
     add_filled(board, piece, B_Cu, nets["GND"] if pieces[-1][1] else None)
 print("back copper pieces:", [(round(area_mm2(p), 1), [round(v, 1) for v in bbox_mm(p)], g) for p, g in pieces])
 
-# ---- front copper: the maker's pour (window and sample well bare), tied to GND through tented vias ----
+# ---- front copper: the maker's pour (window and sample well bare), unconnected as he had it ----
 front = grown(body, -0.508)                              # the maker's pour stopped 0.508 mm from the edge
-front.BooleanSubtract(poly([(-1.25, -8.5), (1.25, -8.5), (1.25, 1.5), (-1.25, 1.5)]))      # result window
-front.BooleanSubtract(poly([(-1.6, 12.2), (1.6, 12.2), (1.6, 15.3), (-1.6, 15.3)]))        # sample well
+front.BooleanSubtract(poly([(-1.25 * S, -8.5 * S), (1.25 * S, -8.5 * S), (1.25 * S, 1.5 * S), (-1.25 * S, 1.5 * S)]))   # result window
+front.BooleanSubtract(poly([(-1.6 * S, 12.2 * S), (1.6 * S, 12.2 * S), (1.6 * S, 15.3 * S), (-1.6 * S, 15.3 * S)]))     # sample well
 pegs = pcbnew.SHAPE_POLY_SET()
 for pad in FP["SW1"].Pads():
     if pad.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH:
         add_circle(pegs, pad.GetPosition(), ToMM(pad.GetDrillSize().x) / 2 + 0.3)
 front.BooleanSubtract(pegs)
 front.Simplify()
+add_filled(board, front, F_Cu, None)
 
-
-def add_via(pos):
-    v = pcbnew.PCB_VIA(board)
-    v.SetPosition(P(*pos))
-    v.SetDrill(FromMM(0.3))
-    v.SetWidth(FromMM(0.6))
-    v.SetNet(nets["GND"])
-    v.SetFrontTentingMode(pcbnew.TENTING_MODE_TENTED)
-    v.SetBackTentingMode(pcbnew.TENTING_MODE_TENTED)
-    board.Add(v)
-    VIAS.append(pos)
-
-
-# The timing capacitor's GND pad and the 555's pin 1 sit in a pocket closed off by the supply (left edge, above) and the
-# timing net (right, below): one tented via under the chip body joins them to the front copper, which is GND, and a
-# second one right of the test-line resistor joins the front copper to the rest of the back GND.
-for _v in VIA_AT:
-    add_via(_v)
-add_filled(board, front, F_Cu, nets["GND"] if VIAS else None)
-print("GND vias:", VIAS)
-
-# ---- the maker's back-side credits: the switch, connector and cell would cover them; same words and size, on the front ----
-# target box (x0, y0, x1, y1) on the front for each text, and its angle there
-MOVES = {"2022/11": ((4.85, -14.3, 7.65, -3.56), 90),            # its old spot is where the switch's two peg holes go: blank strip right of the window
-         "https://hackaday.io/project/187615": ((-7.88, -8.01, -6.52, 14.7), 90),   # same strip, front side, reads upward
-         "@davedarko@chaos.social": ((-7.89, 16.99, 7.89, 18.35), 0)}   # its old line would touch "COVID-19Ag"
-for d in board.GetDrawings():
-    if d.GetClass() == "PCB_TEXT" and d.GetLayer() == B_SilkS and d.GetText() in MOVES:
-        (x0, y0, x1, y1), ang = MOVES[d.GetText()]
-        w0, h0 = d.GetBoundingBox().GetWidth(), d.GetBoundingBox().GetHeight()
-        d.SetLayer(F_SilkS)
-        d.SetMirrored(False)
-        d.SetTextAngleDegrees(ang)
-        bb = d.GetBoundingBox()
-        assert abs(bb.GetWidth() * bb.GetHeight() - w0 * h0) < 1e-3 * w0 * h0 + 1, "text size changed"
-        d.Move(VECTOR2I(FromMM((x0 + x1) / 2) - bb.GetCenter().x, FromMM((y0 + y1) / 2) - bb.GetCenter().y))
-        bb = d.GetBoundingBox()
-        print("front text %-36s x %.2f..%.2f y %.2f..%.2f" % (d.GetText(), ToMM(bb.GetLeft()), ToMM(bb.GetRight()), ToMM(bb.GetTop()), ToMM(bb.GetBottom())))
-logo = [fp for fp in board.GetFootprints() if fp.GetFPID().GetUniStringLibItemName() == "davedarko_logo_silk_ext"][0]
-logo.Flip(logo.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT)
-logo.SetOrientationDegrees(0)
-_lb = logo.GetBoundingBox(False)
-logo.Move(VECTOR2I(-(_lb.GetLeft() + _lb.GetRight()) // 2, FromMM(24.55) - _lb.GetBottom()))   # centred, bottom of the front
-_lb = logo.GetBoundingBox(False)
-print("logo now x %.2f..%.2f y %.2f..%.2f" % (ToMM(_lb.GetLeft()), ToMM(_lb.GetRight()), ToMM(_lb.GetTop()), ToMM(_lb.GetBottom())))
-
-# ---- back silkscreen labels -----------------------------------------------------------------------
-LABELS = [("SAO", -6.85, -22.2, 0.8, 0), ("BAT", 6.85, -22.2, 0.8, 0),
-          ("CR2032", -5.75, 22.75, 0.8, 0), ("+ UP", -5.75, 23.85, 0.8, 0),
-          ("SAO++ rA", 6.4, -3.0, 0.8, 90)]
+# ---- back silkscreen labels (the maker's credits are already there, scaled, where he put them) -------
+LABELS = [("SAO", SW[0], SW[1] - 6.4, 0.8, 0), ("BAT", SW[0], SW[1] + 6.4, 0.8, 0),
+          ("CR2032", -6.3, 33.9, 0.8, 0), ("+ UP", -6.3, 35.0, 0.8, 0),
+          ("SAO++ rB", 5.6, 35.9, 0.8, 0)]
 for txt, x, y, size, rot in LABELS:
     t = pcbnew.PCB_TEXT(board)
     t.SetText(txt)

@@ -1,7 +1,24 @@
 name: "COVID-19 Test"
 slug: covid-test
 status: porting            # designed and rule-checked; no physical SAO++ board built yet
-revision: "A"
+revision: "B"
+scale:
+  factor: 1.48             # whole board and art, uniform, about the board centre (owner decision 2026-11-12)
+  old_size_mm: [16.0, 50.0]
+  new_size_mm: [23.68, 74.0]
+  why: "The cell (20 mm) and the shared clip (21 mm cell plus closed end) need about 21.5 mm of width; that alone needs 1.344. At 1.344-1.47 the cell would cover the start of the maker's back URL ('https:'); 1.48 is the smallest factor at which the cell, clip, switch and connector all fit on the board with every maker credit uncovered. Tried: 1.344 (cell fits, URL start hidden, switch does not fit between logo and clip), 1.375 and 1.45 (URL start hidden), 1.48 (clean)."
+  compromises_gone:
+    - "CR2032 overhung both long edges by 2.0 mm and the clip's closed end stuck out 3.1 mm; now wholly on the board (cell 2.3 mm inside the left edge, clip body 0.39 mm inside the right edge)"
+    - "board-local narrowed clip footprint (17 mm contact cut to a 14.9 mm band); dropped, the shared SAOPP-BAT-01 footprint is used unchanged"
+    - "maker's back credits (hackaday URL, '@davedarko@chaos.social', '2022/11', dd logo) had moved to the front; back where he put them, scaled with the art, none covered by a part or the cell"
+    - "two tented GND vias and front copper used as GND; gone: everything routes on the back copper, the front pour is unconnected art as the maker had it"
+    - "connector body 0.37 mm from both long edges; now 4.2 mm, house rule (3 mm) met, still where the maker's header was (scaled)"
+    - "panel: 44 'hole inside courtyard' errors and a 3.5 mm slot for the overhanging clip; now 0 errors and the usual 2 mm slot"
+    - "extra .kicad_dru rule for fine art gaps; removed (not needed at the new size)"
+  compromises_remaining:
+    - "the cell covers the back of the sample well (as in rev A)"
+    - "the maker's back assembly note stays removed (it names his old parts and would sit under the cell)"
+    - "the switch moved from the top edge to the right edge (knob out to the right): the top of the back is the maker's credit block"
 
 original:
   title: "COVID-19 Test SAO (Simple Add-On)"
@@ -17,18 +34,17 @@ original:
   art_note: "A rapid antigen test cassette drawn by davedarko. No third-party character."
 
 changes:
-  - "Through-hole 2x3 IDC header replaced by the 6-pin v1.69bis SMD shrouded header, 0.6 mm higher than the old header (to clear the switch)"
-  - "New: SAO / OFF / BATTERY slide switch on the top edge (knob up) and a CR2032 clip over the lower half of the back. The original ran from the badge only"
-  - "The 20 mm coin cell overhangs both long edges by 2.0 mm (the board is 16 mm wide); the clip's closed end sticks out 3.1 mm past the right edge (front view)"
-  - "The clip footprint's 17 mm cell disc is wider than the board: this board uses a local copy with the disc cut to a 14.9 mm band (same clip pads)"
+  - "Rev B: whole board and art scaled up 1.48x (outline, front art, mask windows, back credits and logo, uniformly): 16 x 50 mm becomes 23.68 x 74.0 mm. Parts keep their real size"
+  - "Through-hole 2x3 IDC header replaced by the 6-pin v1.69bis SMD shrouded header, where the maker's header was (scaled)"
+  - "New: SAO / OFF / BATTERY slide switch on the right edge (knob out to the right, front view) and a CR2032 clip over the lower part of the back. The original ran from the badge only"
   - "Timer: LMC555 (CMOS, runs from 1.5 V), as the maker's readme asks; his schematic's NE555 needs 4.5 V and does not run from 3.3 V or a coin cell"
   - "Timing set to 3.3M + 3.3M + 100 nF (D2 on 0.46 s, off 0.23 s). The maker's own three sources disagree; his built board blinked 0.33 s on, 0.33 s off"
-  - "Two red LEDs soldered upside down replaced by red reverse-mount 1206 LEDs in the same spots, 1.3 k resistor each (was 1k on the board, 100/150 ohm in the readme)"
+  - "Two red LEDs soldered upside down replaced by red reverse-mount 1206 LEDs in the same spots (scaled), 1.3 k resistor each"
   - "Added C2, a 100 nF supply capacitor beside the timer (same part as C1)"
-  - "Back copper is a GND pour; front copper is the maker's pour, unchanged in shape, now tied to GND through two tented vias (one under the timer, one right of the window)"
-  - "The maker's back credits would sit under the switch, connector and cell, so they moved to blank spots on the FRONT, same words and size: the hackaday URL (same strip, left edge), '2022/11' (upright along the right edge; its old spot is where the switch's peg holes go), '@davedarko@chaos.social' (under the sample well), and the dd logo (bottom)"
+  - "Back copper is a GND pour; everything routes on the back, no vias. Front copper is the maker's pour, unchanged in shape (scaled) and unconnected, as he had it"
+  - "The maker's back credits stay on the back where he put them (scaled with the art): '2022/11' and '@davedarko@chaos.social' at the top, the hackaday URL along the left edge, the dd logo right of the window"
   - "Removed: the maker's back assembly note ('C1+R2 main blink parts ...'), which named the old parts and would sit under the cell, and the two back mask windows behind the old LEDs (the new LED brings its own)"
-  - "Front art otherwise unchanged: window, C and T lines, sample well, shading, 'COVID-19Ag'. New on the front: two 0.9 mm switch peg holes above 'COVID-19Ag' and two tiny tented via dimples"
+  - "Front art otherwise unchanged (scaled): window, C and T lines, sample well, shading, 'COVID-19Ag'. New on the front: two 0.9 mm switch peg holes near the right edge"
 
 features:
   power_select: true
@@ -55,7 +71,3 @@ local_parts:
     mpn: "0603WAF3304T5E"
     footprint: "KiCad stock Resistor_SMD:R_0603_1608Metric (copied unchanged)"
     use: "R1 and R2, the two timing resistors"
-  - id: "CR2032_Clip_Narrow"
-    mpn: "BAT-HLD-001 (same part as SAOPP-BAT-01)"
-    footprint: "lib SAOPP_BAT-01 copy with the 17 mm cell disc cut to a 14.9 mm band"
-    use: "BT1 on a 16 mm wide board"

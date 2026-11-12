@@ -14,9 +14,4 @@ LOCAL_SYMBOLS = {
     "R_Timing_3M3": ("R", "3.3M", "covid-test-local:R_0603_1608Metric",
                      {"SAOPP_ID": "", "MPN": "0603WAF3304T5E", "LCSC": "C26096"}, 2,
                      [("1", "~", "L", 0), ("2", "~", "R", 0)]),
-    # The shared CR2032 clip (SAOPP-BAT-01, same physical part), on a copy of its footprint whose 17 mm cell disc is cut
-    # to a 14.9 mm wide band: the full disc is wider than this 16 mm board.
-    "CR2032_Clip_Narrow": ("BT", "CR2032", "covid-test-local:BAT-HLD-001_CR2032_NarrowBoard",
-                           {"SAOPP_ID": "SAOPP-BAT-01", "MPN": "BAT-HLD-001", "LCSC": "C7501066"}, 2,
-                           [("1", "+", "L", 0), ("2", "-", "R", 0)]),
 }

@@ -1,4 +1,4 @@
-# COVID-19 Test rev A — ordering files
+# COVID-19 Test rev B — ordering files
 
 > Design-checked only. No board has been built from these files yet, and the maker's permission is pending (see [../README.md](../README.md)). Order a small first batch (5–10) before any production run, and go through the prototype checklist there.
 
@@ -13,18 +13,17 @@
 
 Use the files from **one** folder together. The panel's parts are numbered per board (J101, J201, J301, J401 …), so the panel BOM and placement files only match the panel Gerbers.
 
-Each zip holds: front/back copper, solder mask, paste and silkscreen, the board outline (`Edge_Cuts.gm1`), and two drill files (`NPTH.drl` for the switch pegs; `PTH.drl` for the two 0.3 mm vias).
+Each zip holds: front/back copper, solder mask, paste and silkscreen, the board outline (`Edge_Cuts.gm1`), and the drill file `NPTH.drl` for the switch pegs (rev B has no vias, so no plated holes).
 
 ## Order settings
 
 | Setting | Value | Why |
 |---|---|---|
 | Layers | 2 | |
-| Size | single 16.0 × 50.0 mm; panel 55.0 × 133.0 mm | |
+| Size | single 23.68 × 74.0 mm; panel 64.4 × 175.0 mm | rev B is scaled 1.48× from the maker's 16 × 50 mm |
 | Thickness | 1.6 mm | the LEDs shine through the board |
 | Surface finish | **ENIG** | the coin cell rests on a bare copper contact; ENIG keeps it clean and flat |
 | Solder mask / silkscreen | Your choice; the maker's colour is not recorded in his files. White silkscreen (the shading is silkscreen) | |
-| Vias | 0.3 mm hole, 0.6 mm pad, **tented (covered) both sides** | they must not show on the front |
 | "Remove order number" / "specify location" | Remove it, or it gets printed on the art | |
 | Panel option at the fab | single files: "single piece". Panel files: "panel by customer", 4 boards | |
 | Assembly side | **Bottom only** | every part is on the back |
@@ -33,9 +32,9 @@ Each zip holds: front/back copper, solder mask, paste and silkscreen, the board 
 ## Notes for the assembler (paste into the order remarks)
 
 1. All parts are on the **bottom** side.
-2. **BT1 (CR2032 clip)** fits its pads both ways round. Its **open side faces the left edge** (seen from the front, i.e. the right edge seen from the back, the side with the "CR2032" label); its closed end sticks out about 3 mm past the opposite edge. The large pad under it gets **no solder**.
+2. **BT1 (CR2032 clip)** fits its pads both ways round. Its **open side faces the left edge** seen from the front, i.e. the right edge seen from the back (the side with the "CR2032" label); its closed end is toward the other long edge. The large pad under it gets **no solder**.
 3. **D1, D2** are reverse-mount LEDs: lens faces **into** the board.
-4. **SW1** has two plastic pegs that sit in the two 0.9 mm holes; its knob sticks 0.75 mm past the top edge.
+4. **SW1** has two plastic pegs that sit in the two 0.9 mm holes; its knob sticks 0.75 mm past the long edge beside it.
 5. **U1** pin 1 is at the corner marked by the small triangle.
 6. Please confirm part rotations in your placement preview before running. The rotation values come straight from KiCad and have **not** been tried on a real line.
 
@@ -54,11 +53,11 @@ Each zip holds: front/back copper, solder mask, paste and silkscreen, the board 
 
 ## The panel
 
-2 × 2 boards, each in its own routed pocket, held by five break-off tabs with 0.5 mm mouse-bite holes on the board edge (two on the top edge either side of the switch knob, two on the left edge, one on the bottom-left). 5 mm rails top and bottom carry the fiducials and tooling holes. Recipe: `panel.json`; rebuilt by `tools/panelize.py covid-test`.
+2 × 2 boards, each in its own routed pocket (2 mm slot), held by six break-off tabs with 0.5 mm mouse-bite holes on the board edge: two on the top edge, two on the left edge (beside the connector and below the maker's URL, which runs along that edge), one on the right edge beside the connector, one on the bottom edge left of the clip. 5 mm rails top and bottom carry the fiducials and tooling holes. Recipe: `panel.json`; rebuilt by `tools/panelize.py covid-test`.
 
-- The slot is **3.5 mm** instead of the usual 2 mm: the coin-cell clip's closed end hangs 3.1 mm past each board's right edge, over the slot.
-- No tab on the right edge: the cell's supply track runs 0.3 mm from that edge, then the clip sticks out.
-- Panel DRC: 0 unconnected; every mouse-bite hole is at least 0.25 mm from copper. It reports 44 "hole inside courtyard" errors, all from keep-out boxes that reach past the board edge: 40 from the switch's box (it includes the knob, which sticks out past the top edge; the holes are 1.4 mm or more from the knob itself) and 4 from the clip's box (one hole of the bottom tab is 0.28 mm from the clip's outline; the cell itself is not fitted at the factory). The hand-written `panel/covid-test-panel.kicad_dru` carries the board's art rule.
+- Only the switch knob reaches past a board edge (0.75 mm, right edge, over the slot); nothing else overhangs, so the slot is the usual 2 mm (rev A needed 3.5 mm for the clip).
+- No tab on the right edge below the switch (the clip's closed end) or along the URL.
+- Panel DRC: 0 errors, 0 unconnected. Warnings only: 68 the maker's shading dots crossing his own mask windows (17 per board, as in 2022), 4 the panel's own rail label touching a rail fiducial, 60 art libraries not installed. No extra rule file is needed any more.
 
 After snapping boards out, each tab leaves a small rough spot on the edge. A few strokes with a file cleans it up.
 
