@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SAO++ gem: a brilliant-cut stone seen from the side. Drawn by boards/nsec-diamond/hardware/build_board.py from the numbers in GEM. CC-BY-SA-4.0, SAO++ project. Units: mm, origin at the middle of the girdle. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="52mm" height="46mm" viewBox="-26 -13 52 46">
+  <polygon fill="#16324a" points="-14,-13 14,-13 26,-1 26,1 0,33 -26,1 -26,-1"/>
+  <polygon fill="#ffffff" points="-10.900,-1.300 -25.276,-1.300 -14.146,-12.430"/>
+  <polygon fill="#ffffff" points="-0.439,-1.300 -10.021,-1.300 -4.697,-12.251"/>
+  <polygon fill="#ffffff" points="10.021,-1.300 0.439,-1.300 4.697,-12.251"/>
+  <polygon fill="#ffffff" points="25.276,-1.300 10.900,-1.300 14.146,-12.430"/>
+  <polygon fill="#ffffff" points="-5.146,-12.700 -10.430,-1.831 -13.600,-12.700"/>
+  <polygon fill="#ffffff" points="4.228,-12.700 0.000,-1.828 -4.228,-12.700"/>
+  <polygon fill="#ffffff" points="13.600,-12.700 10.430,-1.831 5.146,-12.700"/>
+  <polygon fill="#ffffff" points="-10.800,-0.700 -10.800,0.700 -25.700,0.700 -25.700,-0.700"/>
+  <polygon fill="#ffffff" points="-0.300,-0.700 -0.300,0.700 -10.200,0.700 -10.200,-0.700"/>
+  <polygon fill="#ffffff" points="10.200,-0.700 10.200,0.700 0.300,0.700 0.300,-0.700"/>
+  <polygon fill="#ffffff" points="25.700,-0.700 25.700,0.700 10.800,0.700 10.800,-0.700"/>
+  <polygon fill="#ffffff" points="-10.717,1.300 -0.791,31.550 -25.370,1.300"/>
+  <polygon fill="#ffffff" points="-0.300,1.300 -0.300,31.123 -10.086,1.300"/>
+  <polygon fill="#ffffff" points="10.086,1.300 0.300,31.123 0.300,1.300"/>
+  <polygon fill="#ffffff" points="25.370,1.300 0.791,31.550 10.717,1.300"/>
+</svg>

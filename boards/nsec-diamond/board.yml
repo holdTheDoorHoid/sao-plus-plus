@@ -1,0 +1,41 @@
+name: "NorthSec Diamond"
+slug: nsec-diamond
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Sao_Diamond (NorthSec 2025 badge add-on)"
+  makers: ["NorthSec badge team (nsec/nsec-badge contributors)"]
+  year: 2025
+  source_url: "https://github.com/nsec/nsec-badge/tree/0ea779f281ac538fa21b333b027250784b5d3cbf/hw/2025/sao/Sao_Diamond"
+  project_page: "https://github.com/nsec/nsec-badge/tree/nsec25/hw/2025/sao/Sao_Diamond"
+  license: "MIT"           # repo root LICENSE (copy in original/LICENSE): "Everything is released under the following license, except otherwise stated in respective files". No file of this board or of the shared footprint folder states an exception (checked at commit 0ea779f, 2025-07-14)
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "The outline and all front art are SAO++'s own drawing: a brilliant-cut gem seen from the side, generated from a handful of numbers in hardware/build_board.py (copy in art/gem.svg), CC-BY-SA-4.0 like the rest of SAO++'s art. NorthSec's original was a diamond whose outline and facets were traced from a third-party picture (a web thumbnail of a 'DIAMOND LOGO' template, source and licence unknown), which NorthSec's MIT licence cannot cover. Neither that picture nor the traced outline and facets are reproduced anywhere in this folder: they are cut from the copy of the maker's board file in original/, and the maker's Gerbers are left out. Unchanged and still open: the back carries the 'nsec 2025' logo, NorthSec's event name and mark. The MIT licence covers the design files; it does not make the name or logo free to use as branding on boards for sale."
+
+changes:
+  - "New outline and front art, drawn by SAO++ from scratch: a 52 x 46 mm brilliant-cut gem (table, seven crown facets, girdle band, four pavilion facets). The maker's 41.0 x 35.4 mm diamond was traced from a third-party picture and is not used; a board of the maker's size could not hold the CR2032 cell and the SAO connector together anyway"
+  - "The two 3 mm through-hole LEDs that stood on the front are replaced by white reverse-mount LEDs on the back, shining through the board at the two points on the girdle where five facet lines meet; a 3.2 mm round window is left clear of silkscreen over each"
+  - "The two 330 ohm through-hole resistors (legs visible on the front) are replaced by one shared 1.3 k 0603 resistor per LED, on the back"
+  - "The maker's SMD 2x3 header is replaced by the shared 6-pin SAO v1.69bis shrouded, keyed connector at the top centre of the back, key slot up"
+  - "New: CR2032 clip in the pavilion (the cell slides in over the bottom point) and the SAO / OFF / BAT slide switch on the right crown edge (front view)"
+  - "Back: the 'nsec 2025' logo is kept at 0.75 size in the left crown corner (front view); the blank 5 x 5 mm white box is kept at its original size. Back copper is a ground plane (the original had tracks only). Labels added: SAO / BAT, pin 1, +, CR2032 + UP, DIAMOND, SAO++ rA, orig. design: NorthSec"
+  - "Front: no copper and no through-hole joints; two 0.9 mm switch-peg holes in the right crown facet"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 2
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-11
+  - SAOPP-R-01
+
+local_parts: []
