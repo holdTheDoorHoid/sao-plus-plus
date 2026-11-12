@@ -1,0 +1,183 @@
+{
+ "title": "Floppy Disk - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: Uri Shaked, 'The Floppy' SMD flavor, github.com/urish/floppy-disk-sao (MIT)",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    50.8,
+    88.9
+   ],
+   "nets": {
+    "3": "VLOAD",
+    "1": "VSAO",
+    "4": "VBAT"
+   }
+  },
+  {
+   "ref": "BT1",
+   "symbol": "CR2032_Clip",
+   "at": [
+    50.8,
+    114.3
+   ],
+   "nets": {
+    "1": "VCELL",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "D_Schottky_Cell",
+   "at": [
+    76.2,
+    114.3
+   ],
+   "nets": {
+    "2": "VCELL",
+    "1": "VBAT"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "EE-01_24C02_SOT-23-5",
+   "at": [
+    127.0,
+    63.5
+   ],
+   "nets": {
+    "1": "SCL",
+    "2": "GND",
+    "3": "SDA",
+    "4": "VLOAD",
+    "5": "WP1"
+   }
+  },
+  {
+   "ref": "JP1",
+   "symbol": "SolderJumper_2_Open",
+   "at": [
+    165.1,
+    63.5
+   ],
+   "nets": {
+    "1": "WP1",
+    "2": "VLOAD"
+   }
+  },
+  {
+   "ref": "C1",
+   "symbol": "C_100n",
+   "at": [
+    195.58,
+    63.5
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U2",
+   "symbol": "EEPROM_24C512_SOIC8",
+   "at": [
+    127.0,
+    96.52
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "GND",
+    "3": "GND",
+    "4": "GND",
+    "5": "SDA",
+    "6": "SCL",
+    "7": "WP2",
+    "8": "VLOAD"
+   }
+  },
+  {
+   "ref": "JP2",
+   "symbol": "SolderJumper_2_Open",
+   "at": [
+    165.1,
+    96.52
+   ],
+   "nets": {
+    "1": "WP2",
+    "2": "VLOAD"
+   }
+  },
+  {
+   "ref": "C2",
+   "symbol": "C_100n",
+   "at": [
+    195.58,
+    96.52
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "SAO++ power select: the switch common feeds the board. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell (through D1).",
+   [
+    25.4,
+    30.48
+   ]
+  ],
+  [
+   "The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.",
+   [
+    25.4,
+    34.29
+   ]
+  ],
+  [
+   "D1 (series Schottky, docs/standard.md section 3) is required: both EEPROMs sit on SDA / SCL, and the 24C02's inputs have protection diodes to its supply pin.",
+   [
+    25.4,
+    38.1
+   ]
+  ],
+  [
+   "No I2C pull-ups on the add-on (the maker's R2 / R3, 10 k, are removed): the badge provides them.",
+   [
+    25.4,
+    41.91
+   ]
+  ],
+  [
+   "Maker's circuit (Uri Shaked, 2020): U1 = 256-byte ID EEPROM at 0x50, U2 = 64 KB storage EEPROM at 0x51 (E0 high). JP1 / JP2: bridge with solder to write-protect.",
+   [
+    101.6,
+    45.72
+   ]
+  ],
+  [
+   "U1 is now SOT-23-5 (SAOPP-EE-01 candidate): its address is fixed at 0x50 inside the chip. WP pins float when the bridges are open, as on the maker's board.",
+   [
+    101.6,
+    49.53
+   ]
+  ]
+ ]
+}
