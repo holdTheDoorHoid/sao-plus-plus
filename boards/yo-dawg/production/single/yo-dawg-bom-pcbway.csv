@@ -1,0 +1,4 @@
+Item #,Designator,Qty,Manufacturer,Mfg Part #,Description / Value,Package/Footprint,Type,Your Instructions / Notes
+1,"C1,C2,C3",3,YAGEO,CC0603KRX7R9BB104,100n,SAOPP_C_0603_1608Metric,SMD,LCSC C14663
+2,J1,1,XFCN,BH254VS-6P,SAO v1.69bis,SAOPP_CONN-01_BoxHeader_2x03_P2.54mm_SMD_XFCN_BH254VS-6P,SMD,LCSC C492445
+3,"J2,J3,J4",3,,"not chosen: 1x3 female socket strip, 1.27 mm pitch, through-hole",mini board socket,PinSocket_1x03_P1.27mm_Vertical,SMD,

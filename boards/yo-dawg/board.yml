@@ -1,0 +1,50 @@
+name: "Yo Dawg"
+slug: yo-dawg
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Yo Dawg SAO ('Yo Dawg, I heard you like add-ons on your badges?'), 2024/09"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2024
+  source_url: "https://github.com/davedarko/YoDawgSAO/tree/4dd3db0f05816ee4440da673cd56837ef299c66e/dawg"
+  license: "MIT"           # the repo's LICENSE file: 'MIT License, Copyright (c) 2024 davedarko' (original/LICENSE). It covers the whole repository; no source file carries a licence note of its own
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  base_revision: "commit 4dd3db0 (2024-10-11), dawg/dawg.kicad_pcb (KiCad 8)"
+  art_note: "The maker's front art is a dithered black-and-white portrait of the rapper Xzibit (the 'Yo Dawg' meme, from the TV show Pimp My Ride): 1318 silkscreen polygons made from a photograph. It is a likeness of a real person, and the photograph is not the maker's, so his MIT licence cannot cover it. It is NOT in this repository and NOT on the board as built: original/dawg/dawg.kicad_pcb is his file with those polygons removed, and the front of rev A is plain. hardware/build_board.py can put the portrait back from an untouched copy of his file (YODAWG_PORTRAIT=...) if the owner decides to. The maker's own logo and lettering on the back are kept unchanged. His mini boards (badges/ in his repo: Hackaday's Jolly Wrencher, the xHain hackerspace logo, an Iron Man face, 'Super Cluster') are not ported; three of them are other people's marks."
+
+exceptions:                # recorded departures from docs/standard.md, for the owner to confirm
+  - "Badge power only: no coin cell and no SAO / OFF / BAT switch. SAO pin 1 feeds the three sockets directly, as on the maker's design. Reason: the board has nothing of its own to light, and the standard cell clip (24 x 22 mm with its cell) does not fit on the back without either covering the sockets' solder joints, or pushing the SAO connector to the top end and the maker's lettering off the board. Enlarging does not help: the board has to match the maker's fixed 19 x 19 mm mini boards. Printed 'BADGE POWER ONLY' on the back."
+  - "Parts on the front: the three mini-board sockets are through-hole parts on the front, with their solder joints on the back. They are the point of the board (the mini boards plug in over the front)."
+  - "The SAO connector's body ends 1.65 mm from the bottom edge (standard: 3 mm) and its lower pads 0.5 mm from it. It sits in the maker's spot; any higher and it lands on his credit line, which is not moved. No panel tab on the bottom edge."
+
+changes:
+  - "2x3 through-hole shrouded header -> the shared SMD shrouded, keyed SAO v1.69bis connector on the back, key up, same place across, 0.6 mm higher (centre y 43.9, was 44.5)"
+  - "Three unmarked 0805 capacitors -> three shared 100 nF 0603 (SAOPP-C-01), same places"
+  - "Sockets: same stock footprint, same positions, same GND - VCC - GND wiring"
+  - "Ground copper on both sides as on the original, now 0.55 mm back from the edge (was 0.5 mm), drawn as polygons with hand-made thermal spokes round the sockets' ground pins"
+  - "Supply track: the maker's route, re-entered at the new connector's pin 1 pad"
+  - "Front portrait left out (see art_note). Fab-house order-number slot 'JLCJLCJLCJLC' removed"
+  - "Back lettering, '- + -' labels, dotted mini-board frames and logo: untouched. Added: 'BADGE POWER ONLY', '3 sockets share 50 mA max', 'SAO++ rA', pin-1 mark"
+  - "Outline: the same 40 x 50 mm rectangle with 1 mm corners, as one polygon"
+
+features:
+  power_select: false      # recorded exception, see above
+  coin_cell: none
+  side_leds: 0
+  through_board_leds: 0
+  vias: 0
+  i2c_device: false
+  gpio_use: ""             # SDA, SCL, GPIO1, GPIO2 unconnected, and not passed on to the mini boards
+  controller: "none"
+  size_mm: "40.0 x 50.0"
+  mini_board_sockets: 3    # 19 x 19 mm boards, 3-pin 1.27 mm header, GND - 3.3 V - GND
+  worst_case_current_mA: "0 by itself. Whatever is plugged in draws from the badge: keep the three mini boards together under the 50 mA house budget"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-C-01
+
+local_parts:
+  - {name: MiniBoard_Socket_1x03_P1.27, ref: "J2, J3, J4", mpn: "not chosen (the maker names none): 1x3 female socket strip, 1.27 mm pitch, through-hole, vertical", lcsc: "", footprint: "KiCad stock Connector_PinSocket_1.27mm:PinSocket_1x03_P1.27mm_Vertical, unchanged copy in hardware/yo-dawg-local.pretty/"}

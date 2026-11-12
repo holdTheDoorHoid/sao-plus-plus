@@ -1,0 +1,94 @@
+{
+ "title": "Yo Dawg - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko, Yo Dawg SAO 2024/09, github.com/davedarko/YoDawgSAO (MIT)",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "J2",
+   "symbol": "MiniBoard_Socket_1x03_P1.27",
+   "at": [
+    127.0,
+    63.5
+   ],
+   "nets": {
+    "1": "GND",
+    "2": "VSAO",
+    "3": "GND"
+   }
+  },
+  {
+   "ref": "J3",
+   "symbol": "MiniBoard_Socket_1x03_P1.27",
+   "at": [
+    127.0,
+    88.9
+   ],
+   "nets": {
+    "1": "GND",
+    "2": "VSAO",
+    "3": "GND"
+   }
+  },
+  {
+   "ref": "J4",
+   "symbol": "MiniBoard_Socket_1x03_P1.27",
+   "at": [
+    127.0,
+    114.3
+   ],
+   "nets": {
+    "1": "GND",
+    "2": "VSAO",
+    "3": "GND"
+   }
+  },
+  {
+   "ref": "C1",
+   "symbol": "C_100n",
+   "at": [
+    190.5,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C2",
+   "symbol": "C_100n",
+   "at": [
+    190.5,
+    88.9
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C3",
+   "symbol": "C_100n",
+   "at": [
+    190.5,
+    114.3
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. No tab on the bottom edge: the SAO connector's lower pads end 0.5 mm inside it.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [10.0, 0.0], "dir": "-y", "why": "top edge, left half: only ground copper behind it"},
+    {"near": [30.0, 0.0], "dir": "-y", "why": "top edge, right half"},
+    {"near": [0.0, 10.0], "dir": "-x", "why": "left edge, upper part"},
+    {"near": [0.0, 30.0], "dir": "-x", "why": "left edge, between socket J2 and the capacitors"},
+    {"near": [40.0, 10.0], "dir": "+x", "why": "right edge, upper part"},
+    {"near": [40.0, 30.0], "dir": "+x", "why": "right edge, beside the maker's lettering (which stops 1.1 mm inside the edge)"}
+  ]
+}
