@@ -20,6 +20,7 @@ original:
   permission: "license"
   permission_ref: "original/LICENSE"
   art_note: "The artwork is DEF CON's 'Jack' mark (the smiling skull and crossbones) and the lettering 'D3FC0N'. Those are DEF CON's trademarks. hamster's MIT license covers his board design; it cannot give anyone the right to use DEF CON's marks. hamster made the board for DEF CON 30 itself. Publishing these files and, above all, selling boards with this art is a separate question for DEF CON (owner decision, see README)."
+  publish_note: "Owner decision 2026-11-12: publish this board as a draft pull request with the third-party marks described in art_note left in place. That is a decision to publish the files for review only; it is not a decision about making or selling boards with those marks, and it does not settle the through-hole kit exception above."
 
 changes:
   - "KEPT AS A KIT (standard exception, awaiting the owner's yes): the four through-hole LEDs and two through-hole resistors stay where the maker had them, all twelve holes in the same places, soldered by the buyer"
