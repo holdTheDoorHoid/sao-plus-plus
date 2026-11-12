@@ -1,0 +1,28 @@
+(version 1)
+
+# Same rules as hardware/sao-jack.kicad_dru, with the panel's part numbers (J101, BT101, SW101, R101, J201 ...).
+# Hand-written: tools/panelize.py does not copy a board's rules to its panel.
+# The copper on this board is artwork. These rules stop DRC from flagging the art for being art;
+# everything electrical (pads, tracks, the GND copper against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The board is 35.6 x 37.4 mm and the cell clip, the connector and the switch only fit stacked down the middle, beside the
+# maker's two resistors. The keep-out boxes below overlap; the parts do not:
+# - connector below the clip: the clip's closed end and the connector's top pads are 0.85 mm apart in metal;
+#   courtyards (each drawn 0.5 mm past the part) overlap by about 0.15 mm
+(rule "Connector below the cell clip"
+  (condition "(A.Reference == 'J?01' && B.Reference == 'BT?01') || (A.Reference == 'BT?01' && B.Reference == 'J?01')")
+  (constraint courtyard_clearance (min -0.3mm)))
+# - switch below the connector: 0.33 mm between the connector's lower pads and the switch pins; the switch body is
+#   2.6 mm below the connector's plastic. Courtyards overlap by about 0.5 mm
+(rule "Switch below the connector"
+  (condition "(A.Reference == 'J?01' && B.Reference == 'SW?01') || (A.Reference == 'SW?01' && B.Reference == 'J?01')")
+  (constraint courtyard_clearance (min -0.7mm)))
+# - resistor R1 beside the connector: 0.5 mm between the connector's plastic and the resistor's body;
+#   courtyards overlap by about 0.25 mm
+(rule "Resistor R1 beside the connector"
+  (condition "(A.Reference == 'J?01' && B.Reference == 'R?01') || (A.Reference == 'R?01' && B.Reference == 'J?01')")
+  (constraint courtyard_clearance (min -0.4mm)))

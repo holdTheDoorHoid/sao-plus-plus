@@ -1,0 +1,51 @@
+name: "SAO Jack"
+slug: sao-jack
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+# READ THIS FIRST. This board breaks one SAO++ house rule on purpose, and the owner has not yet said yes to it.
+standard_exception:
+  rule: "docs/standard.md section 5: front is art only, every part on the back, no visible through-hole joints"
+  what: "Four through-hole 3 mm LEDs stand on the FRONT (legs soldered on the back) and two through-hole resistors sit on the back with their solder joints on the FRONT, exactly where the maker had them. They are supplied loose and soldered by the buyer."
+  why: "The original is a learn-to-solder kit. Moving its lights to machine-placed parts on the back would leave nothing to solder."
+  decided_by: "NOT DECIDED. Built on the orchestrator's recommendation (keep it as a kit); the owner was asked and has not answered. Do not treat this board as accepted into SAO++ until this line names the owner and a date."
+  alternative: "Surface-mount LEDs on the back (see README, 'If the owner says no'): meets the standard, but it stops being a kit."
+
+original:
+  title: "SAO Jack 1.0 (DEF CON 30 learn-to-solder SAO)"
+  makers: ["hamster (@hamster)"]
+  year: 2022
+  source_url: "https://github.com/hamster/defcon30/tree/cc53e6e/jack"   # commit cc53e6e, 2022-08-09
+  license: "MIT"           # (c) 2022 hamster; LICENSE at the root of the maker's repository, copied to original/LICENSE
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "The artwork is DEF CON's 'Jack' mark (the smiling skull and crossbones) and the lettering 'D3FC0N'. Those are DEF CON's trademarks. hamster's MIT license covers his board design; it cannot give anyone the right to use DEF CON's marks. hamster made the board for DEF CON 30 itself. Publishing these files and, above all, selling boards with this art is a separate question for DEF CON (owner decision, see README)."
+  publish_note: "Owner decision 2026-11-12: publish this board as a draft pull request with the third-party marks described in art_note left in place. That is a decision to publish the files for review only; it is not a decision about making or selling boards with those marks, and it does not settle the through-hole kit exception above."
+
+changes:
+  - "KEPT AS A KIT (standard exception, awaiting the owner's yes): the four through-hole LEDs and two through-hole resistors stay where the maker had them, all twelve holes in the same places, soldered by the buyer"
+  - "Resistors 680 ohm instead of the maker's 100 ohm (his schematic says 140): about 1 mA per red, yellow or green LED instead of roughly 6-7 mA, so that a coin cell can run them"
+  - "The maker's 2x3 through-hole header (lower left of the front, six holes among the dots) replaced by the 6-pin SAO v1.69bis SMD shrouded connector on the back, key slot up, 2.6 mm left of centre"
+  - "Added: SAO / OFF / BAT slide switch at the bottom edge, and the shared CR2032 clip on the back of the skull's head; the cell slides in over the top of the head and shows past it by up to 0.56 mm"
+  - "Front art unchanged except: 3 of the maker's 25 loose plated dots removed (they would touch the new connector's pads), the old header's 6 holes gone, two 0.9 mm switch-peg holes at the bottom (one in the foot of the letter C), four tiny covered vias, and one hair-thin track just inside the bottom and lower-left edge"
+  - "Back: the maker's 'D3FC0N' lettering and hand-drawn circuit diagram are gone (all 58 pieces lay under the cell, clip, connector, switch or a label). '@hamster' in copper kept unchanged, moved 8.5 mm from under the new connector to beside it. The LED and resistor outlines stay"
+  - "Front ground copper rebuilt in the maker's shape with his 0.508 mm gaps and thermal spokes; ground copper added on the back; all copper 0.55 mm back from the edge"
+  - "Outline: the same shape as one polygon (was 41 curves drawn with a 0.7 mm line)"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 0
+  i2c_device: false
+  gpio_use: ""
+  kit: "learn-to-solder: 4 through-hole 3 mm LEDs and 2 through-hole resistors, supplied loose, soldered by the buyer"
+
+shared_parts:              # fitted by the assembly house
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+
+local_parts:               # kit bag, soldered by the buyer; hardware/parts_local.py. No part numbers chosen (owner decision)
+  - "4 x 3 mm (T-1) through-hole LED, two colours in pairs. Maker's 2022 list: HLMP1540 green (D1, D3), LTL-4211N red (D2, D4); not re-checked"
+  - "2 x 680 ohm 1/8 W axial resistor, 3.6 mm body, 7.62 mm hole spacing. Maker's 2022 list: CF18JT100R (100 ohm, the wrong value for a coin cell)"

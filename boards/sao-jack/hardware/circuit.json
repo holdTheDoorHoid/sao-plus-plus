@@ -1,0 +1,178 @@
+{
+ "title": "SAO Jack - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: hamster, DEF CON 30 SAO Jack 1.0 (2022), MIT license, github.com/hamster/defcon30",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "BT1",
+   "symbol": "CR2032_Clip",
+   "at": [
+    50.8,
+    96.52
+   ],
+   "nets": {
+    "1": "VBAT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    106.68,
+    78.74
+   ],
+   "nets": {
+    "3": "VLOAD",
+    "1": "VSAO",
+    "4": "VBAT"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_Axial_THT_Kit",
+   "at": [
+    157.48,
+    63.5
+   ],
+   "nets": {
+    "2": "VLOAD",
+    "1": "LED_L"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_Axial_THT_Kit",
+   "at": [
+    157.48,
+    93.98
+   ],
+   "nets": {
+    "2": "VLOAD",
+    "1": "LED_R"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_3mm_THT_Kit",
+   "at": [
+    203.2,
+    58.42
+   ],
+   "value": "LED 3 mm (maker: green)",
+   "nets": {
+    "2": "LED_L",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_3mm_THT_Kit",
+   "at": [
+    203.2,
+    68.58
+   ],
+   "value": "LED 3 mm (maker: green)",
+   "nets": {
+    "2": "LED_L",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_3mm_THT_Kit",
+   "at": [
+    203.2,
+    88.9
+   ],
+   "value": "LED 3 mm (maker: red)",
+   "nets": {
+    "2": "LED_R",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_3mm_THT_Kit",
+   "at": [
+    203.2,
+    99.06
+   ],
+   "value": "LED 3 mm (maker: red)",
+   "nets": {
+    "2": "LED_R",
+    "1": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "SAO++ power select: the switch common feeds the LEDs. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.",
+   [
+    38.1,
+    38.1
+   ]
+  ],
+  [
+   "The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.",
+   [
+    38.1,
+    41.91
+   ]
+  ],
+  [
+   "LED-only board: SDA, SCL, GPIO1 and GPIO2 are not connected, so no series diode is needed on the cell (see docs/standard.md section 3).",
+   [
+    38.1,
+    45.72
+   ]
+  ],
+  [
+   "KIT PARTS: R1, R2 and D1-D4 are through-hole and are soldered by the buyer, as on hamster's original. They are not in the assembly BOM.",
+   [
+    38.1,
+    119.38
+   ]
+  ],
+  [
+   "As on the original, each resistor feeds two LEDs side by side: R1 the two left LEDs (D1, D3), R2 the two right LEDs (D2, D4), seen from the front.",
+   [
+    38.1,
+    123.19
+   ]
+  ],
+  [
+   "Use the same colour for both LEDs of a pair: of two different colours on one resistor only the one that needs less voltage lights.",
+   [
+    38.1,
+    127.0
+   ]
+  ],
+  [
+   "680 ohm (the maker used 100 ohm; his schematic says 140): about 1 mA per red, yellow or green LED on a 3.0 V cell or the badge's 3.3 V.",
+   [
+    38.1,
+    130.81
+   ]
+  ],
+  [
+   "LED pad 1 (square hole) = cathode = short leg, toward the top of the board. LED lens on the front; resistor bodies on the back.",
+   [
+    38.1,
+    134.62
+   ]
+  ]
+ ]
+}
