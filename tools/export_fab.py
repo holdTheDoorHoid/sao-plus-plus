@@ -25,6 +25,9 @@ import sys
 import zipfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from saopp_paths import board_dir  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 LAYERS = "F.Cu,B.Cu,F.Paste,B.Paste,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts"
 
@@ -108,7 +111,7 @@ MAKERS = {"BH254VS-6P": "XFCN", "PCM13SMTR": "C&K", "BAT-HLD-001": "TE Connectiv
 
 
 def main(slug):
-    board = ROOT / "boards" / slug
+    board = board_dir(slug)
     prod = board / "production"
     sch = board / "hardware" / f"{slug}.kicad_sch"
     tmp = prod / "_bom.csv"

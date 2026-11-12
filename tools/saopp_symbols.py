@@ -87,10 +87,11 @@ def load_local(slug):
     """Merge a board's own extra parts into SYMBOLS and return their names.
 
     A board that needs a part the shared library does not have yet keeps it in its own folder until it is proven:
-      boards/<slug>/hardware/parts_local.py      LOCAL_SYMBOLS = {name: (ref prefix, value, "<slug>-local:<Footprint>", fields, half-width, pins)}
+      boards/<slug>/ (or originals/<slug>/) hardware/parts_local.py      LOCAL_SYMBOLS = {name: (ref prefix, value, "<slug>-local:<Footprint>", fields, half-width, pins)}
       boards/<slug>/hardware/<slug>-local.pretty  the footprints those symbols name
     tools/gen_schematic.py writes boards/<slug>/hardware/<slug>-local.kicad_sym and both library tables from this."""
-    path = Path(__file__).resolve().parent.parent / "boards" / slug / "hardware" / "parts_local.py"
+    from saopp_paths import board_dir
+    path = board_dir(slug) / "hardware" / "parts_local.py"
     if not path.exists():
         return []
     scope = {}
