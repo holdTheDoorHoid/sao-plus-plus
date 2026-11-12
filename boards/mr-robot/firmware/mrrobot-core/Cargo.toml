@@ -1,0 +1,21 @@
+[package]
+name = "mrrobot-core"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Board-independent logic for the Mr. Robot SAO (SAO++ edition): note table, tone rules, tunes, I2C command handling"
+publish = false
+
+# Plain no_std library. Everything here is checked on the host with `cargo test`;
+# the firmware crate in ../mrrobot-fw links it for the ESP32 targets.
+
+[features]
+# Answer at the maker's original I2C address 0x08 instead of the house
+# address 0x1D, so badge code written for his 2019 board finds this one.
+# Build the firmware with `cargo c3 --features maker-address` (see README).
+maker-address = []
+
+[dependencies]
+
+[lints.rust]
+unsafe_code = "forbid"

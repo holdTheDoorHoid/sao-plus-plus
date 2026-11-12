@@ -84,12 +84,12 @@ Everything is on the back copper, with **no vias**: nothing electrical shows on 
 
 ## Firmware
 
-There is no SAO++ firmware for this board yet. The maker's two Arduino sketches are in `original/Arduino/` and show the I2C protocol he intended:
+New Rust firmware for the XIAO is in [`firmware/`](firmware/) (60 tests pass, builds for the C3, C6 and S3; **it has never run on a real board**). It answers at I2C address 0x1D by default, or the maker's 0x08 as a build option, accepts the maker's note commands unchanged, and adds a few original jingles. See its README for what the first board must be checked for, including a possible click at power-up (the transistor has no hold-off resistor) and the pitch on a C6. The maker's two Arduino sketches are in `original/Arduino/` and show the I2C protocol he intended:
 
 - **The add-on** (`SlaveMrRobot`) listens at **7-bit I2C address 0x08**. Every write ends in one byte that matters (any earlier bytes in the same write are read and thrown away): **0 = silence**; **1–89 = play a note** from a table of 89 notes, B0 (31 Hz) up to D♯8 (4978 Hz), in semitone steps (1 = B0, 2 = C1, … 89 = D♯8). It plays the note as a 50 % square wave on its sounder pin and holds it until the next byte. Nothing is ever sent back.
 - **The badge side** (`MasterMrRobot`) is a demo: it sends 1, then 0 100 ms later, then 2, then 0, … up to 69 (a rising scale of short beeps), and repeats.
 
-To reproduce it here: be an I2C target at 0x08 on D4/D5, and on each write play note *n* as a square wave on D10 (LEDC/PWM at 50 % duty), or stop on 0; treat D1 high as "off". The note table is the standard equal-tempered one in his `pitches.h`.
+The new firmware does this on D4/D5 and D10, and treats D1 high as "off". The note table is the standard equal-tempered one in his `pitches.h`.
 
 ## Things to check on the first prototype
 
