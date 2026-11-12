@@ -1,0 +1,59 @@
+name: "Sloth Badge"
+slug: sloth
+status: porting            # designed, routed and rule-checked; no physical board built yet
+revision: "A"
+
+original:
+  title: "Sloth Badge (Simple Add-ons SAO, 'Sloth Badge'; Eagle REV1, 'sloth_final')"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2017               # the Eagle schematic printout (original/REV1/sloth_final.pdf) is dated 24/11/17
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Sloth%20Badge"
+  project_url: "https://hackaday.io/project/28330-sloth-badge"
+  license: "none stated"   # the repo (commit 1a08593) states no license, so all rights are reserved by default
+  permission: "pending"
+  permission_ref: ""
+  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  base_revision: "original/REV1 (the badge itself). original/programTester is a programming / test jig for the badge's chip (DIP socket, 12 LEDs in a row, AVR ISP header, silkscreen 'SLOTHBADGE TESTER'), not a badge, and is not used"
+  art_note: "The maker's repo readme says the badge was 'inspired by some cute pimoroni pins'. The drawing appears to be davedarko's own, but whether it follows a Pimoroni design closely is not recorded; worth asking the maker along with the permission."
+  scale: 1.3              # owner rule 2026-11-12: whole board scaled up uniformly to make room; maker's 40.0 x 30.0 mm -> 52.0 x 39.0 mm
+
+changes:
+  - "Rebuilt in KiCad 10 from the maker's Eagle REV1 files (outline, the gold sloth face = his bottom solder-mask openings, his LED positions, his back credit line and logo), read straight from the Eagle XML"
+  - "Whole board scaled up 1.3x (40.0 x 30.0 mm -> 52.0 x 39.0 mm), outline, art, LED positions, credit line and logo together; at 1.0 and 1.2 the connector, cell clip, switch, chip, ISP pads and button do not fit round the maker's back lettering and logo with room to wire them"
+  - "Brooch-pin pads (two bare copper rectangles near the top of the back) dropped: the board now hangs from the SAO connector"
+  - "Maker's SMD CR2032 holder replaced by the shared CR2032 clip, on the back, left half"
+  - "Added: SAO v1.69bis shrouded connector on the back, right of centre, key slot up; SAO / OFF / BAT switch, knob out of the flat top edge"
+  - "Series cell diode D13 added (required: the ATtiny's PB1 is wired to SAO GPIO2)"
+  - "PB1 (the maker's button pin, also ISP MISO) wired to SAO GPIO2 through a 330 ohm resistor R5; no other chip pin is free"
+  - "LED resistors 150 ohm -> shared 330 ohm (about 2.3 mA instead of about 4 mA per lit LED on 3.3 V)"
+  - "ATtiny85 -> ATtiny85V (same chip and pins, rated down to 1.8 V), Knight Rider's local part"
+  - "12 front-facing 0805 LEDs -> Knight Rider's red 0603 (LTST-C191KRKT), same centres and directions, still on the front"
+  - "100 nF supply capacitor C1 added beside the chip"
+  - "Routed on both copper layers like the maker's board: the LED wiring runs on the front in the dark ring round the face (never through the gold), tented vias down to the back"
+  - "Maker's back notes '150 Ohm', 'ATTINY13A', 'ISP' and 'R1' and the OSH Park logo not carried (no longer true / the board house's mark); new 'ISP' label beside the pads"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 0
+  front_leds: 12
+  vias: 25                 # tented, all in dark (solder-masked) front areas: 12 LED wiring, 12 crossings (MISO 2, MOSI 2, RST 4, VBAT 4), 1 ground stitch
+  copper_layers_used: 2
+  i2c_device: false
+  gpio_use: "GPIO2 <- 330 ohm -> ATtiny PB1 (the maker's button / ISP MISO line)"
+  controller: "ATtiny85V (maker's circuit, not a XIAO)"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-R-02
+  - SAOPP-C-01
+
+local_parts:
+  - {name: ATtiny85_SOIC8_EIAJ, ref: U1, mpn: ATTINY85V-10SU, lcsc: C152192, footprint: "maker's SO08-EIAJ, via knight-rider-local"}
+  - {name: LED_0603_Red_Front, ref: D1-D12, mpn: LTST-C191KRKT, lcsc: C125099, footprint: "maker's 0603 LED pattern, via knight-rider-local"}
+  - {name: Button_SMD_6x3.5, ref: SW2, mpn: "6 x 3.5 mm 2-pad SMD tactile, SparkFun COM-08229 class (exact MPN to be matched; same open item as Knight Rider)", footprint: "maker's TACTILE-SWITCH-1101NE, via knight-rider-local"}
+  - {name: ISP_Pads_AVR_2x3, ref: JP1, mpn: "none (bare pads)", footprint: "maker's 2X3_SMD_PAD, via knight-rider-local"}
+  - {name: D_Schottky_Cell, ref: D13, mpn: RB751S40T1G, lcsc: C232576, implements: SAOPP-D-01, footprint: "KiCad stock Diode_SMD:D_SOD-523, via knight-rider-local"}

@@ -1,0 +1,370 @@
+{
+ "title": "Sloth Badge - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko (Dave Darko), hackaday.io/project/28330, github.com/davedarko/Simple-Add-ons-SAO",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "6": "SAO_GPIO2"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    50.8,
+    88.9
+   ],
+   "nets": {
+    "3": "VLOAD",
+    "1": "VSAO",
+    "4": "VBAT"
+   }
+  },
+  {
+   "ref": "BT1",
+   "symbol": "CR2032_Clip",
+   "at": [
+    50.8,
+    114.3
+   ],
+   "nets": {
+    "1": "VCELL",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D13",
+   "symbol": "D_Schottky_Cell",
+   "at": [
+    76.2,
+    114.3
+   ],
+   "nets": {
+    "2": "VCELL",
+    "1": "VBAT"
+   }
+  },
+  {
+   "ref": "C1",
+   "symbol": "C_100n",
+   "at": [
+    76.2,
+    139.7
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "ATtiny85_SOIC8_EIAJ",
+   "at": [
+    124.46,
+    76.2
+   ],
+   "nets": {
+    "1": "RST",
+    "2": "PB3",
+    "3": "PB4",
+    "4": "GND",
+    "5": "MOSI",
+    "6": "MISO",
+    "7": "SCK",
+    "8": "VLOAD"
+   }
+  },
+  {
+   "ref": "JP1",
+   "symbol": "ISP_Pads_AVR_2x3",
+   "at": [
+    124.46,
+    109.22
+   ],
+   "nets": {
+    "P$1": "MISO",
+    "P$2": "VLOAD",
+    "P$3": "SCK",
+    "P$4": "MOSI",
+    "P$5": "RST",
+    "P$6": "GND"
+   }
+  },
+  {
+   "ref": "SW2",
+   "symbol": "Button_SMD_6x3.5",
+   "at": [
+    124.46,
+    134.62
+   ],
+   "nets": {
+    "P$1": "MISO",
+    "P$2": "GND"
+   }
+  },
+  {
+   "ref": "R5",
+   "symbol": "R_Series_330",
+   "at": [
+    86.36,
+    63.5
+   ],
+   "nets": {
+    "1": "MISO",
+    "2": "SAO_GPIO2"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_Series_330",
+   "at": [
+    167.64,
+    50.8
+   ],
+   "nets": {
+    "1": "MOSI",
+    "2": "NODE_A"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_Series_330",
+   "at": [
+    167.64,
+    63.5
+   ],
+   "nets": {
+    "1": "SCK",
+    "2": "NODE_B"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_Series_330",
+   "at": [
+    167.64,
+    76.19999999999999
+   ],
+   "nets": {
+    "1": "PB3",
+    "2": "NODE_C"
+   }
+  },
+  {
+   "ref": "R4",
+   "symbol": "R_Series_330",
+   "at": [
+    167.64,
+    88.89999999999999
+   ],
+   "nets": {
+    "1": "PB4",
+    "2": "NODE_D"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    205.74,
+    50.8
+   ],
+   "nets": {
+    "2": "NODE_A",
+    "1": "NODE_B"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    205.74,
+    66.03999999999999
+   ],
+   "nets": {
+    "2": "NODE_B",
+    "1": "NODE_A"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    205.74,
+    81.28
+   ],
+   "nets": {
+    "2": "NODE_B",
+    "1": "NODE_C"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    205.74,
+    96.52
+   ],
+   "nets": {
+    "2": "NODE_C",
+    "1": "NODE_B"
+   }
+  },
+  {
+   "ref": "D5",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    205.74,
+    111.75999999999999
+   ],
+   "nets": {
+    "2": "NODE_C",
+    "1": "NODE_D"
+   }
+  },
+  {
+   "ref": "D6",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    205.74,
+    127.0
+   ],
+   "nets": {
+    "2": "NODE_D",
+    "1": "NODE_C"
+   }
+  },
+  {
+   "ref": "D7",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    243.84,
+    50.8
+   ],
+   "nets": {
+    "2": "NODE_A",
+    "1": "NODE_C"
+   }
+  },
+  {
+   "ref": "D8",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    243.84,
+    66.03999999999999
+   ],
+   "nets": {
+    "2": "NODE_C",
+    "1": "NODE_A"
+   }
+  },
+  {
+   "ref": "D9",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    243.84,
+    81.28
+   ],
+   "nets": {
+    "2": "NODE_B",
+    "1": "NODE_D"
+   }
+  },
+  {
+   "ref": "D10",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    243.84,
+    96.52
+   ],
+   "nets": {
+    "2": "NODE_D",
+    "1": "NODE_B"
+   }
+  },
+  {
+   "ref": "D11",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    243.84,
+    111.75999999999999
+   ],
+   "nets": {
+    "2": "NODE_A",
+    "1": "NODE_D"
+   }
+  },
+  {
+   "ref": "D12",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    243.84,
+    127.0
+   ],
+   "nets": {
+    "2": "NODE_D",
+    "1": "NODE_A"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "SAO++ power select: the switch common feeds the board. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell (through D13).",
+   [
+    25.4,
+    30.48
+   ]
+  ],
+  [
+   "The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.",
+   [
+    25.4,
+    34.29
+   ]
+  ],
+  [
+   "D13 (series Schottky, docs/standard.md section 3) is required: the ATtiny's PB1 is wired to SAO GPIO2 through R5, so the badge could push current into the cell through the chip.",
+   [
+    25.4,
+    38.1
+   ]
+  ],
+  [
+   "R5 (330 ohm) is the SAO spec's series resistor on a GPIO the add-on may drive. PB1 is the maker's button pin; the chip has no other spare pin (PB0, PB2, PB3, PB4 drive the LEDs, PB5 is reset).",
+   [
+    25.4,
+    41.91
+   ]
+  ],
+  [
+   "Maker's circuit (davedarko, Eagle 2017, REV1): ATtiny85 charlieplexes 12 LEDs from PB0, PB2, PB3, PB4, each through its own resistor to one node (maker's nets N$9, N$11, N$12, N$2 = NODE_A..D).",
+   [
+    154.94,
+    30.48
+   ]
+  ],
+  [
+   "Resistors 330 ohm (maker: 150 ohm); a lit LED sees two in series: about 2.3 mA at 3.3 V, about 1.4 mA on the cell after D13. D1..D12 are on the FRONT where the maker had LED1..LED12.",
+   [
+    154.94,
+    34.29
+   ]
+  ],
+  [
+   "JP1: the maker's six AVR ISP pads (bare copper). SW2: the maker's push button on PB1 (pressed = low).",
+   [
+    101.6,
+    154.94
+   ]
+  ]
+ ]
+}

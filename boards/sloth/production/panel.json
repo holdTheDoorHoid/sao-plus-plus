@@ -1,0 +1,51 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. The switch knob sticks out of the top edge (x 120-132), so no tab there; the bottom tab sits between two front LEDs.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {
+      "near": [
+        100.5,
+        119.5
+      ],
+      "dir": "-x",
+      "why": "left end"
+    },
+    {
+      "near": [
+        151.5,
+        119.5
+      ],
+      "dir": "+x",
+      "why": "right end"
+    },
+    {
+      "near": [
+        119.0,
+        138.5
+      ],
+      "dir": "+y",
+      "why": "bottom edge, left of the bottom LED"
+    },
+    {
+      "near": [
+        109.0,
+        103.0
+      ],
+      "dir": "-y",
+      "why": "top left shoulder"
+    },
+    {
+      "near": [
+        143.0,
+        103.0
+      ],
+      "dir": "-y",
+      "why": "top right shoulder"
+    }
+  ]
+}

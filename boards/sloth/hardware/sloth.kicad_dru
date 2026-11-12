@@ -1,0 +1,17 @@
+(version 1)
+
+# The front copper and mask are the maker's artwork. This rule stops DRC from flagging the art for being art;
+# everything electrical (pads, tracks, vias, the ground copper against other nets) is still checked at full rules.
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The keep-clear boxes (courtyards) of these pairs overlap; the parts themselves do not touch. Real gaps, measured on the
+# built board (fab-layer outlines and copper pads):
+#   J1-BT1   connector body to the cell clip's closed end 0.27 mm (pads 2.8 mm or more from the other part)
+#   D13-BT1  diode pad to the cell clip's body 0.40 mm
+#   R5-J1    resistor pad to the connector's pin-6 pad 0.72 mm, to the connector body 1.84 mm (J1's courtyard is drawn
+#            round its long pads)
+(rule "Tight parts beside the connector and the cell clip"
+  (condition "(A.Reference == 'J1' && (B.Reference == 'BT1' || B.Reference == 'R5')) || (B.Reference == 'J1' && (A.Reference == 'BT1' || A.Reference == 'R5')) || (A.Reference == 'BT1' && B.Reference == 'D13') || (B.Reference == 'BT1' && A.Reference == 'D13')")
+  (constraint courtyard_clearance (min -2.0mm)))
