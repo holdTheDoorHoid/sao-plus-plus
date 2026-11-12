@@ -1,0 +1,4 @@
+Item #,Designator,Qty,Manufacturer,Mfg Part #,Description / Value,Package/Footprint,Type,Your Instructions / Notes
+1,"D101,D201,D301,D401",4,Lite-On,LTW-C230DS,white,SAOPP_LED-10_1206_ReverseMount_ThroughBoard,SMD,LCSC C575513
+2,"J101,J201,J301,J401",4,XFCN,BH254VS-6P,SAO v1.69bis,SAOPP_CONN-01_BoxHeader_2x03_P2.54mm_SMD_XFCN_BH254VS-6P,SMD,LCSC C492445
+3,"R101,R201,R301,R401",4,UNI-ROYAL,0603WAF1301T5E,1.3k,SAOPP_R_0603_1608Metric,SMD,LCSC C22767

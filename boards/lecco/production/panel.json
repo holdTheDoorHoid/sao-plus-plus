@@ -1,0 +1,18 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view, after the 1.2x scale-up) and the outward direction; the tool finds the exact edge. All copper on this board stops 0.55 mm short of the edge; tabs stay off the rounded corners and away from the connector body on the right edge.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [16.0, 0.0], "dir": "-y", "why": "top edge, left third"},
+    {"near": [44.0, 0.0], "dir": "-y", "why": "top edge, right third"},
+    {"near": [16.0, 48.0], "dir": "+y", "why": "bottom edge, left third"},
+    {"near": [44.0, 48.0], "dir": "+y", "why": "bottom edge, right third"},
+    {"near": [0.0, 24.0], "dir": "-x", "why": "left edge, middle"},
+    {"near": [64.8, 14.0], "dir": "+x", "why": "right edge beside the ITALY window, above the connector"},
+    {"near": [64.8, 35.0], "dir": "+x", "why": "right edge below the connector body (which ends at y 30.5)"}
+  ]
+}

@@ -1,0 +1,31 @@
+{
+ "title": "Lecco postcard - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko (Dave Darko), LECCO postcard SAO, Hackaday Europe 2026, github.com/davedarko/Simple-Add-ons-SAO",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [50.8, 63.5],
+   "nets": {"1": "VCC", "2": "GND"}
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_LED_1k3",
+   "at": [106.68, 63.5],
+   "nets": {"1": "VCC", "2": "LED_A"}
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [157.48, 63.5],
+   "nets": {"2": "LED_A", "1": "GND"}
+  }
+ ],
+ "notes": [
+  ["Badge-powered only, like the maker's original: the board is too small for the CR2032 clip without covering the maker's handwritten message (see README).", [38.1, 38.1]],
+  ["LED-only board: SDA, SCL, GPIO1 and GPIO2 are not connected.", [38.1, 41.91]],
+  ["D1 is the LED the maker meant to be bodged across his two VCC / GND pads: a reverse-mount LED behind the bare-board word ITALY.", [38.1, 45.72]],
+  ["1.3 k (shared part, was an unspecified 'R' or a solder bridge on the original) gives about 0.45 mA through a white LED from 3.3 V.", [38.1, 49.53]]
+ ]
+}

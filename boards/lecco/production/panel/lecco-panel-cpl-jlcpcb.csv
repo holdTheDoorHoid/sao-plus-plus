@@ -1,0 +1,13 @@
+Designator,Mid X,Mid Y,Layer,Rotation
+D101,55.0000mm,-12.7200mm,Bottom,180
+D201,126.8000mm,-12.7200mm,Bottom,180
+D301,55.0000mm,-67.7200mm,Bottom,180
+D401,126.8000mm,-67.7200mm,Bottom,180
+J101,56.8700mm,-26.0000mm,Bottom,-90
+J201,128.6700mm,-26.0000mm,Bottom,-90
+J301,56.8700mm,-81.0000mm,Bottom,-90
+J401,128.6700mm,-81.0000mm,Bottom,-90
+R101,54.3300mm,-17.6000mm,Bottom,90
+R201,126.1300mm,-17.6000mm,Bottom,90
+R301,54.3300mm,-72.6000mm,Bottom,90
+R401,126.1300mm,-72.6000mm,Bottom,90
