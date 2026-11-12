@@ -1,0 +1,67 @@
+name: "SAO Modem 1.69bis"
+slug: sao-modem
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "SAO Modem 1.69bis (DEF CON 30), board rev 1.0"
+  makers: ["hamster (@hamster)"]
+  year: 2022
+  source_url: "https://github.com/hamster/defcon30/tree/cc53e6e/modem"   # commit cc53e6e, 2022-08-09
+  license: "MIT"           # (c) 2022 hamster; LICENSE at the root of the maker's repo, copy in original/LICENSE. No source file carries an exception
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "The board is drawn to look like a US Robotics Courier external modem (the maker's README says so). No brand name, logo or the word 'Courier' is on the board: only the shape and the light labels AA / OH / SD / RTS / CTS / SYN. The front does carry 'D3F C0N' (DEF CON, the event the maker made it for, in the event's own letter style): that name belongs to DEF CON, not to the maker, and the MIT license does not cover it. It matters most if boards are sold."
+
+changes:
+  - "The whole design is enlarged 2.0 times (43.9 x 21.5 mm becomes 87.7 x 43.0 mm). That is the smallest size at which a CR2032 clip fits on the back clear of the row of six lights; see the README, 'Why it is twice the size'"
+  - "Through-hole 2x3 header (pins visible on the front of the foot) replaced by the 6-pin v1.69bis SMD shrouded header on the back of the foot; nothing shows on the front"
+  - "SAO / OFF / BAT slide switch on the flat top edge; two 0.9 mm peg holes go through the lid's grille lines on the front"
+  - "CR2032 clip on the back behind 'D3F C0N'; the cell slides in from the right-hand edge (seen from the front). Series cell diode added (the board is wired to SDA, SCL, GPIO1 and GPIO2)"
+  - "Six red right-angle LEDs (LTST-S220KRKT) replaced by six shared red reverse-mount LEDs behind the same window strip; six 47 ohm resistors replaced by the shared 1.3 k: about 1 mA per light instead of about 25 mA"
+  - "Same transistor (dual P-channel MOSFET DMP3085LSD) and the same 4.7 k / 10 k gate resistors, wired as the maker wired them: OH follows SCL, SD follows SDA, each lit while its line is low"
+  - "RTS and CTS are still lit directly by the badge's GPIO1 / GPIO2 pins, now through 1.3 k"
+  - "Routed on the back only, no vias (the maker had three tracks and four vias on the front); four LED resistors sit on the supply side of their LED so another track can pass between their pads"
+  - "Front art unchanged apart from the size, the six header holes (gone) and the two switch-peg holes. Thickness 1.6 mm (was 1.2 mm)"
+  - "Back: the maker's '@hamster' is in the same place, twice the size. His title 'SAO MODEM v1.69bis' moves from the top centre (where the switch now is) to the left and is 1.5 times its old size, not 2. The copper-free window behind the CTS light is 1 mm shorter on one side than the other five"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 6
+  i2c_device: false        # it only listens: SDA and SCL each go to one transistor gate through a resistor
+  gpio_use: "GPIO1 lights RTS and GPIO2 lights CTS, about 1 mA each when the badge drives the pin high (inputs only; the board never drives them)"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
+  - SAOPP-D-01             # same RB751S40 as Knight Rider and Han SAOlo (a local footprint copy until the shared library has one)
+
+local_parts:               # in hardware/parts_local.py and hardware/sao-modem-local.pretty
+  - ref: Q1
+    part: "Dual P-channel MOSFET, SOIC-8 (the maker's own part)"
+    mpn: "DMP3085LSD-13 (Diodes Incorporated)"
+    distributor: "not yet checked at a distributor (the maker bought it at Digikey in 2022)"
+    footprint: "KiCad stock Package_SO:SOIC-8_3.9x4.9mm_P1.27mm (the maker's own)"
+  - ref: R7
+    part: "4.7 k 0603 resistor, SCL gate (the maker's value)"
+    mpn: "maker used Stackpole RMCF0603JT4K70; any 0603 4.7 k will do"
+    distributor: "not yet checked at a distributor"
+    footprint: "KiCad stock Resistor_SMD:R_0603_1608Metric"
+  - ref: R8
+    part: "10 k 0603 resistor, SDA gate (the maker's value)"
+    mpn: "maker used Stackpole RMCF0603JT10K0; any 0603 10 k will do"
+    distributor: "not yet checked at a distributor"
+    footprint: "KiCad stock Resistor_SMD:R_0603_1608Metric"
+  - ref: D7
+    part: "Series cell diode, Schottky, SOD-523 (SAOPP-D-01)"
+    mpn: "RB751S40T1G"
+    footprint: "KiCad stock Diode_SMD:D_SOD-523 (same as Knight Rider and Han SAOlo)"
+  - ref: TP1
+    part: "Round bare copper pad, 2 mm: the maker's SYN pad; nothing to buy"
+    mpn: ""
+    footprint: "KiCad stock TestPoint:TestPoint_Pad_D2.0mm (the maker's own)"

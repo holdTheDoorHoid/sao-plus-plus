@@ -1,0 +1,9 @@
+(version 1)
+
+# The copper on the front of this board is artwork (the "3" and "0" of "D3F C0N" and eight DIP-switch squares).
+# This rule stops DRC from flagging the art for being art; everything electrical (pads, tracks, the GND copper
+# against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))

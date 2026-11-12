@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. All copper on this board stops 0.55 mm short of the edge. Tabs avoid the switch knob (top centre) and the right-hand edge, where the cell slides in.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [23.0, 1.6], "dir": "-y", "why": "left shoulder of the modem's lid, flat edge, nothing near it on the back"},
+    {"near": [64.0, 1.6], "dir": "-y", "why": "right shoulder, flat edge; the cell-supply track is 3.5 mm in from the edge here"},
+    {"near": [5.0, 29.8], "dir": "+y", "why": "bottom edge, far left, flat"},
+    {"near": [83.0, 29.8], "dir": "+y", "why": "bottom edge, far right, flat, below the cell"},
+    {"near": [44.0, 43.0], "dir": "+y", "why": "bottom of the foot; the nearest track is 2 mm in from the edge"}
+  ]
+}
