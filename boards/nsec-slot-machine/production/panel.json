@@ -1,0 +1,17 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates on the KiCad page, mm, front view; the drawing's origin is at 100, 60) and the outward direction; the tool finds the exact edge. All copper stops 0.55 mm short of the edge. No tab sits on the lever.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [116.5, 60.0], "dir": "-y", "why": "top of the marquee, where the cell slides in"},
+    {"near": [100.0, 78.0], "dir": "-x", "why": "left side of the cabinet, level with the bottom of the cell"},
+    {"near": [100.0, 98.0], "dir": "-x", "why": "left side of the cabinet, level with the connector"},
+    {"near": [133.0, 98.0], "dir": "+x", "why": "right side of the cabinet, below the lever"},
+    {"near": [106.5, 106.6], "dir": "+y", "why": "bottom edge, left of the switch"},
+    {"near": [126.5, 106.6], "dir": "+y", "why": "bottom edge, right of the switch"}
+  ]
+}
