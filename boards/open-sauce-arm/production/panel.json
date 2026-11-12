@@ -1,0 +1,19 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. All copper on this board stops 0.55 mm short of the edge. No tab on the left edge between y = 19 and y = 31 (front view): the switch and its knob are there. No tab on the wire stub: its ends are narrower than a tab.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [1.8, 6.5], "dir": "-x", "why": "outer side of the left jaw"},
+    {"near": [21.95, 6.5], "dir": "+x", "why": "outer side of the right jaw"},
+    {"near": [23.7, 20.6], "dir": "+x", "why": "upper arm, right side, on a rib above the key-ring hole"},
+    {"near": [34.2, 33.1], "dir": "-y", "why": "top of the forearm, on a rib (the cell slides in over it; the nub is in the board's plane)"},
+    {"near": [28.2, 57.2], "dir": "+y", "why": "bottom of the forearm, on a rib under the clip's closed end"},
+    {"near": [39.3, 57.2], "dir": "+y", "why": "bottom of the forearm, last rib"},
+    {"near": [0.3, 35.2], "dir": "-x", "why": "left of the elbow, on a rib beside the connector"},
+    {"near": [14.0, 54.5], "dir": "+y", "why": "lower left of the elbow (the cell track runs 1.8 mm inside the edge here)"}
+  ]
+}
