@@ -1,0 +1,44 @@
+name: "Sauce Arm"
+slug: open-sauce-arm
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Sauce Arm SAO (Open Sauce 2026 badge add-on)"
+  makers: ["Caleb Marting"]
+  year: 2026
+  source_url: "https://github.com/calebmarting/os2026-badge/tree/d74a6c23c2162341ce4136ae5e530311a91d1126/Board%20Files/Sauce%20Arm"
+  license: "MIT"           # LICENSE at the root of the maker's repo, (c) 2026 Caleb Marting; copy in original/LICENSE. No narrower terms in this board's files (KiCad files, footprints, the two art SVGs kept) or the repo README (checked at commit d74a6c2, 2026-07-30)
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "The front is the maker's own drawing of a robot arm; no third-party art was found on it. The BACK carries a small Open Sauce logo (the cube-headed robot with the words OPEN SAUCE), 5.8 x 7.7 mm on this board. The logo is the Open Sauce event's trademark. The MIT license covers the maker's design files; it does not grant rights in the trademark, and neither do SAO++'s own licenses. Using the logo on boards that are made or sold is a separate question from the design license."
+  art_decision: "The repo owner approved the Open Sauce logo on the Open Sauce Logo board (2026-11-12) and, the same day, decided to publish this board as a draft with the logo in place. It is kept as the maker had it, behind one switch in hardware/build_board.py (OPEN_SAUCE_LOGO); set it to False and rebuild to leave the logo off."
+  publish_note: "Owner decision 2026-11-12: publish this board as a draft pull request with the third-party marks described in art_note left in place. That is a decision to publish the files for review only; it is not a decision about making or selling boards with those marks."
+
+changes:
+  - "The whole board (outline, front art, key-ring hole, the back logo) is 28 % larger: 56.9 x 57.2 mm instead of 44.4 x 44.7 mm. At the maker's size the shared coin-cell clip does not fit on the arm at all (its 17 mm contact disc is wider than the arm between the ribs), and clip, connector and switch first fit beside each other at about 24-25 % with gaps of 0.2-0.4 mm; 28 % gives about 1 mm"
+  - "The hand-soldered 5 mm through-hole LED (legs through the round palm of the gripper, body bent up to lie in the notch between the jaws, so the arm 'holds' it) is replaced by one red reverse-mount LED on the back, behind the palm, shining through the board. Nothing sits between the jaws any more; the palm glows instead. No copper behind the palm on either side; the solder mask stays on it"
+  - "The 1 k through-hole resistor (across the collar under the gripper) is replaced by one shared 1.3 k surface-mount resistor beside the switch"
+  - "The maker's either/or power (a 2x3 through-hole SAO header OR a through-hole CR2032 holder, drawn on the same spot on the forearm, the holder hanging 9 mm past the torn end) becomes both at once: the 6-pin SAO v1.69bis SMD shrouded connector behind the elbow, the shared CR2032 clip on the forearm (cell slides in from above, in the crook of the arm), and the SAO / OFF / BAT slide switch on the outer edge of the upper arm"
+  - "The solder jumper (LED fed from SAO pin 1, or from GPIO2 so a badge could blink it) is not carried over: the LED is on whenever the switch is on SAO or BAT"
+  - "The 12 mm solder pad for a pin back (behind the elbow) is gone: the connector is there now. The key-ring hole is kept (3.84 mm, was 3 mm)"
+  - "Back silkscreen: the maker's kit-assembly instructions (Long Leg / Thru Circle and the LED drawing, 1K Resistor, Keyring Hole, Battery Holder, SAO Port and its pin names, Pin Back, VCC / GPIO2) no longer apply and are replaced by the SAO++ labels and a credit line. There was no maker's name on the original board. The small Open Sauce logo is kept but moved from the upper arm (where the switch is now) to below the connector"
+  - "Front art otherwise unchanged. The front copper is no longer connected to ground. The bare-gold shapes stop 0.55 mm from the board edge (a few of the maker's ran closer), which shows most on the two small bare wire ends. The white silkscreen stops 0.1 mm short of the edge and is no longer printed across the key-ring hole. Two 0.9 mm switch-peg holes are new, in two white rib lines at the left edge of the upper arm"
+  - "No vias. The maker's board had one, and through-hole joints on the front"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 1
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
+
+local_parts: []

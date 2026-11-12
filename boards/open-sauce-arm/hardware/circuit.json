@@ -1,0 +1,19 @@
+{
+ "title": "Sauce Arm - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: Caleb Marting, Open Sauce 2026 badge SAOs (MIT), github.com/calebmarting/os2026-badge",
+ "parts": [
+  {"ref": "J1", "symbol": "SAO_Connector_v1.69bis", "at": [50.8, 63.5], "nets": {"1": "VSAO", "2": "GND"}},
+  {"ref": "BT1", "symbol": "CR2032_Clip", "at": [50.8, 96.52], "nets": {"1": "VBAT", "2": "GND"}},
+  {"ref": "SW1", "symbol": "Power_Switch_SP3T_PCM13", "at": [106.68, 78.74], "nets": {"3": "VLOAD", "1": "VSAO", "4": "VBAT"}},
+  {"ref": "R1", "symbol": "R_LED_1k3", "at": [157.48, 78.74], "nets": {"1": "VLOAD", "2": "LED1_A"}},
+  {"ref": "D1", "symbol": "LED_ThroughBoard_Red", "at": [195.58, 78.74], "nets": {"2": "LED1_A", "1": "GND"}}
+ ],
+ "notes": [
+  ["SAO++ power select: the switch common feeds the LED. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.", [38.1, 38.1]],
+  ["The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.", [38.1, 41.91]],
+  ["LED-only board: SDA, SCL, GPIO1 and GPIO2 are not connected, so no series diode is needed on the cell (see docs/standard.md section 3).", [38.1, 45.72]],
+  ["D1 = the light in the gripper's round palm, where the maker's 5 mm LED had its legs. Red through-board LED, about 1 mA through 1.3 k.", [38.1, 124.46]],
+  ["The maker's solder jumper (LED fed from SAO pin 1 or from GPIO2, so a badge could blink it) is not carried over: see the README.", [38.1, 128.27]]
+ ]
+}
