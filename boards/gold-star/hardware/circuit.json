@@ -1,0 +1,361 @@
+{
+ "title": "Gold Star - SAO++ edition",
+ "rev": "A",
+ "credit": "Original circuit and star art: greymanhw, 2019, github.com/greymanhw/gold-star (MIT)",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    40.64,
+    50.8
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    40.64,
+    81.28
+   ],
+   "nets": {
+    "3": "VLOAD",
+    "1": "VSAO",
+    "4": "VBAT"
+   }
+  },
+  {
+   "ref": "BT1",
+   "symbol": "CR2032_Clip",
+   "at": [
+    40.64,
+    109.22
+   ],
+   "nets": {
+    "1": "VBAT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "Timer_LMC555_SOIC8",
+   "at": [
+    96.52,
+    50.8
+   ],
+   "nets": {
+    "8": "VLOAD",
+    "4": "VLOAD",
+    "2": "TIM",
+    "6": "TIM",
+    "5": "CV",
+    "7": "DIS",
+    "3": "CLK",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_Timing_3M3",
+   "at": [
+    88.9,
+    81.28
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "DIS"
+   }
+  },
+  {
+   "ref": "R4",
+   "symbol": "R_Timing_3M3",
+   "at": [
+    88.9,
+    91.44
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "DIS"
+   }
+  },
+  {
+   "ref": "R5",
+   "symbol": "R_Timing_3M3",
+   "at": [
+    88.9,
+    101.6
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "DIS"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_Series_330",
+   "at": [
+    116.84,
+    81.28
+   ],
+   "nets": {
+    "1": "DIS",
+    "2": "TIM"
+   }
+  },
+  {
+   "ref": "C2",
+   "symbol": "C_100n",
+   "at": [
+    116.84,
+    91.44
+   ],
+   "nets": {
+    "1": "TIM",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C1",
+   "symbol": "C_100n",
+   "at": [
+    116.84,
+    101.6
+   ],
+   "nets": {
+    "1": "CV",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C3",
+   "symbol": "C_100n",
+   "at": [
+    102.87,
+    116.84
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U2",
+   "symbol": "Counter_74HC4017_SOIC16",
+   "at": [
+    165.1,
+    50.8
+   ],
+   "nets": {
+    "16": "VLOAD",
+    "14": "CLK",
+    "13": "GND",
+    "15": "GND",
+    "8": "GND",
+    "3": "LED1_A",
+    "2": "LED2_A",
+    "4": "LED3_A",
+    "7": "LED4_A",
+    "10": "LED5_A",
+    "1": "LED6_A",
+    "5": "LED7_A",
+    "6": "LED8_A",
+    "9": "LED9_A",
+    "11": "LED10_A"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    215.9,
+    45.72
+   ],
+   "nets": {
+    "2": "LED1_A",
+    "1": "LEDK"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    215.9,
+    55.88
+   ],
+   "nets": {
+    "2": "LED2_A",
+    "1": "LEDK"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    215.9,
+    66.04
+   ],
+   "nets": {
+    "2": "LED3_A",
+    "1": "LEDK"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    215.9,
+    76.2
+   ],
+   "nets": {
+    "2": "LED4_A",
+    "1": "LEDK"
+   }
+  },
+  {
+   "ref": "D5",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    215.9,
+    86.36
+   ],
+   "nets": {
+    "2": "LED5_A",
+    "1": "LEDK"
+   }
+  },
+  {
+   "ref": "D6",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    215.9,
+    96.52
+   ],
+   "nets": {
+    "2": "LED6_A",
+    "1": "LEDK"
+   }
+  },
+  {
+   "ref": "D7",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    215.9,
+    106.68
+   ],
+   "nets": {
+    "2": "LED7_A",
+    "1": "LEDK"
+   }
+  },
+  {
+   "ref": "D8",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    215.9,
+    116.84
+   ],
+   "nets": {
+    "2": "LED8_A",
+    "1": "LEDK"
+   }
+  },
+  {
+   "ref": "D9",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    215.9,
+    127.0
+   ],
+   "nets": {
+    "2": "LED9_A",
+    "1": "LEDK"
+   }
+  },
+  {
+   "ref": "D10",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    215.9,
+    137.16
+   ],
+   "nets": {
+    "2": "LED10_A",
+    "1": "LEDK"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_LED_1k3",
+   "at": [
+    248.92,
+    91.44
+   ],
+   "nets": {
+    "1": "LEDK",
+    "2": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "SAO++ power select: the switch common (VLOAD) feeds the timer, the counter and the LEDs. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.",
+   [
+    25.4,
+    150.0
+   ]
+  ],
+  [
+   "The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.",
+   [
+    25.4,
+    153.8
+   ]
+  ],
+  [
+   "Nothing is wired to SDA, SCL, GPIO1 or GPIO2 (as in the maker's schematic), so no series diode is needed on the cell (docs/standard.md section 3).",
+   [
+    25.4,
+    157.6
+   ]
+  ],
+  [
+   "The maker's circuit: a 555 astable (U1) clocks a 4017 decade counter (U2). Exactly one of Q0..Q9 is high at any time, so one LED is lit and the light steps D1, D2 ... D10, D1 ...",
+   [
+    25.4,
+    164.0
+   ]
+  ],
+  [
+   "U1: R1 (with R4, R5) = RA from VLOAD to DIS, R2 = RB from DIS to THR/TRIG, C2 = timing capacitor, C1 on the control pin, RESET tied high. U2: clock enable (/CP1) and reset (MR) tied low, carry output unused.",
+   [
+    25.4,
+    167.8
+   ]
+  ],
+  [
+   "Maker's values: 220k, 220 ohm, 0.47 uF = 13.9 steps a second. Here: three 3.3M in parallel (1.1M), 330 ohm, 100 nF = 13.1 steps a second, using only parts SAO++ already stocks. Fit one or two of R1/R4/R5 for 4.4 or 8.7 steps a second.",
+   [
+    25.4,
+    171.6
+   ]
+  ],
+  [
+   "R3 is the maker's one shared LED resistor (470 ohm in his drawing; the house 1.3k here: about 1 mA). His drawing has every LED the wrong way round (cathode to the counter); the LEDs here conduct from counter output to R3.",
+   [
+    25.4,
+    175.4
+   ]
+  ],
+  [
+   "U1 is an LMC555 (the NE555 in the maker's drawing needs 4.5 V). U2 must be a 74HC4017 (2 V to 6 V), not a CD4017 (3 V minimum). C3 = supply capacitor (not in the maker's drawing).",
+   [
+    25.4,
+    179.2
+   ]
+  ]
+ ]
+}
