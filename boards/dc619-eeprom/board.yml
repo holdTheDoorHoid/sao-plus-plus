@@ -1,0 +1,54 @@
+name: "DC619 EEPROM"
+slug: dc619-eeprom
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "DC619 EEPROM SAO (AND!XOR SAO reference design, DC27; schematic titled 'DC858/DC619 SAO', rev 2, 2019-03-02)"
+  makers: ["AND!XOR (AND!XOR LLC)"]
+  year: 2019
+  source_url: "https://github.com/ANDnXOR/sao-reference-designs/tree/5bc113302ebc797442ec0beddea9254aa829aca6/DC27/DC619-EEPROM_sao1.69bis"
+  source_commit: "5bc113302ebc797442ec0beddea9254aa829aca6"   # 2019-04-20, the newest commit when cloned on 2026-11-11
+  license: "Apache-2.0"    # the repository's LICENSE file (unmodified Apache 2.0 text; kept in original/LICENSE). No NOTICE file; no per-file exceptions (the folder holds a README and one PNG)
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  published_as: "schematic picture only (dc619-eeprom-schematic.png). No board file, no outline, no artwork"
+  layout: "NEW. The circuit is the maker's; the outline, parts placement, routing and all artwork are SAO++'s own"
+  art_note: "No third-party art. The maker's folder contains no logo or drawing (only the schematic, whose title block reads 'DEFCON 27', 'AND!XOR LLC', 'DC858/DC619 SAO' as plain text). The SAO++ front is plain lettering and a generic chip outline drawn for this board. No AND!XOR or DC619 logo is used. The names 'DC619' and 'AND!XOR' appear as plain text only, as the board's name and the maker's credit."
+
+power_exception:           # recorded exception to docs/standard.md section 3 (needs the owner's yes; see README)
+  rule: "Every SAO++ board has a CR2032 and the SAO / OFF / BAT switch; SAO pin 1 goes only to the switch"
+  what: "BADGE POWER ONLY. No coin cell, no switch. SAO pin 1 feeds the EEPROM and its capacitor directly"
+  why: "Nothing on this board can do anything without a badge: the EEPROM is only ever read by a badge, and the two LEDs are switched on by the badge's GPIO lines, not by the board's own supply. A cell would light nothing and would only sit there powering an idle chip"
+  decided_by: "board agent's recommendation, 2026-11-11; NOT yet confirmed by the owner"
+
+changes:
+  - "New layout from the maker's schematic: a 24 x 24 mm board with rounded corners. The maker published no board"
+  - "EEPROM: AT24C02N in SOIC-8 becomes a 24C02 in SOT-23-5 (the SAOPP-EE-01 slot; candidate IDCHIP AD24C02). Same memory, same I2C address 0x50, write-protect pin tied to ground (writable) as the maker drew it. The small package has no A0-A2 address pins, so the maker's three address links to ground are not needed"
+  - "100 nF supply capacitor C1 added beside the EEPROM (the maker's schematic has none)"
+  - "The two LEDs keep the maker's wiring (R1 from GPIO1 to D2 to ground, R2 from GPIO2 to D1 to ground) but become red reverse-mount LEDs on the back that shine through the board, with the shared 1.3 k resistor instead of 4.7 k: about 1.15 mA each instead of about 0.3 mA"
+  - "6-pin SAO v1.69bis SMD shrouded connector on the back, key up, centred left-right; all parts on the back"
+  - "No pull-ups on SDA / SCL (none on the maker's schematic either)"
+  - "Badge power only, as on the maker's schematic: no coin cell, no switch (recorded exception to the house standard)"
+  - "Front: SAO++'s own plain artwork: the name, a chip outline with the I2C address 0x50, the ID byte order ('0 YEAR 1 MAKER 2 TYPE'), and two bare-board windows for the lights marked G1 and G2"
+  - "Back: ground copper with one layer of routing; front: ground copper under mask, tied to the back by two tented vias"
+
+features:
+  power_select: false      # exception: badge power only
+  coin_cell: none
+  side_leds: 0
+  through_board_leds: 2
+  i2c_device: true
+  i2c_address: "0x50"
+  gpio_use: "inputs only: the badge drives GPIO1 high to light D2 (left, front view) and GPIO2 high to light D1 (right), each through 1.3 k"
+  vias: 2
+  copper_layers_used: 2
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
+  - SAOPP-C-01
+
+local_parts:
+  - {name: "EE-01_24C02_SOT-23-5", ref: U1, mpn: "AD24C02 (IDCHIP)", lcsc: C5125083, implements: SAOPP-EE-01, footprint: "KiCad stock Package_TO_SOT_SMD:SOT-23-5 (copied unchanged)", note: "same symbol name and part as the Floppy Disk board; promote to lib/ as SAOPP-EE-01"}

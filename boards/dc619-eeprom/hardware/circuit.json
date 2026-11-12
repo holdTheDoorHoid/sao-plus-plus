@@ -1,0 +1,135 @@
+{
+ "title": "DC619 EEPROM - SAO++ edition",
+ "rev": "A",
+ "credit": "Circuit: AND!XOR SAO reference design DC27/DC619-EEPROM_sao1.69bis (Apache-2.0), github.com/ANDnXOR/sao-reference-designs. Layout: SAO++",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL",
+    "5": "SAO_GPIO1",
+    "6": "SAO_GPIO2"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "EE-01_24C02_SOT-23-5",
+   "at": [
+    114.3,
+    63.5
+   ],
+   "nets": {
+    "1": "SCL",
+    "2": "GND",
+    "3": "SDA",
+    "4": "VSAO",
+    "5": "GND"
+   }
+  },
+  {
+   "ref": "C1",
+   "symbol": "C_100n",
+   "at": [
+    160.02,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_LED_1k3",
+   "at": [
+    50.8,
+    99.06
+   ],
+   "nets": {
+    "1": "SAO_GPIO1",
+    "2": "LED2_A"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    96.52,
+    99.06
+   ],
+   "nets": {
+    "2": "LED2_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_LED_1k3",
+   "at": [
+    50.8,
+    119.38
+   ],
+   "nets": {
+    "1": "SAO_GPIO2",
+    "2": "LED1_A"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    96.52,
+    119.38
+   ],
+   "nets": {
+    "2": "LED1_A",
+    "1": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "BADGE POWER ONLY (recorded exception to the SAO++ standard): no coin cell, no switch.",
+   [
+    30.48,
+    35.56
+   ]
+  ],
+  [
+   "SAO pin 1 (3.3 V) feeds the EEPROM directly. The LEDs are lit by the badge through GPIO1 / GPIO2.",
+   [
+    30.48,
+    38.1
+   ]
+  ],
+  [
+   "U1: 24C02 in SOT-23-5, fixed I2C address 0x50, WP tied to GND (writable), as on the maker's schematic.",
+   [
+    30.48,
+    40.64
+   ]
+  ],
+  [
+   "No pull-ups on SDA / SCL: the badge provides them.",
+   [
+    30.48,
+    43.18
+   ]
+  ],
+  [
+   "Maker's schematic: R1 (GPIO1) -> D2, R2 (GPIO2) -> D1, both 4.7k; here 1.3k (shared part).",
+   [
+    30.48,
+    137.16
+   ]
+  ]
+ ]
+}
