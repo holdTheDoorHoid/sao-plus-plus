@@ -1,0 +1,5 @@
+(version 1)
+
+# No extra rules. Unlike most SAO++ boards, the art on this one is silkscreen only: the copper on the front is a plain
+# ground plate, so nothing needs an exception. The board's own limits are in the project file (0.15 mm clearance and
+# track width, 0.25 mm copper to edge, 0.3 mm via holes).
