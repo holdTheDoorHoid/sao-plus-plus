@@ -12,7 +12,8 @@ original:
   permission: "license"
   permission_ref: "original/LICENSE"
   art_note: "The front is the maker's own drawing of a robot arm; no third-party art was found on it. The BACK carries a small Open Sauce logo (the cube-headed robot with the words OPEN SAUCE), 5.8 x 7.7 mm on this board. The logo is the Open Sauce event's trademark. The MIT license covers the maker's design files; it does not grant rights in the trademark, and neither do SAO++'s own licenses. Using the logo on boards that are made or sold is a separate question from the design license."
-  art_decision: "NOT YET DECIDED for this board. The repo owner approved the Open Sauce logo on the Open Sauce Logo board only (2026-11-12). Here it is kept as the maker had it, behind one switch in hardware/build_board.py (OPEN_SAUCE_LOGO); set it to False and rebuild to leave the logo off."
+  art_decision: "The repo owner approved the Open Sauce logo on the Open Sauce Logo board (2026-11-12) and, the same day, decided to publish this board as a draft with the logo in place. It is kept as the maker had it, behind one switch in hardware/build_board.py (OPEN_SAUCE_LOGO); set it to False and rebuild to leave the logo off."
+  publish_note: "Owner decision 2026-11-12: publish this board as a draft pull request with the third-party marks described in art_note left in place. That is a decision to publish the files for review only; it is not a decision about making or selling boards with those marks."
 
 changes:
   - "The whole board (outline, front art, key-ring hole, the back logo) is 28 % larger: 56.9 x 57.2 mm instead of 44.4 x 44.7 mm. At the maker's size the shared coin-cell clip does not fit on the arm at all (its 17 mm contact disc is wider than the arm between the ribs), and clip, connector and switch first fit beside each other at about 24-25 % with gaps of 0.2-0.4 mm; 28 % gives about 1 mm"
