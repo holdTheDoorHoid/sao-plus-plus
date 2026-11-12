@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [215.7, 47.4], "dir": "-y", "why": "the tip of the snout: no part or track within 20 mm"},
+    {"near": [179.9, 125.0], "dir": "-x", "why": "left edge of the lower jaw, beside the SAO connector: below the point where the badge 3.3 V track turns up the edge"},
+    {"near": [251.1, 131.3], "dir": "+x", "why": "right edge of the lower jaw, below the switch"},
+    {"near": [192.8, 136.9], "dir": "+y", "why": "bottom edge, under the SAO connector. The middle of the bottom edge is left free for the USB socket and the LiPo plug"},
+    {"near": [240.8, 136.5], "dir": "+y", "why": "bottom edge, right of the LiPo connector"}
+  ]
+}

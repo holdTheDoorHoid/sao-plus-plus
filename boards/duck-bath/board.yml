@@ -1,0 +1,53 @@
+name: "Duck Bath"
+slug: duck-bath
+status: porting            # designed and rule-checked; no physical SAO++ board built yet; firmware never compiled
+revision: "A"
+scale:
+  factor: 1.6              # the maker's outline and all art together, about the middle of his outline
+  maker_size_mm: [40.0, 20.0]
+  new_size_mm: [64.1, 32.0]
+  why: "The XIAO only fits with its USB socket at the bottom edge between the tub's feet. 1.5 holds every part but leaves no room for the tracks between the duck hole and the module; 1.6 is the smallest factor tried that routes with every part in its own space"
+
+original:
+  title: "duckGLOW SAO: duckBATH v0.2"
+  makers: ["Adrian Studer (astuder)"]
+  year: 2024
+  source_url: "https://github.com/astuder/duckglow/tree/f58ce25527c02e2905dd61db5524fa642c4bbf0d/duckbath"
+  project_url: "https://hackaday.io/project/198918-duckglow-sao"
+  license: "MIT and CERN-OHL-P-2.0"   # LICENSE.md holds both texts, (c) 2024 Adrian Studer; the schematic sheet is marked CERN-OHL-P. Both are permissive and allow sale with credit
+  permission: "license"
+  permission_ref: "original/LICENSE.md"
+  art_note: "A cartoon bathtub with foam, the maker's own drawing (design/duckbath.svg in his repo): no brand, character or logo. The duck is a real toy rubber duck bought separately, not part of the board. The names duckGLOW and duckBATH are the maker's project names. His firmware's help text quotes Ogden Nash's poem 'The Duck', which is not the maker's to license: it is NOT copied into this repo or its firmware."
+  shared_design: "duckBATH and duckJAWS (same repo) share one circuit and one firmware; they differ in outline, art and duckJAWS's extra red background LEDs. Only duckBATH is ported here."
+
+changes:
+  - "The maker's whole design scaled 1.6x: 40.0 x 20.0 mm -> 64.1 x 32.0 mm, outline and front silkscreen art together"
+  - "The 5 mm through-hole RGB LED that stood on the front (inside the duck) is replaced by a 5 mm round hole at the same spot and two SK6805-EC3210R side-firing RGB LEDs on the back, one left of the hole and one below it, shining into it. The duck sits over the hole"
+  - "Controller changed from a WCH CH32V003 to a Seeed Studio XIAO ESP32 module (C3, S3 or C6) soldered flat on the back, USB-C at the bottom edge between the feet"
+  - "Dropped: the 0.9-5 V boost converter (regulator, coil, three 22 uF capacitors), the reverse-polarity transistor, the two I2C pull-ups, the three LED resistors, the test point and the two I2C address jumpers"
+  - "Through-hole-style SMD pin header replaced by the 6-pin v1.69bis SMD shrouded header on the back, 3.3 mm left of the duck hole's centre line"
+  - "SAO / OFF / USB-BAT slide switch on the left wall of the tub, and a JST-PH LiPo connector on the bottom edge beside the left foot, wired to the XIAO's battery pads (standard.md 3a). No coin cell"
+  - "Added: 330 ohm on each SAO GPIO line and on the LED data line; one 100 nF capacitor at the LEDs"
+  - "Front: the maker's art as silkscreen over one ground plate under mask, as on his board. Two short tracks run on the front under the mask (SDA 6.6 mm, badge 3.3 V 3.5 mm); eight covered 0.3 mm vias (the maker had sixteen and four through-hole pads); the switch's two peg holes"
+  - "Firmware is new (Rust) and reproduces the maker's I2C registers at 0x6C and his fading; his WS2812 input mode and saving settings are not implemented"
+
+features:
+  power_select: true
+  coin_cell: none
+  lipo_connector: jst_ph   # SAOPP-CONN-10 on the bottom edge, to the XIAO's battery pads
+  side_leds: 2
+  through_board_leds: 0
+  i2c_device: true         # target at 0x6C, the maker's register map
+  gpio_use: "GPIO1 -> XIAO D7 (RX), GPIO2 -> XIAO D6 (TX), each through 330 ohm; unused by the firmware (the maker used GPIO1 for programming and GPIO2 as a WS2812 data input)"
+  controller: "Seeed Studio XIAO ESP32-C3 / S3 / C6"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-CONN-10
+  - SAOPP-R-02
+  - SAOPP-MCU-01
+  - SAOPP-LED-20
+  - SAOPP-C-01
+
+local_parts: []

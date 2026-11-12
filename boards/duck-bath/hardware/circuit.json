@@ -1,0 +1,188 @@
+{
+ "title": "Duck Bath - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: duckGLOW / duckBATH v0.2, (c) 2024 Adrian Studer (astuder), CERN-OHL-P, github.com/astuder/duckglow",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    55.88
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL",
+    "5": "SAO_GPIO1",
+    "6": "SAO_GPIO2"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    50.8,
+    86.36
+   ],
+   "nets": {
+    "3": "V3V3",
+    "1": "VSAO",
+    "2": "OFF_SENSE"
+   },
+   "value": "SAO / OFF / USB-BAT"
+  },
+  {
+   "ref": "J2",
+   "symbol": "LiPo_Connector_JST_PH",
+   "at": [
+    50.8,
+    116.84
+   ],
+   "nets": {
+    "1": "BAT+",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_Series_330",
+   "at": [
+    116.84,
+    50.8
+   ],
+   "nets": {
+    "1": "SAO_GPIO1",
+    "2": "D7_RX"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_Series_330",
+   "at": [
+    116.84,
+    66.04
+   ],
+   "nets": {
+    "1": "SAO_GPIO2",
+    "2": "D6_TX"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "XIAO_ESP32_Module",
+   "at": [
+    182.88,
+    60.96
+   ],
+   "nets": {
+    "2": "OFF_SENSE",
+    "5": "SDA",
+    "6": "SCL",
+    "7": "D6_TX",
+    "8": "D7_RX",
+    "11": "LED_DATA",
+    "12": "V3V3",
+    "13": "GND",
+    "15": "BAT+",
+    "16": "GND"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_Series_330",
+   "at": [
+    254.0,
+    60.96
+   ],
+   "nets": {
+    "1": "LED_DATA",
+    "2": "LED_DIN"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    101.6,
+    142.24
+   ],
+   "nets": {
+    "4": "V3V3",
+    "1": "GND",
+    "3": "LED_DIN",
+    "2": "LED_D1"
+   }
+  },
+  {
+   "ref": "C1",
+   "symbol": "C_100n",
+   "at": [
+    129.54,
+    167.64
+   ],
+   "nets": {
+    "1": "V3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_RGB_Side_SK6805",
+   "at": [
+    157.48,
+    142.24
+   ],
+   "nets": {
+    "4": "V3V3",
+    "1": "GND",
+    "3": "LED_D1"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "Power: the switch common is the 3.3 V rail (XIAO 3V3 pin and the LEDs). Position 1 = badge 3.3 V feeds the rail. Position 2 (OFF) and position 3 (USB / BAT) leave the badge disconnected.",
+   [
+    38.1,
+    96.52
+   ]
+  ],
+  [
+   "On USB or a LiPo the XIAO powers the rail itself. In OFF the switch ties D1 to the rail so the firmware can blank the LEDs and sleep (the module itself has no off switch).",
+   [
+    38.1,
+    100.33
+   ]
+  ],
+  [
+   "Do not plug in USB with the switch on SAO while on a badge: two 3.3 V regulators would share one rail.",
+   [
+    38.1,
+    104.14
+   ]
+  ],
+  [
+   "J2 is a LiPo connector wired to the XIAO's battery pads (two pad positions under the module: C3/S3 and C6). The XIAO charges the cell from USB-C. No coin cell on this board.",
+   [
+    38.1,
+    107.95
+   ]
+  ],
+  [
+   "D1, D2 = SK6805 side-firing RGB, both shining into the 5 mm duck hole (the maker used one 5 mm RGB LED there). D1 is first on the data line. R2, R3: 330 ohm on the SAO GPIO pins per docs/standard.md.",
+   [
+    38.1,
+    111.76
+   ]
+  ],
+  [
+   "I2C: the firmware answers at 0x6C with the maker's register map. No pull-ups on the add-on (the badge has them). The maker's two address jumpers are not fitted.",
+   [
+    38.1,
+    115.57
+   ]
+  ]
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "note": "Back silkscreen labels: text, x, y (mm from the duck hole centre, front view), size, angle",
+ "labels": [
+  ["DUCK JAWS   SAO++ rA", 1.0, -51.5, 1.2, 0],
+  ["orig: duckJAWS v0.2", 1.0, -49.1, 0.9, 0],
+  ["(c) 2024 Adrian Studer", 1.0, -47.6, 0.9, 0],
+  ["CERN-OHL-P  astuder/duckglow", 1.0, -46.1, 0.9, 0],
+  ["I2C 0x6C  XIAO ESP32", 1.0, -43.9, 0.9, 0],
+  ["NO USB WHEN ON 'SAO'", 1.0, -42.1, 0.9, 0],
+  ["LiPo 3.7V", 19.6, 11.3, 0.8, 0],
+  ["+", 18.4, 12.9, 1.0, 0],
+  ["-", 15.6, 12.9, 1.0, 0],
+  ["1", -29.9, 8.3, 0.8, 0],
+  ["SAO", 29.4, 5.2, 0.8, 90],
+  ["OFF", 29.4, 9.6, 0.8, 90],
+  ["USB/BAT", 29.4, 15.2, 0.8, 90]
+ ]
+}

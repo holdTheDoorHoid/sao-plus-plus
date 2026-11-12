@@ -1,0 +1,5 @@
+(version 1)
+
+# No extra rules. The teeth are openings in the front solder mask over the one ground plate, so each opening shows
+# a single net and nothing needs an exception. The board's own limits are in the project file (0.15 mm clearance and
+# track width, 0.25 mm copper to edge, 0.3 mm via holes).

@@ -1,0 +1,15 @@
+[package]
+name = "duckbath-core"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Board-independent logic for the Duck Bath SAO (SAO++ edition): I2C registers and the colour fader"
+publish = false
+
+# Plain no_std library. Everything here is meant to be checked on a PC with `cargo test`;
+# the firmware crate in ../duckbath-fw links it for the ESP32 targets.
+
+[dependencies]
+
+[lints.rust]
+unsafe_code = "forbid"

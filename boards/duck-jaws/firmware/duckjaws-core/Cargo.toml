@@ -1,0 +1,16 @@
+[package]
+name = "duckjaws-core"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Board-independent logic for the Duck Jaws SAO (SAO++ edition): Duck Bath's registers and fader, plus the red mouth lights"
+publish = false
+
+# Plain no_std library, checked on a PC with `cargo test`. Nearly everything comes from Duck Bath's crate,
+# used where it is (not copied): the two boards are the maker's two variants of one design.
+
+[dependencies]
+duckbath-core = { path = "../../../duck-bath/firmware/duckbath-core" }
+
+[lints.rust]
+unsafe_code = "forbid"
