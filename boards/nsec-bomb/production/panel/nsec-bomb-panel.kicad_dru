@@ -1,0 +1,6 @@
+(version 1)
+
+# Same rule as hardware/nsec-bomb.kicad_dru.
+(rule "Fine gaps inside the artwork (display digits)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
