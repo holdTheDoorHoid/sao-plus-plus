@@ -1,0 +1,6 @@
+(version 1)
+
+# Same rule as hardware/nsec-cashbag.kicad_dru (the panel tool does not copy it).
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))

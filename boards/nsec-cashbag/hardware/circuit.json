@@ -1,0 +1,153 @@
+{
+ "title": "Cash Bag - SAO++ edition",
+ "rev": "A",
+ "credit": "Circuit after the NorthSec 2025 badge team's Sao_CashBag, github.com/nsec/nsec-badge (MIT). Drawing: SAO++ (CC-BY-SA-4.0)",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "BT1",
+   "symbol": "CR2032_Clip",
+   "at": [
+    50.8,
+    96.52
+   ],
+   "nets": {
+    "1": "VBAT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    106.68,
+    78.74
+   ],
+   "nets": {
+    "3": "VLOAD",
+    "1": "VSAO",
+    "4": "VBAT"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_LED_1k3",
+   "at": [
+    157.48,
+    63.5
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "D1_A"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    193.04,
+    63.5
+   ],
+   "nets": {
+    "2": "D1_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_LED_1k3",
+   "at": [
+    157.48,
+    83.82
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "D2_A"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    193.04,
+    83.82
+   ],
+   "nets": {
+    "2": "D2_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_LED_1k3",
+   "at": [
+    157.48,
+    104.14
+   ],
+   "nets": {
+    "1": "VLOAD",
+    "2": "D3_A"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    193.04,
+    104.14
+   ],
+   "nets": {
+    "2": "D3_A",
+    "1": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "SAO++ power select: the switch common feeds the LEDs. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.",
+   [
+    38.1,
+    38.1
+   ]
+  ],
+  [
+   "The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.",
+   [
+    38.1,
+    41.91
+   ]
+  ],
+  [
+   "LED-only board: SDA, SCL, GPIO1 and GPIO2 are not connected, so no series diode is needed on the cell (see docs/standard.md section 3).",
+   [
+    38.1,
+    45.72
+   ]
+  ],
+  [
+   "D1 (the sack's gathered top), D2 (the bank note's medallion), D3 (a glint on the coin): reverse-mount white LEDs on the back, shining through the board.",
+   [
+    38.1,
+    139.7
+   ]
+  ],
+  [
+   "1.3 k each: about 0.45 mA per LED on badge power, about 0.2 mA on a fresh cell (calculated, not measured). The maker used 330 ohm on 3.3 V.",
+   [
+    38.1,
+    143.51
+   ]
+  ]
+ ]
+}
