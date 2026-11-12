@@ -1,0 +1,45 @@
+name: "SAO Nunchuck"
+slug: sao-nunchuck
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "SAO Nunchuck, hardware V1.0"
+  makers: ["Andy Geppert (ageppert)", "Jared Geppert"]
+  year: 2024
+  source_url: "https://github.com/ageppert/SAO_Nunchuck/tree/6b02ca062ec637334654d5f52f67fff3980176af"
+  project_page: "https://hackaday.io/project/198000-sao-nunchuck"
+  license: "MIT"           # LICENSE.md at the repo root, "Copyright (c) 2024 Andrew Geppert"; no file carries a different notice
+  permission: "license"
+  permission_ref: "original/LICENSE.md"
+  art_note: "The board is named after, and plugs into, a Nintendo product. 'Wii' and 'Nunchuk' are Nintendo trademarks. On the board itself: the back silkscreen says 'SAO NUNCHUCK' (the maker's spelling, with a c); the front shows, in bare copper, the silhouettes of a Wii Remote and a Nunchuk controller joined by a chain like a pair of nunchaku. There is no Nintendo logo and neither the word 'Wii' nor 'Nintendo' appears on the board. This is separate from the maker's MIT license, which covers his drawing but cannot grant rights in Nintendo's names or product shapes. It matters most if boards are sold: describe it as 'for use with', never as a Nintendo product."
+
+changes:
+  - "Through-hole 2x3 header (with extra edge fingers for a right-angle socket) at the bottom replaced by the 6-pin SAO v1.69bis SMD shrouded connector on the back, in the same three columns, 2.5 mm higher so it sits 3.4 mm inside the bottom edge. The six holes and three gold fingers at the bottom of the front are gone"
+  - "BADGE POWER ONLY: no coin cell and no SAO / OFF / BAT switch. Recorded exception to docs/standard.md section 3 (see README). SAO pin 1 goes straight to the plug, as on the original"
+  - "The two Qwiic sockets (JST SH 4-pin) are kept as pads only and are not fitted: the part is not on the shared parts list. Solder paste openings removed from those pads"
+  - "The Nunchuck plug fingers, the notch, the outline, the front art and all of the maker's tracks and vias round the plug and the Qwiic pads are unchanged. Four new back tracks run down the maker's four columns to the new connector"
+  - "New ground copper fill on the back (the original had none), kept 0.55 mm from the edge and off the plug tongue"
+  - "Back silkscreen: 'Manufactured by PCBX.COM' removed (it would not be true of SAO++ boards); the old header's pin labels went with the header; 'SAO++ rA   BADGE POWER ONLY' and a pin-1 mark added. Title, I2C address, makers' credit and logo, '2024' and 'V1.0' untouched"
+
+features:
+  power_select: false      # exception: badge power only
+  coin_cell: none
+  side_leds: 0
+  through_board_leds: 0
+  i2c_device: false        # nothing on the board answers; a plugged-in Nunchuck answers at 0x52
+  gpio_use: ""
+  edge_connector: "five gold fingers on a 6.3 mm tongue in the top edge, for a Nunchuck (Wii extension) plug: 3.3 V, GND, SDA, SCL; the plug's detect contact is unconnected"
+
+shared_parts:
+  - SAOPP-CONN-01
+
+local_parts:                 # in hardware/parts_local.py and hardware/sao-nunchuck-local.pretty; neither is bought or placed
+  - ref: X2
+    part: "Nunchuck plug fingers (board copper, nothing to buy)"
+    mpn: ""
+    footprint: "the maker's own 'Nunchuk-male', minus its outline lines"
+  - ref: X3, X4
+    part: "Qwiic / STEMMA QT socket, JST SH 4-pin side entry: pads only, NOT FITTED"
+    mpn: "SM04B-SRSS-TB (the maker's field; LCSC C160404 is also the maker's field, not re-checked)"
+    footprint: "KiCad stock JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal as the maker used it, paste removed"

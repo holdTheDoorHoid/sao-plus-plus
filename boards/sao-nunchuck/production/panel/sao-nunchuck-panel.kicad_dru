@@ -1,0 +1,16 @@
+(version 1)
+
+# Hand-written copy of hardware/sao-nunchuck.kicad_dru for the panel: tools/panelize.py does not carry a board's
+# rules over, and it renumbers the parts (X2 becomes X102, X202, X302, X402).
+
+# The five gold fingers are an edge connector: a Nunchuck plug slides over the tongue, so the fingers run to its tip.
+# They are exactly where the maker drew them: the two front ones 0.14 mm and the three back ones 0.19 mm from the tip.
+(rule "Plug fingers run to the tip of the tongue"
+  (condition "A.Type == 'Pad' && (A.Reference == 'X102' || A.Reference == 'X202' || A.Reference == 'X302' || A.Reference == 'X402')")
+  (constraint edge_clearance (min 0.1mm)))
+
+# The maker's closest tracks and vias are 6 mil (0.1524 mm) apart. The single board sets this in its project file;
+# the panel has no project file of its own in the repository, so the same number is written here.
+(rule "The maker's 6 mil spacing"
+  (condition "A.Type == 'Track' || A.Type == 'Via'")
+  (constraint clearance (min 0.15mm)))
