@@ -1,0 +1,61 @@
+name: "Duck Jaws"
+slug: duck-jaws
+status: porting            # designed and rule-checked; no physical SAO++ board built yet; firmware never compiled
+revision: "A"
+scale:
+  factor: 1.8              # the maker's outline, mouth, teeth and print together, about the middle of his outline
+  maker_size_mm: [40.1, 50.0]
+  new_size_mm: [72.1, 90.1]
+  why: "The XIAO only fits standing in the lower jaw with its USB socket at the bottom edge. At 1.75 its top end touches the duck hole; 1.8 leaves 0.7 mm between them and keeps the module out of sight behind the lower gum"
+
+original:
+  title: "duckGLOW SAO: duckJAWS v0.2"
+  makers: ["Adrian Studer (astuder)"]
+  year: 2024
+  source_url: "https://github.com/astuder/duckglow/tree/f58ce25527c02e2905dd61db5524fa642c4bbf0d/duckjaws"
+  project_url: "https://hackaday.io/project/198918-duckglow-sao"
+  license: "MIT and CERN-OHL-P-2.0"   # LICENSE.md holds both texts, (c) 2024 Adrian Studer; the schematic sheet is marked CERN-OHL-P. Both are permissive and allow sale with credit
+  permission: "license"
+  permission_ref: "original/LICENSE.md"
+  art_note: "ART CHECK (asked for before building): the board is a cartoon shark's head seen from straight in front, mouth wide open, with two eyes, two nostrils, a white lip line and fourteen teeth; a toy rubber duck sits in the mouth. It is the maker's own Inkscape drawing (design/duckjaws3.svg). It does NOT reproduce the JAWS film poster (that is a shark seen from the side rising under a swimmer, with the red title above), and there is no lettering, logo or title on the art side at all. The only link to the film is the product NAME 'duckJAWS', printed in KiCad's plain font on the back; 'jaws' is an ordinary word and the name is not drawn in the film's lettering. Judged generic. If boards are sold, the name is the one thing a cautious seller might still change. Separately: the maker's firmware help text quotes Ogden Nash's poem 'The Duck', which is not the maker's to license: it is NOT copied into this repo or its firmware. The maker's photos carry 'All rights reserved' in their file data and are not copied either."
+  shared_design: "duckJAWS and duckBATH (same repo) share one circuit and one firmware; duckJAWS adds four red 'background' LEDs round the mouth. Duck Bath is boards/duck-bath."
+
+changes:
+  - "The maker's whole design scaled 1.8x: 40.1 x 50.0 mm -> 72.1 x 90.1 mm, outline, mouth, teeth and front print together"
+  - "The 5 mm through-hole RGB LED that stood on the front (inside the duck) is replaced by a 5 mm round hole 0.9 mm lower and two SK6805-EC3210R side-firing RGB LEDs on the back, left and right of the hole, shining into it. The duck sits over the hole (same answer as Duck Bath)"
+  - "The four red side-firing LEDs (Kingbright APA1606 footprint, 680 ohm each) are replaced by four Lite-On LTST-S270KRKT (SAOPP-LED-01) with 1.3 k each, all driven from XIAO pin D3. Two sit in the upper gum between teeth, as the maker's did but 4 mm nearer the middle; two sit on the side walls of the mouth firing straight across, where the maker's sat in the lower corners firing diagonally"
+  - "Controller changed from a WCH CH32V003 to a Seeed Studio XIAO ESP32 module (C3, S3 or C6) soldered flat on the back of the lower jaw, USB-C at the bottom edge"
+  - "Dropped: the 0.9-5 V boost converter (regulator, coil, three 22 uF capacitors), the reverse-polarity transistor, the two I2C pull-ups, the three LED resistors, the test point and the two I2C address jumpers"
+  - "SMD pin header replaced by the 6-pin v1.69bis SMD shrouded header on the back, in the left half of the lower jaw (the maker's was in the middle, where the XIAO now is)"
+  - "SAO / OFF / USB-BAT slide switch on the right edge of the lower jaw, and a JST-PH LiPo connector on the bottom edge right of the XIAO, wired to the XIAO's battery pads (standard.md 3a). No coin cell"
+  - "SAO GPIO1 is not connected (the maker used it only to program his chip). GPIO2 goes to XIAO D6 through 330 ohm, as on Duck Bath"
+  - "Teeth: the maker's fourteen teeth were separate bare copper shapes and eight of them doubled as test points for his circuit. Here they are openings in the solder mask over one ground plate, with a 0.3 mm rim of bare board where his copper ran to the edge. The backs of the tooth tips are bare board, as on his"
+  - "Front: besides the art, the duck hole, the switch's two 0.9 mm peg holes at the right edge, fourteen covered 0.3 mm vias (the maker had 49) and ONE 4.3 mm track under the solder mask near the switch (the OFF line hopping over the 3.3 V rail)"
+  - "Firmware is new (Rust) and shares Duck Bath's code; it reproduces the maker's I2C registers at 0x6C including the fourth 'background' channel for the red LEDs; his WS2812 input mode and saving settings are not implemented"
+
+features:
+  power_select: true
+  coin_cell: none
+  lipo_connector: jst_ph   # SAOPP-CONN-10 on the bottom edge, to the XIAO's battery pads
+  side_leds: 6             # 2 RGB (the duck) + 4 red (the mouth)
+  through_board_leds: 0
+  i2c_device: true         # target at 0x6C, the maker's register map
+  gpio_use: "GPIO1 not connected. GPIO2 -> XIAO D6 (TX) through 330 ohm; unused by the firmware (the maker used it as a WS2812 data input)"
+  controller: "Seeed Studio XIAO ESP32-C3 / S3 / C6"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-CONN-10
+  - SAOPP-R-01
+  - SAOPP-R-02
+  - SAOPP-MCU-01
+  - SAOPP-LED-01
+  - SAOPP-LED-20
+  - SAOPP-C-01
+
+local_parts:                 # in hardware/parts_local.py and hardware/duck-jaws-local.pretty
+  - ref: D3-D6
+    part: "Red side-firing LED. The part is the shared SAOPP-LED-01; only its footprint and symbol are local, because the shared library has none for the side-firing family yet"
+    mpn: "LTST-S270KRKT"
+    footprint: "drawn for this board from the Lite-On datasheet's pad drawing (two 1.1 x 1.1 mm pads 0.9 mm apart); where the body sits on the pads is an estimate"
