@@ -1,0 +1,481 @@
+{
+ "title": "GPIO-16 (MCP23017) - SAO++ edition",
+ "rev": "A",
+ "credit": "Original circuit: AND!XOR, DC27 SAO reference designs, github.com/ANDnXOR/sao-reference-designs (Apache-2.0)",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    38.1,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL"
+   }
+  },
+  {
+   "ref": "C1",
+   "symbol": "C_100n",
+   "at": [
+    38.1,
+    101.6
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "MCP23017_SSOP28",
+   "at": [
+    93.98,
+    63.5
+   ],
+   "nets": {
+    "13": "SDA",
+    "12": "SCL",
+    "18": "VSAO",
+    "15": "GND",
+    "16": "GND",
+    "17": "GND",
+    "9": "VSAO",
+    "10": "GND",
+    "21": "GPA0",
+    "22": "GPA1",
+    "23": "GPA2",
+    "24": "GPA3",
+    "25": "GPA4",
+    "26": "GPA5",
+    "27": "GPA6",
+    "28": "GPA7",
+    "1": "GPB0",
+    "2": "GPB1",
+    "3": "GPB2",
+    "4": "GPB3",
+    "5": "GPB4",
+    "6": "GPB5",
+    "7": "GPB6",
+    "8": "GPB7"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    147.32,
+    38.1
+   ],
+   "nets": {
+    "2": "GPA0",
+    "1": "D1_K"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_LED_1k3",
+   "at": [
+    177.8,
+    38.1
+   ],
+   "nets": {
+    "1": "D1_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    147.32,
+    50.8
+   ],
+   "nets": {
+    "2": "GPA1",
+    "1": "D2_K"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_LED_1k3",
+   "at": [
+    177.8,
+    50.8
+   ],
+   "nets": {
+    "1": "D2_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    147.32,
+    63.5
+   ],
+   "nets": {
+    "2": "GPA2",
+    "1": "D3_K"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_LED_1k3",
+   "at": [
+    177.8,
+    63.5
+   ],
+   "nets": {
+    "1": "D3_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    147.32,
+    76.2
+   ],
+   "nets": {
+    "2": "GPA3",
+    "1": "D4_K"
+   }
+  },
+  {
+   "ref": "R4",
+   "symbol": "R_LED_1k3",
+   "at": [
+    177.8,
+    76.2
+   ],
+   "nets": {
+    "1": "D4_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D5",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    147.32,
+    88.9
+   ],
+   "nets": {
+    "2": "GPA4",
+    "1": "D5_K"
+   }
+  },
+  {
+   "ref": "R5",
+   "symbol": "R_LED_1k3",
+   "at": [
+    177.8,
+    88.9
+   ],
+   "nets": {
+    "1": "D5_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D6",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    147.32,
+    101.6
+   ],
+   "nets": {
+    "2": "GPA5",
+    "1": "D6_K"
+   }
+  },
+  {
+   "ref": "R6",
+   "symbol": "R_LED_1k3",
+   "at": [
+    177.8,
+    101.6
+   ],
+   "nets": {
+    "1": "D6_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D7",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    147.32,
+    114.3
+   ],
+   "nets": {
+    "2": "GPA6",
+    "1": "D7_K"
+   }
+  },
+  {
+   "ref": "R7",
+   "symbol": "R_LED_1k3",
+   "at": [
+    177.8,
+    114.3
+   ],
+   "nets": {
+    "1": "D7_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D8",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    147.32,
+    127.0
+   ],
+   "nets": {
+    "2": "GPA7",
+    "1": "D8_K"
+   }
+  },
+  {
+   "ref": "R8",
+   "symbol": "R_LED_1k3",
+   "at": [
+    177.8,
+    127.0
+   ],
+   "nets": {
+    "1": "D8_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D9",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    218.44,
+    38.1
+   ],
+   "nets": {
+    "2": "GPB0",
+    "1": "D9_K"
+   }
+  },
+  {
+   "ref": "R9",
+   "symbol": "R_LED_1k3",
+   "at": [
+    248.92,
+    38.1
+   ],
+   "nets": {
+    "1": "D9_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D10",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    218.44,
+    50.8
+   ],
+   "nets": {
+    "2": "GPB1",
+    "1": "D10_K"
+   }
+  },
+  {
+   "ref": "R10",
+   "symbol": "R_LED_1k3",
+   "at": [
+    248.92,
+    50.8
+   ],
+   "nets": {
+    "1": "D10_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D11",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    218.44,
+    63.5
+   ],
+   "nets": {
+    "2": "GPB2",
+    "1": "D11_K"
+   }
+  },
+  {
+   "ref": "R11",
+   "symbol": "R_LED_1k3",
+   "at": [
+    248.92,
+    63.5
+   ],
+   "nets": {
+    "1": "D11_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D12",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    218.44,
+    76.2
+   ],
+   "nets": {
+    "2": "GPB3",
+    "1": "D12_K"
+   }
+  },
+  {
+   "ref": "R12",
+   "symbol": "R_LED_1k3",
+   "at": [
+    248.92,
+    76.2
+   ],
+   "nets": {
+    "1": "D12_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D13",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    218.44,
+    88.9
+   ],
+   "nets": {
+    "2": "GPB4",
+    "1": "D13_K"
+   }
+  },
+  {
+   "ref": "R13",
+   "symbol": "R_LED_1k3",
+   "at": [
+    248.92,
+    88.9
+   ],
+   "nets": {
+    "1": "D13_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D14",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    218.44,
+    101.6
+   ],
+   "nets": {
+    "2": "GPB5",
+    "1": "D14_K"
+   }
+  },
+  {
+   "ref": "R14",
+   "symbol": "R_LED_1k3",
+   "at": [
+    248.92,
+    101.6
+   ],
+   "nets": {
+    "1": "D14_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D15",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    218.44,
+    114.3
+   ],
+   "nets": {
+    "2": "GPB6",
+    "1": "D15_K"
+   }
+  },
+  {
+   "ref": "R15",
+   "symbol": "R_LED_1k3",
+   "at": [
+    248.92,
+    114.3
+   ],
+   "nets": {
+    "1": "D15_K",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "D16",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    218.44,
+    127.0
+   ],
+   "nets": {
+    "2": "GPB7",
+    "1": "D16_K"
+   }
+  },
+  {
+   "ref": "R16",
+   "symbol": "R_LED_1k3",
+   "at": [
+    248.92,
+    127.0
+   ],
+   "nets": {
+    "1": "D16_K",
+    "2": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "Circuit: AND!XOR's DC27 'MCP23017 16 GPIO Reference Design' rev1 (2019-03-15, Apache-2.0), read from the maker's schematic picture. Layout and artwork: SAO++.",
+   [
+    20.32,
+    15.24
+   ]
+  ],
+  [
+   "Badge power only (recorded exception to the SAO++ power switch): J1 pin 1 feeds the chip directly, as on the maker's design. There is no coin cell on this board.",
+   [
+    20.32,
+    20.32
+   ]
+  ],
+  [
+   "A0 = A1 = A2 = GND: 7-bit I2C address 0x20.  RESET tied to 3.3 V.  INTA, INTB, pins 11 and 14 unconnected (as the maker's).  No I2C pull-ups on the add-on.",
+   [
+    20.32,
+    25.4
+   ]
+  ],
+  [
+   "Each output drives one red through-board LED to GND when HIGH. Resistors 1.3k (maker: 1k): about 1.1 mA per LED, about 19 mA with all 16 lit.",
+   [
+    20.32,
+    30.48
+   ]
+  ]
+ ]
+}

@@ -1,0 +1,51 @@
+name: "GPIO-16 (MCP23017)"
+slug: gpio-16
+status: porting            # designed and rule-checked; no physical board built yet
+revision: "A"
+
+original:
+  title: "MCP23017 16 GPIO Reference Design, rev1 ('GPIO 16 (MCP23017) reference design', DC27 SAO reference designs)"
+  makers: ["AND!XOR"]
+  year: 2019
+  source_url: "https://github.com/ANDnXOR/sao-reference-designs/tree/5bc113302ebc797442ec0beddea9254aa829aca6/DC27/GPIO-16-MCP23017_sao1.69bis"
+  license: "Apache-2.0"    # the repo's LICENSE file (original/LICENSE). No NOTICE file; the two source files carry no licence exception
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  base_revision: "commit 5bc1133 (2019-04-20): a schematic picture dated 2019-03-15, 'Rev: rev1', and a parts list. The maker published no board file"
+  art_note: "None of the maker's art is used: he published none for this design. The only AND!XOR mark in the source is the plain word 'AND!XOR' in the schematic's title block; no logo is copied. The outline, the layout and all lettering are SAO++'s own. The maker is credited in words on the back ('circuit: AND!XOR DC27')."
+
+new_layout: true           # the circuit is the maker's; the board (outline, placement, routing, lettering) is new
+
+exceptions:                # recorded departures from docs/standard.md, for the owner to confirm
+  - "Badge power only: no coin cell and no SAO / OFF / BAT switch. SAO pin 1 feeds the chip directly, as on the maker's design. Reason: with no badge driving it over I2C the board shows nothing (every pin is an input at power-up), so a cell buys nothing away from a badge; and an OFF position would leave an unpowered chip hanging on the badge's I2C lines. Printed 'BADGE POWER ONLY' on the back."
+
+changes:
+  - "New board: the maker published a schematic and a parts list only"
+  - "Any 2x3 header -> the shared shrouded, keyed SAO v1.69bis SMD connector on the back, key up"
+  - "LEDs: unspecified 'LED' -> 16 x shared red through-board LED (LED-10) on the back, shining through bare board"
+  - "LED resistors 1k -> shared 1.3k (about 1.2 mA per LED instead of about 1.5 mA)"
+  - "Chip: BOM says 'MCP23017-E/SS - SSOP-20' (a slip: the E/SS part is the 28-lead SSOP, and the schematic uses pins up to 28) -> MCP23017T-E/SS, the same chip on a reel"
+  - "Circuit otherwise exactly the maker's: address pins to GND (0x20), RESET to 3.3 V, INTA / INTB unconnected, one 100 nF, no I2C pull-ups, each pin -> LED -> resistor -> GND"
+
+features:
+  power_select: false      # recorded exception, see above
+  coin_cell: none
+  side_leds: 0
+  through_board_leds: 16
+  vias: 0
+  copper_layers_used: 1    # everything on the back; the front has no copper
+  i2c_device: true
+  i2c_address: "0x20 (fixed)"
+  gpio_use: ""             # SAO GPIO1 / GPIO2 unconnected
+  controller: "none: MCP23017 I2C port expander, driven by the badge"
+  size_mm: "31.3 x 31.0"
+  worst_case_current_mA: 20   # calculated: 16 LEDs at about 1.2 mA plus the chip (1 mA max)
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
+  - SAOPP-C-01
+
+local_parts:
+  - {name: MCP23017_SSOP28, ref: U1, mpn: "MCP23017T-E/SS", lcsc: C558584, footprint: "Microchip land pattern C04-2073A (DS20001952C page 35), drawn by hardware/make_local_footprints.py"}
