@@ -1,0 +1,29 @@
+# Per-chip build shortcuts (run from this folder):
+#   cargo c3          build for XIAO ESP32-C3   (stable toolchain)
+#   cargo c6          build for XIAO ESP32-C6   (stable toolchain)
+#   cargo +esp s3     build for XIAO ESP32-S3   (needs the Xtensa "esp" toolchain from espup)
+#   cargo flash-c3 / flash-c6 / +esp flash-s3   build, flash with espflash, open the serial monitor
+#
+# Do NOT add `incremental = true` here: this machine uses sccache, which
+# cannot cache incremental builds.
+
+[alias]
+c3 = "build --release --features esp32c3 --target riscv32imc-unknown-none-elf"
+c6 = "build --release --features esp32c6 --target riscv32imac-unknown-none-elf"
+s3 = "build --release --features esp32s3 --target xtensa-esp32s3-none-elf -Zbuild-std=core"
+flash-c3 = "run --release --features esp32c3 --target riscv32imc-unknown-none-elf"
+flash-c6 = "run --release --features esp32c6 --target riscv32imac-unknown-none-elf"
+flash-s3 = "run --release --features esp32s3 --target xtensa-esp32s3-none-elf -Zbuild-std=core"
+
+[target.riscv32imc-unknown-none-elf]
+runner = "espflash flash --monitor --chip esp32c3"
+rustflags = ["-C", "force-frame-pointers", "-C", "link-arg=-Tlinkall.x"]
+
+[target.riscv32imac-unknown-none-elf]
+runner = "espflash flash --monitor --chip esp32c6"
+rustflags = ["-C", "force-frame-pointers", "-C", "link-arg=-Tlinkall.x"]
+
+[target.xtensa-esp32s3-none-elf]
+runner = "espflash flash --monitor --chip esp32s3"
+rustflags = ["-C", "link-arg=-nostartfiles", "-C", "link-arg=-Wl,-Tlinkall.x"]
+

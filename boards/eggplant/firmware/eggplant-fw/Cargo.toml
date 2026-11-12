@@ -1,0 +1,41 @@
+[package]
+name = "eggplant-fw"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Eggplant SAO (SAO++ edition) firmware for Seeed XIAO ESP32-C3 / C6 / S3"
+publish = false
+
+# Pick exactly one chip feature. The .cargo/config.toml aliases do it for you:
+#   cargo c3   /  cargo c6   /  cargo +esp s3
+[features]
+esp32c3 = ["esp-hal/esp32c3", "esp-bootloader-esp-idf/esp32c3", "esp-println/esp32c3", "dep:esp32c3"]
+esp32c6 = ["esp-hal/esp32c6", "esp-bootloader-esp-idf/esp32c6", "esp-println/esp32c6", "dep:esp32c6"]
+# The S3 has no I2C target driver in esp-hal 1.2.2, so it talks to the I2C
+# registers through the PAC. All three PACs are also used to switch off the
+# internal I2C pull-ups (see src/i2c_target.rs). Same versions esp-hal uses.
+esp32s3 = ["esp-hal/esp32s3", "esp-bootloader-esp-idf/esp32s3", "esp-println/esp32s3", "dep:esp32s3"]
+
+[dependencies]
+eggplant-core = { path = "../eggplant-core" }
+# Exact versions: these are the ones this tree was built and checked with.
+# esp-hal changes its API often; bump deliberately, not by accident.
+esp-hal = { version = "=1.2.2", features = ["unstable"] }
+esp-bootloader-esp-idf = { version = "=0.6.0" }
+esp-println = { version = "=0.18.0", default-features = false, features = ["jtag-serial", "critical-section"] }
+critical-section = "1.2"
+esp32c3 = { version = "=0.33.0", features = ["critical-section"], optional = true }
+esp32c6 = { version = "=0.24.0", features = ["critical-section"], optional = true }
+esp32s3 = { version = "=0.36.0", features = ["critical-section"], optional = true }
+
+[profile.dev]
+# Animations and the RMT refill loop want optimised code even in debug builds.
+opt-level = "s"
+
+[profile.release]
+opt-level = "s"
+lto = "fat"
+codegen-units = 1
+debug = 2
+debug-assertions = false
+overflow-checks = false

@@ -1,0 +1,22 @@
+(version 1)
+
+# The copper on this board is partly artwork (the body and the stalk on the front). This rule stops DRC from flagging
+# the art for being art; everything electrical (pads, tracks, the GND copper against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The data resistor sits end-on against the XIAO's D10 pad (same net), so their courtyards overlap.
+(rule "Data resistor against the XIAO's D10 pad"
+  (condition "A.Reference == 'R1' && B.Reference == 'U1'")
+  (constraint courtyard_clearance (min -2.0mm)))
+
+# The SAO connector's courtyard is drawn 0.8 mm outside its shroud. Turned 45 degrees to the XIAO, its corner reaches
+# over the module's courtyard; the shroud itself stays clear of the module's pads (see README, "tight spots").
+(rule "Connector corner beside the XIAO"
+  (condition "A.Reference == 'J1' && B.Reference == 'U1'")
+  (constraint courtyard_clearance (min -3.0mm)))
+(rule "Connector corner beside the last LED"
+  (condition "A.Reference == 'J1' && B.Reference == 'D5'")
+  (constraint courtyard_clearance (min -3.0mm)))
