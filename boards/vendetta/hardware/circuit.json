@@ -1,0 +1,26 @@
+{
+ "title": "Guy Fawkes remembers (Vendetta) - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko (Dave Darko), 2022, github.com/davedarko/Simple-Add-ons-SAO",
+ "parts": [
+  {"ref": "J1", "symbol": "SAO_Connector_v1.69bis", "at": [50.8, 50.8], "nets": {"1": "VSAO", "2": "GND", "3": "SDA", "4": "SCL"}},
+  {"ref": "SW1", "symbol": "Power_Switch_SP3T_PCM13", "at": [50.8, 81.28], "nets": {"3": "VLOAD", "1": "VSAO", "4": "VBAT"}},
+  {"ref": "BT1", "symbol": "CR2032_Clip", "at": [50.8, 111.76], "nets": {"1": "VCELL", "2": "GND"}},
+  {"ref": "D1", "symbol": "D_Schottky_Cell", "at": [88.9, 111.76], "nets": {"2": "VCELL", "1": "VBAT"}},
+  {"ref": "U1", "symbol": "EEPROM_CAT24C256_SOIC8_EIAJ", "at": [139.7, 76.2],
+   "nets": {"8": "VLOAD", "1": "A0", "2": "A1", "3": "A2", "4": "GND", "5": "SDA", "6": "SCL", "7": "WP"}},
+  {"ref": "C1", "symbol": "C_100n", "at": [139.7, 111.76], "nets": {"1": "VLOAD", "2": "GND"}},
+  {"ref": "R1", "symbol": "R_LED_1k3", "value": "1.3k DNP", "at": [190.5, 66.04], "nets": {"1": "VLOAD", "2": "A0"}},
+  {"ref": "R2", "symbol": "R_LED_1k3", "value": "1.3k DNP", "at": [190.5, 78.74], "nets": {"1": "VLOAD", "2": "A1"}},
+  {"ref": "R3", "symbol": "R_LED_1k3", "value": "1.3k DNP", "at": [190.5, 91.44], "nets": {"1": "VLOAD", "2": "A2"}},
+  {"ref": "R4", "symbol": "R_LED_1k3", "value": "1.3k DNP", "at": [190.5, 104.14], "nets": {"1": "VLOAD", "2": "WP"}}
+ ],
+ "notes": [
+  ["SAO++ power select: the switch common (VLOAD) feeds the EEPROM. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.", [38.1, 30.48]],
+  ["The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.", [38.1, 34.29]],
+  ["D1 (series Schottky) is required: the EEPROM is wired to SDA/SCL, and the badge's I2C pull-ups must not push current into the cell (docs/standard.md section 3).", [38.1, 38.1]],
+  ["Maker's circuit kept: CAT24C256 on SDA/SCL, C1 = supply decoupling. No pull-ups on SDA/SCL (the badge provides them).", [127.0, 127.0]],
+  ["R1-R3 (A0-A2) and R4 (WP) are the maker's optional straps, NOT FITTED: the chip pulls those pins low itself, so the EEPROM answers at 0x50 and can be written.", [127.0, 130.81]],
+  ["Fit R1-R3 to move the address (0x50 + A2*4 + A1*2 + A0); fit R4 to write-protect the whole chip.", [127.0, 134.62]]
+ ]
+}

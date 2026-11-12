@@ -1,0 +1,58 @@
+name: "Guy Fawkes remembers (Vendetta)"
+slug: vendetta
+status: porting            # designed, routed and rule-checked; no physical board built yet
+revision: "A"
+
+original:
+  title: "Guy Fawkes remembers Vendetta SAO (Simple Add-ons SAO, 'Guy Fawkes SAO')"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2022
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/Guy%20Fawkes%20remembers%20Vendetta%20SAO"
+  license: "none stated"   # the repo (commit 1a08593) states no license, so all rights are reserved by default
+  permission: "pending"
+  permission_ref: ""
+  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  base_revision: "original/VendettaSAO (KiCad 6, board dated 2022/09, order files vendettaSAOV2.zip of 2022-09-20): the only board file; the loose .kicad_mod/.svg files beside it are its art and outline"
+  art_note: "The front is a Guy Fawkes mask in the style popularised by the film and comic 'V for Vendetta' (Warner Bros. / DC). That stylised mask is a third-party likeness: not SAO++'s and not davedarko's to license. Any sale needs its own check, separately from davedarko's permission."
+
+scale:
+  factor: 1.23
+  original_size_mm: [34.4, 45.7]
+  new_size_mm: [42.3, 56.3]
+  why: "At the maker's size the CR2032 clip (24 x 17 mm), the 15 mm SAO connector, the quote, the logo and the credit do not all fit on the back. Owner rule 2026-11-12: scale the whole board (outline and art, same proportions) instead of moving a credit or overhanging the cell. 1.23 is the smallest factor (0.01 steps) for the cell centred under the quote with the connector below it; a wider search (clip anywhere, square to the board) found no fit at 1.18 or below; 1.19-1.22 not searched that widely."
+
+changes:
+  - "Whole design scaled up 1.23x (34.4 x 45.7 mm -> 42.3 x 56.3 mm): outline, mask art, quote, logo and credit together"
+  - "Board turned over: the maker drew the mask on the back silkscreen and put the parts, quote and credit on the other side; SAO++ puts the mask on the front and everything else on the back. Nothing in the art is redrawn"
+  - "SMD 2x3 pin socket replaced by the shared shrouded SAO v1.69bis connector, key up, 2.2 mm left of centre, a little lower than the maker's header (between his logo and his credit)"
+  - "SAO / OFF / BAT switch added (knob out of the left edge seen from the back = right edge of the face seen from the front) and the shared CR2032 clip added under the quote (the 2022 board ran from the badge only)"
+  - "Series cell diode D1 added (required: the EEPROM is on SDA/SCL)"
+  - "EEPROM kept: CAT24C256 (256 kbit) in the same 208 mil SOIC-8, on SDA/SCL as the maker wired it"
+  - "Maker's 0805 capacitor (value not given) -> shared 100 nF 0603; maker's four 0805 option resistors on A0/A1/A2/WP (value not given) -> shared 1.3 k 0603 footprints, NOT FITTED by default (the chip pulls those pins low itself, so the EEPROM sits at 0x50 and can be written; the maker's files do not say which he fitted)"
+  - "Maker's 'A0 A1 A2 WP' labels redrawn as small SAO++ labels next to the new resistor spots; 'JLCJLCJLCJLC' order-number placeholder not carried"
+  - "Quote, 'dd' logo and '@davedarko 2022/09' credit kept unchanged in wording, place and proportion (scaled with the board)"
+  - "Back copper is GND (as the maker's front pour was); no vias; no copper on the art side (the maker had none there either)"
+  - "Two 0.9 mm switch-peg holes go through the art at the right edge of the face (front view), level with the eyes"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 0
+  front_leds: 0
+  vias: 0
+  copper_layers_used: 1
+  i2c_device: "CAT24C256 EEPROM, 32 KB, address 0x50 (A0-A2 straps not fitted)"
+  gpio_use: "none"
+  controller: "none"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-C-01
+  - SAOPP-R-01
+
+local_parts:
+  - {name: EEPROM_CAT24C256_SOIC8_EIAJ, ref: U1, mpn: CAT24C256XI-T2, footprint: "KiCad stock Package_SO:SOIC-8_5.3x5.3mm_P1.27mm (the maker's SOIC-8_5.23x5.23mm under its current name)"}
+  - {name: D_Schottky_Cell, ref: D1, mpn: RB751S40T1G, implements: SAOPP-D-01, lcsc: C232576, footprint: "KiCad stock Diode_SMD:D_SOD-523 (as knight-rider)"}

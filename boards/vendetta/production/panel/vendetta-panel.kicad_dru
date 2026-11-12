@@ -1,0 +1,8 @@
+(version 1)
+
+# The art on this board is silkscreen (the mask on the front, the quote, logo and credit on the back). This rule
+# stops DRC from flagging fine gaps between art shapes; everything electrical is still checked at full rules.
+
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))

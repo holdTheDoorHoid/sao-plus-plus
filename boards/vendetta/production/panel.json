@@ -1,0 +1,17 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. The switch knob sticks out of the right edge (front view) between y 11 and 23, and the badge-power track runs 0.6 mm inside the left edge (front view) between y 10 and 31, so no tabs there.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [25.4, -3.0], "dir": "-y", "why": "top of the forehead"},
+    {"near": [5.5, 4.0], "dir": "-x", "why": "left temple (front view), above the track"},
+    {"near": [45.8, 4.0], "dir": "+x", "why": "right temple (front view), above the switch"},
+    {"near": [8.6, 38.0], "dir": "-x", "why": "left cheek (front view)"},
+    {"near": [41.2, 38.0], "dir": "+x", "why": "right cheek (front view)"},
+    {"near": [25.4, 53.0], "dir": "+y", "why": "point of the chin"}
+  ]
+}
