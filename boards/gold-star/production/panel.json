@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. All copper stops 0.55 mm short of the edge; the nearest track (the LEDs' shared return ring) is 1.0 mm in. No tab on the right-hand flat (the switch knob) and none where an LED sits.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [0.0, -23.9], "dir": "-y", "why": "top, between the two top LEDs"},
+    {"near": [0.0, 23.9], "dir": "+y", "why": "bottom, where the cell slides in (file the nub flat)"},
+    {"near": [-24.1, 0.0], "dir": "-x", "why": "left, the 9 o'clock gap in the LED ring"},
+    {"near": [19.9, -13.5], "dir": "+x", "why": "upper right, between two LEDs, clear of the switch"},
+    {"near": [19.9, 13.5], "dir": "+x", "why": "lower right, between two LEDs, clear of the switch"}
+  ]
+}

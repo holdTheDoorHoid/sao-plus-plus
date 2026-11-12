@@ -1,0 +1,62 @@
+name: "Gold Star"
+slug: gold-star
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Gold Star Shitty Add-On"
+  makers: ["greymanhw"]
+  year: 2019
+  source_url: "https://github.com/greymanhw/gold-star"
+  source_commit: "eafa927"   # 2019-08-29, the only state of the repo that was read
+  license: "MIT"             # LICENSE file: MIT License, Copyright (c) 2019 greymanhw. No exceptions in the file headers
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "A plain five-pointed star drawn by the maker in Inkscape (original/star.svg). No third-party logo, character or event branding."
+  what_was_published: "A KiCad 5 schematic (gold-star.sch), one Inkscape drawing (star.svg: a round outline, the star, two lines of back text) and a one-line readme. gold-star.kicad_pcb is a 51-byte placeholder: the maker never published a board layout, and no photo of a built board was used."
+
+changes:
+  - "THIS IS A NEW LAYOUT, NOT A PORT OF A BOARD. The maker published a circuit and a drawing; every part position, track and dimension here is new"
+  - "Size: the maker's drawing is a 100.5 x 99.5 mm disc with a 77.5 mm star, far too big for an add-on and never laid out. Outline, star, and the star's size and position in the outline are all kept in proportion and scaled by 0.48: a 48.3 x 47.7 mm disc with a 37.2 mm star. A 12.4 mm flat is cut on the right-hand edge (front view) for the switch, which makes the board 47.4 mm wide"
+  - "The star is on the layer the maker called F.Silk (white print). Here it is bare gold (ENIG copper showing through a star-shaped opening in the solder mask), because the board is called Gold Star. One constant in the build script (STAR_FINISH) turns it back into white print"
+  - "Timer: LMC555 (CMOS, runs from 1.5 V) instead of the NE555 in the schematic, which needs 4.5 V and cannot run from a badge's 3.3 V or a coin cell. Same choice and part as the COVID-19 Test board"
+  - "Counter: 74HC4017 instead of the plain 4017 in the schematic (CD4017: 3 V minimum, weak outputs at 3 V). Same counter, same pins, works from 2 V. NOT YET CHECKED AT A DISTRIBUTOR: no part number, stock or price"
+  - "Timing parts from the shared reels: three 3.3 M in parallel (1.1 M) for the maker's 220 k, 330 ohm for his 220 ohm, 100 nF for his 0.47 uF. 13.1 steps a second; his values give 13.9"
+  - "LEDs: the maker's schematic gives no type and draws all ten the wrong way round (cathode to the counter, so none could light). Here: ten red reverse-mount LEDs shining through the board, connected the working way, sharing the maker's one resistor (the house 1.3 k instead of his 470 ohm: about 1 mA)"
+  - "LED positions are new (the maker published none): a ring round the star with gaps at 3 o'clock (switch), 9 o'clock (to match) and the bottom (where the coin cell slides in). D1 is just right of the top; the light runs anticlockwise seen from the front"
+  - "New: SAO / OFF / BAT slide switch, CR2032 clip, 6-pin v1.69bis SMD shrouded connector (the maker's schematic has the same connector, with only power and ground used, as here)"
+  - "Added C3, a 100 nF supply capacitor (not in the maker's circuit; same part as C1 and C2)"
+  - "The maker's control-pin capacitor C1 and timing capacitor C2 keep their names; R1 R2 R3, U1 U2, D1-D10 too. R4 and R5 are the two extra 3.3 M beside R1"
+  - "Two copper layers. Front: one sheet of ground copper with the star opened in the mask and ten 2 mm dots of bare board over the LEDs. Three LED lines have to hop over the others on the front (the 4017's pin order makes a one-sided layout impossible): four short tracks under the solder mask and eight covered vias, all in the dark area between the star's top and left points. Four more covered vias tie the ground"
+  - "Back text: the maker's two lines, '@greymanhw' and 'star 1.0.0', same words, set straight above the connector at 1.3 mm instead of running along the rim at (scaled) 2.0 mm"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 10
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
+  - SAOPP-R-02
+  - SAOPP-C-01
+
+local_parts:
+  - id: "Timer_LMC555_SOIC8"
+    mpn: "LMC555CMX/NOPB"
+    footprint: "KiCad stock Package_SO:SOIC-8_3.9x4.9mm_P1.27mm (copied unchanged)"
+    use: "U1, the clock. Second board to use it (COVID-19 Test is the first): should move to lib/"
+  - id: "Counter_74HC4017_SOIC16"
+    mpn: "not chosen: any maker's 74HC4017 in SOIC-16 (narrow, 3.9 mm body). Not yet checked at a distributor"
+    footprint: "KiCad stock Package_SO:SOIC-16_3.9x9.9mm_P1.27mm (copied unchanged)"
+    use: "U2, the decade counter"
+  - id: "R_Timing_3M3"
+    mpn: "0603WAF3304T5E"
+    footprint: "KiCad stock Resistor_SMD:R_0603_1608Metric (copied unchanged)"
+    use: "R1, R4, R5 in parallel. Second board to use it (COVID-19 Test is the first): should move to lib/"
