@@ -1,0 +1,22 @@
+(version 1)
+
+# The copper on this board is artwork. These rules stop DRC from flagging the art for being art;
+# everything electrical (pads, tracks, the GND copper against other nets) is still checked at full rules.
+
+(rule "Fine gaps inside the artwork (brush strokes, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The hat is 57 x 27 mm and the star (where the light must be) sits right under the only place the connector fits.
+# The keep-out boxes below overlap; the parts do not:
+# - cell clip beside the connector: the clip's keep-out box in the shared footprint is a rectangle drawn 11.5 mm past
+#   the pad line at the closed end. The real clip (TE drawing) reaches 7.2 mm there, with its corners cut off. Checked
+#   against that drawing in build_board.py: clip plate to connector body 0.25 mm or more, cell to connector body 1.5 mm
+(rule "Cell clip beside the connector"
+  (condition "A.Reference == 'J1' && B.Reference == 'BT1'")
+  (constraint courtyard_clearance (min -2.2mm)))
+# - star LED below the connector: the LED's upper solder pad ends 0.33 mm from the connector's plastic body and the LED
+#   itself 0.75 mm from it; the connector's keep-out box is drawn 1.65 mm past its body on the pad sides
+(rule "Star LED below the connector"
+  (condition "A.Reference == 'J1' && B.Reference == 'D1'")
+  (constraint courtyard_clearance (min -1.7mm)))

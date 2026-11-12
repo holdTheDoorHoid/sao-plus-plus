@@ -1,0 +1,40 @@
+name: "Cowboy"
+slug: open-sauce-cowboy
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Cowboy SAO (Open Sauce 2026 badge add-on)"
+  makers: ["Caleb Marting"]
+  year: 2026
+  source_url: "https://github.com/calebmarting/os2026-badge/tree/d74a6c23c2162341ce4136ae5e530311a91d1126/Board%20Files/Cowboy"
+  license: "MIT"           # LICENSE at the root of the maker's repo, (c) 2026 Caleb Marting; copy in original/LICENSE. No narrower terms in this board's files or the repo README (checked at commit d74a6c2, 2026-07-30)
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "The hat itself is the maker's own drawing (a cowboy hat with a sheriff's star; no third-party character). The back silkscreen carries the Open Sauce event logo (a small box-shaped robot lettered OPEN SAUCE). Open Sauce's name and logo are that event's trademark, which the MIT licence on the board files does not cover. The owner approved keeping the logo on the sister 'Open Sauce Logo' board on 2026-11-12 but has NOT been asked about this board: the logo is kept here (moved, same size) pending that decision, and one line in hardware/build_board.py (KEEP_OPEN_SAUCE_LOGO) removes it. The maker's source drawing 'Art/Cowboy SAO.svg' also embeds a hidden concept sheet that shows the Open Sauce logo and an xTool-branded soldering iron drawing; that file is not copied into original/."
+
+changes:
+  - "Through-hole 2x3 header replaced by the 6-pin SAO v1.69bis SMD shrouded connector on the back of the crown, key slot up (the old spot at the bottom edge is too close to the edge for an SMD part)"
+  - "Through-hole CR2032 holder (BS-02-A1AJ010) replaced by the shared SMD clip on the back of the left brim; the cell slides in from the bottom edge and overhangs it by 0.7 mm"
+  - "The maker's 'LED SELECT' solder jumper (LED fed from badge VCC or badge GPIO2) and the direct wire from the cell to the LED are replaced by the SAO / OFF / BAT slide switch on the straight bottom edge. In the original the cell's plus was joined to the badge's 3.3 V through the default jumper; here they never meet. GPIO2 is left unconnected"
+  - "5 mm through-hole red LED poking through the star replaced by one red reverse-mount LED on the back, shining through the board in the middle of the star; 1 k through-hole resistor replaced by the shared 1.3 k"
+  - "Front art: same outline, copper, bare-copper strokes, white rim, crease lines and star. New: a 2.9 mm round opening in the white of the star (and a 3.2 mm one in the copper behind it) where the light comes through; two 0.9 mm switch-peg holes near the bottom edge; two tiny covered vias. Gone: the eleven through-hole solder joints. The 3 mm key-ring hole stays"
+  - "Back: the 12 mm 'Pin Back' solder disc is gone (the connector sits there). The maker's assembly labels for the through-hole kit are gone. The Open Sauce logo moves, same size, from under the cell to the right-hand brim. New labels: SAO, BAT, CR2032 + UP, COWBOY, SAO++ rA, pin 1, 'orig. design: Caleb Marting'"
+  - "Copper kept 0.55 mm back from the edge (was 0.5 mm)"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 1
+  i2c_device: false
+  gpio_use: ""             # the original could drive its LED from GPIO2 (solder jumper); not carried over
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
+
+local_parts: []
