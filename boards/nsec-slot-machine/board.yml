@@ -1,0 +1,37 @@
+name: "Slot Machine"
+slug: nsec-slot-machine
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Sao_SlotMachine_v2 (NorthSec 2025 slot machine SAO)"
+  makers: ["NorthSec (nsec) 2025 badge team"]
+  year: 2025
+  source_url: "https://github.com/nsec/nsec-badge/tree/0ea779f281ac538fa21b333b027250784b5d3cbf/hw/2025/sao/Sao_SlotMachine_v2"
+  license: "MIT"           # repo root LICENSE: MIT, "except otherwise stated in respective files". No file of this board states an exception (checked every file in the folder and in hw/2025/sao/libs at commit 0ea779f)
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "The outline and all front art are SAO++'s own drawing (CC-BY-SA-4.0), generated from numbers in hardware/build_board.py and saved as art/front.svg. NorthSec's original outline and front art were drawn over a third-party slot-machine icon of unknown origin; none of it is reproduced here, in any form, and it has been cut from the board file kept in original/ (see original/README.md). What comes from NorthSec is the idea (a slot machine SAO with three lit 7s) and the circuit. Still open: the back carries NorthSec's 'nsec 2025' logo, their event name and branding, which is separate from the MIT licence on the board files. Selling boards with it needs NorthSec's agreement, or the logo is replaced by the plain text credit that is already printed beside it."
+
+changes:
+  - "Outline and front art redrawn from scratch by SAO++, around the parts: a 33 mm cabinet with a round marquee, three gold reels with a 7 each, a lever with a ball on the right, a payout tray, a flat base. 39.9 x 46.6 mm (the original was 27.7 x 34.8 mm, too small for a coin cell and switch)"
+  - "The 7s are no longer slots cut through the board: each is a 7-shaped opening in the front copper with bare board showing, lit from behind. No narrow slots for the board house, and the front is unbroken"
+  - "Full SAO++ power block added: CR2032 clip behind the marquee (the cell slides in over the top), SAO / OFF / BAT slide switch with its knob at the bottom edge. The original ran from the badge only"
+  - "The maker's bare 2x3 SMD pin header becomes the 6-pin SAO v1.69bis SMD shrouded, keyed connector, in the middle of the cabinet, more than 5 mm from every edge"
+  - "Three hand-solder 1206 LEDs (colour not recorded) become three red reverse-mount 1206 LEDs, one behind each 7; three 330 ohm 0805 resistors become three shared 1.3 k 0603 resistors (about 1.1 mA per LED on the badge, about 0.85 mA on a fresh cell, instead of about 4 mA)"
+  - "Back: GND copper fill; NorthSec's 'nsec 2025' logo kept, turned on its side beside the connector; labels for the cell, the switch positions, pin 1, the board name and the credit. The maker's 5 mm write-on square and ten decorative vias are not carried over"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 3
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
