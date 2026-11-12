@@ -1,0 +1,59 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. All copper on this board stops 0.55 mm short of the edge. No tab on the left edge (switch knob) or under the sack (the cell slides in there).",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {
+      "near": [
+        132.0,
+        101.4
+      ],
+      "dir": "-y",
+      "why": "top of the sack"
+    },
+    {
+      "near": [
+        110.0,
+        114.2
+      ],
+      "dir": "-y",
+      "why": "top edge of the tucked bank note"
+    },
+    {
+      "near": [
+        112.0,
+        139.5
+      ],
+      "dir": "+y",
+      "why": "under the wad of notes"
+    },
+    {
+      "near": [
+        153.2,
+        139.5
+      ],
+      "dir": "+y",
+      "why": "under the coin"
+    },
+    {
+      "near": [
+        165.7,
+        127.0
+      ],
+      "dir": "+x",
+      "why": "right side of the coin"
+    },
+    {
+      "near": [
+        153.2,
+        114.5
+      ],
+      "dir": "-y",
+      "why": "top of the coin"
+    }
+  ]
+}
