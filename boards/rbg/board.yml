@@ -1,7 +1,20 @@
 name: "RBG"
 slug: rbg
 status: porting            # designed and rule-checked; no physical SAO++ board built yet
-revision: "A"
+revision: "B"
+scale:
+  factor: 1.06             # whole board and art, uniform, about the board centre (owner decision 2026-11-12)
+  old_size_mm: [57.0, 73.7]
+  new_size_mm: [60.5, 78.1]
+  compromises_gone:
+    - "CR2032 overhung the left ear by about 1 mm; now wholly on the board, edge 0.49 mm inside"
+    - "cell clip's printed arrow ran off the board edge; now on the fab (assembly) layer only"
+    - "load track squeezed to 0.3 mm past the neck and ear; now full 0.4 mm width"
+    - "extra .kicad_dru rule for fine art gaps; removed (it was not needed at either size)"
+  compromises_remaining:
+    - "switch knob ends about 0.75 mm past the left edge (by design, all side-actuated boards)"
+    - "two 0.9 mm switch peg holes on the front, in plain shirt left of R.B.G. (any board with this switch)"
+    - "front collar lace silkscreen drawn to the shoulder edge in 2018 (art as drawn)"
 
 original:
   title: "RBG SAO, DEF CON 26 RBG SAO Badge"
@@ -21,6 +34,7 @@ changes:
   - "Back copper still the ground pour; kept 0.55 mm back from the edge for panel break-off tabs"
   - "The old LEDs' eight +/- marks on the back and the header's small pin-1 dot on the front removed; 'RBG SAO / DEF CON 26' and the 'Thanks To' credit untouched"
   - "Outline redrawn as one clean closed path (same shape); the crown's gold copper kept 0.28 mm back from the edge"
+  - "Rev B: whole board and art scaled by 1.06 (57.0 x 73.7 mm -> 60.5 x 78.1 mm) so the CR2032 sits wholly on the board"
   - "Front art unchanged apart from: the jewels lose the old LEDs' two plated holes each (they stay bare ovals), the header's four holes are gone, and two 0.9 mm holes (the switch's locating pegs) on the left edge beside 'R.B.G.'"
 
 features:

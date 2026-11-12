@@ -1,4 +1,4 @@
-# RBG rev A — ordering files
+# RBG rev B — ordering files
 
 > Design-checked only. No board has been built from these files yet: order a small first batch (5–10) before any production run, and go through the prototype checklist in [../README.md](../README.md).
 >
@@ -22,7 +22,7 @@ Each zip holds: front/back copper, solder mask, paste and silkscreen, the board 
 | Setting | Value | Why |
 |---|---|---|
 | Layers | 2 | |
-| Size | single 57.0 × 73.7 mm; panel 131.1 × 174.3 mm | |
+| Size | single 60.5 × 78.1 mm; panel 137.9 × 183.1 mm | rev B is the 2018 board scaled up by 1.06 so the coin cell fits on it |
 | Thickness | 1.6 mm | the jewel LEDs shine through the board |
 | Surface finish | **ENIG** | the coin cell rests on a bare copper disc, and the crown is exposed gold art |
 | Solder mask / silkscreen | **Your choice; the 2018 colours are not recorded in the files.** White silkscreen is needed for the face and lettering | check a photo of the original on hackaday.io before ordering |
@@ -35,7 +35,7 @@ Each zip holds: front/back copper, solder mask, paste and silkscreen, the board 
 ## Notes for the assembler (paste into the order remarks)
 
 1. All parts are on the **bottom** side.
-2. **BT1 (CR2032 clip)** fits its pads both ways round. Its open end must face the **outer edge of the head**, on the side away from the "CR2032 + SIDE UP" text; the closed end goes toward that text. The clip's printed arrow is partly cut off by the board edge there. The large round pad under it gets **no solder**.
+2. **BT1 (CR2032 clip)** fits its pads both ways round. Its open end must face the **outer edge of the head**, on the side away from the "CR2032 + SIDE UP" text; the closed end goes toward that text. The clip's arrow is not printed on the board (it would fall past the edge); it is on the assembly drawing (fab layer). The large round pad under it gets **no solder**.
 3. **D1 to D4** are reverse-mount LEDs: lens faces **into** the board.
 4. **SW1** has two plastic pegs that sit in the two 0.9 mm holes; its knob sticks out past the board edge.
 5. Please confirm part rotations in your placement preview before running. The rotation values come straight from KiCad and have **not** been tried on a real line.
