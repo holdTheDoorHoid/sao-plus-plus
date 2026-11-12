@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "sao-plus-plus")(type "KiCad")(uri "${KIPRJMOD}/../../../lib/sao-plus-plus.kicad_sym")(options "")(descr "SAO++ shared symbols"))
+  (lib (name "nsec-bandaid-local")(type "KiCad")(uri "${KIPRJMOD}/nsec-bandaid-local.kicad_sym")(options "")(descr "Parts only this board uses so far"))
+)

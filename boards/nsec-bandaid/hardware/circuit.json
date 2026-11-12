@@ -1,0 +1,32 @@
+{
+ "title": "NorthSec Bandaid - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: NorthSec 2025 badge team, Sao_Bandaid, github.com/nsec/nsec-badge (MIT)",
+ "parts": [
+  {"ref": "J1", "symbol": "SAO_Connector_v1.69bis", "at": [50.8, 63.5],
+   "nets": {"1": "VSAO", "2": "GND", "3": "SDA", "4": "SCL"}},
+  {"ref": "R3", "symbol": "R_LED_1k3", "value": "1.3k NOT FITTED", "at": [104.14, 63.5],
+   "nets": {"1": "VSAO", "2": "SDA"}},
+  {"ref": "R2", "symbol": "R_LED_1k3", "value": "1.3k NOT FITTED", "at": [104.14, 78.74],
+   "nets": {"1": "VSAO", "2": "SCL"}},
+  {"ref": "BT1", "symbol": "CR2032_Clip", "at": [50.8, 109.22],
+   "nets": {"1": "VBAT", "2": "GND"}},
+  {"ref": "D2", "symbol": "D_Schottky_Cell", "at": [104.14, 109.22],
+   "nets": {"2": "VBAT", "1": "VCELL"}},
+  {"ref": "SW1", "symbol": "Power_Switch_SP3T_PCM13", "at": [157.48, 86.36],
+   "nets": {"3": "VLOAD", "1": "VSAO", "4": "VCELL"}},
+  {"ref": "R1", "symbol": "R_LED_1k3", "at": [210.82, 63.5],
+   "nets": {"1": "VLOAD", "2": "LED_A"}},
+  {"ref": "D1", "symbol": "LED_ThroughBoard_Red", "at": [210.82, 88.9],
+   "nets": {"2": "LED_A", "1": "GND"}}
+ ],
+ "notes": [
+  ["SAO++ power select: the switch common feeds the light. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell through D2.", [38.1, 35.56]],
+  ["The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.", [38.1, 39.37]],
+  ["D2: series cell diode (docs/standard.md section 3). Current can leave the cell, never enter it.", [38.1, 43.18]],
+  ["R2, R3: NorthSec's I2C pull-ups (1 k on the original). NOT FITTED by default: the SAO standard has the badge provide the pull-ups. Fit 1.3 k to get NorthSec's function.", [38.1, 124.46]],
+  ["If fitted they join SDA and SCL to the badge's own 3.3 V pin (VSAO), ahead of the switch, exactly as on the original: no path from them to the cell or to the light.", [38.1, 128.27]],
+  ["D1: red reverse-mount LED on the back, shining through the board in the middle of the gauze pad, where NorthSec's hand-soldered 1206 LED sat on the front.", [38.1, 132.08]],
+  ["R1 1.3k (the original used 330 ohm on 3.3 V): about 1.1 mA on badge power, about 0.6 mA on a fresh cell after D2.", [38.1, 135.89]]
+ ]
+}
