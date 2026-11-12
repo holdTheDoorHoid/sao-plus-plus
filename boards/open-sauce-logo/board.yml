@@ -1,0 +1,44 @@
+name: "Open Sauce Logo"
+slug: open-sauce-logo
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Open Sauce Logo SAO (Open Sauce 2026 badge add-on)"
+  makers: ["Caleb Marting"]
+  year: 2026
+  source_url: "https://github.com/calebmarting/os2026-badge/tree/d74a6c23c2162341ce4136ae5e530311a91d1126/Board%20Files/Open%20Sauce%20Logo%20SAO"
+  license: "MIT"           # LICENSE at the root of the maker's repo, (c) 2026 Caleb Marting; copy in original/LICENSE. No narrower terms in this board's files or the repo README (checked at commit d74a6c2, 2026-07-30)
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "The whole front is the Open Sauce logo (the cube-headed robot with the words OPEN SAUCE). The logo is the Open Sauce event's trademark. The MIT license covers the maker's design files; it does not grant rights in the trademark, and neither do SAO++'s own licenses. Using the logo on boards that are made or sold is a separate question from the design license."
+  art_decision: "Repo owner (holdTheDoorHoid) approved on 2026-11-12 porting this board with the Open Sauce logo on it."
+
+changes:
+  - "The whole board (outline, logo art, the hole in the loop) is 15 % larger: 35.5 x 46.3 mm instead of 30.9 x 40.3 mm. At the original size the two eye lights sit where the shared coin-cell clip, connector and switch all need to be, and no arrangement fits"
+  - "Two hand-soldered 5 mm through-hole red LEDs (pushed through the eyes from the front) replaced by two red reverse-mount LEDs on the back, one behind each pupil, shining through the board. No copper behind the pupils any more; the solder mask stays on them"
+  - "Two 1 k through-hole resistors (lying along the lightning bolts) replaced by two shared 1.3 k surface-mount resistors"
+  - "The maker's either/or power (a 2x3 through-hole SAO header OR a through-hole CR2032 holder, drawn on the same spot) becomes both at once: the 6-pin SAO v1.69bis SMD shrouded connector, the shared CR2032 clip (cell slides in from the top), and the SAO / OFF / BAT slide switch"
+  - "The connector is upright (key slot up). The maker's header was turned 20 degrees"
+  - "The LED SELECT solder jumper (LEDs fed from SAO pin 1, or from GPIO2 so a badge could blink them) is not carried over: the LEDs are always on when the switch is on SAO or BAT"
+  - "The 12 mm solder pad for a pin back is gone (the coin cell is there now)"
+  - "Back silkscreen: the maker's kit-assembly instructions (1K Resistor, Red LED Long Leg Thru Circle, PIN BACK, CR2032 HOLDER, SAO PORT, LED SELECT) no longer apply and are replaced by the SAO++ labels and a credit line. There was no maker's credit on the original board"
+  - "Front art otherwise unchanged, including the bites the maker cut out of the letters A, U and C for the old header's pads (no clean copy of the lettering is in his repository). Front copper is no longer connected to ground; two 0.9 mm switch-peg holes are new, in the plain border left of the lettering"
+  - "All copper kept 0.55 mm back from the edge (was 0.5 mm, which is 0.575 mm after enlarging)"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 2
+  i2c_device: false
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
+
+local_parts: []

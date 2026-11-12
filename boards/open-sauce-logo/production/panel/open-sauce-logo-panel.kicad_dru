@@ -1,0 +1,15 @@
+(version 1)
+
+# Same rules as hardware/open-sauce-logo.kicad_dru, with the panel's part numbers (D101, BT101, D201 ...).
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# Left-eye LED below the clip's closed end on each board: 0.77 mm apart in metal, courtyards overlap by about 0.31 mm.
+(rule "Left-eye LED below the cell clip"
+  (condition "A.Reference == 'D?01' && B.Reference == 'BT?01'")
+  (constraint courtyard_clearance (min -0.5mm)))
+# Right-eye LED beside the clip's side: 0.75 mm apart in metal, courtyards overlap by about 0.29 mm.
+(rule "Right-eye LED beside the cell clip"
+  (condition "A.Reference == 'D?02' && B.Reference == 'BT?01'")
+  (constraint courtyard_clearance (min -0.5mm)))

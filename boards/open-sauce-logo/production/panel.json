@@ -1,0 +1,17 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. All copper on this board stops 0.55 mm short of the edge. No tab on the left edge below y = 23 (front view): the switch and its knob are there.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [17.77, 0.06], "dir": "-y", "why": "top of the loop, above the hole (the cell slides in over it)"},
+    {"near": [0.1, 19.0], "dir": "-x", "why": "left side, between the shoulder and the switch"},
+    {"near": [35.5, 19.0], "dir": "+x", "why": "right side, upper"},
+    {"near": [35.5, 33.0], "dir": "+x", "why": "right side, lower"},
+    {"near": [9.0, 43.3], "dir": "+y", "why": "lower left slope, below the connector"},
+    {"near": [26.5, 43.3], "dir": "+y", "why": "lower right slope"}
+  ]
+}
