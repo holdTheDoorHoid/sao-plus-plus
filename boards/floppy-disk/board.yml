@@ -1,0 +1,57 @@
+name: "Floppy Disk"
+slug: floppy-disk
+status: porting            # designed, routed and rule-checked; no physical board built yet
+revision: "A"
+
+original:
+  title: "The Floppy (Floppy Disk SAO), SMD flavor"
+  makers: ["Uri Shaked"]
+  year: 2020
+  source_url: "https://github.com/urish/floppy-disk-sao/tree/2f58b513ef4f505b3f192de60a3604e9ec1169e4"
+  source_commit: "2f58b513ef4f505b3f192de60a3604e9ec1169e4"   # the only commit fetched (shallow clone, 2026-11-11); dated 2022-04-09
+  license: "MIT"
+  permission: "license"
+  permission_ref: "original/README.md"
+  license_evidence: "original/README.md, section 'License', in full: \"Copyright (C) 2020, Uri Shaked. Released under the MIT License.\" The repository has no separate LICENSE file and no file carries its own licence note (every file was searched for 'licen' and 'copyright'; only the README matched)."
+  base_revision: "floppy-sao-smd.kicad_pcb / floppy-sao-smd.sch (KiCad 5.1.8): the SMD flavor. The through-hole and full-size flavors are kept in original/ for reference only."
+  art_note: "A 3.5 inch floppy disk is a generic object and the drawing names no disk maker. Two marks are on the art: (1) the back carries the 'Wokwi' name and logo in bare copper. Wokwi is Uri Shaked's own product and company; the MIT licence covers the drawing as a file, but the name and logo are his trade mark, so keep it only as his credit and ask him before selling boards under it. (2) the front has a small two-letter mark in copper under the mask at the lower left, in the style of the 'HD' (high density) mark moulded into real disks; that is a format mark, not a brand."
+
+changes:
+  - "Same size and outline as the maker's board (41.5 x 43.6 mm): nothing had to be enlarged"
+  - "Maker's SMD 2x3 header replaced by the shared shrouded SAO v1.69bis connector, key up, 5 mm lower than before so the cell fits above it"
+  - "CR2032 clip added at the top of the back (the original has no battery); the cell slides in from the top edge"
+  - "SAO / OFF / BAT switch added on the side edge below the maker's logo (the original has no switch); two 0.9 mm peg holes go through the front, lower left, beside the small two-letter mark"
+  - "Series cell diode D1 added (required: both chips sit on SDA / SCL)"
+  - "The two 10 k I2C pull-up resistors are removed: the badge provides the pull-ups (docs/standard.md section 1)"
+  - "ID EEPROM U1 (256 bytes, 0x50): SOIC-8 M24C02 -> SOT-23-5 24C02 (SAOPP-EE-01 candidate AD24C02). Storage EEPROM U2 (64 KB, 0x51): the maker's M24512 in SOIC-8, unchanged"
+  - "The two 100 nF capacitors: 1206 -> the shared 0603 part"
+  - "Both write-protect solder bridges kept, with the maker's padlock icons; the chips, bridges and their '0x50' / '0x51' labels move from above the connector to the free column beside it"
+  - "Maker's '64KB' and '(c) 2020 Uri Shaked' lettering and his back logo are untouched and in place; the two pin-1 rings beside the old chips are gone"
+  - "Front art unchanged, except that the gold shutter now stops 0.55 mm short of the bottom edge (it ran to the edge), and the two peg holes"
+  - "Back shutter: same gold rectangle, but the connector's lower pads now sit in its upper part (solder mask stays on round them), and the rest of the back is filled with ground copper under the mask (the original back had tracks only)"
+  - "Routed on the back copper only, no vias"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 0
+  vias: 0
+  copper_layers_used: 1
+  i2c_device: true
+  i2c_addresses: ["0x50 (256-byte ID EEPROM)", "0x51 (64 KB storage EEPROM)"]
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-C-01
+  - SAOPP-D-01
+  - SAOPP-EE-01
+
+local_parts:
+  - {name: "EE-01_24C02_SOT-23-5", ref: U1, mpn: AD24C02, lcsc: C5125083, implements: SAOPP-EE-01, footprint: "KiCad stock Package_TO_SOT_SMD:SOT-23-5", note: "candidate, not yet approved by the owner; promote to lib/ (shared with the DC619 EEPROM board)"}
+  - {name: EEPROM_24C512_SOIC8, ref: U2, mpn: M24512-RMN6TP, lcsc: C79991, footprint: "KiCad stock Package_SO:SOIC-8_3.9x4.9mm_P1.27mm (the maker's own choice)", note: "the maker's part; new to SAO++, needs the owner's approval"}
+  - {name: D_Schottky_Cell, ref: D1, mpn: RB751S40T1G, lcsc: C232576, implements: SAOPP-D-01, footprint: "KiCad stock Diode_SMD:D_SOD-523"}
+  - {name: SolderJumper_2_Open, ref: "JP1, JP2", mpn: "none (bare copper)", footprint: "KiCad stock Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm (the maker's own choice)"}

@@ -1,0 +1,17 @@
+(version 1)
+
+# Same rules as hardware/floppy-disk.kicad_dru, with the panel part numbers (J101, BT101, J201 ...).
+# The copper on this board is partly artwork (the shutter, the maker's logo, the 'HD' mark). This rule stops DRC from
+# flagging the art for being art; everything electrical (pads, tracks, the GND copper against other nets) is still
+# checked at full rules.
+
+(rule "Fine gaps inside the artwork (lettering, line art)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# The connector sits right below the cell clip so that it stays off the visible part of the back shutter:
+# the clip's closed end and the connector's top pads are 0.85 mm apart in metal; the keep-out boxes (each drawn
+# 0.5 mm past the part) overlap by about 0.15 mm.
+(rule "Connector below the cell clip"
+  (condition "A.Reference == 'J?01' && B.Reference == 'BT?01'")
+  (constraint courtyard_clearance (min -0.3mm)))

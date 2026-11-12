@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. All poured copper on this board stops 0.55 mm short of the edge. Tabs stay off the gold shutter, the switch knob (left edge, y 113..125), and the parts near the right edge (y 105..122).",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [150.0, 83.4], "dir": "-y", "why": "middle of the top edge, where the cell slides in (the nub is in the board's plane, under the cell's edge)"},
+    {"near": [129.3, 93.0], "dir": "-x", "why": "left edge, between the corner hole and the maker's logo"},
+    {"near": [170.75, 96.0], "dir": "+x", "why": "right edge, beside the board-name lettering, above the EEPROMs"},
+    {"near": [135.0, 126.9], "dir": "+y", "why": "bottom edge, left of the shutter, right of the cut corner"},
+    {"near": [165.5, 126.9], "dir": "+y", "why": "bottom edge, right of the shutter"}
+  ]
+}
