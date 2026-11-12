@@ -1,0 +1,15 @@
+(version 1)
+
+# The front copper on this board is artwork (an unconnected sheet under the mask, as on the maker's board). This rule
+# stops DRC from flagging the art for being art; everything electrical is still checked at full rules.
+
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# D3 keeps the maker's bottom-left LED position (scaled). The clip's courtyard is a 10.5 mm circle round the cell,
+# drawn 0.5 mm past the 20 mm cell; the LED's nearest pad corner is 0.58 mm outside the cell's edge (checked in
+# build_board.py), so the courtyards overlap but the parts do not touch.
+(rule "Bottom-left LED beside the coin cell"
+  (condition "A.Reference == 'D3' && B.Reference == 'BT1'")
+  (constraint courtyard_clearance (min -1.0mm)))

@@ -1,0 +1,49 @@
+name: "Hello My Name Is"
+slug: hello-my-name-is
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Hello My Name Is SAO (blinkyparts-style LED version), Supercon 2024 simple add-on contest entry"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2024
+  source_url: "https://github.com/davedarko/Simple-Add-ons-SAO/tree/main/HelloMyNameIs"   # the LED version is its henlo_blinkyparts_style/ subfolder
+  project_page: "https://hackaday.io/project/197693-hello-my-name-is-sao"   # from the table in the maker's repo README
+  license: "none stated"   # no license anywhere in the maker's repo (commit 1a08593), so all rights are reserved by default
+  permission: "pending"    # not yet asked; change to "written" and fill permission_ref when davedarko answers
+  permission_ref: ""
+  pending_decision: "Not yet decided: built locally on 2026-11-12; the repo owner has not yet said whether to publish before permission."
+  variant_used: "henlo_blinkyparts_style (the LED version the maker's ReadMe points to); the plain henlo/ version is not used"
+
+scale:
+  factor: 1.10             # whole board, outline and art together (owner rule 2026-11-12)
+  original_size_mm: [40.0, 34.0]
+  new_size_mm: [44.0, 37.4]
+  why: "At 40 x 34 mm the cell clip, connector and switch fit only by moving the bottom-left LED off the maker's corner, putting the connector 2.4 mm from the edge and overlapping the clip and connector keep-outs; at 1.1x every LED keeps the maker's position and nothing else moves"
+
+changes:
+  - "Whole board scaled 1.1x (40 x 34 mm -> 44.0 x 37.4 mm): outline, lettering, logo, name window and the maker's back credit all grow together"
+  - "The maker's 2x3 through-hole header becomes the 6-pin SAO v1.69bis SMD shrouded connector on the back, right of centre (the cell takes the left half), key slot up"
+  - "New: SAO / OFF / BAT slide switch at the bottom edge and the shared CR2032 clip on the left of the back (the cell slides in from the left edge). The maker's board had no battery"
+  - "The maker's four 1210 LEDs, wired straight across the supply with no resistor, become four white reverse-mount LEDs shining through the board at the same four corner positions and angles, each with its own 1.3 k resistor, all wired the same way (anode via resistor to the switched supply, cathode to ground)"
+  - "Front art unchanged except for scale: HELLO / my name is (the Comic Sans glyphs stored in the maker's file), his logo, the bare-board name window, and copper under the mask everywhere else. New on the front: four small copper-free spots where the LEDs shine through (all outside the name window) and two 0.9 mm switch-peg holes in the bottom strip"
+  - "Back: the maker's credit and his JLCJLCJLCJLC order-number marker kept, scaled, in place. The maker's bare-board window on the back is gone (the back now carries the cell, connector and ground copper). The maker's two edge vias are gone; the new board has no vias"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 4
+  led_colour: white        # the maker's files do not record a colour; white is the brief's default
+  i2c_device: false
+  gpio_use: ""
+  name_area: "bare board (no copper, no mask, no ink) on the front, as the maker drew it; write on it with a permanent marker, wipe off with isopropyl alcohol. build_board.py NAME_FINISH = 'white' turns it into solid white silkscreen instead"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-11
+  - SAOPP-R-01
+
+local_parts: []            # none

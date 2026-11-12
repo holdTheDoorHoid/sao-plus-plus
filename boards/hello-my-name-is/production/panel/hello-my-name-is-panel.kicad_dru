@@ -1,0 +1,12 @@
+(version 1)
+
+# Same rules as hardware/hello-my-name-is.kicad_dru, with the panel's part numbers (D103, BT101, D203 ...).
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# Bottom-left LED beside the coin cell on each board: its nearest pad is 0.58 mm outside the cell's edge;
+# the clip's courtyard circle (0.5 mm past the cell) overlaps the LED's courtyard.
+(rule "Bottom-left LED beside the coin cell"
+  (condition "A.Reference == 'D?03' && B.Reference == 'BT?01'")
+  (constraint courtyard_clearance (min -1.0mm)))

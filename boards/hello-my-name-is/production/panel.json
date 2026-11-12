@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. Both side edges carry a track 0.8 mm in (left: the bottom-left LED's feed, right: the LED supply), so the tabs sit on the top and bottom edges only, away from the switch knob (bottom, x 29.5) and its solder tabs (x 24.4 and 34.7).",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [12.0, 0.0], "dir": "-y", "why": "top edge, left, above the maker's credit"},
+    {"near": [24.0, 0.0], "dir": "-y", "why": "top edge, middle"},
+    {"near": [36.0, 0.0], "dir": "-y", "why": "top edge, right, above the JLC marker"},
+    {"near": [16.0, 37.4], "dir": "+y", "why": "bottom edge, below the cell clip's lower pad"},
+    {"near": [39.5, 37.4], "dir": "+y", "why": "bottom edge, right of the switch, below the bottom-right LED"}
+  ]
+}
