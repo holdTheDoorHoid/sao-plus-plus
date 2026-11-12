@@ -1,0 +1,294 @@
+{
+ "title": "NorthSec Bomb - SAO++ edition",
+ "rev": "A",
+ "credit": "Circuit: NorthSec badge team, Sao_Bomb (NorthSec 2025), github.com/nsec/nsec-badge, MIT licence. Outline and art: SAO++",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "BT1",
+   "symbol": "CR2032_Clip",
+   "at": [
+    50.8,
+    96.52
+   ],
+   "nets": {
+    "1": "VBAT",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    101.6,
+    78.74
+   ],
+   "nets": {
+    "3": "VLOAD",
+    "1": "VSAO",
+    "4": "VBAT"
+   }
+  },
+  {
+   "ref": "J2",
+   "symbol": "Wire_Pad",
+   "at": [
+    149.86,
+    60.96
+   ],
+   "value": "+ wire pad",
+   "nets": {
+    "1": "VLOAD"
+   }
+  },
+  {
+   "ref": "J3",
+   "symbol": "Wire_Pad",
+   "at": [
+    180.34,
+    60.96
+   ],
+   "value": "wire pad 1",
+   "nets": {
+    "1": "CONN1"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_LED_1k3",
+   "at": [
+    215.9,
+    60.96
+   ],
+   "nets": {
+    "1": "CONN1",
+    "2": "LED1_A"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    251.46,
+    60.96
+   ],
+   "nets": {
+    "2": "LED1_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "J4",
+   "symbol": "Wire_Pad",
+   "at": [
+    149.86,
+    81.28
+   ],
+   "value": "+ wire pad",
+   "nets": {
+    "1": "VLOAD"
+   }
+  },
+  {
+   "ref": "J7",
+   "symbol": "Wire_Pad",
+   "at": [
+    180.34,
+    81.28
+   ],
+   "value": "wire pad 2",
+   "nets": {
+    "1": "CONN2"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_LED_1k3",
+   "at": [
+    215.9,
+    81.28
+   ],
+   "nets": {
+    "1": "CONN2",
+    "2": "LED3_A"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    251.46,
+    81.28
+   ],
+   "nets": {
+    "2": "LED3_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "J6",
+   "symbol": "Wire_Pad",
+   "at": [
+    149.86,
+    101.6
+   ],
+   "value": "+ wire pad",
+   "nets": {
+    "1": "VLOAD"
+   }
+  },
+  {
+   "ref": "J5",
+   "symbol": "Wire_Pad",
+   "at": [
+    180.34,
+    101.6
+   ],
+   "value": "wire pad 3",
+   "nets": {
+    "1": "CONN3"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_LED_1k3",
+   "at": [
+    215.9,
+    101.6
+   ],
+   "nets": {
+    "1": "CONN3",
+    "2": "LED2_A"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    251.46,
+    101.6
+   ],
+   "nets": {
+    "2": "LED2_A",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "J8",
+   "symbol": "Wire_Pad",
+   "at": [
+    149.86,
+    121.92
+   ],
+   "value": "+ wire pad",
+   "nets": {
+    "1": "VLOAD"
+   }
+  },
+  {
+   "ref": "J9",
+   "symbol": "Wire_Pad",
+   "at": [
+    180.34,
+    121.92
+   ],
+   "value": "wire pad 4",
+   "nets": {
+    "1": "CONN4"
+   }
+  },
+  {
+   "ref": "R4",
+   "symbol": "R_LED_1k3",
+   "at": [
+    215.9,
+    121.92
+   ],
+   "nets": {
+    "1": "CONN4",
+    "2": "LED4_A"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_ThroughBoard_Red",
+   "at": [
+    251.46,
+    121.92
+   ],
+   "nets": {
+    "2": "LED4_A",
+    "1": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "SAO++ power select: the switch common (VLOAD) feeds the four '+' wire pads on the timer. Position 1 = badge 3.3 V, position 2 = OFF (pin 2 unconnected), position 3 = coin cell.",
+   [
+    38.1,
+    35.56
+   ]
+  ],
+  [
+   "The badge supply and the coin cell sit on separate switch contacts and are never connected to each other.",
+   [
+    38.1,
+    39.37
+   ]
+  ],
+  [
+   "LED-only board: SDA, SCL, GPIO1 and GPIO2 are not connected, so no series diode is needed on the cell (see docs/standard.md section 3).",
+   [
+    38.1,
+    43.18
+   ]
+  ],
+  [
+   "J2..J9 are bare 1.6 mm copper pads on the front (nothing to buy). NorthSec's original had 0.7 mm plated holes for the same eight points.",
+   [
+    38.1,
+    137.16
+   ]
+  ],
+  [
+   "The game: each LED circuit is open until the builder solders a jumper wire from any '+' pad to that LED's numbered pad. Cut a wire and its LED goes out.",
+   [
+    38.1,
+    140.97
+   ]
+  ],
+  [
+   "Pad 1 (J3) -> R1 -> D1 upper left, pad 2 (J7) -> R3 -> D3 upper right, pad 3 (J5) -> R2 -> D2 lower left, pad 4 (J9) -> R4 -> D4 lower right (front view), the pairing NorthSec used.",
+   [
+    38.1,
+    144.78
+   ]
+  ],
+  [
+   "A wire can only ever join VLOAD to a resistor, so no wiring mistake between these pads can short the supply or reach the coin cell.",
+   [
+    38.1,
+    148.59
+   ]
+  ],
+  [
+   "1.3 k gives about 1 mA per red LED from the cell and about 1.2 mA from the badge (NorthSec used 330 ohm on 3.3 V, about 4 mA).",
+   [
+    38.1,
+    152.4
+   ]
+  ]
+ ]
+}

@@ -1,0 +1,40 @@
+name: "NorthSec Bomb"
+slug: nsec-bomb
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Sao_Bomb (NorthSec 2025 badge add-on)"
+  makers: ["NorthSec badge team (nsec)"]
+  year: 2025
+  source_url: "https://github.com/nsec/nsec-badge/tree/0ea779f/hw/2025/sao/Sao_Bomb"   # branch nsec25, commit 0ea779f (2025-07-14)
+  license: "MIT"           # repository root LICENSE: MIT "except otherwise stated in respective files"; no file of this board states otherwise
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "The outline and front art of this board are SAO++'s own drawing (three stacked sticks, tape bands, a digital timer reading 00:07), generated from numbers in hardware/build_board.py and saved as art/nsec-bomb-front.svg; CC-BY-SA-4.0 like the rest of this repo's art. NorthSec's original outline and art were traced from a third-party picture of unknown origin; neither the picture nor the tracing is reproduced here (see original/README.md). Still open: the 'nsec 2025' logo on the back is NorthSec's event branding. The MIT licence covers the file, not the right to use NorthSec's name and logo, so ask NorthSec or remove it before selling boards."
+
+changes:
+  - "New outline and front art, drawn by SAO++ from scratch: three sticks of dynamite stacked flat (54 x 38 mm, the middle one 3.5 mm shorter at each end), two white tape bands, 'TNT' and 'DANGER', and a timer box whose display reads 00:07 in bare copper. Nothing of NorthSec's outline, straps or clock is used"
+  - "Badge power only becomes SAO / OFF / BAT: CR2032 clip on the back (cell slides in 5 mm from the straight top edge), slide switch in the middle of the straight bottom edge, 6-pin SAO v1.69bis shrouded connector at mid-height, 10.5 mm right of centre"
+  - "NorthSec's eight 0.7 mm plated wire holes become eight 1.6 mm square solder pads with no hole (so nothing pokes through under the coin cell): four '+' terminals on the timer, and one numbered terminal (1-4) beside each LED"
+  - "Four hand-solder 1206 LEDs on the front become four red reverse-mount LEDs on the back, one behind each end of the top and bottom sticks, shining through a 3.2 x 1.6 mm bare window in the front solder mask"
+  - "Four 330 ohm 1206 resistors become four 1.3 k 0603 on the back: about 1 mA per LED instead of about 4 mA"
+  - "Back: NorthSec's 'nsec 2025' logo and 5 x 5 mm white square kept at the same size in new places; SAO++ labels added; ground fill kept 0.55 mm back from the edge"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 4
+  i2c_device: false
+  gpio_use: ""
+  hand_soldered_wires: "up to four jumper wires (not supplied), each soldered from a '+' pad on the timer to a numbered pad (1-4) on the front; each wire lights one LED, cutting it puts the LED out"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
+
+local_parts: []            # none to buy. The eight wire pads are bare copper (hardware/parts_local.py, hardware/nsec-bomb-local.pretty/WirePad_1.6x1.6mm)
