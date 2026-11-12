@@ -14,7 +14,7 @@ LOCAL_SYMBOLS = {
                          [("2", "+", "L", 0), ("1", "-", "R", 0)]),
     # the low-side switch for the sounder; the maker's transistor type
     "Q_NPN_BC847": ("Q", "BC847B", "mr-robot-local:SOT-23",
-                    {"SAOPP_ID": "", "MPN": "BC847B,215", "LCSC": ""}, 2,
+                    {"SAOPP_ID": "", "MPN": "BC847B,215", "LCSC": "C57668"}, 2,
                     [("1", "B", "L", 0), ("3", "C", "R", 0), ("2", "E", "R", 1)]),
     # the shared 30 mA Schottky (docs/parts.md SAOPP-D-01), here as the flyback diode across the sounder
     "D_Schottky_RB751": ("D", "RB751S40", "mr-robot-local:D_SOD-523",

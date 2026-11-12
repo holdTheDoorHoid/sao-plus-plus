@@ -119,7 +119,7 @@
       (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (property "SAOPP_ID" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (property "MPN" "BC847B,215" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-      (property "LCSC" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+      (property "LCSC" "C57668" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
       (symbol "Q_NPN_BC847_0_1"
         (rectangle (start -5.08 2.54) (end 5.08 -5.08) (stroke (width 0.254) (type default)) (fill (type background))))
       (symbol "Q_NPN_BC847_1_1"
@@ -348,7 +348,7 @@
     (property "Datasheet" "" (at 254.0 73.66 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "" (at 254.0 73.66 0) (effects (font (size 1.27 1.27)) hide))
     (property "MPN" "BC847B,215" (at 254.0 73.66 0) (effects (font (size 1.27 1.27)) hide))
-    (property "LCSC" "" (at 254.0 73.66 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "C57668" (at 254.0 73.66 0) (effects (font (size 1.27 1.27)) hide))
     (pin "1" (uuid "051f49e4-a4c6-5205-833b-9d143508071d"))
     (pin "3" (uuid "f44fdb86-b869-5b75-94e6-5004c4ca9a1b"))
     (pin "2" (uuid "c46fb614-5273-541f-a317-d6e0db30ecd0"))

@@ -15,7 +15,7 @@ LOCAL_SYMBOLS = {
                              ("8", "VCC", "R", 0), ("7", "PB2/SCK", "R", 1), ("6", "PB1/MISO", "R", 2), ("5", "PB0/MOSI", "R", 3)]),
     # the maker's nine forward-facing 1206 LEDs, on the FRONT where he put them (they are the art)
     "LED_1206_Red_Front": ("D", "red", "flux-capacitor-local:LED_1206_3216Metric",
-                           {"SAOPP_ID": "", "MPN": "LTST-C150KRKT", "LCSC": ""}, 2,
+                           {"SAOPP_ID": "", "MPN": "LTST-C150KRKT", "LCSC": "C125086"}, 2,
                            [("2", "A", "L", 0), ("1", "K", "R", 0)]),
     # the maker's six AVR ISP programming pads (bare copper, nothing fitted); standard AVR 6-pin ISP order
     "ISP_Pads_AVR_2x3": ("JP", "ISP pads", "flux-capacitor-local:2X3_SMD_PAD",

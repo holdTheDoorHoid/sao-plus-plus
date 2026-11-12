@@ -27,7 +27,7 @@
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "SAOPP_ID" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (property "MPN" "LTST-C150KRKT" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
-    (property "LCSC" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "LCSC" "C125086" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
     (symbol "LED_1206_Red_Front_0_1"
       (rectangle (start -5.08 2.54) (end 5.08 -2.54) (stroke (width 0.254) (type default)) (fill (type background))))
     (symbol "LED_1206_Red_Front_1_1"
