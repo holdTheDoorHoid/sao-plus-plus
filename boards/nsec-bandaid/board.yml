@@ -1,0 +1,47 @@
+name: "NorthSec Bandaid"
+slug: nsec-bandaid
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Sao_Bandaid (NorthSec 2025 badge add-on)"
+  makers: ["NorthSec badge team (nsec/nsec-badge contributors)"]
+  year: 2025
+  source_url: "https://github.com/nsec/nsec-badge/tree/0ea779f281ac538fa21b333b027250784b5d3cbf/hw/2025/sao/Sao_Bandaid"
+  project_page: "https://github.com/nsec/nsec-badge/tree/nsec25/hw/2025/sao/Sao_Bandaid"
+  license: "MIT"           # repo root LICENSE (copy in original/LICENSE): "Everything is released under the following license, except otherwise stated in respective files". No file of this board or of the shared footprint folder states an exception (checked at commit 0ea779f, 2025-07-14)
+  permission: "license"
+  permission_ref: "original/LICENSE"
+  art_note: "The outline and all front art are SAO++'s own drawing: a sticking plaster with a square gauze pad, a drop-shaped window and a regular lattice of 46 air holes, generated from a handful of numbers in hardware/build_board.py (copy in art/bandage.svg), CC-BY-SA-4.0 like the rest of SAO++'s art. NorthSec's original was a plaster whose outline, gauze pad and 26 air-hole pads were traced from a picture embedded in the board file (a 5105 x 1831 pixel flat-colour illustration of a plaster, source and licence unknown), which NorthSec's MIT licence cannot be assumed to cover. Neither that picture nor the traced outline, pad and dot positions are reproduced anywhere in this folder: they are cut from the copy of the maker's board file in original/, and the maker's Gerbers are left out. Unchanged and still open: the back carries the 'nsec 2025' logo (at 0.7 size, as the credit), NorthSec's event name and mark. The MIT licence covers the design files; it does not make the name or logo free to use as branding on boards for sale."
+
+changes:
+  - "New outline and front art, drawn by SAO++ from scratch: a 68 x 26 mm plaster with 9 mm corners, a 20 mm square white gauze pad with a drop-shaped window, and 23 bare-copper air-hole dots each side in a regular lattice. The maker's 47.5 x 14 mm plaster was traced from a picture and is not used; a board of the maker's size could not hold the CR2032 cell anyway (the clip is 22.8 mm across)"
+  - "The hand-soldered 1206 LED that sat on the FRONT in the middle of the pad is replaced by a red reverse-mount LED on the back, shining through the board inside the drop-shaped window; its 330 ohm 1206 resistor by the shared 1.3 k 0603"
+  - "The two 1 k I2C pull-up resistors (SDA and SCL to the badge's 3.3 V: the whole point of NorthSec's board, whose badge has none) keep their pads and wiring but are NOT FITTED by default, because the SAO++ standard says an add-on carries no pull-ups. Fitting two 1.3 k (SAOPP-R-01) restores NorthSec's function. Owner's decision: see README"
+  - "The maker's SMD 2x3 header is replaced by the shared 6-pin SAO v1.69bis shrouded, keyed connector at the top centre of the back, key slot up"
+  - "New: CR2032 clip at the left end (the cell slides in over that end), the series cell diode right after it, and the SAO / OFF / BAT slide switch on the bottom edge"
+  - "The 26 loose copper pads on the front (the maker's air holes; connected to nothing) are gone with the traced art; SAO++'s 46 dots are plain copper circles, also connected to nothing"
+  - "The four vias under the pad (two carried the LED to the back, two were dummies) and the '+' / '-' hand-soldering marks on the front are gone: nothing is soldered on the front any more"
+  - "Back: the 'nsec 2025' logo is kept at 0.7 size and the blank 5 x 5 mm white box at its original size, both at the right end (front view). Back copper is a ground plane (the original had tracks only). Labels added: SAO / OFF / BAT, pin 1, CR2032, + UP, R2, R3, BANDAID, SAO++ rA, orig. design: NorthSec"
+  - "Routed on the back copper only, no vias; two 0.9 mm switch-peg holes show on the front below the right-hand dots"
+
+features:
+  power_select: true
+  coin_cell: CR2032
+  side_leds: 0
+  through_board_leds: 1
+  vias: 0
+  copper_layers_used: 2    # back: circuit and ground; front: the 46 unconnected art dots only
+  i2c_device: false        # nothing on the board answers on the bus. Optional pull-up pads R2 / R3 on SDA and SCL, not fitted by default
+  gpio_use: ""
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-BAT-01
+  - SAOPP-LED-10
+  - SAOPP-R-01
+  - SAOPP-D-01
+
+local_parts:
+  - {name: D_Schottky_Cell, ref: D2, mpn: RB751S40T1G, lcsc: C232576, implements: SAOPP-D-01, footprint: "KiCad stock Diode_SMD:D_SOD-523", note: "an approved part; local only because lib/ has no SOD-523 footprint yet. Same symbol and footprint as Knight Rider, Han SAOlo and Floppy Disk: promote to lib/"}

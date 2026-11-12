@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. All copper on this board stops 0.55 mm short of the edge. No tab sits on the switch (bottom edge, x 54 to 66), above the badge-supply track that runs 0.95 mm inside the top edge (x 42 to 62), or beside the cell clip's solder tabs (x 20 to 26, top and bottom).",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [11.0, 25.0], "dir": "-x", "why": "middle of the flat left end (the cell slides in here once the board is broken out)"},
+    {"near": [79.0, 25.0], "dir": "+x", "why": "middle of the flat right end, beside the credit"},
+    {"near": [33.0, 12.0], "dir": "-y", "why": "top edge, between the cell clip and the connector's supply track"},
+    {"near": [68.0, 12.0], "dir": "-y", "why": "top edge, right of the supply track's bend, above the maker's white box"},
+    {"near": [38.0, 38.0], "dir": "+y", "why": "bottom edge, between the cell clip and the switch"}
+  ]
+}
