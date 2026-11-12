@@ -13,6 +13,7 @@ original:
   permission: "license"
   permission_ref: "original/LICENSE.md"
   art_note: "The board is named after, and plugs into, a Nintendo product. 'Wii' and 'Nunchuk' are Nintendo trademarks. On the board itself: the back silkscreen says 'SAO NUNCHUCK' (the maker's spelling, with a c); the front shows, in bare copper, the silhouettes of a Wii Remote and a Nunchuk controller joined by a chain like a pair of nunchaku. There is no Nintendo logo and neither the word 'Wii' nor 'Nintendo' appears on the board. This is separate from the maker's MIT license, which covers his drawing but cannot grant rights in Nintendo's names or product shapes. It matters most if boards are sold: describe it as 'for use with', never as a Nintendo product."
+  publish_note: "Owner decision 2026-11-12: publish this board as a draft pull request with the third-party marks described in art_note left in place. That is a decision to publish the files for review only; it is not a decision about making or selling boards with those marks, and it does not settle the badge-power-only exception."
 
 changes:
   - "Through-hole 2x3 header (with extra edge fingers for a right-angle socket) at the bottom replaced by the 6-pin SAO v1.69bis SMD shrouded connector on the back, in the same three columns, 2.5 mm higher so it sits 3.4 mm inside the bottom edge. The six holes and three gold fingers at the bottom of the front are gone"
