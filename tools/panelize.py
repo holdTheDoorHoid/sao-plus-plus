@@ -15,6 +15,9 @@ import re
 import sys
 
 import pcbnew
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from saopp_paths import board_dir  # noqa: E402
 from pcbnew import FromMM, ToMM, VECTOR2I
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
@@ -63,9 +66,9 @@ def edge_crossing(ring, near, direction, lateral):
 
 
 def main(slug):
-    prod = os.path.join(ROOT, "boards", slug, "production")
+    prod = os.path.join(str(board_dir(slug)), "production")
     cfg = json.load(open(os.path.join(prod, "panel.json")))
-    src = os.path.join(ROOT, "boards", slug, "hardware", f"{slug}.kicad_pcb")
+    src = os.path.join(str(board_dir(slug)), "hardware", f"{slug}.kicad_pcb")
     board = pcbnew.LoadBoard(src)
     slot, web, rail, tabw = cfg["slot"], cfg["web"], cfg["rail"], cfg["tab_width"]
 
