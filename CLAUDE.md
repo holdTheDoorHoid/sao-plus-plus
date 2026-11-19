@@ -3,6 +3,7 @@
 Read `README.md`, `docs/standard.md`, `docs/parts.md`, and `docs/porting-guide.md` before touching a board.
 
 - **Owner:** not an engineer by training. Report decisions and what they will see or measure, in plain language. File paths and part numbers belong in footnotes.
+- **Ports and originals are kept apart (owner decision 2026-11-11).** `boards/` holds only ports and recreations of other makers' SAOs; `originals/` holds only LSOH's own designs (`permission: own`). Never put one in the other's folder; `tools/check_boards.py` fails if you do. Tools find a board by slug in either folder through `tools/saopp_paths.py`, so slugs are unique across both.
 - **Permission first.** (Fat Pika and Mad Cat were each published with permission pending by the owner's explicit decision on 2026-11-10, asked separately for each; that is recorded in each `board.yml` and is not a default. Ask the owner each time.) Never commit a third-party design (files, art, or derived layout) until its `board.yml` `original:` block shows an open license or recorded written permission. Non-commercial licenses (CC-BY-NC) are **not** OK for this project without written permission.
 - **Controller standard (owner decision 2026-11-10):** any board that needs a chip uses a Seeed Studio XIAO ESP32 module (C3, S3 or C6, one shared footprint `SAOPP-MCU-01`), a JST-PH LiPo connector and the SAO / OFF / USB-BAT switch wiring in `docs/standard.md` section 3a. Keep the pin habits in `docs/parts.md` so firmware carries between boards. Firmware is Rust. Hack-Man is the worked example, including a single-layer route with no vias.
 - **A recreation is not a port.** Hack-Man's maker published pictures only; its art was redrawn and its firmware is new. Do not copy a maker's images into the repo; link to them. Hack-Man was published with permission pending by the owner's decision on 2026-11-10, like the other two.
@@ -12,7 +13,7 @@ Read `README.md`, `docs/standard.md`, `docs/parts.md`, and `docs/porting-guide.m
 - **Shared library is the product.** A footprint or block used by two boards lives in `lib/`, never copied into a board folder.
 - **Coin-cell safety is non-negotiable:** no circuit may let the SAO 3.3 V rail, I2C pull-ups, or GPIO push current into the CR2032. Read standard.md section 3.
 - **KiCad 10** is installed as the flatpak `org.kicad.KiCad` (`flatpak run --command=kicad-cli org.kicad.KiCad ...`).
-- **Git:** public repo `holdTheDoorHoid/sao-plus-plus`. Work on a branch per board (`board/<slug>`), open a PR on this repo, and let the owner merge. Run `python3 tools/check_boards.py` before every commit.
+- **Git:** public repo `holdTheDoorHoid/sao-plus-plus`. Work on a branch per board (`board/<slug>`, or `original/<slug>` for an original), open a PR on this repo, and let the owner merge. Run `python3 tools/check_boards.py` before every commit.
 - Do not order boards or parts. Produce the files and a cost estimate; the owner orders.
 
 ## KiCad 10 scripting quirks found on the first board (flatpak 10.0.6)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate every boards/<slug>/ folder against the SAO++ house rules.
+"""Validate every boards/<slug>/ (ports) and originals/<slug>/ (LSOH's own designs) folder against the SAO++ house rules.
 
 Checks (fail = exit 1):
   - board.yml exists, parses, and slug matches the folder name
@@ -8,6 +8,7 @@ Checks (fail = exit 1):
   - permission "pending" (published before the maker answered) must record the owner's decision, and warns every run
   - every shared_parts id exists in docs/parts.md
   - README.md exists
+  - originals/ holds only permission "own" boards, and boards/ holds none; slugs are unique across both
 
 Run from the repo root:  python3 tools/check_boards.py
 CI runs the same command.
@@ -17,6 +18,9 @@ import sys
 from pathlib import Path
 
 import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from saopp_paths import all_board_dirs, kind_of  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 STATUSES = {"planned", "porting", "prototype", "verified", "released"}
@@ -44,12 +48,19 @@ def check_board(folder: Path, part_ids: set) -> list:
         errs.append(f"{folder.name}: status must be one of {sorted(STATUSES)}")
 
     orig = meta.get("original") or {}
-    for key in ("title", "makers", "source_url", "license", "permission"):
+    kind = kind_of(folder)
+    # An original has no outside source to link to; a port must say where it came from.
+    required = ("title", "makers", "license", "permission") if kind == "original" else ("title", "makers", "source_url", "license", "permission")
+    for key in required:
         if not orig.get(key):
             errs.append(f"{folder.name}: original.{key} is empty")
     perm = orig.get("permission")
     if perm and perm not in PERMISSIONS:
         errs.append(f"{folder.name}: original.permission must be one of {sorted(PERMISSIONS)}")
+    if kind == "original" and perm != "own":
+        errs.append(f"{folder.name}: boards in originals/ are LSOH's own designs; original.permission must be 'own'")
+    if kind == "port" and perm == "own":
+        errs.append(f"{folder.name}: an 'own' design belongs in originals/, not boards/ (boards/ is for ports of other makers' SAOs)")
     if perm == "written" and not orig.get("permission_ref"):
         errs.append(f"{folder.name}: written permission needs original.permission_ref (link or docs/ file)")
     if perm == "pending":
@@ -72,13 +83,19 @@ def check_board(folder: Path, part_ids: set) -> list:
 
 def main() -> int:
     part_ids = known_part_ids()
-    boards = sorted(p for p in (ROOT / "boards").iterdir() if p.is_dir() and not p.name.startswith("_"))
+    boards = all_board_dirs()
     errors = []
+    seen = {}
+    for b in boards:
+        if b.name in seen:
+            errors.append(f"{b.name}: slug used in both {seen[b.name]}/ and {b.parent.name}/; slugs must be unique")
+        seen[b.name] = b.parent.name
     for b in boards:
         errors += check_board(b, part_ids)
     for e in errors:
         print("FAIL", e)
-    print(f"{len(boards)} board(s) checked, {len(errors)} problem(s)")
+    n_orig = sum(1 for b in boards if kind_of(b) == "original")
+    print(f"{len(boards)} board(s) checked ({len(boards) - n_orig} ports, {n_orig} originals), {len(errors)} problem(s)")
     return 1 if errors else 0
 
 

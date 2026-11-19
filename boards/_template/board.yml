@@ -1,4 +1,5 @@
-# Copy boards/_template to boards/<slug>/ and fill this in.
+# Copy boards/_template to boards/<slug>/ (a port of another maker's SAO) or
+# originals/<slug>/ (an LSOH design: permission "own", makers ["LSOH"], source_url may stay empty) and fill this in.
 # tools/check_boards.py validates every board folder against this file.
 name: "Board name"
 slug: template            # folder name, lowercase-hyphenated

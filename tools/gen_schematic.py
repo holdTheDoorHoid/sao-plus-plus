@@ -11,6 +11,7 @@ import uuid
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from saopp_paths import board_dir  # noqa: E402
 from saopp_symbols import LIB, SYMBOLS, load_local, pin_xy, symbol_sexpr  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ def uid(slug, what):
 
 
 def main(slug):
-    hw = ROOT / "boards" / slug / "hardware"
+    hw = board_dir(slug) / "hardware"
     c = json.loads((hw / "circuit.json").read_text())
     local = load_local(slug)                    # parts this board keeps in its own folder (see saopp_symbols.load_local)
     LOCAL = f"{slug}-local"
