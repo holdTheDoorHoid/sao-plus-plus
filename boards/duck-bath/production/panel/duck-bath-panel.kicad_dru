@@ -1,0 +1,16 @@
+(version 1)
+
+# Hand-written for the 2x2 panel (tools/panelize.py does not copy the board's rules, and renumbers parts:
+# R4 -> R104, R204 ...). Same rules and reasons as boards/duck-bath/hardware/duck-bath.kicad_dru.
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+(rule "R4 on the switch"
+  (condition "A.Reference == 'SW?01' && B.Reference == 'R?04'")
+  (constraint courtyard_clearance (min -1.0mm)))
+(rule "R6 beside the connector"
+  (condition "A.Reference == 'J?01' && B.Reference == 'R?06'")
+  (constraint courtyard_clearance (min -1.0mm)))
+(rule "R3 beside the XIAO"
+  (condition "A.Reference == 'U?01' && B.Reference == 'R?03'")
+  (constraint courtyard_clearance (min -1.0mm)))

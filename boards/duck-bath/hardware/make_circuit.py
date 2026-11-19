@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+"""Write hardware/circuit.json (the circuit as data) for Duck Bath.
+
+  python3 boards/duck-bath/hardware/make_circuit.py
+
+tools/gen_schematic.py and build_board.py both read circuit.json. Schematic positions are on a 2.54 mm grid.
+"""
+import json
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+parts = [
+    {"ref": "J1", "symbol": "SAO_Connector_v1.69bis", "at": [33.02, 30.48],
+     "nets": {"1": "VSAO", "2": "GND", "3": "SDA", "4": "SCL", "6": "SAO_GPIO2"}},
+    {"ref": "SW1", "symbol": "Power_Switch_SP3T_PCM13", "at": [33.02, 55.88], "value": "SAO / OFF / USB-BAT",
+     "nets": {"3": "V3V3", "1": "VSAO", "2": "OFF_SW"}},
+    {"ref": "R4", "symbol": "R_Series_330", "at": [33.02, 78.74], "nets": {"1": "OFF_SW", "2": "OFF_SENSE"}},
+    {"ref": "J2", "symbol": "LiPo_Connector_JST_PH", "at": [33.02, 99.06], "nets": {"1": "BAT+", "2": "GND"}},
+    {"ref": "R6", "symbol": "R_Series_330", "at": [83.82, 38.1], "nets": {"1": "SAO_GPIO2", "2": "D6_TX"}},
+    {"ref": "U1", "symbol": "XIAO_ESP32_Module", "at": [134.62, 50.8],
+     "nets": {"2": "OFF_SENSE", "5": "SDA", "6": "SCL", "7": "D6_TX", "8": "LED_B", "9": "LED_G",
+              "11": "LED_R", "12": "V3V3", "13": "GND", "15": "BAT+", "16": "GND"}},
+    {"ref": "R1", "symbol": "R_100", "at": [185.42, 38.1], "nets": {"1": "LED_R", "2": "LED_RK"}},
+    {"ref": "R2", "symbol": "R_100", "at": [185.42, 50.8], "nets": {"1": "LED_G", "2": "LED_GK"}},
+    {"ref": "R3", "symbol": "R_100", "at": [185.42, 63.5], "nets": {"1": "LED_B", "2": "LED_BK"}},
+    {"ref": "D1", "symbol": "LED_RGB_5mm_CA", "at": [236.22, 50.8],
+     "nets": {"2": "V3V3", "1": "LED_RK", "3": "LED_GK", "4": "LED_BK"}},
+]
+notes = [
+    ["SAO++ edition of Adrian Studer's duckBATH (duckGLOW SAO, 2024, MIT).\\nHis CH32V003, boost converter, reverse-polarity FET,\\naddress jumpers and I2C pull-ups are replaced by the XIAO.", [134.62, 101.6]],
+    ["SW1: SAO = badge feeds the 3.3 V rail. OFF = XIAO D1 high\\n(through R4), firmware sleeps. USB-BAT = XIAO feeds the rail.\\nNever USB and SAO at once.", [134.62, 113.03]],
+    ["D1: common-anode RGB LED on the FRONT (the duck sits on it).\\nEach colour is lit by pulling its XIAO pin LOW (PWM):\\nred D10, green D8, blue D7. GPIO2 carries WS2812 data in;\\nSAO GPIO1 is not connected (the maker used it only to program his chip).", [134.62, 124.46]],
+]
+c = {"title": "Duck Bath - SAO++ edition", "rev": "A",
+     "credit": "Original design: Adrian Studer (astuder), 2024, github.com/astuder/duckglow, MIT",
+     "parts": parts, "notes": notes}
+(HERE / "circuit.json").write_text(json.dumps(c, indent=1) + "\n")
+print("circuit.json:", len(parts), "parts")

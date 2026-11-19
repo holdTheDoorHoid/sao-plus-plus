@@ -1,0 +1,28 @@
+G04 #@! TF.GenerationSoftware,KiCad,Pcbnew,10.0.6*
+G04 #@! TF.CreationDate,2026-11-12T02:46:02-05:00*
+G04 #@! TF.ProjectId,duck-bath-panel,6475636b-2d62-4617-9468-2d70616e656c,A*
+G04 #@! TF.SameCoordinates,Original*
+G04 #@! TF.FileFunction,Soldermask,Top*
+G04 #@! TF.FilePolarity,Negative*
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 10.0.6) date 2026-11-12 02:46:02*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%ADD10C,2.000000*%
+%ADD11C,1.252000*%
+G04 APERTURE END LIST*
+D10*
+X119243822Y1872313D03*
+X6119992Y-78152336D03*
+D11*
+X124243822Y-78152336D03*
+X124243822Y1872313D03*
+X1119991Y-78152336D03*
+D10*
+X6119992Y1872313D03*
+D11*
+X1119991Y1872313D03*
+M02*

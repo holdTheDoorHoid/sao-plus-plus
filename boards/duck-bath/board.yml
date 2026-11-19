@@ -1,0 +1,54 @@
+name: "Duck Bath"
+slug: duck-bath
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "duckBATH (one of the two duckGLOW SAOs)"
+  makers: ["astuder (Adrian Studer)"]
+  year: 2024
+  source_url: "https://github.com/astuder/duckglow/tree/main/duckbath"
+  project_url: "https://hackaday.io/project/198918-duckglow-sao"
+  commit: "f58ce25"
+  license: "MIT"           # LICENSE.md: "MIT License, Copyright (c) 2024 Adrian Studer"; the same file also carries the CERN-OHL-P v2 text (see README)
+  permission: "license"    # not needed (open licence). The brief asked for the words "not needed (open licence)"; tools/check_boards.py only accepts license / written / own / pending
+  permission_ref: ""
+  base_revision: "duckbath v0.2 (KiCad 8, 2024-10-14), the only revision in the repo"
+  art_note: "A bathtub full of bubbles: the maker's own drawing, nothing third-party. The rubber duck that sits on the LED is a separate, bought toy and not part of the board."
+
+scale:
+  factor: 1.45             # owner rule 2026-11-12: whole board (outline and art) scaled up uniformly to fit the XIAO
+  original_size_mm: "40.3 x 20.3"
+  new_size_mm: "58.1 x 29.0"   # the tub bottom is also cut flat by up to 0.5 mm under the switch so its knob sticks out
+
+changes:
+  - "Whole board scaled up 1.45x (40.3 x 20.3 mm -> 58.1 x 29.0 mm), outline and drawing together; the RGB LED stays true size, centred where it was"
+  - "CH32V003 microcontroller replaced by a Seeed Studio XIAO ESP32 (C3, S3 or C6) on the back, USB-C out of the tub bottom between the feet; new Rust firmware"
+  - "Dropped with the old chip: the boost converter (ME2188 + 22 uH + three 22 uF), the reverse-polarity P-MOSFET, the two I2C pull-ups (10 k; SAO++ boards leave pull-ups to the badge), the 1 k on GPIO1, the 100 nF, the two address jumpers and the test pad"
+  - "SAO v1.69bis shrouded connector (key up) left of the XIAO under the LED; SAO / OFF / USB-BAT switch knob out of the tub bottom; JST-PH LiPo socket at the left wall"
+  - "SAO GPIO2 (the maker's WS2812 input) -> 330 ohm -> XIAO D6, as the house habit. SAO GPIO1 is NOT connected: the maker used it only to program his chip, and its house pin (D7) drives the blue LED here"
+  - "LED pins: red D10, green D8, blue D7, each through the maker's 100 ohm, LED lit by pulling the pin low (common anode, as the maker's)"
+  - "Front: the maker's copper pour and silkscreen drawing kept (now joined to ground through 4 tented vias); maker's back-side labels (address, GPIO roles) replaced by SAO++ labels"
+
+features:
+  power_select: true
+  coin_cell: none
+  lipo_connector: JST-PH
+  rgb_led: "5 mm common-anode RGB LED on the front (maker's), the duck sits on it"
+  side_leds: 0
+  through_board_leds: 0
+  vias: 4                  # all ground, tented; no signal vias, no signal copper on the front
+  i2c_device: true         # house address 0x22, maker's 0x6C as a build option; his register map
+  gpio_use: "GPIO2 -> XIAO D6 through 330 ohm (WS2812 data in); GPIO1 not connected"
+  controller: "Seeed Studio XIAO ESP32-C3 / S3 / C6"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-MCU-01
+  - SAOPP-CONN-10
+  - SAOPP-R-02
+
+local_parts:
+  - {name: LED_RGB_5mm_CA, ref: D1, mpn: "5 mm 4-leg common-anode RGB LED, R-A-G-B leg order (maker gives no part number)", footprint: "maker's LED_D5.0mm-4_RGB_single-side (original/duckbath/footprints.pretty), reference text moved off the front silkscreen"}
+  - {name: R_100, ref: "R1, R2, R3", mpn: "100 ohm 0603 1% (maker's LCSC C22775)", lcsc: C22775, footprint: "shared SAOPP_R_0603_1608Metric land pattern, copied"}

@@ -1,0 +1,24 @@
+(version 1)
+
+# The front copper (the maker's front pour, kept as artwork) and the silkscreen drawing are artwork. This rule stops DRC from flagging the art for
+# being art; everything electrical (pads, tracks and the ground copper against other nets) is still checked in full.
+(rule "Fine gaps inside the artwork"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+
+# Small parts deliberately inside bigger parts' courtyards (those courtyards include long pads or reach past the
+# pads), each with its real gap to copper checked by the clearance rules:
+# - R4 (OFF sense) stands on the switch's pin 2 (same net), 0.25 mm above it; the badge 3.3 V runs between its pads.
+# - R6 (SAO GPIO2) lies 0.25 mm right of the connector's pin 6 (same net), inside the connector's courtyard.
+# - R3 (blue) stands 0.17 mm right of the XIAO's D7 pad (its own net) inside the module's courtyard, which reaches
+#   0.6 mm past the pads; the module's body ends 0.9 mm further in.
+(rule "R4 on the switch"
+  (condition "A.Reference == 'SW1' && B.Reference == 'R4'")
+  (constraint courtyard_clearance (min -1.0mm)))
+(rule "R6 beside the connector"
+  (condition "A.Reference == 'J1' && B.Reference == 'R6'")
+  (constraint courtyard_clearance (min -1.0mm)))
+(rule "R3 beside the XIAO"
+  (condition "A.Reference == 'U1' && B.Reference == 'R3'")
+  (constraint courtyard_clearance (min -1.0mm)))

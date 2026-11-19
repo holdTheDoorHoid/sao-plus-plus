@@ -1,0 +1,24 @@
+[package]
+name = "duckglow-core"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Board-independent logic for the duckGLOW SAOs (Duck Bath, Duck Jaws), SAO++ edition: I2C register map, fader, WS2812 decoder, presets"
+license = "MIT"
+publish = false
+
+# Plain no_std library. Everything here is checked on the host with `cargo test`;
+# the firmware crate in ../duckglow-fw links it for the ESP32 targets.
+
+[features]
+# Duck Jaws: four channels (the fourth drives the red "background" LEDs) and
+# the house I2C address 0x23. Without it: Duck Bath, three channels, 0x22.
+jaws = []
+# Answer at the maker's original I2C address 0x6C instead of the house
+# address, so badge code written for his boards finds this one.
+maker-address = []
+
+[dependencies]
+
+[lints.rust]
+unsafe_code = "forbid"

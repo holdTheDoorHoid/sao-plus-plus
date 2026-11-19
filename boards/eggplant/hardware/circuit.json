@@ -1,0 +1,333 @@
+{
+ "title": "Eggplant - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: Krux / DC Darknet (thedarknet), 2018, github.com/thedarknet/dc26-badge (MIT)",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    55.88
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL",
+    "5": "SAO_GPIO1",
+    "6": "SAO_GPIO2"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    50.8,
+    86.36
+   ],
+   "nets": {
+    "3": "V3V3",
+    "1": "VSAO",
+    "2": "OFF_SW"
+   },
+   "value": "SAO / OFF / USB-BAT"
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_Series_330",
+   "at": [
+    50.8,
+    116.84
+   ],
+   "nets": {
+    "1": "OFF_SW",
+    "2": "OFF_SENSE"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_Series_330",
+   "at": [
+    116.84,
+    50.8
+   ],
+   "nets": {
+    "1": "SAO_GPIO1",
+    "2": "D7_RX"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_Series_330",
+   "at": [
+    116.84,
+    66.04
+   ],
+   "nets": {
+    "1": "SAO_GPIO2",
+    "2": "D6_TX"
+   }
+  },
+  {
+   "ref": "J2",
+   "symbol": "LiPo_Connector_JST_PH",
+   "at": [
+    116.84,
+    99.06
+   ],
+   "nets": {
+    "1": "BAT+",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "XIAO_ESP32_Module",
+   "at": [
+    182.88,
+    60.96
+   ],
+   "nets": {
+    "2": "OFF_SENSE",
+    "4": "LED_BLUE",
+    "5": "SDA",
+    "6": "SCL",
+    "7": "D6_TX",
+    "8": "D7_RX",
+    "12": "V3V3",
+    "13": "GND",
+    "15": "BAT+",
+    "16": "GND",
+    "3": "LED_RED"
+   }
+  },
+  {
+   "ref": "R4",
+   "symbol": "R_Series_330",
+   "at": [
+    241.3,
+    40.64
+   ],
+   "nets": {
+    "1": "LED_BLUE",
+    "2": "BLUE1"
+   }
+  },
+  {
+   "ref": "R9",
+   "symbol": "R_LED_1k3",
+   "at": [
+    266.7,
+    40.64
+   ],
+   "nets": {
+    "1": "LED_RED",
+    "2": "RED1"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_Bicolour_0805",
+   "at": [
+    304.8,
+    40.64
+   ],
+   "nets": {
+    "1": "BLUE1",
+    "2": "RED1",
+    "3": "GND",
+    "4": "GND"
+   }
+  },
+  {
+   "ref": "R5",
+   "symbol": "R_Series_330",
+   "at": [
+    241.3,
+    53.34
+   ],
+   "nets": {
+    "1": "LED_BLUE",
+    "2": "BLUE2"
+   }
+  },
+  {
+   "ref": "R10",
+   "symbol": "R_LED_1k3",
+   "at": [
+    266.7,
+    53.34
+   ],
+   "nets": {
+    "1": "LED_RED",
+    "2": "RED2"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_Bicolour_0805",
+   "at": [
+    304.8,
+    53.34
+   ],
+   "nets": {
+    "1": "BLUE2",
+    "2": "RED2",
+    "3": "GND",
+    "4": "GND"
+   }
+  },
+  {
+   "ref": "R6",
+   "symbol": "R_Series_330",
+   "at": [
+    241.3,
+    66.03999999999999
+   ],
+   "nets": {
+    "1": "LED_BLUE",
+    "2": "BLUE3"
+   }
+  },
+  {
+   "ref": "R11",
+   "symbol": "R_LED_1k3",
+   "at": [
+    266.7,
+    66.03999999999999
+   ],
+   "nets": {
+    "1": "LED_RED",
+    "2": "RED3"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_Bicolour_0805",
+   "at": [
+    304.8,
+    66.03999999999999
+   ],
+   "nets": {
+    "1": "BLUE3",
+    "2": "RED3",
+    "3": "GND",
+    "4": "GND"
+   }
+  },
+  {
+   "ref": "R7",
+   "symbol": "R_Series_330",
+   "at": [
+    241.3,
+    78.74
+   ],
+   "nets": {
+    "1": "LED_BLUE",
+    "2": "BLUE4"
+   }
+  },
+  {
+   "ref": "R12",
+   "symbol": "R_LED_1k3",
+   "at": [
+    266.7,
+    78.74
+   ],
+   "nets": {
+    "1": "LED_RED",
+    "2": "RED4"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_Bicolour_0805",
+   "at": [
+    304.8,
+    78.74
+   ],
+   "nets": {
+    "1": "BLUE4",
+    "2": "RED4",
+    "3": "GND",
+    "4": "GND"
+   }
+  },
+  {
+   "ref": "R8",
+   "symbol": "R_Series_330",
+   "at": [
+    241.3,
+    91.44
+   ],
+   "nets": {
+    "1": "LED_BLUE",
+    "2": "BLUE5"
+   }
+  },
+  {
+   "ref": "R13",
+   "symbol": "R_LED_1k3",
+   "at": [
+    266.7,
+    91.44
+   ],
+   "nets": {
+    "1": "LED_RED",
+    "2": "RED5"
+   }
+  },
+  {
+   "ref": "D5",
+   "symbol": "LED_Bicolour_0805",
+   "at": [
+    304.8,
+    91.44
+   ],
+   "nets": {
+    "1": "BLUE5",
+    "2": "RED5",
+    "3": "GND",
+    "4": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "Power: the switch common is the 3.3 V rail (XIAO 3V3 pin). Position 1 = badge 3.3 V feeds the rail. Position 2 (OFF) ties D1 to the rail through R1; position 3 (USB-BAT) leaves the badge disconnected.",
+   [
+    38.1,
+    160.02
+   ]
+  ],
+  [
+   "On USB-BAT the XIAO powers itself from USB-C or the LiPo on J2 (which it charges). Do not plug in USB with the switch on SAO while on a badge: two 3.3 V regulators would share one rail.",
+   [
+    38.1,
+    163.83
+   ]
+  ],
+  [
+   "The maker's five bicolour LEDs (D1-D5 = his LED1-LED5) keep his wiring: every blue anode on one pin, every red anode on another, one resistor each. Blue: D3 through 330 ohm (about 1.5 mA each). Red: D10 through 1.3 k (about 1.1 mA each). His were 22 ohm on an ATtiny85.",
+   [
+    38.1,
+    167.64
+   ]
+  ],
+  [
+   "R2, R3: 330 ohm on the SAO GPIO pins per docs/standard.md. R1: 330 ohm in the OFF sense line. No I2C pull-ups on the add-on (the maker had 10 k; the badge provides them).",
+   [
+    38.1,
+    171.45
+   ]
+  ],
+  [
+   "Dropped from the maker's circuit: ATtiny85, its 10 k reset pull-up, the two 10 k I2C pull-ups, two 0 ohm links and the six ISP pogo pads. Mode button = the XIAO's BOOT button.",
+   [
+    38.1,
+    175.26
+   ]
+  ]
+ ]
+}

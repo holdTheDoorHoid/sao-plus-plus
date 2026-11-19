@@ -1,0 +1,51 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {
+      "near": [
+        13.0,
+        7.5
+      ],
+      "dir": "-y",
+      "why": "top of the left-hand bubbles"
+    },
+    {
+      "near": [
+        47.0,
+        7.5
+      ],
+      "dir": "-y",
+      "why": "top of the right-hand bubbles"
+    },
+    {
+      "near": [
+        4.5,
+        27.0
+      ],
+      "dir": "-x",
+      "why": "left wall of the tub, below the LiPo socket's opening"
+    },
+    {
+      "near": [
+        8.0,
+        33.5
+      ],
+      "dir": "+y",
+      "why": "left foot. The tub bottom between the feet (switch knob, USB-C socket) has no tabs"
+    },
+    {
+      "near": [
+        52.5,
+        33.8
+      ],
+      "dir": "+y",
+      "why": "right foot"
+    }
+  ]
+}

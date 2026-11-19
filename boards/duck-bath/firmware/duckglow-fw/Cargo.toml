@@ -1,0 +1,50 @@
+[package]
+name = "duckglow-fw"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "duckGLOW SAOs (Duck Bath, Duck Jaws), SAO++ edition: firmware for Seeed XIAO ESP32-C3 / C6 / S3"
+license = "MIT"
+publish = false
+
+# Pick exactly one chip feature. The .cargo/config.toml aliases do it for you:
+#   cargo c3   /  cargo c6   /  cargo +esp s3
+# Duck Bath is the default; add `--features jaws` for Duck Jaws.
+[features]
+esp32c3 = ["esp-hal/esp32c3", "esp-bootloader-esp-idf/esp32c3", "esp-println/esp32c3", "esp-storage/esp32c3", "dep:esp32c3"]
+esp32c6 = ["esp-hal/esp32c6", "esp-bootloader-esp-idf/esp32c6", "esp-println/esp32c6", "esp-storage/esp32c6", "dep:esp32c6"]
+# The S3 has no I2C target driver in esp-hal 1.2.2, so it talks to the I2C
+# registers through the PAC (code shared with Mr. Robot). The PACs are also
+# used to switch off the internal I2C pull-ups. Same versions esp-hal uses.
+esp32s3 = ["esp-hal/esp32s3", "esp-bootloader-esp-idf/esp32s3", "esp-println/esp32s3", "esp-storage/esp32s3", "dep:esp32s3"]
+# Duck Jaws: four LED channels and I2C address 0x23 (Duck Bath: three, 0x22).
+jaws = ["duckglow-core/jaws"]
+# Answer at the maker's original I2C address 0x6C instead.
+maker-address = ["duckglow-core/maker-address"]
+# A UV LED fitted in place of the RGB one (on the blue position): UV defaults.
+uv = []
+
+[dependencies]
+duckglow-core = { path = "../duckglow-core" }
+# Exact versions: the same set as boards/mr-robot/firmware (built and checked
+# with them). esp-storage (for the power-on presets) is the one addition; its
+# version is the one that matches esp-hal 1.2.2.
+esp-hal = { version = "=1.2.2", features = ["unstable"] }
+esp-bootloader-esp-idf = { version = "=0.6.0" }
+esp-println = { version = "=0.18.0", default-features = false, features = ["jtag-serial", "critical-section"] }
+esp-storage = { version = "=0.10.0" }
+critical-section = "1.2"
+esp32c3 = { version = "=0.33.0", features = ["critical-section"], optional = true }
+esp32c6 = { version = "=0.24.0", features = ["critical-section"], optional = true }
+esp32s3 = { version = "=0.36.0", features = ["critical-section"], optional = true }
+
+[profile.dev]
+opt-level = "s"
+
+[profile.release]
+opt-level = "s"
+lto = "fat"
+codegen-units = 1
+debug = 2
+debug-assertions = false
+overflow-checks = false

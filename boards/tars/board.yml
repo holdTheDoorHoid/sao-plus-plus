@@ -1,0 +1,67 @@
+name: "TARS"
+slug: tars
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "TARS inspired Simple Add-on"
+  makers: ["davedarko (Dave Darko)"]
+  year: 2024
+  source_url: "https://github.com/davedarko/TARS-SAO"
+  source_commit: "d87f3ed"
+  license: "MIT"           # original/LICENSE: "MIT License, Copyright (c) 2024 davedarko"
+  permission: "license"    # not needed (open licence); "license" is the value tools/check_boards.py accepts for it
+  permission_ref: "original/LICENSE"
+  files: "KiCad 8 board, schematic and the maker's footprints (original/KiCad/TARS), an interactive BOM, and nine Arduino sketches for the RP2040 (original/Sketchbook)"
+  art_note: "The board is TARS, the robot from the film Interstellar (Warner Bros. / Paramount, 2014): its slab shape, the 'TARS' lettering and the Newton's-third-law quote on the back come from the film. That is a third-party design, separate from the maker's MIT licence, and matters most if boards are sold."
+
+scale:
+  factor: 1.0              # no scale-up needed: XIAO, connector, switch and LiPo socket fit at the maker's size
+  original_size_mm: "40.0 x 50.0"
+  new_size_mm: "40.0 x 50.0"
+
+changes:
+  - "Waveshare RP2040-Tiny module replaced by a Seeed Studio XIAO ESP32 module (C3, S3 or C6) on the back, USB-C at the middle of the top edge, where the old module sat"
+  - "NEW CHIP: a Microchip CAP1206 six-channel touch controller reads the six touch areas (the maker timed them with six microcontroller pins and six 1 M resistors). The XIAO has 11 pins and this board needs 16 jobs; see README 'Why a touch chip'"
+  - "Display (0.96 in 80x160 ST7735S), its pads, the cue light and its resistor stay on the FRONT exactly where the maker put them; the display's chip-select is now tied to ground and its reset comes from a resistor and capacitor (no XIAO pin left)"
+  - "SAO connector: the maker's 2x3 SMD header replaced by the shared v1.69bis shrouded header at the same spot, key slot up; SAO GPIO1/2 stay unconnected as on his board"
+  - "His two 4.7 k pull-ups on the badge's I2C lines removed (the badge provides them)"
+  - "SAO / OFF / USB-BAT slide switch on the left edge; JST-PH LiPo socket on the right edge"
+  - "His speaker socket (PicoBlade), speaker-mode jumper and both Qwiic sockets kept where he placed them (the Qwiic sockets 0.1 mm further from the edge). The jumper's wiring fixed: in his files its 'other' position grounded the microcontroller pin instead of the speaker"
+  - "Speaker now fed through 165 ohm (two 330 ohm in parallel) instead of straight from the pins: about 19 mA peak"
+  - "Back silkscreen: the labels naming the old module's pins (USB, GND, VCC, CL, DA, DC, CS, RST, CUE LIGHT, SAO SCL/SDA, B R D U L A, ?) removed; the quote, the credit, the logo, the Qwiic labels, 'SPEAKER', the speaker box and his JLC order-number mark kept; SAO++ labels added"
+  - "Front art unchanged (gold slabs, touch areas, TARS lettering); new on the front: covered vias and tracks under the display glass only, six 1 mm marker dots inside the touch areas' gold, two 0.9 mm switch-peg holes at the left edge"
+
+features:
+  power_select: true
+  coin_cell: none
+  lipo_connector: JST-PH 2-pin
+  display: "0.96 in 80x160 ST7735S IPS (front)"
+  touch_pads: 6
+  speaker: "external, on the maker's PicoBlade socket J2"
+  side_leds: 0
+  through_board_leds: 0
+  front_leds: 1            # the maker's cue light, red 0603
+  vias: 38                 # tented, all under the display glass (the maker's board had 30 there)
+  i2c_device: true         # XIAO as target at 0x27
+  gpio_use: "none: SAO GPIO1/GPIO2 unconnected, as on the maker's board"
+  controller: "Seeed Studio XIAO ESP32-C3 / S3 / C6 (firmware for C3 and C6)"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-MCU-01
+  - SAOPP-CONN-10
+  - SAOPP-R-01
+  - SAOPP-R-02
+  - SAOPP-C-01
+
+local_parts:
+  - {name: Display_ST7735S_80x160, ref: U1, mpn: "0.96 in 80x160 ST7735S IPS, 13-pin 0.7 mm solder ribbon (maker gives no part number)", footprint: "maker's ST7735S-160x80-13PIN, courtyard added"}
+  - {name: Touch_CAP1206_SOIC14, ref: U3, mpn: "CAP1206-1-SL", footprint: "KiCad stock Package_SO:SOIC-14_3.9x8.7mm_P1.27mm (the one KiCad's CAP1206-x-SL symbol names)"}
+  - {name: LED_0603_Red_Front, ref: D1, mpn: "LTST-C191KRKT", lcsc: "C125099", footprint: "as boards/knight-rider (KiCad stock 0603 LED)"}
+  - {name: R_11R, ref: R9, mpn: "0603WAF110JT5E", footprint: "KiCad stock Resistor_SMD:R_0603_1608Metric"}
+  - {name: Conn_Qwiic_JST_SH4, ref: "J3, J4", mpn: "SM04B-SRSS-TB(LF)(SN)", footprint: "KiCad stock Connector_JST:JST_SH_SM04B-SRSS-TB (the maker's)"}
+  - {name: Conn_Speaker_PicoBlade2, ref: J2, mpn: "53261-0271", footprint: "KiCad stock Connector_Molex:Molex_PicoBlade_53261-0271 (the maker's)"}
+  - {name: Jumper3_Bridged12, ref: JP1, mpn: "none: solder jumper", footprint: "KiCad stock SolderJumper-3_P1.3mm_Bridged12 (the maker's)"}
+  - {name: TouchPad_Marker, ref: "TP1-TP6", mpn: "none: bare copper", footprint: "KiCad stock TestPoint_Pad_D1.0mm"}

@@ -1,0 +1,4 @@
+# Build output (both crates)
+target/
+**/target/
+# Cargo.lock is kept for the firmware (exact, known-good dependency set).

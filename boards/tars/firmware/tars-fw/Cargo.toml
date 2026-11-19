@@ -1,0 +1,35 @@
+[package]
+name = "tars-fw"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "TARS SAO (SAO++ edition) firmware for Seeed XIAO ESP32-C3 / C6"
+license = "MIT"
+publish = false
+
+# Pick exactly one chip feature. The .cargo/config.toml aliases do it for you:
+#   cargo c3   /  cargo c6
+[features]
+esp32c3 = ["esp-hal/esp32c3", "esp-bootloader-esp-idf/esp32c3", "esp-println/esp32c3", "dep:esp32c3"]
+esp32c6 = ["esp-hal/esp32c6", "esp-bootloader-esp-idf/esp32c6", "esp-println/esp32c6", "dep:esp32c6"]
+
+[dependencies]
+tars-core = { path = "../tars-core" }
+# Exact versions, the same as Mr. Robot's firmware: bump deliberately, not by accident.
+esp-hal = { version = "=1.2.2", features = ["unstable"] }
+esp-bootloader-esp-idf = { version = "=0.6.0" }
+esp-println = { version = "=0.18.0", default-features = false, features = ["jtag-serial", "critical-section"] }
+critical-section = "1.2"
+esp32c3 = { version = "=0.33.0", features = ["critical-section"], optional = true }
+esp32c6 = { version = "=0.24.0", features = ["critical-section"], optional = true }
+
+[profile.dev]
+opt-level = "s"
+
+[profile.release]
+opt-level = "s"
+lto = "fat"
+codegen-units = 1
+debug = 2
+debug-assertions = false
+overflow-checks = false

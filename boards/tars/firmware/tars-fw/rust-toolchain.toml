@@ -1,0 +1,6 @@
+# C3 and C6 (RISC-V) build on stable Rust. The S3 (Xtensa) build overrides this
+# with `cargo +esp ...` (toolchain installed by `espup install`).
+[toolchain]
+channel = "stable"
+components = ["rust-src"]
+targets = ["riscv32imc-unknown-none-elf", "riscv32imac-unknown-none-elf"]

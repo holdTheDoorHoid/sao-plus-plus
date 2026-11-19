@@ -1,0 +1,14 @@
+(version 1)
+
+# The front copper on this board is artwork. This rule stops DRC from flagging the art for being art;
+# everything electrical (pads, tracks, vias, the GND copper against other nets) is still checked at full rules.
+(rule "Fine gaps inside the artwork (nunchuk, remote and chain)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# J2 is the maker's Wii Nunchuk tongue: gold fingers that the Nunchuk's cable plug slides onto, so they run out to
+# the tip of the tongue on purpose. Real gap from finger end to tongue edge: 0.19 mm (back fingers) and 0.14 mm
+# (front fingers), as the maker drew them. Everything else on the board keeps the normal 0.25 mm.
+(rule "Wii tongue fingers run to the tongue edge"
+  (condition "A.Reference == 'J2'")
+  (constraint edge_clearance (min 0.1mm)))

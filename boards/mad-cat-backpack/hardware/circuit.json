@@ -1,0 +1,307 @@
+{
+ "title": "Mad Cat Backpack - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: Peter Shabino (Wireb), 2018, github.com/Wireb/Mad_Cat_Backpack, MIT license",
+ "parts": [
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    63.5
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    50.8,
+    91.44
+   ],
+   "nets": {
+    "3": "V3V3",
+    "1": "VSAO",
+    "2": "OFF_SENSE"
+   }
+  },
+  {
+   "ref": "J2",
+   "symbol": "LiPo_Connector_JST_PH",
+   "at": [
+    50.8,
+    116.84
+   ],
+   "nets": {
+    "1": "BAT+",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U1",
+   "symbol": "XIAO_ESP32_Module",
+   "at": [
+    106.68,
+    76.2
+   ],
+   "nets": {
+    "1": "LED5_K",
+    "2": "OFF_SENSE",
+    "3": "LED6_K",
+    "4": "LED7_K",
+    "5": "SDA",
+    "6": "SCL",
+    "7": "LED8_K",
+    "8": "LED2_K",
+    "9": "LED1_K",
+    "10": "LED3_K",
+    "11": "LED4_K",
+    "12": "V3V3",
+    "13": "GND",
+    "15": "BAT+",
+    "16": "GND"
+   }
+  },
+  {
+   "ref": "R1",
+   "symbol": "R_Series_330",
+   "at": [
+    165.1,
+    58.42
+   ],
+   "nets": {
+    "2": "V3V3",
+    "1": "LED1_A"
+   }
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    203.2,
+    58.42
+   ],
+   "nets": {
+    "2": "LED1_A",
+    "1": "LED1_K"
+   }
+  },
+  {
+   "ref": "R2",
+   "symbol": "R_Series_330",
+   "at": [
+    165.1,
+    78.74000000000001
+   ],
+   "nets": {
+    "2": "V3V3",
+    "1": "LED2_A"
+   }
+  },
+  {
+   "ref": "D2",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    203.2,
+    78.74000000000001
+   ],
+   "nets": {
+    "2": "LED2_A",
+    "1": "LED2_K"
+   }
+  },
+  {
+   "ref": "R3",
+   "symbol": "R_Series_330",
+   "at": [
+    165.1,
+    99.06
+   ],
+   "nets": {
+    "2": "V3V3",
+    "1": "LED3_A"
+   }
+  },
+  {
+   "ref": "D3",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    203.2,
+    99.06
+   ],
+   "nets": {
+    "2": "LED3_A",
+    "1": "LED3_K"
+   }
+  },
+  {
+   "ref": "R4",
+   "symbol": "R_Series_330",
+   "at": [
+    165.1,
+    119.38
+   ],
+   "nets": {
+    "2": "V3V3",
+    "1": "LED4_A"
+   }
+  },
+  {
+   "ref": "D4",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    203.2,
+    119.38
+   ],
+   "nets": {
+    "2": "LED4_A",
+    "1": "LED4_K"
+   }
+  },
+  {
+   "ref": "R5",
+   "symbol": "R_Series_330",
+   "at": [
+    241.3,
+    58.42
+   ],
+   "nets": {
+    "2": "V3V3",
+    "1": "LED5_A"
+   }
+  },
+  {
+   "ref": "D5",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    279.40000000000003,
+    58.42
+   ],
+   "nets": {
+    "2": "LED5_A",
+    "1": "LED5_K"
+   }
+  },
+  {
+   "ref": "R6",
+   "symbol": "R_Series_330",
+   "at": [
+    241.3,
+    78.74000000000001
+   ],
+   "nets": {
+    "2": "V3V3",
+    "1": "LED6_A"
+   }
+  },
+  {
+   "ref": "D6",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    279.40000000000003,
+    78.74000000000001
+   ],
+   "nets": {
+    "2": "LED6_A",
+    "1": "LED6_K"
+   }
+  },
+  {
+   "ref": "R7",
+   "symbol": "R_Series_330",
+   "at": [
+    241.3,
+    99.06
+   ],
+   "nets": {
+    "2": "V3V3",
+    "1": "LED7_A"
+   }
+  },
+  {
+   "ref": "D7",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    279.40000000000003,
+    99.06
+   ],
+   "nets": {
+    "2": "LED7_A",
+    "1": "LED7_K"
+   }
+  },
+  {
+   "ref": "R8",
+   "symbol": "R_Series_330",
+   "at": [
+    241.3,
+    119.38
+   ],
+   "nets": {
+    "2": "V3V3",
+    "1": "LED8_A"
+   }
+  },
+  {
+   "ref": "D8",
+   "symbol": "LED_ThroughBoard_White",
+   "at": [
+    279.40000000000003,
+    119.38
+   ],
+   "nets": {
+    "2": "LED8_A",
+    "1": "LED8_K"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "Power: the switch common is the 3.3 V rail (XIAO 3V3 pin and the eight LEDs). Position 1 = badge 3.3 V feeds the rail. Position 2 (OFF) ties XIAO D1 to the rail. Position 3 (USB / BAT) leaves the badge disconnected.",
+   [
+    38.1,
+    30.48
+   ]
+  ],
+  [
+   "Do not plug in USB with the switch on SAO while on a badge: two 3.3 V regulators would share one rail. No coin cell on this board.",
+   [
+    38.1,
+    34.29
+   ]
+  ],
+  [
+   "J2 is a LiPo connector wired to the XIAO's battery pads (two pad positions under the module: C3/S3 and C6). SAO GPIO1/GPIO2 are not used (the 2018 backpack had a 4-pin SAO); D6 and D7 drive LEDs instead.",
+   [
+    38.1,
+    38.1
+   ]
+  ],
+  [
+   "Each LED: 3.3 V rail -> 330 ohm -> anode; cathode -> XIAO pin. A pin driven LOW lights its LED (as on the 2018 PIC). About 1.5 mA per LED.",
+   [
+    147.32,
+    40.64
+   ]
+  ],
+  [
+   "D1 = left eye, D2 = right eye, D3..D8 = teeth left to right (front view), at the same spots as the Mad Cat's own LEDs. They shine through 1.0 mm holes in this board and through the Mad Cat behind it.",
+   [
+    147.32,
+    44.45
+   ]
+  ],
+  [
+   "Pins: D8 left eye, D7 right eye, D9 tooth 1 (shared with the BOOT button: drive open-drain), D10 tooth 2, D0 tooth 3, D2 tooth 4, D3 tooth 5, D6 tooth 6. D1 = OFF sense, D4/D5 = I2C.",
+   [
+    147.32,
+    48.26
+   ]
+  ]
+ ]
+}

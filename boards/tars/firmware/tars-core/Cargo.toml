@@ -1,0 +1,16 @@
+[package]
+name = "tars-core"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Board-independent logic for the TARS SAO (SAO++ edition): display drawing, font, ST7735S commands, touch chip, menu, piano, demos, I2C commands"
+license = "MIT"
+publish = false
+
+# Plain no_std library, no dependencies. Everything here is checked on the host
+# with `cargo test`; the firmware crate in ../tars-fw links it for the ESP32.
+
+[dependencies]
+
+[lints.rust]
+unsafe_code = "forbid"

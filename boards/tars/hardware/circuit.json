@@ -1,0 +1,422 @@
+{
+ "title": "TARS - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: davedarko (Dave Darko), 2024, github.com/davedarko/TARS-SAO (MIT)",
+ "parts": [
+  {
+   "ref": "U2",
+   "symbol": "XIAO_ESP32_Module",
+   "at": [
+    241.3,
+    40.64
+   ],
+   "nets": {
+    "1": "PRIV_SDA",
+    "2": "OFF_SENSE",
+    "3": "SPK_B",
+    "4": "TFT_MOSI",
+    "5": "SDA",
+    "6": "SCL",
+    "7": "TFT_DC",
+    "8": "TFT_SCLK",
+    "9": "PRIV_SCL",
+    "10": "LED_K",
+    "11": "SPK_A",
+    "12": "V3V3",
+    "13": "GND",
+    "15": "BAT+",
+    "16": "GND"
+   }
+  },
+  {
+   "ref": "J1",
+   "symbol": "SAO_Connector_v1.69bis",
+   "at": [
+    50.8,
+    40.64
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "GND",
+    "3": "SDA",
+    "4": "SCL"
+   }
+  },
+  {
+   "ref": "SW1",
+   "symbol": "Power_Switch_SP3T_PCM13",
+   "at": [
+    50.8,
+    66.04
+   ],
+   "nets": {
+    "1": "VSAO",
+    "2": "OFF_SW",
+    "3": "V3V3"
+   },
+   "value": "SAO / OFF / USB-BAT"
+  },
+  {
+   "ref": "R13",
+   "symbol": "R_Series_330",
+   "at": [
+    114.3,
+    66.04
+   ],
+   "nets": {
+    "1": "OFF_SW",
+    "2": "OFF_SENSE"
+   }
+  },
+  {
+   "ref": "J5",
+   "symbol": "LiPo_Connector_JST_PH",
+   "at": [
+    114.3,
+    40.64
+   ],
+   "nets": {
+    "1": "BAT+",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "J3",
+   "symbol": "Conn_Qwiic_JST_SH4",
+   "at": [
+    50.8,
+    91.44
+   ],
+   "nets": {
+    "1": "GND",
+    "2": "V3V3",
+    "3": "SDA",
+    "4": "SCL"
+   },
+   "value": "Qwiic: badge I2C"
+  },
+  {
+   "ref": "U1",
+   "symbol": "Display_ST7735S_80x160",
+   "at": [
+    368.3,
+    40.64
+   ],
+   "nets": {
+    "3": "TFT_MOSI",
+    "4": "TFT_SCLK",
+    "5": "TFT_DC",
+    "6": "TFT_RST",
+    "7": "GND",
+    "8": "GND",
+    "10": "V3V3",
+    "11": "GND",
+    "12": "LEDA",
+    "13": "GND"
+   }
+  },
+  {
+   "ref": "R9",
+   "symbol": "R_11R",
+   "at": [
+    431.8,
+    66.04
+   ],
+   "nets": {
+    "1": "V3V3",
+    "2": "LEDA"
+   }
+  },
+  {
+   "ref": "R16",
+   "symbol": "R_LED_1k3",
+   "at": [
+    431.8,
+    91.44
+   ],
+   "nets": {
+    "1": "V3V3",
+    "2": "TFT_RST"
+   }
+  },
+  {
+   "ref": "C1",
+   "symbol": "C_100n",
+   "at": [
+    431.8,
+    116.84
+   ],
+   "nets": {
+    "1": "TFT_RST",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "U3",
+   "symbol": "Touch_CAP1206_SOIC14",
+   "at": [
+    241.3,
+    91.44
+   ],
+   "nets": {
+    "2": "TOUCH_A",
+    "13": "TOUCH_UP",
+    "12": "TOUCH_B",
+    "11": "TOUCH_LEFT",
+    "10": "TOUCH_DOWN",
+    "9": "TOUCH_RIGHT",
+    "4": "PRIV_SDA",
+    "5": "PRIV_SCL",
+    "7": "V3V3",
+    "8": "GND"
+   }
+  },
+  {
+   "ref": "C2",
+   "symbol": "C_100n",
+   "at": [
+    304.8,
+    116.84
+   ],
+   "nets": {
+    "1": "V3V3",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R11",
+   "symbol": "R_LED_1k3",
+   "at": [
+    177.8,
+    91.44
+   ],
+   "nets": {
+    "1": "V3V3",
+    "2": "PRIV_SDA"
+   }
+  },
+  {
+   "ref": "R12",
+   "symbol": "R_LED_1k3",
+   "at": [
+    177.8,
+    116.84
+   ],
+   "nets": {
+    "1": "V3V3",
+    "2": "PRIV_SCL"
+   }
+  },
+  {
+   "ref": "J4",
+   "symbol": "Conn_Qwiic_JST_SH4",
+   "at": [
+    114.3,
+    91.44
+   ],
+   "nets": {
+    "1": "GND",
+    "2": "V3V3",
+    "3": "PRIV_SDA",
+    "4": "PRIV_SCL"
+   },
+   "value": "Qwiic: XIAO's own I2C"
+  },
+  {
+   "ref": "TP1",
+   "symbol": "TouchPad_Marker",
+   "at": [
+    304.8,
+    142.24
+   ],
+   "nets": {
+    "1": "TOUCH_A"
+   },
+   "value": "touch A"
+  },
+  {
+   "ref": "TP2",
+   "symbol": "TouchPad_Marker",
+   "at": [
+    304.8,
+    167.64
+   ],
+   "nets": {
+    "1": "TOUCH_UP"
+   },
+   "value": "touch up"
+  },
+  {
+   "ref": "TP3",
+   "symbol": "TouchPad_Marker",
+   "at": [
+    304.8,
+    193.04
+   ],
+   "nets": {
+    "1": "TOUCH_B"
+   },
+   "value": "touch B"
+  },
+  {
+   "ref": "TP4",
+   "symbol": "TouchPad_Marker",
+   "at": [
+    241.3,
+    142.24
+   ],
+   "nets": {
+    "1": "TOUCH_LEFT"
+   },
+   "value": "touch left"
+  },
+  {
+   "ref": "TP5",
+   "symbol": "TouchPad_Marker",
+   "at": [
+    241.3,
+    167.64
+   ],
+   "nets": {
+    "1": "TOUCH_DOWN"
+   },
+   "value": "touch down"
+  },
+  {
+   "ref": "TP6",
+   "symbol": "TouchPad_Marker",
+   "at": [
+    241.3,
+    193.04
+   ],
+   "nets": {
+    "1": "TOUCH_RIGHT"
+   },
+   "value": "touch right"
+  },
+  {
+   "ref": "D1",
+   "symbol": "LED_0603_Red_Front",
+   "at": [
+    368.3,
+    116.84
+   ],
+   "nets": {
+    "2": "LED_A",
+    "1": "LED_K"
+   }
+  },
+  {
+   "ref": "R10",
+   "symbol": "R_LED_1k3",
+   "at": [
+    368.3,
+    142.24
+   ],
+   "nets": {
+    "1": "V3V3",
+    "2": "LED_A"
+   }
+  },
+  {
+   "ref": "R14",
+   "symbol": "R_Series_330",
+   "at": [
+    50.8,
+    116.84
+   ],
+   "nets": {
+    "1": "SPK_A",
+    "2": "SPK_AR"
+   }
+  },
+  {
+   "ref": "R15",
+   "symbol": "R_Series_330",
+   "at": [
+    50.8,
+    142.24
+   ],
+   "nets": {
+    "1": "SPK_A",
+    "2": "SPK_AR"
+   }
+  },
+  {
+   "ref": "J2",
+   "symbol": "Conn_Speaker_PicoBlade2",
+   "at": [
+    114.3,
+    116.84
+   ],
+   "nets": {
+    "2": "SPK_AR",
+    "1": "SPK_1"
+   }
+  },
+  {
+   "ref": "JP1",
+   "symbol": "Jumper3_Bridged12",
+   "at": [
+    114.3,
+    142.24
+   ],
+   "nets": {
+    "1": "SPK_B",
+    "2": "SPK_1",
+    "3": "GND"
+   }
+  }
+ ],
+ "notes": [
+  [
+   "Power: SW1 common = the 3.3 V rail. SAO = badge 3.3 V feeds the rail (and the XIAO through its 3V3 pin). OFF ties D1 to the rail through R13. USB-BAT leaves the badge disconnected; the XIAO runs from USB-C or the LiPo on J5.",
+   [
+    25.4,
+    215.9
+   ]
+  ],
+  [
+   "Do not plug in USB with the switch on SAO while on a badge: two 3.3 V regulators would share one rail.",
+   [
+    25.4,
+    219.71
+   ]
+  ],
+  [
+   "Badge I2C (SDA/SCL, J1 and Qwiic J3): XIAO D4/D5 as an I2C target. No pull-ups on this board (the badge has them); the maker's R7/R8 4k7 are gone.",
+   [
+    25.4,
+    223.52
+   ]
+  ],
+  [
+   "Private I2C (PRIV_SDA/PRIV_SCL, Qwiic J4): XIAO D0/D8 as controller (bit-banged), touch chip U3 at 0x28, pull-ups R11/R12 1.3k. They also hold the C3's start-up pins GPIO2/GPIO8 high.",
+   [
+    25.4,
+    227.33
+   ]
+  ],
+  [
+   "Display: CS tied to ground (only device on its wires); RST from R16/C1 at power-up (no pin left); backlight always on through R9 11 ohm as the maker had it.",
+   [
+    25.4,
+    231.14000000000001
+   ]
+  ],
+  [
+   "Speaker on J2: D10 -> R14||R15 (165 ohm, limits current to about 19 mA) -> J2 pin 2; D2 -> JP1 -> J2 pin 1. JP1 1-2 bridged = push-pull (maker's default). Cut 1-2 and bridge 2-3 for one-sided drive.",
+   [
+    25.4,
+    234.95000000000002
+   ]
+  ],
+  [
+   "Cue light D1 (front): 3.3 V -> R10 1.3k -> D1 -> D9 (pulled low to light). D9 is the C3's BOOT pin; pressing BOOT also lights it.",
+   [
+    25.4,
+    238.76
+   ]
+  ]
+ ]
+}

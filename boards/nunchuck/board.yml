@@ -1,0 +1,49 @@
+name: "SAO Nunchuck"
+slug: nunchuck
+status: porting            # designed, routed and rule-checked; no physical board built yet
+revision: "A"
+
+original:
+  title: "SAO Nunchuck V1.0 (hardware version 1.0, 2024)"
+  makers: ["ageppert (Andrew Geppert; the board credits Andy and Jared Geppert, Machine Ideas)"]
+  year: 2024
+  source_url: "https://github.com/ageppert/SAO_Nunchuck"
+  source_commit: "6b02ca0"
+  project_page: "https://hackaday.io/project/198000-sao-nunchuck"
+  license: "MIT"           # LICENSE.md in the maker's repo: "MIT License, Copyright (c) 2024 Andrew Geppert"; kept in original/LICENSE.md
+  permission: "license"    # not needed (open licence). The brief's wording "not needed (open licence)" is not a value tools/check_boards.py accepts; "license" is its word for the same thing
+  permission_ref: "original/LICENSE.md"
+  base_revision: "original/Electronic Design/SAO Nunchuck V1 Design Files KiCAD 8 (KiCad 8 board and schematic, Gerbers dated 2024-09-24): the only board in the repo"
+  art_note: "The front art is a Wii Remote and a Wii Nunchuk drawn as a pair of nunchaku, and the board exists to plug in a Wii Nunchuk. The two controllers' shapes are Nintendo product designs and 'Wii' and 'Nunchuk' are Nintendo trademarks. The MIT licence covers Andrew Geppert's drawing and board, not Nintendo's rights: any sale needs its own check."
+
+changes:
+  - "No scale-up: the shared connector fits where the maker's header was (38.1 x 50.8 mm, unchanged)"
+  - "Maker's SAO header (six through-hole pins PLUS card-edge fingers on the bottom edge so the board could also plug straight into a badge socket) replaced by the shared SMD shrouded connector J1 on the back, on the same centre line, 1.5 mm higher than the old header centre (3.6 mm of board left below its body); the edge fingers and the six holes are gone"
+  - "Wii Nunchuk tongue kept exactly: same outline (tongue, both slots and their small side notches), same five gold fingers on both sides, same place, true size. Nothing scaled"
+  - "Both Qwiic sockets kept, same parts, same places, openings at the left and right edges. Their metal mounting tabs now go to GND (the maker left them unconnected)"
+  - "Routing redone: three trunks on the back from the tongue to J1, short cross-links on the front in the dark band between the tongue and the chain art, where the maker also ran his front tracks. 8 tented vias (maker: 16 open vias and 64 track pieces, many of them on the front)"
+  - "Back copper is GND, 0.55 mm back from the edge, kept off the tongue (the maker had no ground copper)"
+  - "No switch, no coin cell, no controller: the board is a passive adapter driven by the badge, so a cell would power nothing (see README). SAO pin 1 feeds the Nunchuk and both Qwiic sockets directly, a recorded exception to standard.md section 1"
+  - "Front art unchanged: the maker's copper-and-gold Wii Remote, Nunchuk and chain, his gold fingers and his small tongue mark"
+  - "Back lettering unchanged in words, size and place. It was TrueType text in fonts that are not on most machines (Apple Chancery, Comic Sans MS), which KiCad redraws in a substitute font (wider; 'SAO NUNCHUCK' then ran off the board). It is now the exact letter shapes the maker's own KiCad drew, taken from his file, matching his 2024 Gerbers"
+  - "Machine Ideas logo unchanged. Old part labels (X1-X4) and the old header's pin legend went with those parts. New small back labels: '1' at the SAO pin 1, 'SAO++ rA', 'Qwiic' at each socket"
+
+features:
+  power_select: false
+  coin_cell: none
+  side_leds: 0
+  through_board_leds: 0
+  front_leds: 0
+  vias: 8
+  copper_layers_used: 2
+  i2c_device: "the Wii Nunchuk itself, address 0x52 (fixed by the Nunchuk); the board has no chip of its own"
+  gpio_use: "none (GPIO1/GPIO2 unconnected, as on the maker's board)"
+  controller: "none: passive adapter, the badge's I2C master reads the Nunchuk (host driver crate in firmware/)"
+  badge_driven: true
+
+shared_parts:
+  - SAOPP-CONN-01
+
+local_parts:
+  - {name: Wii_Nunchuk_Tongue, ref: J2, mpn: "none (gold fingers on the board edge, not a bought part; not in BOM)", footprint: "maker's Nunchuk-male, cut from his KiCad 8 board, Edge.Cuts moved into the board outline"}
+  - {name: Qwiic_JST_SH_4, ref: J3 J4, mpn: "SM04B-SRSS-TB(LF)(SN)", lcsc: "", footprint: "KiCad stock Connector_JST:JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal (the maker used the same pattern)"}

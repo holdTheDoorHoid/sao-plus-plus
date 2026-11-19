@@ -1,0 +1,266 @@
+(footprint "Nunchuk-male"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(uuid "ce2031e6-b128-476f-8277-c2315fced301")
+	(descr "Wii Nunchuk plug tongue: edge fingers that the Nunchuk cable plug slides onto. Maker: ageppert (Andrew Geppert), SAO Nunchuck V1 2024, MIT. The tongue and slot outline is in the board outline, not here.")
+	(tags "Wii Nunchuk edge connector")
+	(property "SAOPP_ID" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "MPN" "none: edge fingers on the board itself"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "LCSC" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Reference" "REF**"
+		(at 4.445 9.525 0)
+		(layer "B.SilkS")
+		(uuid "ded4132e-b329-46e8-839d-3cdce946b41d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Value" "Nunchuck"
+		(at 15.621 11.3538 0)
+		(layer "F.Fab")
+		(uuid "732ea640-7ded-4394-900c-7f5127ec29a5")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" "nunchuck-local:Nunchuk-male"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2069e250-f8e7-417a-be6c-c1d23b40dd20")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "bdb20389-ed39-4a17-aa1a-fcecafef60b7")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3c53be5b-b0fa-4fa3-bb2d-3dce13e7b847")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(path "/03173f6d-0e34-4856-81b9-f041ec0da639")
+	(sheetname "Root")
+	(sheetfile "SAO_Nunchuck.kicad_sch")
+	(attr smd exclude_from_pos_files exclude_from_bom)
+	(fp_line
+		(start -1.27 7.366)
+		(end -0.508 7.366)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "27e2086a-53e8-4430-9057-003dc5a36b61")
+	)
+	(fp_line
+		(start -0.508 7.366)
+		(end -0.508 8.2804)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "a25df008-e34d-4ed8-83c1-d0300aceb077")
+	)
+	(fp_line
+		(start -0.508 8.2804)
+		(end 0.508 8.2804)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "a70f7c04-135b-49f6-b48a-cd970fbfcf9a")
+	)
+	(fp_line
+		(start 0.508 7.366)
+		(end 1.27 7.366)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "f0354cfe-47db-48f8-8030-8c41eefa2e9e")
+	)
+	(fp_line
+		(start 0.508 8.2804)
+		(end 0.508 7.366)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "26d0d042-8cf7-4d4f-af10-6a921b432a44")
+	)
+	(fp_line
+		(start -6.223 0)
+		(end 6.223 0)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "f9e6f8cc-816b-4869-8cfa-a91566a596f9")
+	)
+	(fp_line
+		(start 0 0)
+		(end 0 9.0424)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "95833c95-6fbb-489b-84aa-08372c19717b")
+	)
+	(fp_line
+		(start 6.223 0)
+		(end 6.223 0)
+		(stroke
+			(width 0.01)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "e9ff5bca-e242-4456-b18f-92420e599c74")
+	)
+	(fp_rect
+		(start -7.366 0)
+		(end 7.366 9.144)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill solid)
+		(layer "F.CrtYd")
+		(uuid "4f5113a0-d4ae-4ee2-b168-262c42a3c89f")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 5.588 14.0208 0)
+		(layer "F.Fab")
+		(uuid "61dee36f-d179-49e6-8a58-003586f5e993")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at 2.032 5.08 270)
+		(size 7.5 1.25)
+		(layers "B.Cu" "B.Mask")
+		(pintype "bidirectional")
+		(solder_mask_margin 0.0508)
+		(thermal_bridge_angle 0)
+		(uuid "15ffc7f4-7d29-4ca6-95dd-b4df7d7e2596")
+	)
+	(pad "2" smd rect
+		(at 0 5.08 90)
+		(size 7.5 1.25)
+		(layers "B.Cu" "B.Mask")
+		(pintype "output+no_connect")
+		(solder_mask_margin 0.0508)
+		(thermal_bridge_angle 0)
+		(uuid "db363e38-debe-48ec-88c3-ab2a1ddfa6c2")
+	)
+	(pad "3" smd rect
+		(at -2.032 5.08 270)
+		(size 7.5 1.25)
+		(layers "B.Cu" "B.Mask")
+		(pintype "input")
+		(solder_mask_margin 0.0508)
+		(thermal_bridge_angle 0)
+		(uuid "f28cdb10-d638-4b03-b528-e4062f8eee51")
+	)
+	(pad "4" smd rect
+		(at -2.032 5.08 270)
+		(size 7.6 1.3)
+		(layers "F.Cu" "F.Mask")
+		(pintype "passive")
+		(solder_mask_margin 0.0508)
+		(thermal_bridge_angle 0)
+		(uuid "e8cd7345-5de3-4c8e-b0d5-96c306dd6fba")
+	)
+	(pad "6" smd rect
+		(at 2.032 5.08 270)
+		(size 7.6 1.3)
+		(layers "F.Cu" "F.Mask")
+		(pintype "power_in")
+		(solder_mask_margin 0.0508)
+		(thermal_bridge_angle 0)
+		(uuid "5c557e46-fb46-46b3-851e-e4b93b77c7b1")
+	)
+	(model "${KICAD8_3DMODEL_DIR}/Connector_RJ.3dshapes/RJ45_BEL_SS74301-00x_Vertical.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

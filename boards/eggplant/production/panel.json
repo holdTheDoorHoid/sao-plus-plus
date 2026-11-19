@@ -1,0 +1,16 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [21.0, 20.0], "dir": "-x", "why": "upper left of the calyx (front view)"},
+    {"near": [36.5, 30.0], "dir": "+x", "why": "right of the upper body, above the SAO connector"},
+    {"near": [12.5, 40.0], "dir": "-x", "why": "left of the upper body. The left-hand side of the bulb (USB-C), the right-hand side (switch knob, LiPo socket) have no tabs"},
+    {"near": [14.5, 76.0], "dir": "-x", "why": "lower left of the bulb"},
+    {"near": [29.0, 85.0], "dir": "+y", "why": "bottom of the eggplant"}
+  ]
+}

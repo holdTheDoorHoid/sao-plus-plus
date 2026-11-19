@@ -1,0 +1,511 @@
+EESchema Schematic File Version 4
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:LED D1
+U 1 1 5B260227
+P 5200 4100
+F 0 "D1" H 5200 4200 50  0000 C CNN
+F 1 "LED" H 5200 4000 50  0000 C CNN
+F 2 "customparts:LED_OSRAM_TOPLED_LxT776" H 5200 4100 50  0001 C CNN
+F 3 "" H 5200 4100 50  0001 C CNN
+	1    5200 4100
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5B2606B0
+P 5650 3800
+F 0 "R1" V 5650 3750 50  0000 C CNN
+F 1 "200" V 5700 3600 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5580 3800 50  0001 C CNN
+F 3 "" H 5650 3800 50  0001 C CNN
+	1    5650 3800
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:LED D2
+U 1 1 5B260CC5
+P 5200 5300
+F 0 "D2" H 5200 5400 50  0000 C CNN
+F 1 "LED" H 5200 5200 50  0000 C CNN
+F 2 "customparts:LED_OSRAM_TOPLED_LxT776" H 5200 5300 50  0001 C CNN
+F 3 "" H 5200 5300 50  0001 C CNN
+	1    5200 5300
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:LED D3
+U 1 1 5B260D1D
+P 5200 3800
+F 0 "D3" H 5200 3900 50  0000 C CNN
+F 1 "LED" H 5200 3700 50  0000 C CNN
+F 2 "customparts:LED_OSRAM_TOPLED_LxT776" H 5200 3800 50  0001 C CNN
+F 3 "" H 5200 3800 50  0001 C CNN
+	1    5200 3800
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:LED D4
+U 1 1 5B260D71
+P 5200 4400
+F 0 "D4" H 5200 4500 50  0000 C CNN
+F 1 "LED" H 5200 4300 50  0000 C CNN
+F 2 "customparts:LED_OSRAM_TOPLED_LxT776" H 5200 4400 50  0001 C CNN
+F 3 "" H 5200 4400 50  0001 C CNN
+	1    5200 4400
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:LED D5
+U 1 1 5B260DC9
+P 5200 4700
+F 0 "D5" H 5200 4800 50  0000 C CNN
+F 1 "LED" H 5200 4600 50  0000 C CNN
+F 2 "customparts:LED_OSRAM_TOPLED_LxT776" H 5200 4700 50  0001 C CNN
+F 3 "" H 5200 4700 50  0001 C CNN
+	1    5200 4700
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:LED D6
+U 1 1 5B260E25
+P 5200 5000
+F 0 "D6" H 5200 5100 50  0000 C CNN
+F 1 "LED" H 5200 4900 50  0000 C CNN
+F 2 "customparts:LED_OSRAM_TOPLED_LxT776" H 5200 5000 50  0001 C CNN
+F 3 "" H 5200 5000 50  0001 C CNN
+	1    5200 5000
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:LED D7
+U 1 1 5B260E85
+P 5200 5900
+F 0 "D7" H 5200 6000 50  0000 C CNN
+F 1 "LED" H 5200 5800 50  0000 C CNN
+F 2 "customparts:LED_OSRAM_TOPLED_LxT776" H 5200 5900 50  0001 C CNN
+F 3 "" H 5200 5900 50  0001 C CNN
+	1    5200 5900
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:LED D8
+U 1 1 5B260F34
+P 5200 5600
+F 0 "D8" H 5200 5700 50  0000 C CNN
+F 1 "LED" H 5200 5500 50  0000 C CNN
+F 2 "customparts:LED_OSRAM_TOPLED_LxT776" H 5200 5600 50  0001 C CNN
+F 3 "" H 5200 5600 50  0001 C CNN
+	1    5200 5600
+	1    0    0    1   
+$EndComp
+$Comp
+L Microchip_pjs:PIC16F1503 U1
+U 1 1 5BC69FBA
+P 4400 3700
+F 0 "U1" H 4000 3937 60  0000 C CNN
+F 1 "PIC16F1503" H 4000 3831 60  0000 C CNN
+F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 3900 3700 60  0001 C CNN
+F 3 "" H 3900 3700 60  0000 C CNN
+	1    4400 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4500 4100 5050 4100
+Wire Wire Line
+	4500 4000 4950 4000
+Wire Wire Line
+	4950 4000 4950 3800
+Wire Wire Line
+	4950 3800 5050 3800
+Wire Wire Line
+	4500 4200 4950 4200
+Wire Wire Line
+	4950 4200 4950 4400
+Wire Wire Line
+	4950 4400 5050 4400
+Wire Wire Line
+	4500 4300 4900 4300
+Wire Wire Line
+	4900 4300 4900 4700
+Wire Wire Line
+	4900 4700 5050 4700
+Wire Wire Line
+	4500 4400 4850 4400
+Wire Wire Line
+	4850 4400 4850 5000
+Wire Wire Line
+	4850 5000 5050 5000
+Wire Wire Line
+	4500 4500 4800 4500
+Wire Wire Line
+	4800 4500 4800 5300
+Wire Wire Line
+	4800 5300 5050 5300
+Wire Wire Line
+	4500 4600 4750 4600
+Wire Wire Line
+	4750 4600 4750 5600
+Wire Wire Line
+	4750 5600 5050 5600
+Wire Wire Line
+	4500 4700 4700 4700
+Wire Wire Line
+	4700 4700 4700 5900
+Wire Wire Line
+	4700 5900 5050 5900
+Wire Wire Line
+	3500 4200 3250 4200
+Wire Wire Line
+	3250 4200 3250 3150
+Wire Wire Line
+	3250 3150 4850 3150
+Wire Wire Line
+	4500 3800 4750 3800
+Wire Wire Line
+	4750 3800 4750 3550
+Wire Wire Line
+	4750 3550 4850 3550
+Wire Wire Line
+	4500 3700 4700 3700
+Wire Wire Line
+	4700 3700 4700 3450
+Wire Wire Line
+	4700 3450 4850 3450
+Wire Wire Line
+	4850 3350 4600 3350
+Wire Wire Line
+	4600 3350 4600 3450
+Wire Wire Line
+	4850 3250 3400 3250
+Wire Wire Line
+	3400 3250 3400 3050
+Wire Wire Line
+	3500 3700 3400 3700
+Wire Wire Line
+	3400 3700 3400 3250
+Connection ~ 3400 3250
+Wire Wire Line
+	5700 2450 5700 2550
+Wire Wire Line
+	5700 2550 5350 2550
+Wire Wire Line
+	5350 2550 5350 2450
+Wire Wire Line
+	5900 2450 5900 2550
+Wire Wire Line
+	5350 3800 5500 3800
+Wire Wire Line
+	5800 3800 5900 3800
+Wire Wire Line
+	5900 3800 5900 3650
+Wire Wire Line
+	5800 5900 5900 5900
+Wire Wire Line
+	5900 5900 5900 5600
+Connection ~ 5900 3800
+Wire Wire Line
+	5800 4100 5900 4100
+Connection ~ 5900 4100
+Wire Wire Line
+	5900 4100 5900 3800
+Wire Wire Line
+	5800 4400 5900 4400
+Connection ~ 5900 4400
+Wire Wire Line
+	5900 4400 5900 4100
+Wire Wire Line
+	5800 4700 5900 4700
+Connection ~ 5900 4700
+Wire Wire Line
+	5900 4700 5900 4400
+Wire Wire Line
+	5800 5000 5900 5000
+Connection ~ 5900 5000
+Wire Wire Line
+	5900 5000 5900 4700
+Wire Wire Line
+	5800 5300 5900 5300
+Connection ~ 5900 5300
+Wire Wire Line
+	5900 5300 5900 5000
+Connection ~ 5900 5600
+Wire Wire Line
+	5900 5600 5900 5300
+Wire Wire Line
+	5500 5900 5350 5900
+Wire Wire Line
+	5350 5600 5500 5600
+Wire Wire Line
+	5500 5300 5350 5300
+Wire Wire Line
+	5350 5000 5500 5000
+Wire Wire Line
+	5500 4700 5350 4700
+Wire Wire Line
+	5350 4400 5500 4400
+Wire Wire Line
+	5350 4100 5500 4100
+$Comp
+L Device:R R2
+U 1 1 5BC7B819
+P 5650 4100
+F 0 "R2" V 5650 4050 50  0000 C CNN
+F 1 "200" V 5700 3900 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5580 4100 50  0001 C CNN
+F 3 "" H 5650 4100 50  0001 C CNN
+	1    5650 4100
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 5BC7B84F
+P 5650 5300
+F 0 "R3" V 5650 5250 50  0000 C CNN
+F 1 "200" V 5700 5100 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5580 5300 50  0001 C CNN
+F 3 "" H 5650 5300 50  0001 C CNN
+	1    5650 5300
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 5BC7B887
+P 5650 5600
+F 0 "R4" V 5650 5550 50  0000 C CNN
+F 1 "200" V 5700 5400 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5580 5600 50  0001 C CNN
+F 3 "" H 5650 5600 50  0001 C CNN
+	1    5650 5600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 5BC7B8BD
+P 5650 5900
+F 0 "R5" V 5650 5850 50  0000 C CNN
+F 1 "200" V 5700 5700 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5580 5900 50  0001 C CNN
+F 3 "" H 5650 5900 50  0001 C CNN
+	1    5650 5900
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 5BC7B8F9
+P 5650 5000
+F 0 "R6" V 5650 4950 50  0000 C CNN
+F 1 "200" V 5700 4800 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5580 5000 50  0001 C CNN
+F 3 "" H 5650 5000 50  0001 C CNN
+	1    5650 5000
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R7
+U 1 1 5BC7B931
+P 5650 4700
+F 0 "R7" V 5650 4650 50  0000 C CNN
+F 1 "200" V 5700 4500 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5580 4700 50  0001 C CNN
+F 3 "" H 5650 4700 50  0001 C CNN
+	1    5650 4700
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 5BC7B96F
+P 5650 4400
+F 0 "R8" V 5650 4350 50  0000 C CNN
+F 1 "200" V 5700 4200 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5580 4400 50  0001 C CNN
+F 3 "" H 5650 4400 50  0001 C CNN
+	1    5650 4400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5800 5600 5900 5600
+$Comp
+L power:GND #PWR05
+U 1 1 5BC7CB9F
+P 4600 3450
+F 0 "#PWR05" H 4600 3200 50  0001 C CNN
+F 1 "GND" H 4605 3277 50  0000 C CNN
+F 2 "" H 4600 3450 50  0001 C CNN
+F 3 "" H 4600 3450 50  0001 C CNN
+	1    4600 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR02
+U 1 1 5BC7CBD7
+P 3400 4800
+F 0 "#PWR02" H 3400 4550 50  0001 C CNN
+F 1 "GND" H 3405 4627 50  0000 C CNN
+F 2 "" H 3400 4800 50  0001 C CNN
+F 3 "" H 3400 4800 50  0001 C CNN
+	1    3400 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 5BC7CC16
+P 5900 2550
+F 0 "#PWR07" H 5900 2300 50  0001 C CNN
+F 1 "GND" H 5905 2377 50  0000 C CNN
+F 2 "" H 5900 2550 50  0001 C CNN
+F 3 "" H 5900 2550 50  0001 C CNN
+	1    5900 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR06
+U 1 1 5BC7CC6C
+P 5350 2450
+F 0 "#PWR06" H 5350 2300 50  0001 C CNN
+F 1 "+5V" H 5365 2623 50  0000 C CNN
+F 2 "" H 5350 2450 50  0001 C CNN
+F 3 "" H 5350 2450 50  0001 C CNN
+	1    5350 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR01
+U 1 1 5BC7CCA4
+P 3400 3050
+F 0 "#PWR01" H 3400 2900 50  0001 C CNN
+F 1 "+5V" H 3415 3223 50  0000 C CNN
+F 2 "" H 3400 3050 50  0001 C CNN
+F 3 "" H 3400 3050 50  0001 C CNN
+	1    3400 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR08
+U 1 1 5BC7CCD5
+P 5900 3650
+F 0 "#PWR08" H 5900 3500 50  0001 C CNN
+F 1 "+5V" H 5915 3823 50  0000 C CNN
+F 2 "" H 5900 3650 50  0001 C CNN
+F 3 "" H 5900 3650 50  0001 C CNN
+	1    5900 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3500 4700 3400 4700
+Wire Wire Line
+	3400 4700 3400 4800
+$Comp
+L Connector:USB_B_Mini J1
+U 1 1 5BC82940
+P 3850 2050
+F 0 "J1" H 3905 2517 50  0000 C CNN
+F 1 "USB_B_Mini" H 3905 2426 50  0000 C CNN
+F 2 "digikey-footprints:USB_Mini_B_Female_UJ2-MBH-1-SMT-TR" H 4000 2000 50  0001 C CNN
+F 3 "~" H 4000 2000 50  0001 C CNN
+	1    3850 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 2450 3750 2550
+Wire Wire Line
+	3750 2550 3800 2550
+Wire Wire Line
+	3850 2550 3850 2450
+Wire Wire Line
+	3800 2550 3800 2650
+Connection ~ 3800 2550
+Wire Wire Line
+	3800 2550 3850 2550
+Wire Wire Line
+	4150 1850 4300 1850
+Wire Wire Line
+	4300 1850 4300 1700
+$Comp
+L power:+5V #PWR04
+U 1 1 5BC86AA9
+P 4300 1700
+F 0 "#PWR04" H 4300 1550 50  0001 C CNN
+F 1 "+5V" H 4315 1873 50  0000 C CNN
+F 2 "" H 4300 1700 50  0001 C CNN
+F 3 "" H 4300 1700 50  0001 C CNN
+	1    4300 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR03
+U 1 1 5BC86ADC
+P 3800 2650
+F 0 "#PWR03" H 3800 2400 50  0001 C CNN
+F 1 "GND" H 3805 2477 50  0000 C CNN
+F 2 "" H 3800 2650 50  0001 C CNN
+F 3 "" H 3800 2650 50  0001 C CNN
+	1    3800 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C1
+U 1 1 5BC86B49
+P 3400 4450
+F 0 "C1" H 3492 4476 25  0000 L CNN
+F 1 "10uF" H 3492 4424 25  0000 L CNN
+F 2 "Capacitors_SMD:C_0805" H 3400 4450 50  0001 C CNN
+F 3 "~" H 3400 4450 50  0001 C CNN
+	1    3400 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 4550 3400 4700
+Connection ~ 3400 4700
+Wire Wire Line
+	3400 4350 3400 3700
+Connection ~ 3400 3700
+$Comp
+L metroid:Metroid icon1
+U 1 1 5BC807A0
+P 7050 6750
+F 0 "icon1" H 7075 6803 60  0000 L CNN
+F 1 "Metroid" H 7075 6697 60  0000 L CNN
+F 2 "PJS-icons:metroid" H 7050 6750 60  0001 C CNN
+F 3 "" H 7050 6750 60  0000 C CNN
+	1    7050 6750
+	1    0    0    -1  
+$EndComp
+Text Notes 7750 7250 0    25   ~ 0
+Copyright (c) 2018 Peter Shabino\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this hardware, software, and associated documentation files \n(the "Product"), to deal in the Product without restriction, including without limitation the rights to use, copy, modify, merge, publish, \ndistribute, sublicense, and/or sell copies of the Product, and to permit persons to whom the Product is furnished to do so, subject to the \nfollowing conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Product.\n\nTHE PRODUCT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF \nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE \nFOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION \nWITH THE PRODUCT OR THE USE OR OTHER DEALINGS IN THE PRODUCT.\n\n\n\n
+$Comp
+L badgelife_shitty_connector:Badgelife_shitty_connector X1
+U 1 1 5BC80446
+P 5800 2100
+F 0 "X1" V 5953 1822 60  0000 R CNN
+F 1 "Badgelife_shitty_connector" V 5847 1822 60  0000 R CNN
+F 2 "tymkrs:Badgelife-Shitty-2x2" H 5800 2100 60  0001 C CNN
+F 3 "" H 5800 2100 60  0001 C CNN
+	1    5800 2100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x05 J2
+U 1 1 5BC807D6
+P 5050 3350
+F 0 "J2" H 5000 3650 50  0000 L CNN
+F 1 "PicKit" V 5150 3250 50  0000 L CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x05_Pitch2.54mm" H 5050 3350 50  0001 C CNN
+F 3 "~" H 5050 3350 50  0001 C CNN
+	1    5050 3350
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

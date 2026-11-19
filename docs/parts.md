@@ -116,3 +116,11 @@ Each of these lives in that board's `hardware/parts_local.py`, not in the shared
 | Sounder, maker's "KMTG-1102" (helper's guess at the full number: KMTG1102-A1) | Mr. Robot | **not found on LCSC** (searched 2026-11-12) | Type (coil or piezo) not established. Needs a source or a substitute that fits the maker's footprint |
 | Lite-On **LTST-C150KRKT** red 1206 | Flux Capacitor | [C125086](https://www.lcsc.com/product-detail/C125086.html), 86,460 in stock, $0.024 @200 (checked 2026-11-12) | Front-facing, on the maker's 1206 pads; colour is the owner's choice |
 | onsemi **CAT24C256XI-T2** EEPROM, wide SOIC-8 | Vendetta | C20573460, **listed as discontinued / not available** (checked 2026-11-12) | Needs a substitute 24C256 in the 208 mil SOIC-8 |
+| JST **SM04B-SRSS-TB(LF)(SN)** 4-pin 1 mm socket (Qwiic) | Nunchuck, TARS | [C160404](https://www.lcsc.com/product-detail/C160404.html), 505 in stock, $0.13 @50 (checked 2026-11-12) | Used by two boards: promote to a shared id before a third |
+| Microchip **CAP1206-1-SL-TR** 6-channel touch sensor (SOIC-14) | TARS | [C2652106](https://www.lcsc.com/product-detail/C2652106.html), 12 in stock, $1.07 @10 (checked 2026-11-12) | Scarce here: the tube version C148030 showed 0 in stock. Address and registers checked against the datasheet |
+| Molex **53261-0271** 2-pin 1.25 mm socket | TARS | [C177225](https://www.lcsc.com/product-detail/C177225.html), 7,670 in stock (checked 2026-11-12) | Speaker socket, maker's part |
+| 11 ohm 0603 **0603WAF110JT5E** | TARS | not checked | Maker's backlight resistor value |
+| 0.96 in 80x160 ST7735S display, solder ribbon | TARS | not chosen | The maker gives no part number |
+| Kingbright **APHBM2012QBDSURKC** blue/red 0805 | Eggplant | [C5568785](https://www.lcsc.com/product-detail/C5568785.html), 1,981 in stock, $0.40 @10 (checked 2026-11-12) | Maker's part |
+| 100 ohm 0603 **0603WAF1000T5E** | Duck Bath | [C22775](https://www.lcsc.com/product-detail/C22775.html), 1,654,800 in stock (checked 2026-11-12) | Maker's value, kept so green and blue light |
+| 5 mm RGB LED, common anode, 4 legs | Duck Bath | not chosen | The maker gives no part number |

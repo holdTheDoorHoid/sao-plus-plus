@@ -1,0 +1,17 @@
+{
+  "note": "Panel recipe for tools/panelize.py. Tabs are given as a point near the board edge (single-board coordinates, mm, KiCad front view) and the outward direction; the tool finds the exact edge. No tab on the Wii tongue: its tip and fingers must break clean.",
+  "rows": 2,
+  "cols": 2,
+  "slot": 2.0,
+  "web": 3.0,
+  "rail": 5.0,
+  "tab_width": 3.0,
+  "tabs": [
+    {"near": [88.47, 141.0], "dir": "-x", "why": "left side, below the left Qwiic socket, clear of the art copper (front) and of any track"},
+    {"near": [126.57, 141.0], "dir": "+x", "why": "right side, below the right Qwiic socket"},
+    {"near": [97.0, 165.03], "dir": "+y", "why": "bottom edge, left of the SAO connector"},
+    {"near": [118.0, 165.03], "dir": "+y", "why": "bottom edge, right of the SAO connector, under the '2024' lettering's left end"},
+    {"near": [96.5, 114.23], "dir": "-y", "why": "top edge left of the tongue slots, over the left socket's back end"},
+    {"near": [118.5, 114.23], "dir": "-y", "why": "top edge right of the tongue slots"}
+  ]
+}

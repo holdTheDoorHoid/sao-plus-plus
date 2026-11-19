@@ -1,0 +1,54 @@
+name: "Mad Cat Backpack"
+slug: mad-cat-backpack
+status: porting            # designed and rule-checked; no physical SAO++ board built yet
+revision: "A"
+
+original:
+  title: "Mad Cat Backpack (animation upgrade for TwinkleTwinkie's Mad Cat SAO)"
+  makers: ["Wireb (Peter Shabino)"]
+  year: 2018
+  source_url: "https://github.com/Wireb/Mad_Cat_Backpack"
+  source_commit: "f247c92"
+  license: "MIT"           # original/LICENSE: "MIT License, Copyright (c) 2018 Peter Shabino"; the same text is in his README and his .asm header
+  permission: "license"    # not needed (open licence): MIT allows copying, changing and selling with the notice kept
+  permission_ref: "original/LICENSE"
+  copyright: "Copyright (c) 2018 Peter Shabino"
+  base_revision: "the only revision in the repo: KiCad 5 board 'V0' (17 Oct 2018) and firmware V1 (04 Nov 2018, mad_cat_backpack_v0.asm)"
+  art_note: "The maker's small Metroid icon (a Nintendo character) is kept on the back as he drew it. The board's whole purpose is to light TwinkleTwinkie's Mad Cat, whose own permission is still pending (boards/mad-cat): this board carries none of the Mad Cat's art, only its outline and LED positions. The owner decides about both."
+  companion: "boards/mad-cat (TwinkleTwinkie's Mad Cat, SAO++ edition), built bare: no parts fitted"
+
+changes:
+  - "PIC16F1503 replaced by a Seeed Studio XIAO ESP32 (C3, S3 or C6) on the back of the haunch, USB-C at the haunch's right edge; new Rust firmware that replays the maker's eight animations"
+  - "Outline: the SAO++ Mad Cat's own outline 0.35 mm smaller all round, cut to the face, haunch and root of the tail (63.0 x 39.0 mm; the 2018 board was a 33.5 x 31.2 mm plate behind the face only). Nothing shows past the Mad Cat from the front"
+  - "Connector: the 2018 board took power through a 4-pin header pushed through both boards; this one has the 6-pin v1.69bis SMD shrouded header on its back, exactly where the SAO++ Mad Cat's own connector would be, so the pair hangs from a badge like a plain Mad Cat"
+  - "LEDs: the maker's reused OSRAM TOPLEDs on the side facing the cat became the shared white reverse-mount LED on the back, each shining through a 1.0 mm hole; same eight spots (eyes and six teeth), same order"
+  - "LED wiring kept (3.3 V -> resistor -> LED -> chip pin, lit when the pin is low); 200 ohm 0805 became the shared 330 ohm 0603 (about 1.5 mA per LED on 3.3 V)"
+  - "Joining the boards: the maker soldered four pads under the board's edge after cutting four Mad Cat traces; here eight plated bond holes sit over eight unused Mad Cat LED pads, no traces are cut, and the Mad Cat is simply built bare"
+  - "Mini-USB socket, ICSP header, 10 uF capacitor and the PIC dropped (the XIAO has USB, its own capacitors and programming)"
+  - "SAO / OFF / USB-BAT slide switch (knob out of the bottom edge under the left paw) and JST-PH LiPo socket at the root of the tail"
+  - "Front (the side pressed against the Mad Cat) carries a ground plane, three short jump tracks and 11 tented vias; it is never seen"
+  - "The maker's credit lettering and Metroid icon moved (unchanged in wording, size and shape): their 2018 spot is under the new SAO connector. The MIT notice he drew outside the board outline is not on the board; it is kept in original/LICENSE and the README"
+
+features:
+  power_select: true
+  coin_cell: none
+  lipo_connector: JST-PH 2-pin
+  side_leds: 0
+  through_board_leds: 8    # white, through 1.0 mm holes in this board and then through the Mad Cat's bare-board windows
+  vias: 11                 # tented, on the hidden front: 3V3 x3, SCL x2, BAT+ x3, GND x3 (plus 8 untented ground bond holes)
+  i2c_device: true         # target at 0x24 (house numbering); the 2018 board had no I2C
+  gpio_use: "not connected: XIAO D6 and D7 drive LEDs (the 2018 backpack used a 4-pin SAO)"
+  controller: "Seeed Studio XIAO ESP32-C3 / S3 / C6"
+  i2c_address: "0x24"
+
+size_mm: "63.0 x 39.0"
+
+shared_parts:
+  - SAOPP-CONN-01
+  - SAOPP-SW-01
+  - SAOPP-MCU-01
+  - SAOPP-CONN-10
+  - SAOPP-LED-11
+  - SAOPP-R-02
+
+local_parts: []            # none: every part is a shared one

@@ -1,0 +1,13 @@
+(version 1)
+
+# Same rules as hardware/mad-cat-backpack.kicad_dru, with the panel's part numbers (J101 ... J401 etc.).
+
+(rule "Copper art (the maker's Metroid icon)"
+  (condition "A.Type == 'Graphic' && B.Type == 'Graphic'")
+  (constraint clearance (min 0.01mm)))
+
+# Each board's SAO connector box overlaps the boxes of tooth LED D6 and its resistor R6 by about 1 mm; the LED body
+# ends 1.3 mm and the resistor 0.9 mm above the connector's plastic shroud.
+(rule "Connector below tooth LED D6 and its resistor"
+  (condition "A.Reference == 'J?01' && (B.Reference == 'D?06' || B.Reference == 'R?06')")
+  (constraint courtyard_clearance (min -3.5mm)))

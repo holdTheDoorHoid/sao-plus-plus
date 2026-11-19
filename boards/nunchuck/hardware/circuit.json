@@ -1,0 +1,21 @@
+{
+ "title": "SAO Nunchuck - SAO++ edition",
+ "rev": "A",
+ "credit": "Original design: Andy and Jared Geppert (ageppert, Machine Ideas), github.com/ageppert/SAO_Nunchuck, MIT",
+ "parts": [
+  {"ref": "J1", "symbol": "SAO_Connector_v1.69bis", "at": [50.8, 63.5],
+   "nets": {"1": "3V3", "2": "GND", "3": "SDA", "4": "SCL"}},
+  {"ref": "J2", "symbol": "Wii_Nunchuk_Tongue", "at": [101.6, 63.5],
+   "nets": {"3": "3V3", "1": "SDA", "6": "GND", "4": "SCL"}},
+  {"ref": "J3", "symbol": "Qwiic_JST_SH_4", "at": [50.8, 101.6],
+   "nets": {"1": "GND", "2": "3V3", "3": "SDA", "4": "SCL", "MP": "GND"}},
+  {"ref": "J4", "symbol": "Qwiic_JST_SH_4", "at": [101.6, 101.6],
+   "nets": {"1": "GND", "2": "3V3", "3": "SDA", "4": "SCL", "MP": "GND"}}
+ ],
+ "notes": [
+  ["No switch, no coin cell, no controller: the badge's I2C master talks straight to the Nunchuk at address 0x52.", [30.48, 40.64]],
+  ["Badge-driven: the SAO 3.3 V feeds the Nunchuk and both Qwiic sockets directly. Nothing on this board can feed a cell.", [30.48, 45.72]],
+  ["J2 is the maker's edge-finger tongue: the Wii Nunchuk cable plug slides onto it. Finger 2 is unused by a Nunchuk.", [30.48, 50.8]],
+  ["J3 and J4: Qwiic (JST SH) sockets that pass the same bus on to other I2C boards. Shells to GND.", [30.48, 55.88]]
+ ]
+}

@@ -1,0 +1,18 @@
+[package]
+name = "nunchuck-driver"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Badge-side driver for the SAO Nunchuck (SAO++ edition): talk to a Wii Nunchuk over the SAO I2C bus"
+license = "MIT"
+publish = false
+
+# Plain no_std library. The SAO Nunchuck has no chip of its own: the badge's I2C master reads the Nunchuk
+# directly, so this crate is what a badge's firmware links. It works with any embedded-hal 1.0 I2C bus and delay.
+# Everything is checked on the host with `cargo test` against a simulated bus.
+
+[dependencies]
+embedded-hal = "=1.0.0"
+
+[lints.rust]
+unsafe_code = "forbid"

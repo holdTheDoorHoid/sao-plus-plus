@@ -59,6 +59,11 @@ tools/                check_boards.py (paperwork check, runs on every push), gen
 | [Flux Capacitor](boards/flux-capacitor/) | davedarko (2017) | Was a pin; now an SAO. Designed and rule-checked, not yet built. Scaled up 1.35x. No firmware yet. **Permission pending: not open-licensed**, see the board README |
 | [Retro Spacehuhn](boards/spacehuhn/) | davedarko (year not recorded) | Was a pin; now an SAO. Designed and rule-checked, not yet built. The chicken logo is Spacehuhn's. **Permission pending: not open-licensed**, see the board README |
 | [Mr. Robot](boards/mr-robot/) | davedarko (2019) | Designed and rule-checked, not yet built. Scaled up 1.1x. Seeed XIAO ESP32 controller, new sounder driver, new Rust firmware (never run on hardware). **Permission pending: not open-licensed**, see the board README |
+| [Nunchuck](boards/nunchuck/) | Andrew Geppert / ageppert (2024) | Designed and rule-checked, not yet built. Badge-driven adapter for a Wii Nunchuk: no chip, no switch, no cell. Rust host driver crate. MIT (open licence) |
+| [Mad Cat Backpack](boards/mad-cat-backpack/) | Peter Shabino / Wireb (2018) | Designed and rule-checked, not yet built. Sits behind a bare SAO++ Mad Cat and animates its eyes and teeth. Seeed XIAO ESP32 controller, new Rust firmware (never run on hardware). MIT (open licence) |
+| [Duck Bath](boards/duck-bath/) | Adrian Studer / astuder (2024) | Designed and rule-checked, not yet built. Scaled up 1.45x. Seeed XIAO ESP32 controller, new Rust firmware (never run on hardware). MIT (open licence) |
+| [TARS](boards/tars/) | davedarko (2024) | Designed and rule-checked, not yet built. Display, touch slabs and speaker kept; Seeed XIAO ESP32 controller plus a touch chip, new Rust firmware (never run on hardware). MIT (open licence) |
+| [Eggplant](boards/eggplant/) | Krux / Darknet Industries (2018) | Designed and rule-checked, not yet built. Scaled up 1.35x. Seeed XIAO ESP32 controller, new Rust firmware (never run on hardware). MIT (open licence) |
 
 ## Adding a board
 
